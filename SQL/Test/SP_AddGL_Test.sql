@@ -31,25 +31,10 @@ set @POSTINGLEVEL = 1;
 set @CURR  = 'EGP';
 SET @TotallingGL  = '01-01-01-01-01-01-00010';
 
-EXECUTE @RC = [dbo].[SP_AddGL] 
-   @LEDGERNO_OUT OUTPUT
-  ,@CompanyNo
-  ,@Zone
-  ,@BranchNo
-  ,@SectorNo
-  ,@DepNo
-  ,@UNITNO
-  ,@NATURE
-  ,@LEDGERNO
-  ,@TotallingGL
-  ,@POSTINGLEVEL
-  ,@CURR
-  ,@COMMENTS
-  ,@EFFECTIVE_DT
-  ,@REFERENCE
+EXECUTE @RC = [dbo].[SP_AddGL]      @LEDGERNO_OUT OUTPUT           ,
+                    @CompanyNo  ,@Zone  ,@BranchNo ,@SectorNo ,@DepNo ,@UNITNO ,@NATURE ,@LEDGERNO ,@TotallingGL ,@POSTINGLEVEL,
+                    @CURR ,@COMMENTS ,@EFFECTIVE_DT ,@REFERENCE
 GO
-
-
 
 select GL, LEN(GL), CompanyName, ZoneName, BranchName, SectorName, NatureName, CR_DR, CURR, dbo.fn_ACT_GL_GetLastBalance(GL, CURR) 'Balance' , TotallingGL
 	from VW_DEF_GL Order by Balance desc , NatureName asc
