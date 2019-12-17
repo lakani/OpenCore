@@ -39,6 +39,9 @@ BEGIN
 	IF @SumOfCR <> @SumOfDR
 		RETURN (1)
 
+	-- TODO - 		Should check if there is a corresponding Totalling GL , the Legs should balance 
+	--				CR = DR of the totalling 
+
 	-- ensure that All GLs are within the same company
 	IF (  (	select COUNT(GLIn.CompanyNo) 
 			from @Legs ls CROSS APPLY [dbo].[fn_GetGLInfo] ( ls.Acct_No, @BaseCurr) GLIn
