@@ -1,0 +1,25 @@
+USE [OpenCore]
+GO
+
+/****** Object:  Table [dbo].[DEF_CIF_CLASS]    Script Date: 17/12/2019 13:17:57 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[DEF_CIF_CLASS](
+	[Code] [nvarchar](10) NOT NULL,
+	[Name] [nvarchar](80) NOT NULL,
+	[Type] [nvarchar](10) NOT NULL,
+	[CompanyNo] [int] NOT NULL,
+	[EFFECTIVE_DT] [datetime] NULL,
+	[REFERENCE] [nvarchar](max) NULL,
+ CONSTRAINT [PK__DEF_CIF___A25C5AA6127E02BB] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC,
+	[CompanyNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
