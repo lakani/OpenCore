@@ -31,16 +31,23 @@ BEGIN
 	set @CRT_DT = GETDATE();
 
 	
-
-
 	-- Ensure that sum of CR = SUM of DR
 	select @SumOfCR = SUM(l.Acct_Amt) from @Legs l where UPPER (l.Acct_CR_DR) = 'CR'
 	select @SumOfDR = SUM(l.Acct_Amt) from @Legs l where UPPER (l.Acct_CR_DR) = 'DR'
-	IF @SumOfCR <> @SumOfDR
+	IF ISNULL(@SumOfCR, 0 ) <> ISNULL(@SumOfDR, 0 )
 		RETURN (1)
 
 	-- TODO - 		Should check if there is a corresponding Totalling GL , the Legs should balance 
 	--				CR = DR of the totalling 
+	--select GLS.GL , GLIn.TotallingGL  from VW_DEF_GL GLS CROSS APPLY [dbo].[fn_GetGLInfo] ( GLS.GL, GLS.CURR) GLIn
+	select @SumOfCR =	SUM(l.Acct_Amt) from @Legs l CROSS APPLY [dbo].[fn_GetGLInfo] ( l.Acct_No, l.Acct_Curr) GLIn
+						where UPPER (l.Acct_CR_DR) = 'CR' and GLIn.TotallingGL is not null;
+	select @SumOfDR =	SUM(l.Acct_Amt) from @Legs l CROSS APPLY [dbo].[fn_GetGLInfo] ( l.Acct_No, l.Acct_Curr) GLIn
+						where UPPER (l.Acct_CR_DR) = 'DR' and GLIn.TotallingGL is not null;
+	IF ISNULL(@SumOfCR, 0 ) <> ISNULL(@SumOfDR, 0 )
+		RETURN (1)
+
+
 
 	-- ensure that All GLs are within the same company
 	IF (  (	select COUNT(GLIn.CompanyNo) 

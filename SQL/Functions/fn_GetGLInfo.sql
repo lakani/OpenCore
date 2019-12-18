@@ -23,6 +23,7 @@ RETURNS @t TABLE (
 					COMMENTS		nvarchar(400),
 					EFFECTIVE_DT	datetime,
 					STATUS			tinyint,
+					TotallingGL		nvarchar(35),
 					REFERENCE	nvarchar(MAX))
 AS
 BEGIN
@@ -35,7 +36,9 @@ DECLARE
 	FROM	[dbo].[fn_String_ParseGL] (@GL)	
 	
 	insert into @t 
-	SELECT top	1 *	
+	SELECT top	1 	GLTbl.Zone, GLTbl.CompanyNo, GLTbl.BranchNo, GLTbl.SectorNo, GLTbl.DepNo, GLTbl.UnitNO, GLTbl.Nature, 
+				GLTbl.PostingLevel, GLTbl.LedgerNO, GLTbl.CURR, GLTbl.COMMENTS, GLTbl.EFFECTIVE_DT, GLTbl.STATUS, GLTbl.TotallingGL,
+				GLTbl.REFERENCE
 	from		OpenCore.dbo.DEF_GL GLTbl 
 	where		GLTbl.LedgerNO = @LedgerNO and GLTbl.Zone = @ZoneNo AND	GLTbl.CompanyNo = @CompanyNo and 
 				GLTbl.BranchNo = @BranchNo AND GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
