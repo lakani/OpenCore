@@ -1,11 +1,11 @@
 USE [OpenCore]
 GO
 
-/****** Object:  Table [dbo].[GL_DEF]    Script Date: 21/12/2019 2:04:16 pm ******/
+/****** Object:  Table [dbo].[GL_DEF]    Script Date: 21/12/2019 2:57:04 pm ******/
 DROP TABLE [dbo].[GL_DEF]
 GO
 
-/****** Object:  Table [dbo].[GL_DEF]    Script Date: 21/12/2019 2:04:16 pm ******/
+/****** Object:  Table [dbo].[GL_DEF]    Script Date: 21/12/2019 2:57:04 pm ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[GL_DEF](
-	[GL_DEFID] [int] NOT NULL,
+	[GL_DEFID] [int] IDENTITY(1,1) NOT NULL,
 	[Zone] [int] NOT NULL,
 	[CompanyNo] [int] NOT NULL,
 	[BranchNo] [int] NOT NULL,
