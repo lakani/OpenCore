@@ -26,7 +26,6 @@ GO
 --	6	'DepNo doesnt exists in DEF_Dep Table'
 --	7	'TYPE doesnt exists in LUT_LedgerNature Table'
 --	8	'length of LEDGERNO is not matching the GL format Length'
---	9	GL Already exists before 
 --	10	Company doesnt exists in DEF_Company Table
 --	11	UnitNo doesnt exists in DEF_Unit Table
 --

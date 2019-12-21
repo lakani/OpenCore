@@ -29,8 +29,8 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[SP_AddCIF_Class] 
 	-- Add the parameters for the stored procedure here
 	@CIF_CLASS_OUT	nvarchar(4)	OUTPUT,
-	@CompanyNo		int,
-	@TYPE			smallint,
+	@CompanyNo		smallint,
+	@TYPE			tinyint,
 	@NAME			nvarchar(80),
 	@CIF_CLASS		nvarchar(4)		= null,
 	@EFFECTIVE_DT	datetime		= null,
