@@ -46,6 +46,27 @@ namespace ConsoleApp.EF
             if(Ret.Length <= 0)
                 return "";  
 
+
+            // if @CIF_NO is provided
+            if(sCIF_NO.Length > 0)
+            {
+                //fn_OPT_GetCIFFormatDigitsNum
+                if(sCIF_NO.Length > Misc.fn_OPT_GetCIFFormatDigitsNum())
+                {
+                    return "";
+                }
+            }
+            else // its not provided
+            {
+                // Get Max CIF Number
+                string sMax =   (from r in db.DefCif
+                                select r.CifNo).Max();
+                
+                int nMax = int.Parse(sMax);
+                
+            }
+
+
             
 
 
