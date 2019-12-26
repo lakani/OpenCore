@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ConsoleApp.EF;
+using ConsoleApp.BL;
 
 
-namespace ConsoleApp.EF
+namespace ConsoleApp.BL
 {
-    public partial class DefCif
+    public partial class Cif
     {
         
         static public string Add_CIF (

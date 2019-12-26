@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ConsoleApp.EF;
 
 
-namespace ConsoleApp.EF
+namespace ConsoleApp.BL
 {
     public partial class Misc
     {
