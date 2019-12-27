@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\SQL",
-    "\\SQL\\OpenCore"
+    "\\SQL\\Test"
   ],
-  "SelectedNode": "\\SQL\\OpenCore\\OpenCore.ssmssqlproj",
+  "SelectedNode": "\\SQL\\Test\\SP_AddCIF_Testing.sql",
   "PreviewInSolutionExplorer": false
 }
