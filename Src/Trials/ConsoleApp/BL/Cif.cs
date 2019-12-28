@@ -31,7 +31,7 @@ namespace ConsoleApp.BL
             var Ret =   (from c in db.DefCompany
                         where c.Id == nCompanyNo
                         select c.Name).FirstOrDefault();
-            if(Ret.Length<= 0)
+            if(String.IsNullOrEmpty (Ret).Length<= 0)
                 return "";  
 
             // check DEF_CIF_CLASS
