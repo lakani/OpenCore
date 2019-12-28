@@ -31,7 +31,7 @@ namespace ConsoleApp.BL
             var Ret =   (from c in db.DefCompany
                         where c.Id == nCompanyNo
                         select c.Name).FirstOrDefault();
-            if(String.IsNullOrEmpty (Ret).Length<= 0)
+            if(String.IsNullOrEmpty (Ret))
                 return "";  
 
             // check DEF_CIF_CLASS
@@ -96,6 +96,7 @@ namespace ConsoleApp.BL
             if(! string.IsNullOrEmpty(sExists))
                 return "";
 
+            db.Database.BeginTransaction();
             
             // Insert into DB
             DefCif newCIF = new DefCif();
@@ -109,8 +110,13 @@ namespace ConsoleApp.BL
             
             db.DefCif.Add(newCIF);
             if (0 == db.SaveChanges())
+            {
+                db.Database.RollbackTransaction();
                 return "";
+            }
+                
             
+            db.Database.CommitTransaction();
             return sCIF_NO;
         }
     }
