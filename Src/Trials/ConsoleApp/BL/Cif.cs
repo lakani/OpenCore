@@ -2,11 +2,11 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ConsoleApp.EF;
-using ConsoleApp.BL;
+using SIS.OpenCore.EF;
+using SIS.OpenCore.BL;
 
 
-namespace ConsoleApp.BL
+namespace SIS.OpenCore.BL
 {
     public partial class Cif
     {

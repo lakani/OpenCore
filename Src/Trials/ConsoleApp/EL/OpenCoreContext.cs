@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ConsoleApp.EF
+namespace SIS.OpenCore.EF
 {
     public partial class OpenCoreContext : DbContext
     {

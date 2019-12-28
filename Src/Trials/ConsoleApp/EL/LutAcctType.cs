@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp.EF
+namespace SIS.OpenCore.EF
 {
     public partial class LutAcctType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConsoleApp.EF;
-using ConsoleApp.BL;
+using SIS.OpenCore.EF;
+using SIS.OpenCore.BL;
 
 
 namespace ConsoleApp
