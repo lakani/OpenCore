@@ -28,16 +28,13 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             // check Company
-            var Ret =   (from c in db.DefCompany
-                        where c.Id == nCompanyNo
-                        select c.Name).FirstOrDefault();
-            if(String.IsNullOrEmpty (Ret))
+            if(!Company.ValidateExists(nCompanyNo))
                 return "";  
-
+            
             // check DEF_CIF_CLASS
-            Ret =   (from c in db.DefCifClass
-                    where c.Code == nCIF_CLASS
-                    select c.Name).FirstOrDefault();
+            var Ret =   (from c in db.DefCifClass
+                        where c.Code == nCIF_CLASS
+                        select c.Name).FirstOrDefault();
             if(string.IsNullOrEmpty(Ret))
                 return "";  
 
@@ -53,7 +50,7 @@ namespace SIS.OpenCore.BL
             if(!string.IsNullOrEmpty(sCIF_NO))
             {
                 //fn_OPT_GetCIFFormatDigitsNum
-                if(sCIF_NO.Length > Misc.fn_OPT_GetCIFFormatDigitsNum())
+                if(sCIF_NO.Length > Settings.fn_OPT_GetCIFFormatDigitsNum())
                 {
                     return "";
                 }
@@ -72,8 +69,8 @@ namespace SIS.OpenCore.BL
                     
                     int nMax = int.Parse(sMax);
                     nMax = nMax + 1;
-                    sMax = Misc.fn_OPT_GetCIFFormatDigits() + nMax.ToString();
-                    int cToRemove = sMax.Length - Misc.fn_OPT_GetCIFFormatDigitsNum();
+                    sMax = Settings.fn_OPT_GetCIFFormatDigits() + nMax.ToString();
+                    int cToRemove = sMax.Length - Settings.fn_OPT_GetCIFFormatDigitsNum();
                     sCIF_NO = sMax.Remove(0, cToRemove);
                 }
             }
