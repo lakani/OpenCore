@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {}
+    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\EL\\SIS.OpenCore.EL.csproj": {}
   },
   "projects": {
-    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {
+    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\EL\\SIS.OpenCore.EL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
-        "projectName": "ConsoleApp",
-        "projectPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
+        "projectUniqueName": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\EL\\SIS.OpenCore.EL.csproj",
+        "projectName": "SIS.OpenCore.EL",
+        "projectPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\EL\\SIS.OpenCore.EL.csproj",
         "packagesPath": "C:\\Users\\E03476\\.nuget\\packages\\",
-        "outputPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\obj\\",
+        "outputPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\EL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

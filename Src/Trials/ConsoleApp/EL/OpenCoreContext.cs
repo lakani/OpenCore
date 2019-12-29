@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace SIS.OpenCore.EF
+namespace SIS.OpenCore.EL
 {
     public partial class OpenCoreContext : DbContext
     {
@@ -15,31 +15,31 @@ namespace SIS.OpenCore.EF
         {
         }
 
-        public virtual DbSet<DefBranch> DefBranch { get; set; }
-        public virtual DbSet<DefBusinessDate> DefBusinessDate { get; set; }
-        public virtual DbSet<DefCif> DefCif { get; set; }
-        public virtual DbSet<DefCifClass> DefCifClass { get; set; }
-        public virtual DbSet<DefCifCompany> DefCifCompany { get; set; }
-        public virtual DbSet<DefCompany> DefCompany { get; set; }
-        public virtual DbSet<DefCurrency> DefCurrency { get; set; }
-        public virtual DbSet<DefDep> DefDep { get; set; }
-        public virtual DbSet<DefEmp> DefEmp { get; set; }
-        public virtual DbSet<DefGl> DefGl { get; set; }
-        public virtual DbSet<DefSector> DefSector { get; set; }
-        public virtual DbSet<DefUnit> DefUnit { get; set; }
-        public virtual DbSet<DefZone> DefZone { get; set; }
+        public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
+        public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
+        public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
+        public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
+        public virtual DbSet<DEF_CIF_Company> DEF_CIF_Company { get; set; }
+        public virtual DbSet<DEF_Company> DEF_Company { get; set; }
+        public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
+        public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
+        public virtual DbSet<DEF_EMP> DEF_EMP { get; set; }
+        public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+        public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
+        public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
+        public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
         public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
-        public virtual DbSet<LutAcctType> LutAcctType { get; set; }
-        public virtual DbSet<LutCifType> LutCifType { get; set; }
-        public virtual DbSet<LutCity> LutCity { get; set; }
-        public virtual DbSet<LutCountry> LutCountry { get; set; }
-        public virtual DbSet<LutLedgerNature> LutLedgerNature { get; set; }
-        public virtual DbSet<LutLedgerPostingLevel> LutLedgerPostingLevel { get; set; }
-        public virtual DbSet<LutObjStatus> LutObjStatus { get; set; }
-        public virtual DbSet<LutTrnStatus> LutTrnStatus { get; set; }
+        public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
+        public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
+        public virtual DbSet<LUT_CITY> LUT_CITY { get; set; }
+        public virtual DbSet<LUT_COUNTRY> LUT_COUNTRY { get; set; }
+        public virtual DbSet<LUT_LedgerNature> LUT_LedgerNature { get; set; }
+        public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
+        public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
+        public virtual DbSet<LUT_TRN_STATUS> LUT_TRN_STATUS { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
-        public virtual DbSet<TrnLegs> TrnLegs { get; set; }
-        public virtual DbSet<VwDefGl> VwDefGl { get; set; }
+        public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
+        public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -52,55 +52,33 @@ namespace SIS.OpenCore.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DefBranch>(entity =>
+            modelBuilder.Entity<DEF_Branch>(entity =>
             {
-                entity.ToTable("DEF_Branch");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ID).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<DefBusinessDate>(entity =>
+            modelBuilder.Entity<DEF_BusinessDate>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_BusinessDate");
-
                 entity.Property(e => e.BusinessDay).HasColumnType("date");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.ID).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<DefCif>(entity =>
+            modelBuilder.Entity<DEF_CIF>(entity =>
             {
-                entity.ToTable("DEF_CIF");
+                entity.Property(e => e.BIRTH_DT).HasColumnType("date");
 
-                entity.Property(e => e.BirthDt)
-                    .HasColumnName("BIRTH_DT")
-                    .HasColumnType("date");
+                entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
 
-                entity.Property(e => e.CifClass)
-                    .HasColumnName("CIF_CLASS")
-                    .HasMaxLength(10);
+                entity.Property(e => e.CIF_NO).IsRequired();
 
-                entity.Property(e => e.CifNo)
-                    .IsRequired()
-                    .HasColumnName("CIF_NO");
-
-                entity.Property(e => e.CifType).HasColumnName("CIF_TYPE");
-
-                entity.Property(e => e.CountryOfBirth).HasColumnName("COUNTRY_OF_BIRTH");
-
-                entity.Property(e => e.CreateDt)
-                    .HasColumnName("CREATE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.FamilyName).HasMaxLength(80);
 
@@ -108,86 +86,59 @@ namespace SIS.OpenCore.EF
 
                 entity.Property(e => e.Gender).HasMaxLength(10);
 
-                entity.Property(e => e.Governorate).HasColumnName("GOVERNORATE");
-
                 entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
-                entity.Property(e => e.LastName).HasMaxLength(80);
+                entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.LastSaveDt)
-                    .HasColumnName("LAST_SAVE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.LastName).HasMaxLength(80);
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
 
                 entity.Property(e => e.MobileNumber).HasMaxLength(80);
-
-                entity.Property(e => e.NationalId).HasColumnName("NationalID");
 
                 entity.Property(e => e.SearchKey).IsRequired();
 
                 entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
 
-            modelBuilder.Entity<DefCifClass>(entity =>
+            modelBuilder.Entity<DEF_CIF_CLASS>(entity =>
             {
                 entity.HasKey(e => new { e.Code, e.CompanyNo })
                     .HasName("PK__DEF_CIF___A25C5AA6127E02BB");
 
-                entity.ToTable("DEF_CIF_CLASS");
-
                 entity.Property(e => e.Code).HasMaxLength(10);
 
-                entity.Property(e => e.EffectiveDt)
-                    .HasColumnName("EFFECTIVE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(80);
-
-                entity.Property(e => e.Reference).HasColumnName("REFERENCE");
             });
 
-            modelBuilder.Entity<DefCifCompany>(entity =>
+            modelBuilder.Entity<DEF_CIF_Company>(entity =>
             {
-                entity.ToTable("DEF_CIF_Company");
-
-                entity.Property(e => e.DefCifCompanyId).HasColumnName("DEF_CIF_Company_ID");
-
-                entity.Property(e => e.CifNo).HasColumnName("CIF_NO");
-
-                entity.Property(e => e.CompanyId).HasColumnName("Company_ID");
+                entity.HasKey(e => e.DEF_CIF_Company_ID);
             });
 
-            modelBuilder.Entity<DefCompany>(entity =>
+            modelBuilder.Entity<DEF_Company>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_Company");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.ID).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<DefCurrency>(entity =>
+            modelBuilder.Entity<DEF_Currency>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_Currency");
+                entity.Property(e => e.CurrencyID).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.CurrencyId)
-                    .HasColumnName("CurrencyID")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Isocode)
+                entity.Property(e => e.ISOCode)
                     .IsRequired()
-                    .HasColumnName("ISOCode")
                     .HasMaxLength(3);
 
                 entity.Property(e => e.Name)
@@ -199,36 +150,24 @@ namespace SIS.OpenCore.EF
                     .HasMaxLength(3);
             });
 
-            modelBuilder.Entity<DefDep>(entity =>
+            modelBuilder.Entity<DEF_Dep>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_Dep");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.ID).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<DefEmp>(entity =>
+            modelBuilder.Entity<DEF_EMP>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_EMP");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.CifNo).HasColumnName("CIF_NO");
-
-                entity.Property(e => e.CreateDt)
-                    .HasColumnName("CREATE_DT")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.EmpId)
-                    .HasColumnName("EMP_ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.EMP_ID).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.FamilyName).HasMaxLength(80);
 
@@ -236,89 +175,57 @@ namespace SIS.OpenCore.EF
 
                 entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
-                entity.Property(e => e.LastName).HasMaxLength(80);
+                entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.LastSaveDt)
-                    .HasColumnName("LAST_SAVE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.LastName).HasMaxLength(80);
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
 
                 entity.Property(e => e.MobileNumber).HasMaxLength(80);
 
-                entity.Property(e => e.StatusId).HasColumnName("STATUS_ID");
-
                 entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
 
-            modelBuilder.Entity<DefGl>(entity =>
+            modelBuilder.Entity<DEF_GL>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("DEF_GL");
+                entity.Property(e => e.COMMENTS).HasMaxLength(200);
 
-                entity.Property(e => e.Comments)
-                    .HasColumnName("COMMENTS")
-                    .HasMaxLength(200);
-
-                entity.Property(e => e.Curr)
+                entity.Property(e => e.CURR)
                     .IsRequired()
-                    .HasColumnName("CURR")
                     .HasMaxLength(4);
 
-                entity.Property(e => e.EffectiveDt)
-                    .HasColumnName("EFFECTIVE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.LedgerNo)
+                entity.Property(e => e.LedgerNO)
                     .IsRequired()
-                    .HasColumnName("LedgerNO")
                     .HasMaxLength(15);
 
-                entity.Property(e => e.Reference).HasColumnName("REFERENCE");
-
-                entity.Property(e => e.Status).HasColumnName("STATUS");
-
-                entity.Property(e => e.TotallingGl)
-                    .HasColumnName("TotallingGL")
-                    .HasMaxLength(35);
-
-                entity.Property(e => e.UnitNo).HasColumnName("UnitNO");
+                entity.Property(e => e.TotallingGL).HasMaxLength(35);
             });
 
-            modelBuilder.Entity<DefSector>(entity =>
+            modelBuilder.Entity<DEF_Sector>(entity =>
             {
                 entity.HasNoKey();
-
-                entity.ToTable("DEF_Sector");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<DefUnit>(entity =>
+            modelBuilder.Entity<DEF_Unit>(entity =>
             {
                 entity.HasNoKey();
-
-                entity.ToTable("DEF_Unit");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<DefZone>(entity =>
+            modelBuilder.Entity<DEF_Zone>(entity =>
             {
                 entity.HasNoKey();
-
-                entity.ToTable("DEF_Zone");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -338,9 +245,7 @@ namespace SIS.OpenCore.EF
 
                 entity.Property(e => e.Rate).HasColumnType("decimal(24, 9)");
 
-                entity.Property(e => e.TimeExc)
-                    .HasColumnName("TimeEXC")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.TimeEXC).HasColumnType("datetime");
 
                 entity.Property(e => e.ToCurIsoCode)
                     .IsRequired()
@@ -348,36 +253,28 @@ namespace SIS.OpenCore.EF
                     .IsFixedLength();
             });
 
-            modelBuilder.Entity<LutAcctType>(entity =>
+            modelBuilder.Entity<LUT_ACCT_TYPE>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("LUT_ACCT_TYPE");
-
                 entity.Property(e => e.Description).IsRequired();
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(10);
             });
 
-            modelBuilder.Entity<LutCifType>(entity =>
+            modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
                 entity.HasKey(e => e.Code)
                     .HasName("PK__LUT_CIF___A25C5AA6A1F27BC6");
 
-                entity.ToTable("LUT_CIF_TYPE");
-
                 entity.Property(e => e.Name).HasMaxLength(80);
             });
 
-            modelBuilder.Entity<LutCity>(entity =>
+            modelBuilder.Entity<LUT_CITY>(entity =>
             {
                 entity.HasKey(e => e.Code);
-
-                entity.ToTable("LUT_CITY");
 
                 entity.Property(e => e.Code).HasMaxLength(10);
 
@@ -390,99 +287,69 @@ namespace SIS.OpenCore.EF
                     .HasMaxLength(80);
             });
 
-            modelBuilder.Entity<LutCountry>(entity =>
+            modelBuilder.Entity<LUT_COUNTRY>(entity =>
             {
                 entity.HasKey(e => e.Code);
 
-                entity.ToTable("LUT_COUNTRY");
-
                 entity.Property(e => e.Code).HasMaxLength(10);
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name).HasMaxLength(80);
             });
 
-            modelBuilder.Entity<LutLedgerNature>(entity =>
+            modelBuilder.Entity<LUT_LedgerNature>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("LUT_LedgerNature");
-
-                entity.Property(e => e.CrDr)
+                entity.Property(e => e.CR_DR)
                     .IsRequired()
-                    .HasColumnName("CR_DR")
                     .HasMaxLength(2)
                     .IsFixedLength();
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
             });
 
-            modelBuilder.Entity<LutLedgerPostingLevel>(entity =>
+            modelBuilder.Entity<LUT_LedgerPostingLevel>(entity =>
             {
                 entity.HasNoKey();
-
-                entity.ToTable("LUT_LedgerPostingLevel");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.PostingLevel)
                     .IsRequired()
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<LutObjStatus>(entity =>
+            modelBuilder.Entity<LUT_OBJ_STATUS>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("LUT_OBJ_STATUS");
+                entity.Property(e => e.NAME).HasMaxLength(80);
 
-                entity.Property(e => e.Name)
-                    .HasColumnName("NAME")
-                    .HasMaxLength(80);
-
-                entity.Property(e => e.StatusId)
-                    .HasColumnName("STATUS_ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.STATUS_ID).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<LutTrnStatus>(entity =>
+            modelBuilder.Entity<LUT_TRN_STATUS>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("LUT_TRN_STATUS");
+                entity.Property(e => e.NAME).HasMaxLength(80);
 
-                entity.Property(e => e.Name)
-                    .HasColumnName("NAME")
-                    .HasMaxLength(80);
-
-                entity.Property(e => e.StatusId)
-                    .HasColumnName("STATUS_ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.STATUS_ID).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<Settings>(entity =>
             {
-                entity.HasKey(e => e.VerId);
+                entity.HasKey(e => e.VerID);
 
-                entity.Property(e => e.VerId).HasColumnName("VerID");
-
-                entity.Property(e => e.Acctformat)
-                    .HasColumnName("ACCTFormat")
+                entity.Property(e => e.ACCTFormat)
                     .HasMaxLength(200)
                     .IsFixedLength();
 
-                entity.Property(e => e.AcctformatDigits)
-                    .HasColumnName("ACCTFormatDigits")
+                entity.Property(e => e.ACCTFormatDigits)
                     .HasMaxLength(200)
                     .IsFixedLength();
 
-                entity.Property(e => e.AcctformatDigitsNum)
-                    .HasColumnName("ACCTFormatDigitsNum")
+                entity.Property(e => e.ACCTFormatDigitsNum)
                     .HasMaxLength(200)
                     .IsFixedLength();
 
@@ -491,72 +358,43 @@ namespace SIS.OpenCore.EF
                     .HasMaxLength(10)
                     .IsFixedLength();
 
-                entity.Property(e => e.CifformatDigits)
+                entity.Property(e => e.CIFFormatDigits)
                     .IsRequired()
-                    .HasColumnName("CIFFormatDigits")
                     .HasMaxLength(100)
                     .IsFixedLength();
 
                 entity.Property(e => e.EffectiveDate).HasColumnType("date");
 
-                entity.Property(e => e.Glformat)
+                entity.Property(e => e.GLFormat)
                     .IsRequired()
-                    .HasColumnName("GLFormat")
                     .HasMaxLength(200)
                     .IsFixedLength();
 
-                entity.Property(e => e.GlformatDigits)
-                    .HasColumnName("GLFormatDigits")
+                entity.Property(e => e.GLFormatDigits)
                     .HasMaxLength(200)
                     .IsFixedLength();
             });
 
-            modelBuilder.Entity<TrnLegs>(entity =>
+            modelBuilder.Entity<TRN_LEGS>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("TRN_LEGS");
+                entity.Property(e => e.Acct_Amt).HasColumnType("decimal(28, 3)");
 
-                entity.Property(e => e.AcctAmt)
-                    .HasColumnName("Acct_Amt")
-                    .HasColumnType("decimal(28, 3)");
+                entity.Property(e => e.Acct_CR_DR).HasMaxLength(2);
 
-                entity.Property(e => e.AcctCrDr)
-                    .HasColumnName("Acct_CR_DR")
-                    .HasMaxLength(2);
+                entity.Property(e => e.Acct_Curr).HasMaxLength(3);
 
-                entity.Property(e => e.AcctCurr)
-                    .HasColumnName("Acct_Curr")
-                    .HasMaxLength(3);
+                entity.Property(e => e.Balance_After).HasColumnType("decimal(28, 3)");
 
-                entity.Property(e => e.AcctDescription).HasColumnName("Acct_Description");
+                entity.Property(e => e.Balance_Before).HasColumnType("decimal(28, 3)");
 
-                entity.Property(e => e.AcctNo).HasColumnName("Acct_No");
-
-                entity.Property(e => e.BalanceAfter)
-                    .HasColumnName("Balance_After")
-                    .HasColumnType("decimal(28, 3)");
-
-                entity.Property(e => e.BalanceBefore)
-                    .HasColumnName("Balance_Before")
-                    .HasColumnType("decimal(28, 3)");
-
-                entity.Property(e => e.ChannelId).HasColumnName("CHANNEL_ID");
-
-                entity.Property(e => e.CreateDt)
-                    .HasColumnName("CREATE_DT")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.EffDt).HasColumnType("date");
-
-                entity.Property(e => e.EmpId).HasColumnName("EMP_ID");
-
-                entity.Property(e => e.Gl).HasColumnName("GL");
-
-                entity.Property(e => e.StatusId).HasColumnName("STATUS_ID");
             });
 
-            modelBuilder.Entity<VwDefGl>(entity =>
+            modelBuilder.Entity<VW_DEF_GL>(entity =>
             {
                 entity.HasNoKey();
 
@@ -566,55 +404,42 @@ namespace SIS.OpenCore.EF
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.CompanyName)
+                entity.Property(e => e.CR_DR)
                     .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.Property(e => e.CrDr)
-                    .IsRequired()
-                    .HasColumnName("CR_DR")
                     .HasMaxLength(2)
                     .IsFixedLength();
 
-                entity.Property(e => e.Curr)
+                entity.Property(e => e.CURR)
                     .IsRequired()
-                    .HasColumnName("CURR")
                     .HasMaxLength(4);
+
+                entity.Property(e => e.CompanyName)
+                    .IsRequired()
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.DepName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.EffectiveDt)
-                    .HasColumnName("EFFECTIVE_DT")
-                    .HasColumnType("date");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("date");
 
-                entity.Property(e => e.Gl).HasColumnName("GL");
-
-                entity.Property(e => e.LedgerNo)
+                entity.Property(e => e.LedgerNO)
                     .IsRequired()
-                    .HasColumnName("LedgerNO")
                     .HasMaxLength(15);
 
                 entity.Property(e => e.NatureName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.Reference).HasColumnName("REFERENCE");
-
                 entity.Property(e => e.SectorName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.TotallingGl)
-                    .HasColumnName("TotallingGL")
-                    .HasMaxLength(35);
+                entity.Property(e => e.TotallingGL).HasMaxLength(35);
 
                 entity.Property(e => e.UnitName)
                     .IsRequired()
                     .HasMaxLength(30);
-
-                entity.Property(e => e.UnitNo).HasColumnName("UnitNO");
 
                 entity.Property(e => e.ZoneName)
                     .IsRequired()

@@ -1,7 +1,6 @@
-
 using System.Linq;
 using System;
-using SIS.OpenCore.EF;
+//using SIS.OpenCore.EL;
 
 
 namespace SIS.OpenCore.BL
@@ -39,8 +38,32 @@ namespace SIS.OpenCore.BL
             
             return sBaseCurrency;
         }
-        
-        
+
+        static public DateTime fn_OPT_GetCurrentBDate()
+        {
+            return DateTime.Today;
+        }
+
+        static public string fn_OPT_GetGLFormatDigits()
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            String sGlformatDigits =    ((from s in db.Settings
+                                        orderby s.VerId descending
+                                        select s.GlformatDigits).First()).Trim();
+            
+            return sGlformatDigits;
+        }
+
+        static public byte fn_OPT_GetGLFormatDigitsLen()
+        {
+            string r = fn_OPT_GetGLFormatDigits();
+
+            if(String.IsNullOrEmpty(r)) 
+                return 0;
+            return (byte)r.Length;
+        }
+       
     }
 }
 

@@ -6,15 +6,15 @@ using System;
 
 namespace SIS.OpenCore.BL
 {
-    public partial class Company
+    public partial class Branch
     {
-        public static bool ValidateExists(int nCompany)
+        public static bool ValidateExists(short nBr)
         {
             OpenCoreContext db = new OpenCoreContext();
 
             // check Company
-            var Ret =   (from c in db.DefCompany
-                        where c.Id == nCompany
+            var Ret =   (from c in db.DefBranch
+                        where c.Id == nBr
                         select c.Name).FirstOrDefault();
             if(String.IsNullOrEmpty (Ret))
                 return false;  

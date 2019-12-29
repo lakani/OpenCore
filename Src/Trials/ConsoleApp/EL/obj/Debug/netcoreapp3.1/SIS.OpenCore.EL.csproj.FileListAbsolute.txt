@@ -1,0 +1,10 @@
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\bin\Debug\netcoreapp3.1\SIS.OpenCore.EL.deps.json
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\bin\Debug\netcoreapp3.1\SIS.OpenCore.EL.dll
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\bin\Debug\netcoreapp3.1\SIS.OpenCore.EL.pdb
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\obj\Debug\netcoreapp3.1\SIS.OpenCore.EL.csprojAssemblyReference.cache
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\obj\Debug\netcoreapp3.1\SIS.OpenCore.EL.AssemblyInfoInputs.cache
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\obj\Debug\netcoreapp3.1\SIS.OpenCore.EL.AssemblyInfo.cs
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\obj\Debug\netcoreapp3.1\SIS.OpenCore.EL.dll
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\obj\Debug\netcoreapp3.1\SIS.OpenCore.EL.pdb
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\bin\Debug\netcoreapp3.1\SIS.OpenCore.EL.runtimeconfig.json
+C:\Work\Projects\OpenCore\Src\Trials\ConsoleApp\EL\bin\Debug\netcoreapp3.1\SIS.OpenCore.EL.runtimeconfig.dev.json
