@@ -23,8 +23,8 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             String CIFFormatDigits =    ((from s in db.Settings
-                                        orderby s.VerId descending
-                                        select s.CifformatDigits).First()).Trim();
+                                        orderby s.VerID descending
+                                        select s.CIFFormatDigits).First()).Trim();
             
             return CIFFormatDigits;
         }
@@ -34,7 +34,7 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             String sBaseCurrency =      ((from s in db.Settings
-                                        orderby s.VerId descending
+                                        orderby s.VerID descending
                                         select s.BaseCurrency).First()).Trim();
             
             return sBaseCurrency;
@@ -50,8 +50,8 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             String sGlformatDigits =    ((from s in db.Settings
-                                        orderby s.VerId descending
-                                        select s.GlformatDigits).First()).Trim();
+                                        orderby s.VerID descending
+                                        select s.GLFormatDigits).First()).Trim();
             
             return sGlformatDigits;
         }

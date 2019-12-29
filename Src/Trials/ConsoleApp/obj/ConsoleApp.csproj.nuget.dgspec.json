@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {}
+    "D:\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {}
   },
   "projects": {
-    "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {
+    "D:\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
+        "projectUniqueName": "D:\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
         "projectName": "ConsoleApp",
-        "projectPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
-        "packagesPath": "C:\\Users\\E03476\\.nuget\\packages\\",
-        "outputPath": "C:\\Work\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\obj\\",
+        "projectPath": "D:\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\ConsoleApp.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\OpenCore\\Src\\Trials\\ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\E03476\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

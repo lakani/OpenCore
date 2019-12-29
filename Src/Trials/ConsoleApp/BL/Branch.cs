@@ -1,6 +1,6 @@
 using System.Linq;
 using System;
-//using SIS.OpenCore.EL;
+using SIS.OpenCore.EL;
 
 
 
@@ -13,8 +13,8 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             // check Company
-            var Ret =   (from c in db.DefBranch
-                        where c.Id == nBr
+            var Ret =   (from c in db.DEF_Branch
+                        where c.ID == nBr
                         select c.Name).FirstOrDefault();
             if(String.IsNullOrEmpty (Ret))
                 return false;  

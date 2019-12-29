@@ -2,7 +2,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-//using SIS.OpenCore.EL;
+using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
 
 
@@ -32,14 +32,14 @@ namespace SIS.OpenCore.BL
                 return "";  
             
             // check DEF_CIF_CLASS
-            var Ret =   (from c in db.DefCifClass
+            var Ret =   (from c in db.DEF_CIF_CLASS
                         where c.Code == nCIF_CLASS
                         select c.Name).FirstOrDefault();
             if(string.IsNullOrEmpty(Ret))
                 return "";  
 
             //IF NOT EXISTS (select top 1 Code from LUT_CIF_TYPE where Code = @CIF_TYPE)
-            Ret =   (from c in db.LutCifType
+            Ret =   (from c in db.LUT_CIF_TYPE
                     where c.Code == nCIF_TYPE
                     select c.Name).FirstOrDefault();
             if(string.IsNullOrEmpty(Ret))
@@ -61,8 +61,8 @@ namespace SIS.OpenCore.BL
                 lock(CIFLock)
                 {
                     // Get Max CIF Number
-                    string sMax =   (from r in db.DefCif
-                                    select r.CifNo).Max();
+                    string sMax =   (from r in db.DEF_CIF
+                                    select r.CIF_NO).Max();
                     
                     if (string.IsNullOrEmpty(sMax))
                         sMax = 0.ToString();
@@ -76,9 +76,9 @@ namespace SIS.OpenCore.BL
             }
 
             // check if CIF not exists
-            string sExists =    (from c in db.DefCif
-                                where c.CifNo == sCIF_NO
-                                select c.CifNo).FirstOrDefault();
+            string sExists =    (from c in db.DEF_CIF
+                                where c.CIF_NO == sCIF_NO
+                                select c.CIF_NO).FirstOrDefault();
             if( !string.IsNullOrEmpty(sExists))
                 return "";
             
@@ -87,7 +87,7 @@ namespace SIS.OpenCore.BL
                 sSearchKey = sCIF_NO;
             
             // check if Search is not exists
-             sExists =  (from c in db.DefCif
+             sExists =  (from c in db.DEF_CIF
                         where c.SearchKey == sSearchKey
                         select c.SearchKey).FirstOrDefault();
             if(! string.IsNullOrEmpty(sExists))
@@ -96,16 +96,16 @@ namespace SIS.OpenCore.BL
             db.Database.BeginTransaction();
             
             // Insert into DB
-            DefCif newCIF = new DefCif();
+            DEF_CIF newCIF = new DEF_CIF();
             newCIF.FirstName = sFirstName;
-            newCIF.LastSaveDt = dtEFFECTIVE_DT;
+            newCIF.LAST_SAVE_DT = dtEFFECTIVE_DT;
             newCIF.MiddleName = sMiddleName;
             newCIF.LastName = sLastName;
             newCIF.SearchKey = sSearchKey;
-            newCIF.CifNo = sCIF_NO;
+            newCIF.CIF_NO = sCIF_NO;
             
             
-            db.DefCif.Add(newCIF);
+            db.DEF_CIF.Add(newCIF);
             if (0 == db.SaveChanges())
             {
                 db.Database.RollbackTransaction();
