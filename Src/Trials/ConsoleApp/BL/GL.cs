@@ -2,7 +2,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-//using SIS.OpenCore.EL;
+using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
 
 
@@ -66,12 +66,58 @@ namespace SIS.OpenCore.BL
                     if(!Branch.ValidateExists((short)BranchNo))
                         return "";
                 //PRINT 'Checking DEF_Sector Table'
+                if (SectorNo != 0)
+                    if ( ! Sector.ValidateExists((byte) SectorNo))
+                        return "";
                 //PRINT 'Checking DEF_Dep Table'
+                if(DepNo != 0)
+                    if( ! Dep.ValidateExists((byte) DepNo) )
+                        return "";
                 //PRINT 'Checking DEF_Unit Table'
+                if(UNITNO != 0)
+                    if( ! Unit.ValidateExists((byte) UNITNO) )
+                        return "";
 
             
-            
+            // Getnerate the new Ledger number
+            if(! String.IsNullOrEmpty(LEDGERNO) )
+            {
+                byte cGLFormatDigitsNum = Settings.fn_OPT_GetGLFormatDigitsLen();
+
+                // ensure that @LEDGERNO length equel the GLFormatDigitsNum if @LEDGERNO is provided
+                if(LEDGERNO.Length > cGLFormatDigitsNum)
+                    return "";
+            }
+            else
+            {
+                // Get Max CIF Number
+                //string sMax =   (from r in db.DEF_CIF
+                //                 select r.CIF_NO).Max();
+                
+                // if (string.IsNullOrEmpty(sMax))
+                //     sMax = 0.ToString();
+                
+                // int nMax = int.Parse(sMax);
+                // nMax = nMax + 1;
+                // sMax = Settings.fn_OPT_GetCIFFormatDigits() + nMax.ToString();
+                // int cToRemove = sMax.Length - Settings.fn_OPT_GetCIFFormatDigitsNum();
+                // sCIF_NO = sMax.Remove(0, cToRemove);
+
+                
+                
+            }
+           
             return "GL";
-         }    
+        }
+
+        public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
+                                          int nDep, int nUNITNO, int nPOSTINGLEVEL )
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            //string stMaxLedger =    (from r in db.DEF_GL
+              //                      where r.  )
+            return "";
+        }
     }
 }
