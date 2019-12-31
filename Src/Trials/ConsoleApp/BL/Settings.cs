@@ -64,6 +64,11 @@ namespace SIS.OpenCore.BL
                 return 0;
             return (byte)r.Length;
         }
+
+        static public byte fn_OPT_GetGLMAXLength()
+        {
+            return 35;
+        }
        
     }
 }

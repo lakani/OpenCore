@@ -13,7 +13,9 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
+            GL.fn_String_ParseGL("01-01-01-01-01-01-00001");
+
+            //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
             Console.WriteLine("Hello World!");
         }
     }

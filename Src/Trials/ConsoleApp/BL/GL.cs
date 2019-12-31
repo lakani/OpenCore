@@ -90,34 +90,82 @@ namespace SIS.OpenCore.BL
             }
             else
             {
-                // Get Max CIF Number
-                //string sMax =   (from r in db.DEF_CIF
-                //                 select r.CIF_NO).Max();
-                
-                // if (string.IsNullOrEmpty(sMax))
-                //     sMax = 0.ToString();
-                
-                // int nMax = int.Parse(sMax);
-                // nMax = nMax + 1;
-                // sMax = Settings.fn_OPT_GetCIFFormatDigits() + nMax.ToString();
-                // int cToRemove = sMax.Length - Settings.fn_OPT_GetCIFFormatDigitsNum();
-                // sCIF_NO = sMax.Remove(0, cToRemove);
-
-                
-                
+                string sMaxLedger = GL.GetMaxLedger(CompanyNo, (byte)NATURE, CURR, nZone, BranchNo, 
+                                                    SectorNo, DepNo, UNITNO, POSTINGLEVEL);
+                int nMax;
+                nMax = int.Parse(sMaxLedger);
+                nMax = nMax + 1;
+                sMaxLedger = Settings.fn_OPT_GetGLFormatDigits() + nMax.ToString();
+                int cToRemove = sMaxLedger.Length - Settings.fn_OPT_GetGLFormatDigitsLen();
+                LEDGERNO = sMaxLedger.Remove(0, cToRemove);
             }
+
+            if( ! String.IsNullOrEmpty(TotallingGL) )
+                if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
+                    return "";
            
             return "GL";
         }
 
+        
         public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
                                           int nDep, int nUNITNO, int nPOSTINGLEVEL )
         {
             OpenCoreContext db = new OpenCoreContext();
 
-            //string stMaxLedger =    (from r in db.DEF_GL
-              //                      where r.  )
-            return "";
+            //GL.CompanyNo = @CompanyNo AND GL.Zone = @Zone AND Gl.BranchNo = @BranchNo AND Gl.SectorNo = @SectorNo)
+            string stMaxLedger =    (from g in db.DEF_GL
+                                    where ( (nCompany > 0 && g.CompanyNo == nCompany) || 
+                                            (nNature > 0 && g.Nature == nNature)  )
+                                    select g.LedgerNO).Max();
+            if(string.IsNullOrEmpty(stMaxLedger))
+                stMaxLedger = Settings.fn_OPT_GetGLFormatDigits();
+
+            return stMaxLedger;
+        }
+
+        public static DEF_GL fn_GetGLInfo(string stGL, string stCURR)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            DEF_GL RetGL = GL.fn_String_ParseGL(stGL);
+            
+            //where		GLTbl.LedgerNO = @LedgerNO and GLTbl.Zone = @ZoneNo AND	
+            //          GLTbl.CompanyNo = @CompanyNo and GLTbl.BranchNo = @BranchNo AND 
+            //          GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
+			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
+			
+            RetGL =     (from g in db.DEF_GL
+                        where   g.LedgerNO == RetGL.LedgerNO && g.Zone == RetGL.Zone &&
+                                g.CompanyNo == RetGL.CompanyNo && g.BranchNo == RetGL.BranchNo &&
+                                g.CURR == stCURR && g.SectorNo == RetGL.SectorNo && 
+                                g.DepNo == RetGL.DepNo && g.UnitNO == RetGL.UnitNO
+                        select g).FirstOrDefault();
+
+            return RetGL;
+        }
+
+        public static DEF_GL fn_String_ParseGL(string stGL)
+        {
+            DEF_GL RetGL = new DEF_GL();
+
+            // SUBSTRING(@GL,1, 2)		'Zone',									-- Zone
+            // SUBSTRING(@GL,4, 2)		'CompanyNo',							-- CompanyNo
+            // SUBSTRING(@GL,7, 2)		'BranchNo',								-- BranchNo
+            // SUBSTRING(@GL,10, 2)		'SectorNo',								-- SectorNo
+            // SUBSTRING(@GL,13, 2)	'DepNo'	,								-- DepNo
+            // SUBSTRING(@GL,16, 2)	'UnitNO',								-- UnitNO
+            // SUBSTRING(@GL,19, dbo.fn_OPT_GetGLFormatDigitsNum()) 'LedgerNO'	-- LedgerNO
+
+            RetGL.Zone = (byte)int.Parse(stGL.Substring(0, 2));
+            RetGL.CompanyNo = (short)int.Parse(stGL.Substring(3, 2));
+            RetGL.BranchNo = (byte)int.Parse(stGL.Substring(6, 2));
+            RetGL.SectorNo = (byte)int.Parse(stGL.Substring(9, 2));
+            RetGL.DepNo = (byte)int.Parse(stGL.Substring(12, 2));
+            RetGL.UnitNO = (byte)int.Parse(stGL.Substring(15, 2));
+            RetGL.LedgerNO = stGL.Substring(18, Settings.fn_OPT_GetGLFormatDigitsLen());
+
+            return RetGL;
         }
     }
 }
