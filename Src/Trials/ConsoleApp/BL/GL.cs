@@ -48,7 +48,7 @@ namespace SIS.OpenCore.BL
             
             //-- if not supplied , assume its current bussiness date
             if(EFFECTIVE_DT <= DateTime.MinValue || EFFECTIVE_DT >= DateTime.MaxValue )
-                EFFECTIVE_DT = Settings.fn_OPT_GetCurrentBDate();
+                EFFECTIVE_DT = Settings.fn_GetCurrentBusinessDate();
 
             //-- check paramters
                 //PRINT 'Checking DEF_Currency Table'
@@ -82,7 +82,7 @@ namespace SIS.OpenCore.BL
             // Getnerate the new Ledger number
             if(! String.IsNullOrEmpty(LEDGERNO) )
             {
-                byte cGLFormatDigitsNum = Settings.fn_OPT_GetGLFormatDigitsLen();
+                byte cGLFormatDigitsNum = Settings.fn_OPT_GetGLFormatDigitsNum();
 
                 // ensure that @LEDGERNO length equel the GLFormatDigitsNum if @LEDGERNO is provided
                 if(LEDGERNO.Length > cGLFormatDigitsNum)
@@ -96,15 +96,58 @@ namespace SIS.OpenCore.BL
                 nMax = int.Parse(sMaxLedger);
                 nMax = nMax + 1;
                 sMaxLedger = Settings.fn_OPT_GetGLFormatDigits() + nMax.ToString();
-                int cToRemove = sMaxLedger.Length - Settings.fn_OPT_GetGLFormatDigitsLen();
+                int cToRemove = sMaxLedger.Length - Settings.fn_OPT_GetGLFormatDigitsNum();
                 LEDGERNO = sMaxLedger.Remove(0, cToRemove);
             }
 
-            if( ! String.IsNullOrEmpty(TotallingGL) )
-                if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
+            #region TotallingGL
+                // in General , if the Totalling GL is not correct, return error
+                if( ! String.IsNullOrEmpty(TotallingGL) )
+                    if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
+                        return "";
+
+                DEF_GL TotallingGLObj = GL.fn_GetGLInfo(TotallingGL, CURR);
+                if(TotallingGLObj == null)
                     return "";
+                else
+                {
+                    if( TotallingGLObj.CompanyNo != CompanyNo || TotallingGLObj.Nature != NATURE ||
+                        TotallingGLObj.CURR != CURR || TotallingGLObj.PostingLevel != POSTINGLEVEL) 
+                            return "";
+                }
+            #endregion
+            
+            #region Check if Exists
+                
+            #endregion
+
+
+
+            
+
            
             return "GL";
+        }
+
+        public static bool ValidateExists (short nCompany, byte nNature, string CurrISO, byte nZone, byte nBranch, byte nSector,
+                                          byte nDep, byte nUNITNO, byte nPOSTINGLEVEL )
+        {
+            DEF_GL  gl = new DEF_GL() {
+                CompanyNo = nCompany,
+                Nature = nNature,
+                CURR = CurrISO, 
+                Zone = nZone,
+                BranchNo = nBranch,
+                SectorNo = nSector,
+                DepNo = nDep,
+                UnitNO = nUNITNO,
+                PostingLevel = nPOSTINGLEVEL
+            };
+
+            //gl = fn_GetGLInfo(gL, gl.CURR);
+            //if(gl.GL_DEFID)
+
+            return false;
         }
 
         
@@ -114,6 +157,8 @@ namespace SIS.OpenCore.BL
             OpenCoreContext db = new OpenCoreContext();
 
             //GL.CompanyNo = @CompanyNo AND GL.Zone = @Zone AND Gl.BranchNo = @BranchNo AND Gl.SectorNo = @SectorNo)
+
+            // TODO : Add more Conditions
             string stMaxLedger =    (from g in db.DEF_GL
                                     where ( (nCompany > 0 && g.CompanyNo == nCompany) || 
                                             (nNature > 0 && g.Nature == nNature)  )
@@ -124,6 +169,24 @@ namespace SIS.OpenCore.BL
             return stMaxLedger;
         }
 
+        public static DEF_GL fn_GetGLInfo(DEF_GL gL, string stCURR)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            //where		GLTbl.LedgerNO = @LedgerNO and GLTbl.Zone = @ZoneNo AND	
+            //          GLTbl.CompanyNo = @CompanyNo and GLTbl.BranchNo = @BranchNo AND 
+            //          GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
+			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
+			
+            var RetGL = (from g in db.DEF_GL
+                        where   g.LedgerNO == gL.LedgerNO && g.Zone == gL.Zone &&
+                                g.CompanyNo == gL.CompanyNo && g.BranchNo == gL.BranchNo &&
+                                g.CURR == stCURR && g.SectorNo == gL.SectorNo && 
+                                g.DepNo == gL.DepNo && g.UnitNO == gL.UnitNO
+                        select g).FirstOrDefault();
+                        
+
+            return RetGL;
+        }
         public static DEF_GL fn_GetGLInfo(string stGL, string stCURR)
         {
             OpenCoreContext db = new OpenCoreContext();
@@ -134,15 +197,7 @@ namespace SIS.OpenCore.BL
             //          GLTbl.CompanyNo = @CompanyNo and GLTbl.BranchNo = @BranchNo AND 
             //          GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
 			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
-			
-            RetGL =     (from g in db.DEF_GL
-                        where   g.LedgerNO == RetGL.LedgerNO && g.Zone == RetGL.Zone &&
-                                g.CompanyNo == RetGL.CompanyNo && g.BranchNo == RetGL.BranchNo &&
-                                g.CURR == stCURR && g.SectorNo == RetGL.SectorNo && 
-                                g.DepNo == RetGL.DepNo && g.UnitNO == RetGL.UnitNO
-                        select g).FirstOrDefault();
-
-            return RetGL;
+            return fn_GetGLInfo(RetGL, stCURR);
         }
 
         public static DEF_GL fn_String_ParseGL(string stGL)
@@ -163,7 +218,7 @@ namespace SIS.OpenCore.BL
             RetGL.SectorNo = (byte)int.Parse(stGL.Substring(9, 2));
             RetGL.DepNo = (byte)int.Parse(stGL.Substring(12, 2));
             RetGL.UnitNO = (byte)int.Parse(stGL.Substring(15, 2));
-            RetGL.LedgerNO = stGL.Substring(18, Settings.fn_OPT_GetGLFormatDigitsLen());
+            RetGL.LedgerNO = stGL.Substring(18, Settings.fn_OPT_GetGLFormatDigitsNum());
 
             return RetGL;
         }

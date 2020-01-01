@@ -40,7 +40,7 @@ namespace SIS.OpenCore.BL
             return sBaseCurrency;
         }
 
-        static public DateTime fn_OPT_GetCurrentBDate()
+        static public DateTime fn_GetCurrentBusinessDate()
         {
             return DateTime.Today;
         }
@@ -56,7 +56,7 @@ namespace SIS.OpenCore.BL
             return sGlformatDigits;
         }
 
-        static public byte fn_OPT_GetGLFormatDigitsLen()
+        static public byte fn_OPT_GetGLFormatDigitsNum()
         {
             string r = fn_OPT_GetGLFormatDigits();
 
