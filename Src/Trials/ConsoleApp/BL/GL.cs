@@ -27,15 +27,15 @@ namespace SIS.OpenCore.BL
             // @REFERENCE		nvarchar(MAX) = null
          static public string Add_GL (
                 DateTime    EFFECTIVE_DT ,
-                int         CompanyNo,
-                int         NATURE,
-                int         nZone = 0,
-                int         BranchNo = 0,
-                int         SectorNo = 0,
-                int         DepNo = 0,
-                int         UNITNO = 0,
+                short       CompanyNo,
+                byte        NATURE,
+                byte        nZone = 0,
+                short       BranchNo = 0,
+                byte        SectorNo = 0,
+                byte        DepNo = 0,
+                byte        UNITNO = 0,
                 string      CURR = "" ,
-                int         POSTINGLEVEL = 1,
+                byte        POSTINGLEVEL = 1,
                 string      LEDGERNO = "",
                 string      TotallingGL = "",
                 string      COMMENTS = "",
@@ -102,9 +102,10 @@ namespace SIS.OpenCore.BL
 
             #region TotallingGL
                 // in General , if the Totalling GL is not correct, return error
-                if( ! String.IsNullOrEmpty(TotallingGL) )
-                    if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
-                        return "";
+            if( ! String.IsNullOrEmpty(TotallingGL) )
+            {
+                if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
+                    return "";
 
                 DEF_GL TotallingGLObj = GL.fn_GetGLInfo(TotallingGL, CURR);
                 if(TotallingGLObj == null)
@@ -115,22 +116,41 @@ namespace SIS.OpenCore.BL
                         TotallingGLObj.CURR != CURR || TotallingGLObj.PostingLevel != POSTINGLEVEL) 
                             return "";
                 }
+            }
             #endregion
             
             #region Check if Exists
+            
+            if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, LEDGERNO) == true)
+                return "";
                 
             #endregion
 
+            #region Insert into Database
 
+            DEF_GL newGLTobeInserted = new DEF_GL();
+            newGLTobeInserted.EFFECTIVE_DT = EFFECTIVE_DT;
+            newGLTobeInserted.CompanyNo = CompanyNo;
+            newGLTobeInserted.Nature = NATURE;
+            newGLTobeInserted.CURR = CURR;
+            newGLTobeInserted.Zone = nZone;
+            newGLTobeInserted.BranchNo = BranchNo;
+            newGLTobeInserted.SectorNo = SectorNo;
+            newGLTobeInserted.DepNo = DepNo;
+            newGLTobeInserted.UnitNO = UNITNO;
+            newGLTobeInserted.PostingLevel = POSTINGLEVEL;
+            newGLTobeInserted.LedgerNO = LEDGERNO;
 
-            
-
+            OpenCoreContext db = new OpenCoreContext();
+            db.DEF_GL.Add(newGLTobeInserted);
+            db.SaveChanges();
+            #endregion
            
-            return "GL";
+            return newGLTobeInserted.LedgerNO;
         }
 
-        public static bool ValidateExists (short nCompany, byte nNature, string CurrISO, byte nZone, byte nBranch, byte nSector,
-                                          byte nDep, byte nUNITNO, byte nPOSTINGLEVEL )
+        public static bool ValidateExists (short nCompany, byte nNature, string CurrISO, byte nZone, short nBranch, byte nSector,
+                                          byte nDep, byte nUNITNO, byte nPOSTINGLEVEL , string Ledger)
         {
             DEF_GL  gl = new DEF_GL() {
                 CompanyNo = nCompany,
@@ -141,16 +161,18 @@ namespace SIS.OpenCore.BL
                 SectorNo = nSector,
                 DepNo = nDep,
                 UnitNO = nUNITNO,
-                PostingLevel = nPOSTINGLEVEL
+                PostingLevel = nPOSTINGLEVEL,
+                LedgerNO = Ledger
             };
 
-            //gl = fn_GetGLInfo(gL, gl.CURR);
-            //if(gl.GL_DEFID)
+            gl = fn_GetGLInfo(gl, gl.CURR);
+            if(gl != null)
+                return true;
 
             return false;
         }
 
-        
+
         public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
                                           int nDep, int nUNITNO, int nPOSTINGLEVEL )
         {

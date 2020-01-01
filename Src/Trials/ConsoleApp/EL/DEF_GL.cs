@@ -5,6 +5,7 @@ namespace SIS.OpenCore.EL
 {
     public partial class DEF_GL
     {
+        public int GL_DEFID { get; set; }
         public byte Zone { get; set; }
         public short CompanyNo { get; set; }
         public short BranchNo { get; set; }

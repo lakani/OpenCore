@@ -192,7 +192,7 @@ namespace SIS.OpenCore.EL
 
             modelBuilder.Entity<DEF_GL>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.GL_DEFID);
 
                 entity.Property(e => e.COMMENTS).HasMaxLength(200);
 
