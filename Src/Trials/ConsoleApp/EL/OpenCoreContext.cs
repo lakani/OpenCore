@@ -54,8 +54,6 @@ namespace SIS.OpenCore.EL
         {
             modelBuilder.Entity<DEF_Branch>(entity =>
             {
-                entity.Property(e => e.ID).ValueGeneratedNever();
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
@@ -122,10 +120,6 @@ namespace SIS.OpenCore.EL
 
             modelBuilder.Entity<DEF_Company>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.ID).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);

@@ -21,5 +21,20 @@ namespace SIS.OpenCore.BL
             
             return true;
         }
+
+        public static int Add_Branch(string stName, int nCompanyNo)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            var newBr = new DEF_Branch() {
+                    Name = stName,
+                    CompanyNo = nCompanyNo
+                };
+            
+
+            db.DEF_Branch.Add(newBr);
+            db.SaveChanges();
+
+            return newBr.ID;
+        }
     }
 }

@@ -175,6 +175,30 @@ namespace SIS.OpenCore.BL
             return false;
         }
 
+        public static string fn_String_BuildGL( int Zone,  int CompanyNo,  int BranchNo,  int SectorNo,  int DepNo,  
+                                                int UnitNO, string LedgerNO)
+        {
+            // RIGHT('00'+ CONVERT(VARCHAR,@Zone),2) + '-' + 
+            // RIGHT('00'+ CONVERT(VARCHAR,@CompanyNo),2) + '-' + 
+            // RIGHT('00'+ CONVERT(VARCHAR,@BranchNo),2) + '-' + 
+            // RIGHT('00'+ CONVERT(VARCHAR,@SectorNo),2) + '-' + 
+            // RIGHT('00'+ CONVERT(VARCHAR,@DepNo),2) + '-' + 
+            // RIGHT('00'+ CONVERT(VARCHAR,@UnitNO),2) + '-' +
+            // CAST(@LedgerNO as nvarchar(MAX))
+
+            string stReturn = string.Empty;
+
+            stReturn += ("00" + Zone.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + CompanyNo.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + BranchNo.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + SectorNo.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + DepNo.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + UnitNO.ToString()).Substring(0,2) + "-";
+            stReturn += ("00" + LedgerNO.ToString()).Substring(0,5) ;
+
+            return stReturn;
+        }
+
 
         public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
                                           int nDep, int nUNITNO, int nPOSTINGLEVEL )

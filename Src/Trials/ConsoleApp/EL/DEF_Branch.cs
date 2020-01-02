@@ -5,7 +5,8 @@ namespace SIS.OpenCore.EL
 {
     public partial class DEF_Branch
     {
-        public short ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
+        public int? CompanyNo { get; set; }
     }
 }

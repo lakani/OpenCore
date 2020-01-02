@@ -1,0 +1,29 @@
+using System.Linq;
+using System;
+using SIS.OpenCore.EL;
+
+
+
+namespace SIS.OpenCore.BL
+{
+    public partial class TYPE_POST_TRAN_PARAM
+    {
+        // [Row_NUM] [int] IDENTITY(1,1) NOT NULL,
+        // [Acct_CR_DR] [nvarchar](2) NULL,
+        // [Acct_No] [nvarchar](max) NULL,
+        // [GL] [bit] NULL,
+        // [Acct_Amt] [decimal](28, 3) NULL,
+        // [Acct_Curr] [nvarchar](3) NULL,
+        // [EffDt] [datetime] NULL,
+        // [Acct_Description] [nvarchar](max) NULL
+
+        public  string          Acct_CR_DR;
+        public  string          Acct_No;
+        public  bool            GL;
+        public  decimal         Acct_Amt;
+        public  string          Acct_Curr;
+        public  DateTime        EffDt;
+        public  string          Acct_Description;
+
+    }
+}
