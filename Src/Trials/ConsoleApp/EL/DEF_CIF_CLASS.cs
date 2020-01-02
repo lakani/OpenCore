@@ -7,8 +7,8 @@ namespace SIS.OpenCore.EL
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
-        public int CompanyNo { get; set; }
+        public byte Type { get; set; }
+        public short CompanyNo { get; set; }
         public DateTime? EFFECTIVE_DT { get; set; }
         public string REFERENCE { get; set; }
     }

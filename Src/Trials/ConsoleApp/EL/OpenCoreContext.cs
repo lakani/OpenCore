@@ -113,10 +113,6 @@ namespace SIS.OpenCore.EL
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(80);
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(10);
             });
 
             modelBuilder.Entity<DEF_CIF_Company>(entity =>
@@ -272,8 +268,6 @@ namespace SIS.OpenCore.EL
             {
                 entity.HasKey(e => e.Code)
                     .HasName("PK__LUT_CIF___A25C5AA6A1F27BC6");
-
-                entity.Property(e => e.Code).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).HasMaxLength(80);
             });
@@ -440,6 +434,8 @@ namespace SIS.OpenCore.EL
                 entity.Property(e => e.SectorName)
                     .IsRequired()
                     .HasMaxLength(30);
+
+                entity.Property(e => e.TotallingGL).HasMaxLength(35);
 
                 entity.Property(e => e.UnitName)
                     .IsRequired()
