@@ -119,14 +119,14 @@ namespace SIS.OpenCore.BL
             }
             #endregion
             
-            #region Check if Exists
+            #region Check_if_Exists
             
             if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, LEDGERNO) == true)
                 return "";
                 
             #endregion
 
-            #region Insert into Database
+            #region Insert_into_Database
 
             DEF_GL newGLTobeInserted = new DEF_GL();
             newGLTobeInserted.EFFECTIVE_DT = EFFECTIVE_DT;
@@ -140,6 +140,9 @@ namespace SIS.OpenCore.BL
             newGLTobeInserted.UnitNO = UNITNO;
             newGLTobeInserted.PostingLevel = POSTINGLEVEL;
             newGLTobeInserted.LedgerNO = LEDGERNO;
+            newGLTobeInserted.STATUS = 1;
+            newGLTobeInserted.COMMENTS = COMMENTS;
+            newGLTobeInserted.TotallingGL = TotallingGL;
 
             OpenCoreContext db = new OpenCoreContext();
             db.DEF_GL.Add(newGLTobeInserted);
