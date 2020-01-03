@@ -251,6 +251,12 @@ namespace SIS.OpenCore.BL
 
         public static DEF_GL fn_String_ParseGL(string stGL)
         {
+            if(string.IsNullOrEmpty(stGL))
+                return null;
+            
+            // TODO : restrcture as Format should be dynamic
+
+
             DEF_GL RetGL = new DEF_GL();
 
             // SUBSTRING(@GL,1, 2)		'Zone',									-- Zone
