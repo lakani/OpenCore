@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 //using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
+using SIS.OpenCore.BL.Objects;
 
 
 namespace ConsoleApp

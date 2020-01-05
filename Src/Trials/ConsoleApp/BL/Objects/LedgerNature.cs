@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 //using SIS.OpenCore.EL;
 
 
-namespace SIS.OpenCore.BL
+namespace SIS.OpenCore.BL.Objects
 {
     public partial class LedgerNature
     {

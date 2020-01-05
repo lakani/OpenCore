@@ -6,7 +6,7 @@ using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
 
 
-namespace SIS.OpenCore.BL
+namespace SIS.OpenCore.BL.Objects
 {
     public partial class Cif
     {

@@ -2,17 +2,19 @@ using System.Linq;
 using System;
 using SIS.OpenCore.EL;
 
-namespace SIS.OpenCore.BL
+
+
+namespace SIS.OpenCore.BL.Objects
 {
-    public partial class Zone
+    public partial class Sector
     {
-        public static bool ValidateExists(byte nZone)
+        public static bool ValidateExists(byte nSector)
         {
             OpenCoreContext db = new OpenCoreContext();
 
-            // check Company
-            var Ret =   (from c in db.DEF_Zone
-                        where c.ID == nZone
+            // check Sector
+            var Ret =   (from c in db.DEF_Sector
+                        where c.ID == nSector
                         select c.Name).FirstOrDefault();
             if(String.IsNullOrEmpty (Ret))
                 return false;  
