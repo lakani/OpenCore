@@ -4,9 +4,9 @@ using SIS.OpenCore.EL;
 
 
 
-namespace SIS.OpenCore.BL
+namespace SIS.OpenCore.BL.Transactions
 {
-    public partial class TYPE_POST_TRAN_PARAM
+    public partial class TRAN_POST_AE_TYPE_PARAM
     {
         // [Row_NUM] [int] IDENTITY(1,1) NOT NULL,
         // [Acct_CR_DR] [nvarchar](2) NULL,
@@ -24,6 +24,9 @@ namespace SIS.OpenCore.BL
         public  string          Acct_Curr;
         public  DateTime        EffDt;
         public  string          Acct_Description;
+        public  DEF_GL          GL_Info;
+
+
 
     }
 }
