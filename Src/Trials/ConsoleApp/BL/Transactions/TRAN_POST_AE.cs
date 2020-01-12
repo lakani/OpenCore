@@ -25,6 +25,9 @@ namespace SIS.OpenCore.BL.Transactions
             if(Retrive_GL_Info(ae_Param,stBaseCurrency) == false)
                 return Guid.Empty;
 
+            if(Validation_Sum_of_CR_Equal_Sum_of_DR(ae_Param, stBaseCurrency) == false)
+                return Guid.Empty;
+
             return new Guid();
         }
 
@@ -33,7 +36,7 @@ namespace SIS.OpenCore.BL.Transactions
 	            select @SumOfCR = SUM(l.Acct_Amt) from @Legs l where UPPER (l.Acct_CR_DR) = 'CR'
 	            select @SumOfDR = SUM(l.Acct_Amt) from @Legs l where UPPER (l.Acct_CR_DR) = 'DR'
         */
-        static public bool sum_of_CR_Equal_SUM_of_DR(TRAN_POST_AE_TYPE_PARAM[] Legs, string stBaseCurr)
+        static public bool Validation_Sum_of_CR_Equal_Sum_of_DR(TRAN_POST_AE_TYPE_PARAM[] Legs, string stBaseCurr)
         {
             decimal  SumOfCR = 0,  @SumOfDR = 0;
 
@@ -49,6 +52,12 @@ namespace SIS.OpenCore.BL.Transactions
                 return false;
             else
                 return true;
+        }
+
+        static public bool Validation_All_Legs_Within_Same_Company(TRAN_POST_AE_TYPE_PARAM[] Legs)
+        {
+            //int
+            return true;
         }
 
         // Ensure that all legs are within the same company
