@@ -3,6 +3,7 @@ using System.Collections.Generic;
 //using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
 using SIS.OpenCore.BL.Objects;
+using SIS.OpenCore.BL.Transactions;
 
 
 namespace ConsoleApp
@@ -14,6 +15,9 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
+             TestPostAE();
+             return;
+
             TestGLCreate();
             GL.fn_String_ParseGL("01-01-01-01-01-01-000001");
 
@@ -33,6 +37,20 @@ namespace ConsoleApp
 
             //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
             Console.WriteLine("Hello World!");
+        }
+
+        static void TestPostAE()
+        {
+            List<TRAN_POST_AE_TYPE_PARAM> ARR = new List<TRAN_POST_AE_TYPE_PARAM>();
+
+             ARR.Add (new TRAN_POST_AE_TYPE_PARAM{ Acct_CR_DR = "CR" , Acct_No = "01-01-01-01-01-01-00010", GL = true, 
+                                Acct_Amt = 150000, Acct_Curr="EGP", Acct_Description= "Cash Deposit", EffDt=DateTime.Today });
+            ARR.Add (new TRAN_POST_AE_TYPE_PARAM{ Acct_CR_DR = "DR" , Acct_No = "01-01-01-01-01-01-00002", GL = true, 
+                                Acct_Amt = 150000, Acct_Curr="EGP", Acct_Description= "Cash Deposit", EffDt=DateTime.Today });
+
+
+            TRAN_POST_AE.Post(ARR.ToArray());
+
         }
         static void TestGLCreate()
         {

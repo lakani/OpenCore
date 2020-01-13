@@ -238,8 +238,6 @@ namespace SIS.OpenCore.BL.Objects
         }
         public static DEF_GL fn_GetGLInfo(string stGL, string stCURR)
         {
-            OpenCoreContext db = new OpenCoreContext();
-
             DEF_GL RetGL = GL.fn_String_ParseGL(stGL);
             
             //where		GLTbl.LedgerNO = @LedgerNO and GLTbl.Zone = @ZoneNo AND	
@@ -247,6 +245,19 @@ namespace SIS.OpenCore.BL.Objects
             //          GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
 			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
             return fn_GetGLInfo(RetGL, stCURR);
+        }
+
+        public static decimal fn_ACT_GL_GetLastBalance(string Acct_No, string Acct_Curr)
+        {
+            OpenCoreContext     db = new OpenCoreContext();
+            decimal             BalanceBefor = 0 ;
+
+            BalanceBefor =  (decimal)(from l in db.TRN_LEGS
+                            where l.GL == true && l.STATUS_ID == 1 && l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr
+                            orderby l.EffDt descending , l.CREATE_DT descending, l.Sequence descending
+                            select l.Balance_Before).FirstOrDefault();
+
+            return BalanceBefor;
         }
 
         public static DEF_GL fn_String_ParseGL(string stGL)
