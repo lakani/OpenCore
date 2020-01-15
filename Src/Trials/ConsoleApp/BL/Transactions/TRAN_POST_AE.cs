@@ -28,9 +28,9 @@ namespace SIS.OpenCore.BL.Transactions
             MaxEffDt = Settings.fn_GetCurrentBusinessDate();
 
             // get Today
-            CRT_DT = DateTime.Today;
+            CRT_DT = DateTime.Now;
 
-            if (CRT_DT > MaxEffDt )
+            if (CRT_DT.Date > MaxEffDt.Date )
                 return Guid.Empty;
             
             // Get All Legs GLs information 

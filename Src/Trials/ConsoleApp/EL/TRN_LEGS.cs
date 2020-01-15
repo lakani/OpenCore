@@ -5,6 +5,7 @@ namespace SIS.OpenCore.EL
 {
     public partial class TRN_LEGS
     {
+        public int TRN_LEGS_ID { get; set; }
         public Guid? Ref { get; set; }
         public short? Sequence { get; set; }
         public string Acct_CR_DR { get; set; }

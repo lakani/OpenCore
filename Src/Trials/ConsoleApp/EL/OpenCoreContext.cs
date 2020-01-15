@@ -371,7 +371,7 @@ namespace SIS.OpenCore.EL
 
             modelBuilder.Entity<TRN_LEGS>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.TRN_LEGS_ID);
 
                 entity.Property(e => e.Acct_Amt).HasColumnType("decimal(28, 3)");
 

@@ -250,14 +250,16 @@ namespace SIS.OpenCore.BL.Objects
         public static decimal fn_ACT_GL_GetLastBalance(string Acct_No, string Acct_Curr)
         {
             OpenCoreContext     db = new OpenCoreContext();
-            decimal             BalanceBefor = 0 ;
+            decimal             BalanceAfter = 0 ;
 
-            BalanceBefor =  (decimal)(from l in db.TRN_LEGS
-                            where l.GL == true && l.STATUS_ID == 1 && l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr
-                            orderby l.EffDt descending , l.CREATE_DT descending, l.Sequence descending
-                            select l.Balance_Before).FirstOrDefault();
+            BalanceAfter =  (decimal)(from l in db.TRN_LEGS
+                            where   l.GL == true && l.STATUS_ID == 1 && 
+                                    l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
+                            orderby l.EffDt descending , l.CREATE_DT descending, 
+                                    l.Sequence descending, l.TRN_LEGS_ID descending
+                            select  l.Balance_After).FirstOrDefault();
 
-            return BalanceBefor;
+            return BalanceAfter;
         }
 
         public static DEF_GL fn_String_ParseGL(string stGL)
