@@ -53,30 +53,30 @@ namespace SIS.OpenCore.BL.Objects
             //-- check paramters
                 //PRINT 'Checking DEF_Currency Table'
                 if(!Currency.ValidateExists(CURR))
-                    return "";
+                    return string.Empty;
                 //PRINT 'Checking Company in DEF_Company Table'
                 if(!Company.ValidateExists(CompanyNo))
-                    return "";
+                    return string.Empty;
                 //PRINT 'Checking DEF_Zone Table'
                 if(nZone != 0)
                     if(!Zone.ValidateExists((byte)nZone))
-                        return "";
+                        return string.Empty;
                 //PRINT 'Checking DEF_Branch Table'
                 if(BranchNo != 0)
                     if(!Branch.ValidateExists((short)BranchNo))
-                        return "";
+                        return string.Empty;
                 //PRINT 'Checking DEF_Sector Table'
                 if (SectorNo != 0)
                     if ( ! Sector.ValidateExists((byte) SectorNo))
-                        return "";
+                        return string.Empty;
                 //PRINT 'Checking DEF_Dep Table'
                 if(DepNo != 0)
                     if( ! Dep.ValidateExists((byte) DepNo) )
-                        return "";
+                        return string.Empty;
                 //PRINT 'Checking DEF_Unit Table'
                 if(UNITNO != 0)
                     if( ! Unit.ValidateExists((byte) UNITNO) )
-                        return "";
+                        return string.Empty;
 
             
             // Getnerate the new Ledger number
@@ -86,7 +86,7 @@ namespace SIS.OpenCore.BL.Objects
 
                 // ensure that @LEDGERNO length equel the GLFormatDigitsNum if @LEDGERNO is provided
                 if(LEDGERNO.Length > cGLFormatDigitsNum)
-                    return "";
+                    return string.Empty;
             }
             else
             {
@@ -105,16 +105,16 @@ namespace SIS.OpenCore.BL.Objects
             if( ! String.IsNullOrEmpty(TotallingGL) )
             {
                 if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
-                    return "";
+                    return string.Empty;
 
                 DEF_GL TotallingGLObj = GL.fn_GetGLInfo(TotallingGL, CURR);
                 if(TotallingGLObj == null)
-                    return "";
+                    return string.Empty;
                 else
                 {
                     if( TotallingGLObj.CompanyNo != CompanyNo || TotallingGLObj.Nature != NATURE ||
                         TotallingGLObj.CURR != CURR || TotallingGLObj.PostingLevel != POSTINGLEVEL) 
-                            return "";
+                            return string.Empty;
                 }
             }
             #endregion
@@ -122,7 +122,7 @@ namespace SIS.OpenCore.BL.Objects
             #region Check_if_Exists
             
             if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, LEDGERNO) == true)
-                return "";
+                return string.Empty;
                 
             #endregion
 

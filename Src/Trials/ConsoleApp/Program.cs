@@ -31,7 +31,7 @@ namespace ConsoleApp
             0, // Unit
             "EGP", // CURR
             1,
-            "",
+            string.Empty,
             "01-01-01-01-01-01-000010"
             ); // Posting Level
 
@@ -82,8 +82,8 @@ namespace ConsoleApp
                     0, // Unit
                     "EGP", // CURR
                     1,
-                    "",
-                    ""
+                    string.Empty,
+                    string.Empty
                     ); // Posting Level
             }
             

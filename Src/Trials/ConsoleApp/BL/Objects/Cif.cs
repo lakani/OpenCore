@@ -29,21 +29,21 @@ namespace SIS.OpenCore.BL.Objects
 
             // check Company
             if(!Company.ValidateExists(nCompanyNo))
-                return "";  
+                return string.Empty;  
             
             // check DEF_CIF_CLASS
             var Ret =   (from c in db.DEF_CIF_CLASS
                         where c.Code == nCIF_CLASS
                         select c.Name).FirstOrDefault();
             if(string.IsNullOrEmpty(Ret))
-                return "";  
+                return string.Empty;  
 
             //IF NOT EXISTS (select top 1 Code from LUT_CIF_TYPE where Code = @CIF_TYPE)
             Ret =   (from c in db.LUT_CIF_TYPE
                     where c.Code == nCIF_TYPE
                     select c.Name).FirstOrDefault();
             if(string.IsNullOrEmpty(Ret))
-                return "";  
+                return string.Empty;  
 
 
             // if @CIF_NO is provided
@@ -52,7 +52,7 @@ namespace SIS.OpenCore.BL.Objects
                 //fn_OPT_GetCIFFormatDigitsNum
                 if(sCIF_NO.Length > Settings.fn_OPT_GetCIFFormatDigitsNum())
                 {
-                    return "";
+                    return string.Empty;
                 }
             }
             else // its not provided
@@ -80,7 +80,7 @@ namespace SIS.OpenCore.BL.Objects
                                 where c.CIF_NO == sCIF_NO
                                 select c.CIF_NO).FirstOrDefault();
             if( !string.IsNullOrEmpty(sExists))
-                return "";
+                return string.Empty;
             
 	        
             if(sSearchKey.Length <= 0)
@@ -91,7 +91,7 @@ namespace SIS.OpenCore.BL.Objects
                         where c.SearchKey == sSearchKey
                         select c.SearchKey).FirstOrDefault();
             if(! string.IsNullOrEmpty(sExists))
-                return "";
+                return string.Empty;
 
             db.Database.BeginTransaction();
             
@@ -109,7 +109,7 @@ namespace SIS.OpenCore.BL.Objects
             if (0 == db.SaveChanges())
             {
                 db.Database.RollbackTransaction();
-                return "";
+                return string.Empty;
             }
                 
             
