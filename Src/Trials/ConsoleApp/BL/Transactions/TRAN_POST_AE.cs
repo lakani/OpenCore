@@ -11,7 +11,70 @@ namespace SIS.OpenCore.BL.Transactions
     public partial class TRAN_POST_AE
     {
 
-        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param )        
+        static protected bool RefExistsAndActive(Guid InqRef)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            int Exists =    (from t in db.TRN_LEGS
+                            where t.Ref == InqRef && t.STATUS_ID == 1
+                            select t.Ref).Count();
+            if(Exists> 0)
+                return true;
+            return  false;
+        }
+
+        static public bool Reverse(Guid Ref)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            if(RefExistsAndActive(Ref) == false)
+                throw new ArgumentOutOfRangeException("Ref", 
+                "Invalid Reference number or has been reversed before");
+
+            var Legs =  from l in db.TRN_LEGS
+                        where l.Ref == Ref && l.STATUS_ID == 1
+                        select l;
+            
+            var newLegs = CopyLegsForReverse(Legs.ToArray());
+            
+            foreach (TRAN_POST_AE_TYPE_PARAM l in newLegs)
+            {
+                if(l.Acct_CR_DR == "CR" )
+                    l.Acct_CR_DR = "DR";
+                else
+                    l.Acct_CR_DR = "CR";
+            }
+            Post(newLegs.ToArray(), Ref);
+
+            foreach (TRN_LEGS l in Legs)
+            {
+                l.STATUS_ID = 2; // 2 is Reversed
+            }
+            db.SaveChanges();
+
+            
+
+            return true;
+        }
+
+        static protected List<TRAN_POST_AE_TYPE_PARAM> CopyLegsForReverse(TRN_LEGS[] Legs)
+        {
+            List<TRAN_POST_AE_TYPE_PARAM> ARR = new List<TRAN_POST_AE_TYPE_PARAM>();
+            
+            foreach (TRN_LEGS l in Legs)
+            {
+                ARR.Add (new TRAN_POST_AE_TYPE_PARAM{   Acct_CR_DR = l.Acct_CR_DR , 
+                                                        Acct_No = l.Acct_No,
+                                                        GL = (bool)l.GL, 
+                                                        Acct_Amt = (decimal)l.Acct_Amt,
+                                                        Acct_Curr = l.Acct_Curr,
+                                                        Acct_Description = "Rev : " + l.Ref,
+                                                        EffDt=DateTime.Today});
+
+            }
+            return ARR;
+        }
+
+        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param , Guid RelatedRef)        
         {
             string      stBaseCurrency;
             DateTime    MaxEffDt = DateTime.MinValue;
@@ -75,6 +138,7 @@ namespace SIS.OpenCore.BL.Transactions
                 trn_LEGSNewObject.Ref               = RetGUID;
                 trn_LEGSNewObject.Sequence          = Sequence;
                 trn_LEGSNewObject.STATUS_ID         = 1;
+                trn_LEGSNewObject.Related_Ref       = RelatedRef;
 
                 db.TRN_LEGS.Add(trn_LEGSNewObject);
                 db.SaveChanges();

@@ -15,6 +15,9 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
+            testReverse();
+            return;
+
              TestPostAE();
              return;
 
@@ -39,6 +42,11 @@ namespace ConsoleApp
             Console.WriteLine("Hello World!");
         }
 
+        static void testReverse()
+        {
+            TRAN_POST_AE.Reverse(new Guid("F4B777D5-9033-42A2-BB65-147D3C1701A0"));
+        }
+
         static void TestPostAE()
         {
             List<TRAN_POST_AE_TYPE_PARAM> ARR = new List<TRAN_POST_AE_TYPE_PARAM>();
@@ -59,7 +67,7 @@ namespace ConsoleApp
             //                     Acct_Amt = 78945, Acct_Curr="EGP", Acct_Description= "Cash Deposit", EffDt=DateTime.Today });
 
 
-            TRAN_POST_AE.Post(ARR.ToArray());
+            TRAN_POST_AE.Post(ARR.ToArray(), Guid.Empty);
 
         }
         static void TestGLCreate()

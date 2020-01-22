@@ -21,5 +21,6 @@ namespace SIS.OpenCore.EL
         public byte? STATUS_ID { get; set; }
         public short? CHANNEL_ID { get; set; }
         public string Acct_Description { get; set; }
+        public Guid? Related_Ref { get; set; }
     }
 }

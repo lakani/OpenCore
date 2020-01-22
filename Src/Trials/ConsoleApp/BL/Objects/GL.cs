@@ -79,7 +79,7 @@ namespace SIS.OpenCore.BL.Objects
                         return string.Empty;
 
             
-            // Getnerate the new Ledger number
+            // Generate the new Ledger number
             if(! String.IsNullOrEmpty(LEDGERNO) )
             {
                 byte cGLFormatDigitsNum = Settings.fn_OPT_GetGLFormatDigitsNum();
