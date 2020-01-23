@@ -247,7 +247,7 @@ namespace SIS.OpenCore.BL.Objects
             return fn_GetGLInfo(RetGL, stCURR);
         }
 
-        public static decimal fn_ACT_GL_GetLastBalance(string Acct_No, string Acct_Curr)
+        public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
         {
             OpenCoreContext     db = new OpenCoreContext();
             decimal             BalanceAfter = 0 ;

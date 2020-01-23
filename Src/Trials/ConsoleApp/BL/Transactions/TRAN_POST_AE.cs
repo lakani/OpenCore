@@ -124,7 +124,7 @@ namespace SIS.OpenCore.BL.Transactions
                 trn_LEGSNewObject.Acct_Curr         = Leg.Acct_Curr;
                 trn_LEGSNewObject.Acct_Description  = Leg.Acct_Description;
                 trn_LEGSNewObject.Acct_No           = Leg.Acct_No;
-                trn_LEGSNewObject.Balance_Before    = fn_ACT_GL_GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
+                trn_LEGSNewObject.Balance_Before    = GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
                 trn_LEGSNewObject.Balance_After     =  AccountingMisc.NUM_ACT_CR_DR
                                                             ((decimal)trn_LEGSNewObject.Balance_Before, 
                                                             Leg.Acct_Amt, 
@@ -149,13 +149,13 @@ namespace SIS.OpenCore.BL.Transactions
             return RetGUID;
         }
 
-        static protected decimal fn_ACT_GL_GetLastBalance(string Acct_No, bool isGL, string Acct_Curr)
+        static protected decimal GetLastBalance(string Acct_No, bool isGL, string Acct_Curr)
         {
             // TODO : Seperate a call, one for GL and another for Account
             if(isGL)
-                return GL.fn_ACT_GL_GetLastBalance( Acct_No, Acct_Curr);
+                return GL.GetLastBalance( Acct_No, Acct_Curr);
             else
-                return GL.fn_ACT_GL_GetLastBalance( Acct_No, Acct_Curr);
+                return GL.GetLastBalance( Acct_No, Acct_Curr);
 
         }
 
