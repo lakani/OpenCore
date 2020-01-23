@@ -1,3 +1,15 @@
+select * from OpenCore..TRN_LEGS 
+select * from OpenCore..LUT_TRN_STATUS
+
+update OpenCore..TRN_LEGS  
+set STATUS_ID = 1
+where Ref = 'F4B777D5-9033-42A2-BB65-147D3C1701A0'
+
+delete OpenCore..TRN_LEGS  where Ref = '86A3336D-0230-4F13-B355-7F7EA48F8D17'
+
+select * from TRN_LEGS where Acct_No like '01-01-01-01-01-01-00010'
+
+
 	USE [OpenCore]
 	GO
 --REFRENCE TYPE
