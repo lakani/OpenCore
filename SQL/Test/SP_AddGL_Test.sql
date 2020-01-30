@@ -1,6 +1,9 @@
 USE [OpenCore]
 GO
 
+-- 64037
+select * from DEF_GL where LedgerNO like '%99999%'
+
 DECLARE @RC int
 DECLARE @LEDGERNO_OUT nvarchar(15)
 DECLARE @CompanyNo int

@@ -80,7 +80,7 @@ namespace SIS.OpenCore.BL.Objects
 
             // check Company
             if(!Company.ValidateExists(nCompanyNo))
-                return string.Empty;  
+                throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
 
             if(!CifTYPE.ValidateExists(nCIF_TYPE))
                 return string.Empty;

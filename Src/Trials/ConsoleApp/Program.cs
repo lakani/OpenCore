@@ -15,13 +15,15 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            testReverse();
+            testCIF();
+            //TestGLCreate();
+            //testReverse();
             return;
 
              TestPostAE();
              return;
 
-            TestGLCreate();
+            
             GL.fn_String_ParseGL("01-01-01-01-01-01-000001");
 
             GL.Add_GL(new DateTime(2020,1,1), // DATE
@@ -40,6 +42,17 @@ namespace ConsoleApp
 
             //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
             Console.WriteLine("Hello World!");
+        }
+
+        static void testCIF()
+        {
+            //for (int x=0; x<10000; x++)
+            //{
+            //              Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
+            //}
+            
+            Cif.Add_CIF(new DateTime(2019,1,1), 3, 1, "0001", "123456789", "Ahmed", "", "", "","000000099");
+            
         }
 
         static void testReverse()
@@ -94,7 +107,39 @@ namespace ConsoleApp
                     string.Empty
                     ); // Posting Level
             }
-            
+
+            GL.Add_GL(
+                new DateTime(2020,1,1), // DATE
+                1, // Company
+                1, // Nature
+                0, // Zone
+                0, // Branch
+                0, // Sector
+                0, // Dep
+                0, // Unit
+                "EGP", // CURR
+                1,
+                "99999",
+                string.Empty
+                ); // Posting Level
+
+            GL.Add_GL(
+                new DateTime(2020,1,1), // DATE
+                1, // Company
+                2, // Nature
+                0, // Zone
+                0, // Branch
+                0, // Sector
+                0, // Dep
+                0, // Unit
+                "EGP", // CURR
+                1,
+                "99999",
+                string.Empty
+                ); // Posting Level
+
+
+
         }
     }
 }

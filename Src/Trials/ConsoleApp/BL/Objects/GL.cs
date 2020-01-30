@@ -56,27 +56,27 @@ namespace SIS.OpenCore.BL.Objects
                     return string.Empty;
                 //PRINT 'Checking Company in DEF_Company Table'
                 if(!Company.ValidateExists(CompanyNo))
-                    return string.Empty;
+                    throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
                 //PRINT 'Checking DEF_Zone Table'
                 if(nZone != 0)
                     if(!Zone.ValidateExists((byte)nZone))
-                        return string.Empty;
+                        throw new ArgumentOutOfRangeException("nZone", "Zone Number doesn't Exists");
                 //PRINT 'Checking DEF_Branch Table'
                 if(BranchNo != 0)
                     if(!Branch.ValidateExists((short)BranchNo))
-                        return string.Empty;
+                        throw new ArgumentOutOfRangeException("BranchNo", "Branch Number doesn't Exists");
                 //PRINT 'Checking DEF_Sector Table'
                 if (SectorNo != 0)
                     if ( ! Sector.ValidateExists((byte) SectorNo))
-                        return string.Empty;
+                        throw new ArgumentOutOfRangeException("SectorNo", "Sector Number doesn't Exists");
                 //PRINT 'Checking DEF_Dep Table'
                 if(DepNo != 0)
                     if( ! Dep.ValidateExists((byte) DepNo) )
-                        return string.Empty;
+                        throw new ArgumentOutOfRangeException("DepNo", "Department Number doesn't Exists");
                 //PRINT 'Checking DEF_Unit Table'
                 if(UNITNO != 0)
                     if( ! Unit.ValidateExists((byte) UNITNO) )
-                        return string.Empty;
+                        throw new ArgumentOutOfRangeException("UNITNO", "Unit Number doesn't Exists");
 
             
             // Generate the new Ledger number
@@ -86,7 +86,7 @@ namespace SIS.OpenCore.BL.Objects
 
                 // ensure that @LEDGERNO length equel the GLFormatDigitsNum if @LEDGERNO is provided
                 if(LEDGERNO.Length > cGLFormatDigitsNum)
-                    return string.Empty;
+                    throw new ArgumentOutOfRangeException("LEDGERNO", "Ledger number Length is greater than Digits Length");
             }
             else
             {
@@ -105,11 +105,11 @@ namespace SIS.OpenCore.BL.Objects
             if( ! String.IsNullOrEmpty(TotallingGL) )
             {
                 if (TotallingGL.Length > Settings.fn_OPT_GetGLMAXLength())
-                    return string.Empty;
+                    throw new ArgumentOutOfRangeException("TotallingGL", "Totalling Ledger number Length is greater than Digits Length");
 
                 DEF_GL TotallingGLObj = GL.fn_GetGLInfo(TotallingGL, CURR);
                 if(TotallingGLObj == null)
-                    return string.Empty;
+                    throw new ArgumentException ("Invalid Totalling Ledger", "TotallingGL");
                 else
                 {
                     if( TotallingGLObj.CompanyNo != CompanyNo || TotallingGLObj.Nature != NATURE ||
