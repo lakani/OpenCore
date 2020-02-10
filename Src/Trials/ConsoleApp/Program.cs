@@ -46,12 +46,13 @@ namespace ConsoleApp
 
         static void testCIF()
         {
-            //for (int x=0; x<10000; x++)
-            //{
-            //              Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
-            //}
+            for (int x=0; x<10000; x++)
+            {
+                          //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
+                          Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed", "", "", "","");
+            }
             
-            Cif.Add_CIF(new DateTime(2019,1,1), 3, 1, "0001", "123456789", "Ahmed", "", "", "","000000099");
+            
             
         }
 

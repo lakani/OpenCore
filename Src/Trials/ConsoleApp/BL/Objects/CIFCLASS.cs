@@ -16,9 +16,12 @@ namespace SIS.OpenCore.BL.Objects
         static public string GetMaxCodePerCompany(short nCompanyNo)
         {
             OpenCoreContext db = new OpenCoreContext();
-            string sCode =  (from c in db.DEF_CIF_CLASS
+            /*(string sCode =  (from c in db.DEF_CIF_CLASS
                             where c.CompanyNo == nCompanyNo
+                            select c.Code).Max(); */
+            string sCode =  (from c in db.DEF_CIF_CLASS
                             select c.Code).Max(); 
+
             if(string.IsNullOrEmpty(sCode))
                 return string.Empty;
             return (sCode);
@@ -35,7 +38,7 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
-        static public string GenerateNewCIFCLASSCode (short nCompanyNo, string sCIFClassCode)
+        static public string GenerateNewCode (short nCompanyNo, string sCIFClassCode)
         {
             short nCIFClassCode = 0;
             string sReturn = string.Empty;
@@ -79,13 +82,14 @@ namespace SIS.OpenCore.BL.Objects
             DEF_CIF_CLASS   newCIF_CLASSObj = new DEF_CIF_CLASS();
 
             // check Company
-            if(!Company.ValidateExists(nCompanyNo))
+            if(false == Company.ValidateExists(nCompanyNo))
                 throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
 
-            if(!CifTYPE.ValidateExists(nCIF_TYPE))
-                return string.Empty;
+            if(false == CifTYPE.ValidateExists(nCIF_TYPE))
+                throw new ArgumentOutOfRangeException("nCIF_TYPE", "CIF Type doesn't Exists");
 
-            sCIFClassCode = GenerateNewCIFCLASSCode(nCompanyNo, sCIFClassCode) ;
+
+            sCIFClassCode = GenerateNewCode(nCompanyNo, sCIFClassCode) ;
             if(string.IsNullOrEmpty(sCIFClassCode))
                 return string.Empty;
             

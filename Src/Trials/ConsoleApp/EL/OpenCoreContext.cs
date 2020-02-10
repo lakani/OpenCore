@@ -15,6 +15,7 @@ namespace SIS.OpenCore.EL
         {
         }
 
+        public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
         public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
         public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
         public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
@@ -52,6 +53,21 @@ namespace SIS.OpenCore.EL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
+            {
+                entity.HasKey(e => e.Code);
+
+                entity.Property(e => e.Code).HasMaxLength(5);
+
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
+
+                entity.Property(e => e.Name).HasMaxLength(80);
+
+                entity.Property(e => e.REFERENCE).IsRequired();
+
+                entity.Property(e => e.Type).HasMaxLength(10);
+            });
+
             modelBuilder.Entity<DEF_Branch>(entity =>
             {
                 entity.Property(e => e.Name)

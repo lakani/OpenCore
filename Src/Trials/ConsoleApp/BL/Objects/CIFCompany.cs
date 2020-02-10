@@ -6,7 +6,7 @@ using SIS.OpenCore.EL;
 
 namespace SIS.OpenCore.BL.Objects
 {
-    public partial class CIF_Company
+    public partial class CIFCompany
     {
         public static bool ValidateExists(short nCompanyNo, string CIF_NO)
         {
