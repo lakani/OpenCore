@@ -93,8 +93,8 @@ namespace SIS.OpenCore.BL.Objects
             if(string.IsNullOrEmpty(sCIFClassCode))
                 return string.Empty;
             
-            if(!ValidateExists(sCIFClassCode, nCompanyNo))
-                return string.Empty;
+            if(true == ValidateExists(sCIFClassCode, nCompanyNo))
+                throw new Exception("sCIFClassCode Already Exists");
 
             newCIF_CLASSObj.Code = sCIFClassCode;
             newCIF_CLASSObj.CompanyNo = nCompanyNo;

@@ -18,7 +18,7 @@ namespace SIS.OpenCore.BL
             var Ret =   (from c in db.DEF_Currency
                         where c.ISOCode == stISO
                         select c.ISOCode).FirstOrDefault();
-            if(String.IsNullOrEmpty (Ret))
+            if(true == String.IsNullOrEmpty (Ret))
                 return false;  
             
             return true;

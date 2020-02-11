@@ -7,6 +7,8 @@ namespace SIS.OpenCore.BL.Objects
 {
     public partial class AccountClass
     {
+        static protected byte   _ACCOUNT_CLASS_CODE_FORMAT_LENGTH = 5;
+        static protected string _ACCOUNT_CLASS_CODE_FORMAT = "00000";
         static public bool ValidateExists(string stCode)
         {
             OpenCoreContext db = new OpenCoreContext();
@@ -20,36 +22,45 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
-        static protected string GenerateNewCode(string stClassCode)
+        static protected string GenerateNewCode(string stAcctClassCode)
         {
-            short nCIFClassCode = 0;
+            short nAcctClassCode = 0;
             string sReturn = string.Empty;
             
-            // sCIFClassCode is provided or not
-            // if(string.IsNullOrEmpty(stClassCode)) 
-            // {
-            //     stClassCode = GetMaxCode();
-            //     if(string.IsNullOrEmpty(sCIFClassCode))
-            //         sCIFClassCode = _CIF_Class_Format;
-            //     nCIFClassCode = (short)short.Parse(sCIFClassCode);
-            //     nCIFClassCode ++;
-            //     sReturn = _CIF_Class_Format + nCIFClassCode.ToString();
-            //     int cToRemove = sReturn.Length - _CIF_Class_Format_Length;
-            //     sReturn = sReturn.Remove(0,cToRemove);
-            // }
-            // else
-            // {
-            //     if(sCIFClassCode.Length > _CIF_Class_Format_Length)
-            //         sReturn = string.Empty; // ERROR
-            //     else
-            //     {
-            //         sReturn = _CIF_Class_Format + nCIFClassCode.ToString();
-            //         int cToRemove = sReturn.Length - _CIF_Class_Format_Length;
-            //         sReturn = sReturn.Remove(0,cToRemove);
-            //     }
-            // }
+            // stAcctClassCode is provided or not
+            if(string.IsNullOrEmpty(stAcctClassCode)) 
+            {
+                stAcctClassCode = GetMaxCode();
+                if(true == string.IsNullOrEmpty(stAcctClassCode))
+                     stAcctClassCode = _ACCOUNT_CLASS_CODE_FORMAT;
+                nAcctClassCode = (short)short.Parse(stAcctClassCode);
+                nAcctClassCode ++;
+                sReturn = _ACCOUNT_CLASS_CODE_FORMAT + nAcctClassCode.ToString();
+                int cToRemove = sReturn.Length - _ACCOUNT_CLASS_CODE_FORMAT_LENGTH;
+                sReturn = sReturn.Remove(0,cToRemove);
+            }
+            else
+            {
+                if(stAcctClassCode.Length > _ACCOUNT_CLASS_CODE_FORMAT_LENGTH)
+                    sReturn = string.Empty; // ERROR
+                else
+                {
+                    sReturn = _ACCOUNT_CLASS_CODE_FORMAT + nAcctClassCode.ToString();
+                    int cToRemove = sReturn.Length - _ACCOUNT_CLASS_CODE_FORMAT_LENGTH;
+                    sReturn = sReturn.Remove(0,cToRemove);
+                }
+            }
 
-            return stClassCode;
+            return stAcctClassCode;
+        }
+
+        static public string GetMaxCode()
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            string stMaxCode = (from r in db.DEF_ACCT_CLASS
+                                select r.Code).Max();
+            return stMaxCode;
+
         }
 
         static public string Add (
@@ -57,10 +68,13 @@ namespace SIS.OpenCore.BL.Objects
             short       nCompanyNo,
             string      stAccountType,
             string      stName,
+            string      stCurrency,
+            string      stREFERENCE,
             string      stCode = "")
         {
             object CIFLock = new object();
             OpenCoreContext db = new OpenCoreContext();
+            DEF_ACCT_CLASS  newAcctClass = new DEF_ACCT_CLASS();
 
             // check Company
             if(false == Company.ValidateExists(nCompanyNo))
@@ -69,11 +83,27 @@ namespace SIS.OpenCore.BL.Objects
             if(false == AccountType.ValidateExists(stAccountType))
                 throw new ArgumentOutOfRangeException("AccountType", "Account Type doesn't Exists");
 
-            
+            if(false == Currency.ValidateExists(stCurrency))
+                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
-            
+            stCode = GenerateNewCode(stCode);
+            if(true == string.IsNullOrEmpty(stCode))
+                throw new ArgumentOutOfRangeException("Code", "Invalid Account Class Code");
 
-            return string.Empty;
+            if(true == ValidateExists(stCode))
+                throw new Exception("Account Class Code Already Exists");
+
+            newAcctClass.Code = stCode;
+            newAcctClass.CompanyNo = nCompanyNo;
+            newAcctClass.EFFECTIVE_DT = dtEFFECTIVE_DT;
+            newAcctClass.Name = stName;
+            newAcctClass.Type = stAccountType;
+            newAcctClass.REFERENCE = stREFERENCE;
+
+            db.DEF_ACCT_CLASS.Add(newAcctClass);
+            db.SaveChanges();
+
+            return stCode;
         }
                 
     }
