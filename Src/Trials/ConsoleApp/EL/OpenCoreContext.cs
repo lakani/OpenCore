@@ -35,6 +35,7 @@ namespace SIS.OpenCore.EL
         public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
         public virtual DbSet<LUT_CITY> LUT_CITY { get; set; }
         public virtual DbSet<LUT_COUNTRY> LUT_COUNTRY { get; set; }
+        public virtual DbSet<LUT_GL_ACCT_CATEGORY> LUT_GL_ACCT_CATEGORY { get; set; }
         public virtual DbSet<LUT_LedgerNature> LUT_LedgerNature { get; set; }
         public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
         public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
@@ -324,6 +325,15 @@ namespace SIS.OpenCore.EL
                 entity.Property(e => e.Code).HasMaxLength(10);
 
                 entity.Property(e => e.Name).HasMaxLength(80);
+            });
+
+            modelBuilder.Entity<LUT_GL_ACCT_CATEGORY>(entity =>
+            {
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(80);
             });
 
             modelBuilder.Entity<LUT_LedgerNature>(entity =>
