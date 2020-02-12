@@ -64,13 +64,14 @@ namespace SIS.OpenCore.BL.Objects
         }
 
         static public string Add (
-            DateTime    dtEFFECTIVE_DT,
-            short       nCompanyNo,
-            string      stAccountType,
-            string      stName,
-            string      stCurrency,
-            string      stREFERENCE,
-            string      stCode = "")
+            DateTime                    dtEFFECTIVE_DT,
+            short                       nCompanyNo,
+            string                      stAccountType,
+            string                      stName,
+            string                      stCurrency,
+            string                      stREFERENCE,
+            DEF_ACCT_CLASS_ACCT_STRUCT  [] Accts,
+            string                      stCode = "")
         {
             object CIFLock = new object();
             OpenCoreContext db = new OpenCoreContext();
@@ -86,6 +87,9 @@ namespace SIS.OpenCore.BL.Objects
             if(false == Currency.ValidateExists(stCurrency))
                 throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
+            if(false == AccountClassAccountingStructure.ValidateExists(Accts, stCurrency))
+                throw new ArgumentOutOfRangeException("Accts", "invalid Accounting structure");
+            
             stCode = GenerateNewCode(stCode);
             if(true == string.IsNullOrEmpty(stCode))
                 throw new ArgumentOutOfRangeException("Code", "Invalid Account Class Code");
