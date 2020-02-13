@@ -45,6 +45,8 @@ namespace SIS.OpenCore.BL.Objects
             //-- if not supplied , assume its the base currency
             if (String.IsNullOrEmpty(CURR))
                 CURR = Settings.fn_OPT_GetBaseCurrency();
+            if (string.IsNullOrEmpty(CURR))
+                throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
             
             //-- if not supplied , assume its current bussiness date
             if(EFFECTIVE_DT <= DateTime.MinValue || EFFECTIVE_DT >= DateTime.MaxValue )

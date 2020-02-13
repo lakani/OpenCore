@@ -85,7 +85,7 @@ namespace SIS.OpenCore.BL.Transactions
             // Get Base Curren\cy
             stBaseCurrency = Settings.fn_OPT_GetBaseCurrency();
             if (string.IsNullOrEmpty(stBaseCurrency))
-                return Guid.Empty;
+                throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
             
             // get Current Bussiness date
             MaxEffDt = Settings.fn_GetCurrentBusinessDate();
@@ -94,21 +94,21 @@ namespace SIS.OpenCore.BL.Transactions
             CRT_DT = DateTime.Now;
 
             if (CRT_DT.Date > MaxEffDt.Date )
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("CRT_DT.Date", "CRT_DT.Date bigger than MaxEffDt");
             
             // Get All Legs GLs information 
             // ensure that all Gls got the supplied currency 
-            if(Retrive_GL_Info(ae_Param,stBaseCurrency) == false)
-                return Guid.Empty;
+            if(Retrive_GL_Info(ae_Param, stBaseCurrency) == false)
+                throw new ArgumentOutOfRangeException("ae_Param", "Legs currency is not the base currency");
 
             if(Validation_Sum_of_CR_Equal_Sum_of_DR(ae_Param, stBaseCurrency) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "sum of CR Legs is not sum of DR Legs");
 
             if(Validation_All_Legs_Within_Same_Company(ae_Param) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "All legs are not within the same company");
 
             if(Validation_All_Legs_Backdated(ae_Param, MaxEffDt ) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "Ensure all legs are less than or equal the current business date");
 
             // Generate the new Refrerence
             RetGUID = Guid.NewGuid();
@@ -154,7 +154,7 @@ namespace SIS.OpenCore.BL.Transactions
             // TODO : Seperate a call, one for GL and another for Account
             if(isGL)
                 return GL.GetLastBalance( Acct_No, Acct_Curr);
-            else
+            else // TODO , replace call by Account . GetLastBalance
                 return GL.GetLastBalance( Acct_No, Acct_Curr);
 
         }
