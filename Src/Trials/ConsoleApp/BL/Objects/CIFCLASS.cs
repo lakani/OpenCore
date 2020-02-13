@@ -91,7 +91,7 @@ namespace SIS.OpenCore.BL.Objects
 
             sCIFClassCode = GenerateNewCode(nCompanyNo, sCIFClassCode) ;
             if(string.IsNullOrEmpty(sCIFClassCode))
-                return string.Empty;
+                throw new ArgumentOutOfRangeException("sCIFClassCode", "Invalid CIF class Code");
             
             if(true == ValidateExists(sCIFClassCode, nCompanyNo))
                 throw new Exception("sCIFClassCode Already Exists");
