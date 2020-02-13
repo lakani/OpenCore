@@ -16,8 +16,8 @@ namespace SIS.OpenCore.BL.Objects
 
             Ret =   (from r in db.DEF_ACCT_CLASS
                     where r.Code == stCode
-                    select r.Code).First();
-            if( false == string.IsNullOrEmpty(Ret))
+                    select r.Code).FirstOrDefault();
+            if( true == string.IsNullOrEmpty(Ret))
                 return false;
             return true;
         }
@@ -51,7 +51,7 @@ namespace SIS.OpenCore.BL.Objects
                 }
             }
 
-            return stAcctClassCode;
+            return sReturn;
         }
 
         static public string GetMaxCode()
@@ -106,6 +106,8 @@ namespace SIS.OpenCore.BL.Objects
 
             db.DEF_ACCT_CLASS.Add(newAcctClass);
             db.SaveChanges();
+
+            AccountClassAccountingStructure.Add(Accts, stCode);
 
             return stCode;
         }

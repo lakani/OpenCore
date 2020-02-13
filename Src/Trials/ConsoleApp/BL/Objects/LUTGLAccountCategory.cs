@@ -13,7 +13,7 @@ namespace SIS.OpenCore.BL.Objects
 
             Ret =   (from r in db.LUT_GL_ACCT_CATEGORY
                     where r.ID == GLCategory
-                    select r.ID).First();
+                    select r.ID).FirstOrDefault();
             if(Ret == 0 )
                 return false;
 

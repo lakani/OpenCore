@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using SIS.OpenCore.EL;
+using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
@@ -15,7 +15,8 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            testCIF();
+            TestAccountClassSetup();
+            //testCIF();
             //TestGLCreate();
             //testReverse();
             return;
@@ -42,6 +43,31 @@ namespace ConsoleApp
 
             //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
             Console.WriteLine("Hello World!");
+        }
+
+        static void TestAccountClassSetup()
+        {
+            List<DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<DEF_ACCT_CLASS_ACCT_STRUCT>();
+            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
+                GLNum = "01-01-01-01-01-01-00001",
+                GLCategory = 1
+                });
+
+            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
+                GLNum = "01-01-01-01-01-01-00001",
+                GLCategory = 2
+                });
+
+
+            AccountClass.Add(new DateTime(2020, 1, 1),
+            1, //Company
+            "CK", // Account Type)
+            "EGP CK Account Class", //Name
+            "EGP", // Currency
+            "", //Ref
+            ACCTS.ToArray());
+
+
         }
 
         static void testCIF()
