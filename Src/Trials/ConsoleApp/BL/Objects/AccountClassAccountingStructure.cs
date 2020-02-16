@@ -11,7 +11,7 @@ namespace SIS.OpenCore.BL.Objects
             foreach(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount in GLAccounts)
             {
                 if(false == Add(GLAccount, stAcctClsCode))
-                    return false;
+                    throw new Exception("Failed to insert Accounting structure for Account Class");
             }
 
             return true;
