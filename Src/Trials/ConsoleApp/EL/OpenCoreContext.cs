@@ -32,6 +32,7 @@ namespace SIS.OpenCore.EL
         public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
         public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
         public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
+        public virtual DbSet<LUT_AE_CATEGORY> LUT_AE_CATEGORY { get; set; }
         public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
         public virtual DbSet<LUT_CITY> LUT_CITY { get; set; }
         public virtual DbSet<LUT_COUNTRY> LUT_COUNTRY { get; set; }
@@ -295,6 +296,15 @@ namespace SIS.OpenCore.EL
                     .HasMaxLength(10);
             });
 
+            modelBuilder.Entity<LUT_AE_CATEGORY>(entity =>
+            {
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(80);
+            });
+
             modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
                 entity.HasKey(e => e.Code)
@@ -419,8 +429,6 @@ namespace SIS.OpenCore.EL
             {
                 entity.HasKey(e => e.TRN_LEGS_ID);
 
-                entity.Property(e => e.Acct_Amt).HasColumnType("decimal(28, 3)");
-
                 entity.Property(e => e.Acct_CR_DR).HasMaxLength(2);
 
                 entity.Property(e => e.Acct_Curr).HasMaxLength(3);
@@ -432,6 +440,8 @@ namespace SIS.OpenCore.EL
                 entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.EffDt).HasColumnType("date");
+
+                entity.Property(e => e.Trn_Amt).HasColumnType("decimal(28, 3)");
             });
 
             modelBuilder.Entity<VW_DEF_GL>(entity =>

@@ -65,7 +65,7 @@ namespace SIS.OpenCore.BL.Transactions
                 ARR.Add (new TRAN_POST_AE_TYPE_PARAM{   Acct_CR_DR = l.Acct_CR_DR , 
                                                         Acct_No = l.Acct_No,
                                                         GL = (bool)l.GL, 
-                                                        Acct_Amt = (decimal)l.Acct_Amt,
+                                                        Trn_Amt = (decimal)l.Trn_Amt,
                                                         Acct_Curr = l.Acct_Curr,
                                                         Acct_Description = "Rev : " + l.Ref,
                                                         EffDt=DateTime.Today});
@@ -110,6 +110,11 @@ namespace SIS.OpenCore.BL.Transactions
             if(Validation_All_Legs_Backdated(ae_Param, MaxEffDt ) == false)
                 throw new ArgumentOutOfRangeException("ae_Param", "Ensure all legs are less than or equal the current business date");
 
+            // Validates AE_CATEGORY
+            if(Validation_All_Legs_Same_Category(ae_Param) == false)
+                throw new ArgumentOutOfRangeException("ae_Param", "All legs are not within the same category");
+
+
             // Generate the new Refrerence
             RetGUID = Guid.NewGuid();
             short   Sequence = 1;
@@ -119,7 +124,7 @@ namespace SIS.OpenCore.BL.Transactions
             {
                 TRN_LEGS    trn_LEGSNewObject = new TRN_LEGS();
                 
-                trn_LEGSNewObject.Acct_Amt          = Leg.Acct_Amt;
+                trn_LEGSNewObject.Trn_Amt          = Leg.Trn_Amt;
                 trn_LEGSNewObject.Acct_CR_DR        = Leg.Acct_CR_DR; 
                 trn_LEGSNewObject.Acct_Curr         = Leg.Acct_Curr;
                 trn_LEGSNewObject.Acct_Description  = Leg.Acct_Description;
@@ -127,7 +132,7 @@ namespace SIS.OpenCore.BL.Transactions
                 trn_LEGSNewObject.Balance_Before    = GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
                 trn_LEGSNewObject.Balance_After     =  AccountingMisc.NUM_ACT_CR_DR
                                                             ((decimal)trn_LEGSNewObject.Balance_Before, 
-                                                            Leg.Acct_Amt, 
+                                                            Leg.Trn_Amt, 
                                                             Leg.GL_Info.Nature,
                                                             Leg.Acct_CR_DR);
                 trn_LEGSNewObject.CHANNEL_ID        = 1;
@@ -138,6 +143,7 @@ namespace SIS.OpenCore.BL.Transactions
                 trn_LEGSNewObject.Ref               = RetGUID;
                 trn_LEGSNewObject.Sequence          = Sequence;
                 trn_LEGSNewObject.STATUS_ID         = 1;
+                trn_LEGSNewObject.Category          = Leg.Category;
                 trn_LEGSNewObject.Related_Ref       = RelatedRef;
 
                 db.TRN_LEGS.Add(trn_LEGSNewObject);
@@ -170,11 +176,11 @@ namespace SIS.OpenCore.BL.Transactions
 
             SumOfCR =   (from l in Legs
                         where l.Acct_CR_DR == "CR" && l.Acct_Curr == stBaseCurr
-                        select l.Acct_Amt).Sum();
+                        select l.Trn_Amt).Sum();
 
             SumOfDR =   (from l in Legs
                         where l.Acct_CR_DR == "DR" && l.Acct_Curr == stBaseCurr
-                        select l.Acct_Amt).Sum();
+                        select l.Trn_Amt).Sum();
 
             if (SumOfDR != SumOfCR)
                 return false;
@@ -191,6 +197,21 @@ namespace SIS.OpenCore.BL.Transactions
                 return false;
             return true;
         }
+
+        static protected bool Validation_All_Legs_Same_Category(TRAN_POST_AE_TYPE_PARAM[] Legs)
+        {
+            short[] CategoryArr =   (from l in Legs
+                                    select l.Category).Distinct().ToArray();
+            
+            if(CategoryArr.Length > 1)
+                return false;
+
+            if(false == TRAN_POST_AE_CATEGORY.ValidateExists(CategoryArr[0]))
+                return false;
+
+            return true;
+        }
+        
 
         static protected  bool Validation_All_Legs_Backdated(TRAN_POST_AE_TYPE_PARAM[] Legs, DateTime MaxEffDt )
         {
