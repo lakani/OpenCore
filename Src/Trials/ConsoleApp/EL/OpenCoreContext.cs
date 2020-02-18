@@ -455,7 +455,6 @@ namespace SIS.OpenCore.EL
                     .HasMaxLength(30);
 
                 entity.Property(e => e.CR_DR)
-                    .IsRequired()
                     .HasMaxLength(2)
                     .IsFixedLength();
 
@@ -463,29 +462,29 @@ namespace SIS.OpenCore.EL
                     .IsRequired()
                     .HasMaxLength(4);
 
-                entity.Property(e => e.CompanyName)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.CompanyName).HasMaxLength(30);
 
                 entity.Property(e => e.DepName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("date");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.LedgerNO)
                     .IsRequired()
                     .HasMaxLength(15);
 
-                entity.Property(e => e.NatureName)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.NatureName).HasMaxLength(30);
+
+                entity.Property(e => e.REFERENCE).IsRequired();
 
                 entity.Property(e => e.SectorName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.TotallingGL).HasMaxLength(35);
+                entity.Property(e => e.TotallingGL)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.UnitName)
                     .IsRequired()
