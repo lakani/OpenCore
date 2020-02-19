@@ -15,6 +15,8 @@ namespace SIS.OpenCore.EL
         {
         }
 
+        public virtual DbSet<DEF_ACCT> DEF_ACCT { get; set; }
+        public virtual DbSet<DEF_ACCT_ACCT_STRUCT> DEF_ACCT_ACCT_STRUCT { get; set; }
         public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
         public virtual DbSet<DEF_ACCT_CLASS_ACCT_STRUCT> DEF_ACCT_CLASS_ACCT_STRUCT { get; set; }
         public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
@@ -56,6 +58,52 @@ namespace SIS.OpenCore.EL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DEF_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.DEF_ACCT_ID);
+
+                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_TYPE)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CSP_Code).HasMaxLength(10);
+
+                entity.Property(e => e.CompanyNo).HasMaxLength(10);
+
+                entity.Property(e => e.Currency).HasMaxLength(3);
+
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.OpenDate).HasColumnType("date");
+
+                entity.Property(e => e.Title).HasMaxLength(80);
+            });
+
+            modelBuilder.Entity<DEF_ACCT_ACCT_STRUCT>(entity =>
+            {
+                entity.HasKey(e => e.AccountStructID);
+
+                entity.Property(e => e.AccountCode)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.GLComments).HasMaxLength(80);
+
+                entity.Property(e => e.GLNum)
+                    .IsRequired()
+                    .HasMaxLength(40);
+            });
+
             modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
             {
                 entity.HasKey(e => e.AccountClassID);
@@ -112,7 +160,9 @@ namespace SIS.OpenCore.EL
 
                 entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
 
-                entity.Property(e => e.CIF_NO).IsRequired();
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
@@ -132,7 +182,11 @@ namespace SIS.OpenCore.EL
 
                 entity.Property(e => e.MobileNumber).HasMaxLength(80);
 
-                entity.Property(e => e.SearchKey).IsRequired();
+                entity.Property(e => e.RSM).HasMaxLength(35);
+
+                entity.Property(e => e.SearchKey)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
@@ -154,6 +208,8 @@ namespace SIS.OpenCore.EL
             modelBuilder.Entity<DEF_CIF_Company>(entity =>
             {
                 entity.HasKey(e => e.DEF_CIF_Company_ID);
+
+                entity.Property(e => e.CIF_NO).HasMaxLength(35);
             });
 
             modelBuilder.Entity<DEF_Company>(entity =>
