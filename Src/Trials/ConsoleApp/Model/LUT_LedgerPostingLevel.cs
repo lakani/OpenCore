@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SIS.OpenCore.Modeldel
+namespace SIS.OpenCore.Model
 {
-    public partial class LUT_LedgerPostingLevel
+    public partial class LUT_LedgerPostingLevel : SIS.OpenCore.EL.LUT_LedgerPostingLevel
     {
-        public byte ID { get; set; }
-        public string PostingLevel { get; set; }
+        
     }
 }

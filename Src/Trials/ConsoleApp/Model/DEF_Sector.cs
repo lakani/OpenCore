@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Model
 {
-    public partial class DEF_Sector
+    public partial class DEF_Sector : SIS.OpenCore.EL.DEF_Sector
     {
-        public byte ID { get; set; }
-        public string Name { get; set; }
+        
     }
 }
