@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Model
 {
-    public partial class LUT_COUNTRY
+    public partial class LUT_COUNTRY : SIS.OpenCore.EL.LUT_COUNTRY
     {
-        public short ID { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        
     }
 }
