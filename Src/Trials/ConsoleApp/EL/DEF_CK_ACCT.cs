@@ -19,5 +19,6 @@ namespace SIS.OpenCore.EL
         public DateTime? OpenDate { get; set; }
         public string CSP_Code { get; set; }
         public string CompanyNo { get; set; }
+        public byte? STATUS { get; set; }
     }
 }
