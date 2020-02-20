@@ -1,14 +1,14 @@
 USE [OpenCore]
 GO
 
-/****** Object:  Table [dbo].[DEF_ACCT_ACCT_STRUCT]    Script Date: 19/02/2020 14:25:16 ******/
+/****** Object:  Table [dbo].[DEF_CK_ACCT_ACCT_STRUCT]    Script Date: 20/02/2020 13:42:15 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[DEF_ACCT_ACCT_STRUCT](
+CREATE TABLE [dbo].[DEF_CK_ACCT_ACCT_STRUCT](
 	[AccountStructID] [smallint] IDENTITY(1,1) NOT NULL,
 	[AccountCode] [nvarchar](35) NOT NULL,
 	[GLNum] [nvarchar](40) NOT NULL,
