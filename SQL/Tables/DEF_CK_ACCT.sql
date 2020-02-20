@@ -1,7 +1,7 @@
 USE [OpenCore]
 GO
 
-/****** Object:  Table [dbo].[DEF_CK_ACCT]    Script Date: 20/02/2020 13:39:55 ******/
+/****** Object:  Table [dbo].[DEF_CK_ACCT]    Script Date: 20/02/2020 15:38:35 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[DEF_CK_ACCT](
 	[OpenDate] [date] NULL,
 	[CSP_Code] [nvarchar](10) NULL,
 	[CompanyNo] [nvarchar](10) NULL,
+	[STATUS] [tinyint] NULL,
  CONSTRAINT [PK_DEF_ACCT] PRIMARY KEY CLUSTERED 
 (
 	[DEF_ACCT_ID] ASC
