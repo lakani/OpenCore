@@ -3,6 +3,10 @@
   <ItemGroup>
     <ProjectReference Include="..\EL\SIS.OpenCore.EL.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Model\SIS.OpenCore.EL.csproj" />
+  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

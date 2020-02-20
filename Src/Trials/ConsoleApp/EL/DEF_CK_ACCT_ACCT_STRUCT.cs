@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.EL
 {
-    public partial class DEF_ACCT_ACCT_STRUCT
+    public partial class DEF_CK_ACCT_ACCT_STRUCT
     {
         public short AccountStructID { get; set; }
         public string AccountCode { get; set; }
