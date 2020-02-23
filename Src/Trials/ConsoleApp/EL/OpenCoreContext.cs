@@ -187,8 +187,6 @@ namespace SIS.OpenCore.EL
 
                 entity.Property(e => e.CSP_Code).HasMaxLength(10);
 
-                entity.Property(e => e.CompanyNo).HasMaxLength(10);
-
                 entity.Property(e => e.Currency).HasMaxLength(3);
 
                 entity.Property(e => e.Description).HasMaxLength(80);
