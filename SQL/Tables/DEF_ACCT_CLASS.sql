@@ -1,7 +1,7 @@
 USE [OpenCore]
 GO
 
-/****** Object:  Table [dbo].[DEF_ACCT_CLASS]    Script Date: 11/02/2020 16:05:04 ******/
+/****** Object:  Table [dbo].[DEF_ACCT_CLASS]    Script Date: 23/02/2020 11:55:57 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[DEF_ACCT_CLASS](
 	[Code] [nvarchar](5) NOT NULL,
 	[Name] [nvarchar](80) NULL,
 	[Type] [nvarchar](10) NULL,
-	[CompanyNo] [smallint] NULL,
+	[CompanyNo] [int] NULL,
 	[Currency] [nvarchar](5) NULL,
 	[EFFECTIVE_DT] [datetime] NULL,
 	[REFERENCE] [nvarchar](max) NOT NULL,
@@ -23,4 +23,5 @@ CREATE TABLE [dbo].[DEF_ACCT_CLASS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
 
