@@ -54,6 +54,17 @@ namespace SIS.OpenCore.BL.Objects
             
             return true;
         }
-        
+
+        static public bool ValidateExists(string GLNum, short GLCategory , string stCurrency)   
+        {
+            // Validate acct.GLNum
+            if(null == GL.fn_GetGLInfo(GLNum, stCurrency))
+                return false;
+
+            // Validate acct.GLCategory
+            if(false == LUTGLAccountCategory.ValidateExists(GLCategory))
+                return false;
+            return true;
+        }
     }
 }
