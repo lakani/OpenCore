@@ -9,6 +9,10 @@ namespace SIS.OpenCore.BL.Objects
 {
     public partial class CurrentAccount
     {
+
+        static protected byte   _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH = 15;
+        static protected string _CURRENT_ACCOUNT_NUM_FORMAT = "000000000000000";
+
         public static bool SearchRegardlessStatus(string stAcctNo)
         {
             EL.OpenCoreContext db = new EL.OpenCoreContext();
@@ -37,10 +41,11 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
-        public static string Add(Model.DEF_CK_ACCT NewAcct, Model.DEF_ACCT_CLASS_ACCT_STRUCT [] NewAcctStruct)
+        public static string Add(Model.DEF_CK_ACCT NewAcct, Model.DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
-            //needs to do the validation over here
-
+            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            EL.DEF_CK_ACCT  newAcctEL = new EL.DEF_CK_ACCT();
+            
             // Validate on Company
             if(false == Company.ValidateExists(NewAcct.CompanyNo))
                 throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
@@ -54,7 +59,7 @@ namespace SIS.OpenCore.BL.Objects
             if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
                 throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 
-            foreach(Model.DEF_ACCT_CLASS_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            foreach(Model.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             {
                 //GLNum, short GLCategory , string stCurrency)   
                 if(false == AccountClassAccountingStructure.ValidateExists(ACCT_STRUCT.GLNum, ACCT_STRUCT.GLCategory, NewAcct.Currency))
@@ -64,17 +69,78 @@ namespace SIS.OpenCore.BL.Objects
             NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
             if(true == string.IsNullOrEmpty(NewAcct.ACCT_NO))
                 throw new ArgumentOutOfRangeException("ACCT_NO", "Invalid Account Number");
-            
-            
-                      
 
+            newAcctEL.ACCT_NO = NewAcct.ACCT_NO;
+            newAcctEL.ACCT_TYPE = NewAcct.ACCT_TYPE;
+            newAcctEL.ACCT_CLASS = NewAcct.ACCT_CLASS;
+            newAcctEL.CIF_NO = NewAcct.CIF_NO;
+            newAcctEL.CompanyNo = NewAcct.CompanyNo;
+            newAcctEL.CSP_Code = NewAcct.CSP_Code;
+            newAcctEL.Currency = NewAcct.Currency;
+            newAcctEL.Description = NewAcct.Description;
+            newAcctEL.IBAN = NewAcct.IBAN;
+            newAcctEL.OpenDate = NewAcct.OpenDate;
+            newAcctEL.ReferenceACCT = NewAcct.ReferenceACCT;
+            newAcctEL.ReferenceOrg = NewAcct.ReferenceOrg;
+            newAcctEL.STATUS = 1;
+            newAcctEL.Title = NewAcct.Title;
 
-            return "";
+            db.DEF_CK_ACCT.Add(newAcctEL);
+            db.SaveChanges();   
+
+            foreach(Model.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            {
+                EL.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new EL.DEF_CK_ACCT_ACCT_STRUCT();
+
+                ACCT_STRUCT_EL.AccountCode = NewAcct.ACCT_NO;
+                ACCT_STRUCT_EL.GLCategory = ACCT_STRUCT.GLCategory;
+                ACCT_STRUCT_EL.GLComments = ACCT_STRUCT.GLComments;
+                ACCT_STRUCT_EL.GLNum = ACCT_STRUCT.GLNum;
+
+                db.DEF_CK_ACCT_ACCT_STRUCT.Add(ACCT_STRUCT_EL);
+                db.SaveChanges();
+            }
+            
+            return newAcctEL.ACCT_NO;
         }
 
-        static protected string GenerateNewACCT_NO(string ACCT_NO)
+        static protected string GetMaxCode()
         {
-            return "0000001";
+            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            string stMaxCode = (from r in db.DEF_CK_ACCT
+                                select r.ACCT_NO).Max();
+            return stMaxCode;
+        }
+
+        static protected string GenerateNewACCT_NO(string stACCT_NO)
+        {
+            int nAcctNo = 0;
+            string sReturn = string.Empty;
+
+            if(string.IsNullOrEmpty(stACCT_NO)) 
+            {
+                stACCT_NO = GetMaxCode();
+                if(true == string.IsNullOrEmpty(stACCT_NO))
+                     stACCT_NO = _CURRENT_ACCOUNT_NUM_FORMAT;
+                nAcctNo = (int)int.Parse(stACCT_NO);
+                nAcctNo ++;
+                sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + nAcctNo.ToString();
+                int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
+                sReturn = sReturn.Remove(0,cToRemove);
+            }
+            else
+            {
+                if(stACCT_NO.Length > _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH)
+                    sReturn = string.Empty; // ERROR
+                else
+                {
+                    sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + stACCT_NO.ToString();
+                    int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
+                    sReturn = sReturn.Remove(0,cToRemove);
+                }
+            }
+
+            return sReturn;
         }
     }
 }
