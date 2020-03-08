@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using SIS.OpenCore.EL;
-using SIS.OpenCore.BL;
 using Model = SIS.OpenCore.Model;
+using EL = SIS.OpenCore.EL;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 
@@ -17,7 +16,8 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            CurrentAccount_Create_Test();
+            Test_Cast();
+            //CurrentAccount_Create_Test();
             //Test_fn_GetGLInfo_29();
             //TestAccountClassSetup();
             //testCIF();
@@ -49,13 +49,13 @@ namespace ConsoleApp
 
         static void TestAccountClassSetup()
         {
-            List<DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<DEF_ACCT_CLASS_ACCT_STRUCT>();
-            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
+            List<Model.DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<Model.DEF_ACCT_CLASS_ACCT_STRUCT>();
+            ACCTS.Add(new Model.DEF_ACCT_CLASS_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 1
                 });
 
-            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
+            ACCTS.Add(new Model.DEF_ACCT_CLASS_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 2
                 });
@@ -115,7 +115,7 @@ namespace ConsoleApp
 
         static void Test_fn_GetGLInfo_29()
         {
-            OpenCoreContext db = new OpenCoreContext();
+            EL.OpenCoreContext db = new EL.OpenCoreContext();
             var GLs =   (from g in db.VW_DEF_GL select g).ToArray();
             //var GLs =   from g in db.VW_DEF_GL
               //          select g.CURR , g.DepNo , g.GL;
@@ -125,10 +125,10 @@ namespace ConsoleApp
             //foreach(VW_DEF_GL GLRec in GLs)
             for(int nLoop=0; nLoop < GLs.Length; nLoop++)
             {
-                VW_DEF_GL GLRec = GLs[nLoop];
+                EL.VW_DEF_GL GLRec = GLs[nLoop];
                 //foreach(VW_DEF_GL GLRec in GLs)
 
-                DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
+                EL.DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
 
                 if(_GL == null)
                     throw new Exception("NULL for GL" + GLRec.GL);
@@ -172,6 +172,26 @@ namespace ConsoleApp
 
             }
             
+        }
+
+        static void Test_Cast()
+        {
+            EL.DEF_CK_ACCT_ACCT_STRUCT ACCTS = new EL.DEF_CK_ACCT_ACCT_STRUCT();
+            Model.DEF_CK_ACCT_ACCT_STRUCT ModelACCTS ;
+
+            ACCTS.AccountCode = "1";
+            ACCTS.AccountStructID = 1;
+            ACCTS.GLCategory = 1;
+            ACCTS.GLComments = "ACCTS.GLComments";
+            ACCTS.GLNum = "12345";
+
+            ModelACCTS = new Model.DEF_CK_ACCT_ACCT_STRUCT();
+
+            ModelACCTS = ACCTS as Model.DEF_CK_ACCT_ACCT_STRUCT;
+            
+
+            ModelACCTS.GLComments = "After Casting";
+            ACCTS = ModelACCTS;
         }
 
         static void CurrentAccount_Create_Test()
