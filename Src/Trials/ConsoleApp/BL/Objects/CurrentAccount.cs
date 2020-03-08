@@ -112,6 +112,15 @@ namespace SIS.OpenCore.BL.Objects
             return stMaxCode;
         }
 
+        static protected Model.DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
+        {
+            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            EL.DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
+                                                        where r.AccountCode == stACCT_NO
+                                                        select r ).ToArray();
+            return null;
+        }
+
         static protected string GenerateNewACCT_NO(string stACCT_NO)
         {
             int nAcctNo = 0;
