@@ -233,6 +233,10 @@ namespace SIS.OpenCore.BL.Transactions
                     Leg.GL_Info = GL.fn_GetGLInfo(Leg.Acct_No, stBaseCurr);
                 if (Leg.GL == true && Leg.GL_Info == null)
                     return false;
+                if (Leg.GL == false)
+                    Leg.CK_Acct = CurrentAccount.GetAccountInfo(Leg.Acct_No);
+                if (Leg.GL == false && Leg.CK_Acct == null )
+                    return false;
             }
 
             return true;

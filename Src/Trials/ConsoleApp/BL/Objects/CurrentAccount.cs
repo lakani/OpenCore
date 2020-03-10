@@ -41,6 +41,17 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
+        public static EL.DEF_CK_ACCT GetAccountInfo(string stAcctNo)
+        {
+            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            var Ret =   (from   c in db.DEF_CK_ACCT
+                        where   c.ACCT_NO == stAcctNo && c.STATUS == 1
+                        select  c).FirstOrDefault();
+
+            return Ret;
+        }
+
+
         public static string Add(Model.DEF_CK_ACCT NewAcct, Model.DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
             EL.OpenCoreContext db = new EL.OpenCoreContext();
@@ -112,14 +123,27 @@ namespace SIS.OpenCore.BL.Objects
             return stMaxCode;
         }
 
-        static protected Model.DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
+        static public EL.DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
         {
             EL.OpenCoreContext db = new EL.OpenCoreContext();
             EL.DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
                                                         where r.AccountCode == stACCT_NO
                                                         select r ).ToArray();
-            return null;
+            return AcctStruct;
         }
+
+        static public string GetPrincipleGLForAccount(string stACCT_NO)
+        {
+            EL.DEF_CK_ACCT_ACCT_STRUCT [] AcctStruct = GetAccountingStruct(stACCT_NO);
+            string PrincipleGL =    (from g in AcctStruct
+                                    where g.GLCategory == 1
+                                    orderby g.AccountStructID descending
+                                    select g.GLNum).FirstOrDefault();
+                        
+            return PrincipleGL;
+        }
+
+
 
         static protected string GenerateNewACCT_NO(string stACCT_NO)
         {
@@ -150,6 +174,21 @@ namespace SIS.OpenCore.BL.Objects
             }
 
             return sReturn;
+        }
+
+        public static decimal GetLastBalance(string stACCT_NO, string Acct_Curr)
+        {
+            EL.OpenCoreContext     db = new EL.OpenCoreContext();
+            decimal             BalanceAfter = 0 ;
+
+            BalanceAfter =  (decimal)(from l in db.TRN_LEGS
+                            where   l.GL == false && l.STATUS_ID == 1 && 
+                                    l.Acct_No == stACCT_NO && l.Acct_Curr == Acct_Curr 
+                            orderby l.EffDt descending , l.CREATE_DT descending, 
+                                    l.Sequence descending, l.TRN_LEGS_ID descending
+                            select  l.Balance_After).FirstOrDefault();
+
+            return BalanceAfter;
         }
     }
 }

@@ -26,8 +26,7 @@ namespace SIS.OpenCore.BL.Transactions
         public  DateTime        EffDt;
         public  string          Acct_Description;
         public  DEF_GL          GL_Info;
-
-
+        public  DEF_CK_ACCT     CK_Acct;
 
     }
 }
