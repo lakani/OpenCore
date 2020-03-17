@@ -1,5 +1,24 @@
 
 
+select * from OpenCore..DEF_CK_ACCT
+
+select * FROM [OpenCore].[dbo].[TRN_LEGS]
+where Ref in (select ReF 
+FROM [OpenCore].[dbo].[TRN_LEGS] 
+group by ReF 
+having (COUNT(Sequence) % 2) > 0)
+
+
+select ReF , COUNT(Sequence) , COUNT(Sequence) % 2
+FROM [OpenCore].[dbo].[TRN_LEGS] 
+group by ReF 
+having (COUNT(Sequence) % 2) > 0
+
+select * from OpenCore..LUT_LedgerNature
+-- 000000000000001
+
+select * from OpenCore..TRN_LEGS
+
 
 select * from VW_DEF_GL
 
