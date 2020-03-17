@@ -18,7 +18,7 @@ namespace SIS.OpenCore.EL
         public string Currency { get; set; }
         public DateTime? OpenDate { get; set; }
         public string CSP_Code { get; set; }
-        public int CompanyNo { get; set; }
+        public short CompanyNo { get; set; }
         public byte? STATUS { get; set; }
     }
 }

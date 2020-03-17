@@ -124,16 +124,19 @@ namespace SIS.OpenCore.BL.Transactions
             {
                 TRN_LEGS    trn_LEGSNewObject = new TRN_LEGS();
                 
-                trn_LEGSNewObject.Trn_Amt          = Leg.Trn_Amt;
+                trn_LEGSNewObject.Trn_Amt           = Leg.Trn_Amt;
                 trn_LEGSNewObject.Acct_CR_DR        = Leg.Acct_CR_DR; 
                 trn_LEGSNewObject.Acct_Curr         = Leg.Acct_Curr;
                 trn_LEGSNewObject.Acct_Description  = Leg.Acct_Description;
                 trn_LEGSNewObject.Acct_No           = Leg.Acct_No;
                 trn_LEGSNewObject.Balance_Before    = GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
+                // TODO :
+                // Currently it’s hard coded for accounts to be Liability but however to support other types of
+                // accounts such as Loans, the Nature of the Account should be retrieved  
                 trn_LEGSNewObject.Balance_After     =  AccountingMisc.NUM_ACT_CR_DR
                                                             ((decimal)trn_LEGSNewObject.Balance_Before, 
                                                             Leg.Trn_Amt, 
-                                                            Leg.GL_Info.Nature,
+                                                            (byte)(Leg.GL == true ? Leg.GL_Info.Nature : 2),
                                                             Leg.Acct_CR_DR);
                 trn_LEGSNewObject.CHANNEL_ID        = 1;
                 trn_LEGSNewObject.CREATE_DT         = CRT_DT;
@@ -157,11 +160,11 @@ namespace SIS.OpenCore.BL.Transactions
 
         static protected decimal GetLastBalance(string Acct_No, bool isGL, string Acct_Curr)
         {
-            // TODO : Seperate a call, one for GL and another for Account
+            // TODO : Done, Seperate a call, one for GL and another for Account
             if(isGL)
                 return GL.GetLastBalance( Acct_No, Acct_Curr);
-            else // TODO , replace call by Account . GetLastBalance
-                return GL.GetLastBalance( Acct_No, Acct_Curr);
+            else // TODO , Done,  replace call by Account . GetLastBalance
+                return CurrentAccount.GetLastBalance( Acct_No, Acct_Curr);
 
         }
 
@@ -190,11 +193,24 @@ namespace SIS.OpenCore.BL.Transactions
 
         static protected bool Validation_All_Legs_Within_Same_Company(TRAN_POST_AE_TYPE_PARAM[] Legs)
         {
-            short[] companyArr =    (from l in Legs
-                                    select l.GL_Info.CompanyNo).Distinct().ToArray();
+            //short[] companyArr =    (from l in Legs where l.GL == true select l.GL_Info.CompanyNo).Union(
+              //                      (from cl in Legs where cl.GL == false select cl.CK_Acct.CompanyNo)
+                //            )
             
+            short[] companyArr =    (from cl in Legs
+                                    select 
+                                        cl.GL == true ? cl.GL_Info.CompanyNo : cl.CK_Acct.CompanyNo
+                                    ).Distinct().ToArray();       
+
+            
+            //.Distinct().Union(
+              //                      (from cl in Legs
+                //                    where cl.GL == false
+                  //                  select cl.CK_Acct.CompanyNo).Distinct()).ToArray();
+
             if(companyArr.Length > 1)
-                return false;
+                return false;           
+            
             return true;
         }
 

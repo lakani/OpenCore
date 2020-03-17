@@ -51,6 +51,24 @@ namespace SIS.OpenCore.BL.Objects
             return Ret;
         }
 
+        public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
+        {
+            EL.OpenCoreContext  db = new EL.OpenCoreContext();
+            //decimal?            BalanceAfter = 0 ;
+
+            var BalanceAfter =  ((from l in db.TRN_LEGS
+                                where   l.GL == false && l.STATUS_ID == 1 && 
+                                    l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
+                                orderby l.EffDt descending , l.CREATE_DT descending, 
+                                    l.TRN_LEGS_ID descending, l.Sequence descending
+                                select  l.Balance_After).FirstOrDefault());
+
+            if(BalanceAfter == null)
+                BalanceAfter = 0;
+
+            return (decimal)BalanceAfter;
+        }
+
 
         public static string Add(Model.DEF_CK_ACCT NewAcct, Model.DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
@@ -174,21 +192,6 @@ namespace SIS.OpenCore.BL.Objects
             }
 
             return sReturn;
-        }
-
-        public static decimal GetLastBalance(string stACCT_NO, string Acct_Curr)
-        {
-            EL.OpenCoreContext     db = new EL.OpenCoreContext();
-            decimal             BalanceAfter = 0 ;
-
-            BalanceAfter =  (decimal)(from l in db.TRN_LEGS
-                            where   l.GL == false && l.STATUS_ID == 1 && 
-                                    l.Acct_No == stACCT_NO && l.Acct_Curr == Acct_Curr 
-                            orderby l.EffDt descending , l.CREATE_DT descending, 
-                                    l.Sequence descending, l.TRN_LEGS_ID descending
-                            select  l.Balance_After).FirstOrDefault();
-
-            return BalanceAfter;
         }
     }
 }

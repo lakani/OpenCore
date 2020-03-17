@@ -258,7 +258,7 @@ namespace SIS.OpenCore.BL.Objects
                             where   l.GL == true && l.STATUS_ID == 1 && 
                                     l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
                             orderby l.EffDt descending , l.CREATE_DT descending, 
-                                    l.Sequence descending, l.TRN_LEGS_ID descending
+                                    l.TRN_LEGS_ID descending , l.Sequence descending
                             select  l.Balance_After).FirstOrDefault();
 
             return BalanceAfter;
