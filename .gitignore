@@ -26,3 +26,5 @@ Src/Trials/ConsoleApp/EL/bin/Debug/netcoreapp3.1/SIS.OpenCore.EL.deps.json
 Src/Trials/ConsoleApp/EL/bin/Debug/netcoreapp3.1/SIS.OpenCore.EL.deps.json
 Src/Trials/ConsoleApp/EL/bin/Debug/netcoreapp3.1/SIS.OpenCore.EL.dll
 Src/Trials/ConsoleApp/EL/obj/project.assets.json
+Src/Trials/ConsoleApp/webapi/appsettings.Development.json
+Src/Trials/ConsoleApp/webapi/appsettings.json
