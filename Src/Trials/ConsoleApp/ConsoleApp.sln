@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp.csproj", "{E295E4DF-3473-4191-8C5C-68ACA3C1743E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{E295E4DF-3473-4191-8C5C-68ACA3C1743E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.EL", "EL\SIS.OpenCore.EL.csproj", "{79BF4E77-9D71-4288-858B-9867F8928CA9}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.BL", "BL\SIS.O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.Model", "Model\SIS.OpenCore.Model.csproj", "{D825A4E7-47B8-4AF8-8E82-C311835F8E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.webapi", "webapi\SIS.OpenCore.webapi.csproj", "{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.webapi", "webapi\SIS.OpenCore.webapi.csproj", "{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,17 +62,17 @@ Global
 		{D825A4E7-47B8-4AF8-8E82-C311835F8E5E}.Release|x64.Build.0 = Release|Any CPU
 		{D825A4E7-47B8-4AF8-8E82-C311835F8E5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{D825A4E7-47B8-4AF8-8E82-C311835F8E5E}.Release|x86.Build.0 = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|x64.Build.0 = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Debug|x86.Build.0 = Debug|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|x64.ActiveCfg = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|x64.Build.0 = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|x86.ActiveCfg = Release|Any CPU
-		{0682A856-5B5D-4BC3-BDF7-3A03D839C4CB}.Release|x86.Build.0 = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|x64.Build.0 = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x64.ActiveCfg = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x64.Build.0 = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
