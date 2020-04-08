@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/webapi/bin/Debug/netcoreapp3.1/SIS.OpenCore.webapi.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/SIS.OpenCore.webapi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/webapi",
             "stopAtEntry": false,

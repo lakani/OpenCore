@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/webapi/SIS.OpenCore.webapi.csproj",
+                "${workspaceFolder}/SIS.OpenCore.webapi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/webapi/SIS.OpenCore.webapi.csproj",
+                "${workspaceFolder}/SIS.OpenCore.webapi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/webapi/SIS.OpenCore.webapi.csproj",
+                "${workspaceFolder}/SIS.OpenCore.webapi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
