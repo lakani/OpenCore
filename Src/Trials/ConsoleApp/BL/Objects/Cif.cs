@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.EL;
 using SIS.OpenCore.BL;
-
+using System.Xml.Schema;
 
 namespace SIS.OpenCore.BL.Objects
 {
@@ -122,9 +122,16 @@ namespace SIS.OpenCore.BL.Objects
                 return false;
             return true;
         }
-            
 
+        public static List<DEF_CIF> List(short cRecordsPerPage)
+        {
+            OpenCoreContext db = new OpenCoreContext();
 
+            return ((from c in db.DEF_CIF
+                     orderby c.CREATE_DT descending
+                     select c).Take(cRecordsPerPage).ToList());
+
+        }
 
         protected static string GenerateNewCode(string sCIF_NO)
         {
