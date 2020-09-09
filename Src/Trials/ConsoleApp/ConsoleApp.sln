@@ -84,10 +84,4 @@ Global
 		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{145F8DAF-352C-4AC4-BFFA-AF068467F0A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D540F4C5-4CE8-47BB-89D1-814EF7A0B37F}
-	EndGlobalSection
 EndGlobal
