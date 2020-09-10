@@ -31,10 +31,22 @@ namespace SIS.OpenCore.webapi.Controllers
             return Cif.List(10);
         }
 
-        public CIFController(ILogger<CIFController> logger)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<DEF_CIF> Create(DEF_CIF def_CIF)
         {
-            _logger = logger;
+            //pet.Id = _petsInMemoryStore.Any() ?
+            //         _petsInMemoryStore.Max(p => p.Id) + 1 : 1;
+            //_petsInMemoryStore.Add(pet);
+
+            return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
         }
 
+        [HttpPost]
+        public IHttpActionResult PostNewCIF(DEF_CIF def_CIF)
+        {
+
+        }
     }
 }
