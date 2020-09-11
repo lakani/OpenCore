@@ -1,6 +1,6 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.DAL;
 
 namespace SIS.OpenCore.BL.Transactions
 {

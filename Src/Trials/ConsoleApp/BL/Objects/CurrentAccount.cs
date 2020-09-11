@@ -1,7 +1,7 @@
 using System.Linq;
 using System;
-using MODEL = SIS.OpenCore.Model;
-using EL = SIS.OpenCore.EL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 
 
 
@@ -15,7 +15,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static bool SearchRegardlessStatus(string stAcctNo)
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            OpenCoreContext db = new OpenCoreContext();
             var Ret =   (from   c in db.DEF_CK_ACCT
                         where   c.ACCT_NO == stAcctNo
                         select  c.ACCT_NO).FirstOrDefault();

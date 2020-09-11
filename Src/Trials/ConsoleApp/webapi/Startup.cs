@@ -36,17 +36,12 @@ namespace SIS.OpenCore.webapi
                     Version = "v1",
                     Title = "OpenCore API V1",
                     Description = "OpenCore API V1",
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    //TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Shayne Boyer",
+                        Name = "SIS",
                         Email = string.Empty,
                         Url = new Uri("https://twitter.com/spboyer"),
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://example.com/license"),
                     }
                 });
             });
@@ -68,14 +63,14 @@ namespace SIS.OpenCore.webapi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SIS OpenCore API V1");
                 c.RoutePrefix = string.Empty;
             });
 
             app.UseHttpsRedirection();
 
              // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            //app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
