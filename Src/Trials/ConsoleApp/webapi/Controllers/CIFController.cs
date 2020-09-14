@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SIS.OpenCore.DAL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 
 namespace SIS.OpenCore.webapi.Controllers
@@ -31,22 +33,22 @@ namespace SIS.OpenCore.webapi.Controllers
             return Cif.List(10);
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<DEF_CIF> Create(DEF_CIF def_CIF)
-        {
-            //pet.Id = _petsInMemoryStore.Any() ?
-            //         _petsInMemoryStore.Max(p => p.Id) + 1 : 1;
-            //_petsInMemoryStore.Add(pet);
+        //[HttpPost]
+        ////[ProducesResponseType(StatusCodes.Status201Created)]
+        ////[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public ActionResult<DEF_CIF> Create(DEF_CIF def_CIF)
+        //{
+        //    //pet.Id = _petsInMemoryStore.Any() ?
+        //    //         _petsInMemoryStore.Max(p => p.Id) + 1 : 1;
+        //    //_petsInMemoryStore.Add(pet);
 
-            return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
-        }
+        //    return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
+        //}
 
-        [HttpPost]
-        public IHttpActionResult PostNewCIF(DEF_CIF def_CIF)
-        {
+        //[HttpPost]
+        ////public IHttpActionResult PostNewCIF(DEF_CIF def_CIF)
+        //{
 
-        }
+        //}
     }
 }

@@ -14,6 +14,14 @@
    "Tables": [
       {
          "HasPrimaryKey": true,
+         "Name": "[dbo].[DEF_ACCT_CLASS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]"
+      },
+      {
+         "HasPrimaryKey": true,
          "Name": "[dbo].[DEF_Branch]"
       },
       {
@@ -31,6 +39,14 @@
       {
          "HasPrimaryKey": true,
          "Name": "[dbo].[DEF_CIF_Company]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[DEF_CK_ACCT]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[DEF_CK_ACCT_ACCT_STRUCT]"
       },
       {
          "HasPrimaryKey": true,
@@ -74,6 +90,10 @@
       },
       {
          "HasPrimaryKey": true,
+         "Name": "[dbo].[LUT_AE_CATEGORY]"
+      },
+      {
+         "HasPrimaryKey": true,
          "Name": "[dbo].[LUT_CIF_TYPE]"
       },
       {
@@ -83,6 +103,10 @@
       {
          "HasPrimaryKey": true,
          "Name": "[dbo].[LUT_COUNTRY]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[LUT_GL_ACCT_CATEGORY]"
       },
       {
          "HasPrimaryKey": true,

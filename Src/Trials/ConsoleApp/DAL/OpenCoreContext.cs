@@ -19,11 +19,15 @@ namespace SIS.OpenCore.DAL.Context
         {
         }
 
+        public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
+        public virtual DbSet<DEF_ACCT_CLASS_ACCT_STRUCT> DEF_ACCT_CLASS_ACCT_STRUCT { get; set; }
         public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
         public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
         public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
         public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
         public virtual DbSet<DEF_CIF_Company> DEF_CIF_Company { get; set; }
+        public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
+        public virtual DbSet<DEF_CK_ACCT_ACCT_STRUCT> DEF_CK_ACCT_ACCT_STRUCT { get; set; }
         public virtual DbSet<DEF_Company> DEF_Company { get; set; }
         public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
         public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
@@ -34,9 +38,11 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
         public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
         public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
+        public virtual DbSet<LUT_AE_CATEGORY> LUT_AE_CATEGORY { get; set; }
         public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
         public virtual DbSet<LUT_CITY> LUT_CITY { get; set; }
         public virtual DbSet<LUT_COUNTRY> LUT_COUNTRY { get; set; }
+        public virtual DbSet<LUT_GL_ACCT_CATEGORY> LUT_GL_ACCT_CATEGORY { get; set; }
         public virtual DbSet<LUT_LedgerNature> LUT_LedgerNature { get; set; }
         public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
         public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
@@ -56,6 +62,42 @@ namespace SIS.OpenCore.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
+            {
+                entity.HasKey(x => x.AccountClassID);
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.Currency).HasMaxLength(5);
+
+                entity.Property(e => e.EFFECTIVE_DT)
+                    .HasColumnType("datetime")
+                    .HasAnnotation("Relational:ColumnType", "datetime");
+
+                entity.Property(e => e.Name).HasMaxLength(80);
+
+                entity.Property(e => e.REFERENCE).IsRequired();
+
+                entity.Property(e => e.Type).HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<DEF_ACCT_CLASS_ACCT_STRUCT>(entity =>
+            {
+                entity.HasKey(x => x.AccountStructID);
+
+                entity.Property(e => e.AccountClassCode)
+                    .IsRequired()
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.GLComments).HasMaxLength(80);
+
+                entity.Property(e => e.GLNum)
+                    .IsRequired()
+                    .HasMaxLength(40);
+            });
+
             modelBuilder.Entity<DEF_Branch>(entity =>
             {
                 entity.Property(e => e.Name)
@@ -82,7 +124,9 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
 
-                entity.Property(e => e.CIF_NO).IsRequired();
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.CREATE_DT)
                     .HasColumnType("datetime")
@@ -106,7 +150,11 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.MobileNumber).HasMaxLength(80);
 
-                entity.Property(e => e.SearchKey).IsRequired();
+                entity.Property(e => e.RSM).HasMaxLength(35);
+
+                entity.Property(e => e.SearchKey)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
@@ -130,6 +178,62 @@ namespace SIS.OpenCore.DAL.Context
             modelBuilder.Entity<DEF_CIF_Company>(entity =>
             {
                 entity.HasKey(x => x.DEF_CIF_Company_ID);
+
+                entity.Property(e => e.CIF_NO).HasMaxLength(35);
+            });
+
+            modelBuilder.Entity<DEF_CK_ACCT>(entity =>
+            {
+                entity.HasKey(x => x.DEF_ACCT_ID)
+                    .HasName("PK_DEF_ACCT");
+
+                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_TYPE)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CSP_Code).HasMaxLength(10);
+
+                entity.Property(e => e.Currency).HasMaxLength(3);
+
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.IBAN).HasMaxLength(35);
+
+                entity.Property(e => e.OpenDate)
+                    .HasColumnType("date")
+                    .HasAnnotation("Relational:ColumnType", "date");
+
+                entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
+
+                entity.Property(e => e.ReferenceOrg).HasMaxLength(35);
+
+                entity.Property(e => e.Title).HasMaxLength(80);
+            });
+
+            modelBuilder.Entity<DEF_CK_ACCT_ACCT_STRUCT>(entity =>
+            {
+                entity.HasKey(x => x.AccountStructID)
+                    .HasName("PK_DEF_ACCT_ACCT_STRUCT");
+
+                entity.Property(e => e.AccountCode)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.GLComments).HasMaxLength(80);
+
+                entity.Property(e => e.GLNum)
+                    .IsRequired()
+                    .HasMaxLength(40);
             });
 
             modelBuilder.Entity<DEF_Company>(entity =>
@@ -284,6 +388,15 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(10);
             });
 
+            modelBuilder.Entity<LUT_AE_CATEGORY>(entity =>
+            {
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(80);
+            });
+
             modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
                 entity.HasKey(x => x.Code)
@@ -314,6 +427,15 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.Code).HasMaxLength(10);
 
                 entity.Property(e => e.Name).HasMaxLength(80);
+            });
+
+            modelBuilder.Entity<LUT_GL_ACCT_CATEGORY>(entity =>
+            {
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(80);
             });
 
             modelBuilder.Entity<LUT_LedgerNature>(entity =>
@@ -399,11 +521,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<TRN_LEGS>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Acct_Amt)
-                    .HasColumnType("decimal(28, 3)")
-                    .HasAnnotation("Relational:ColumnType", "decimal(28, 3)");
+                entity.HasKey(x => x.TRN_LEGS_ID);
 
                 entity.Property(e => e.Acct_CR_DR).HasMaxLength(2);
 
@@ -424,6 +542,10 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.EffDt)
                     .HasColumnType("date")
                     .HasAnnotation("Relational:ColumnType", "date");
+
+                entity.Property(e => e.Trn_Amt)
+                    .HasColumnType("decimal(28, 3)")
+                    .HasAnnotation("Relational:ColumnType", "decimal(28, 3)");
             });
 
             modelBuilder.Entity<VW_DEF_GL>(entity =>
@@ -437,7 +559,6 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(30);
 
                 entity.Property(e => e.CR_DR)
-                    .IsRequired()
                     .HasMaxLength(2)
                     .IsFixedLength(true);
 
@@ -445,31 +566,31 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(4);
 
-                entity.Property(e => e.CompanyName)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.CompanyName).HasMaxLength(30);
 
                 entity.Property(e => e.DepName)
                     .IsRequired()
                     .HasMaxLength(30);
 
                 entity.Property(e => e.EFFECTIVE_DT)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                    .HasColumnType("datetime")
+                    .HasAnnotation("Relational:ColumnType", "datetime");
 
                 entity.Property(e => e.LedgerNO)
                     .IsRequired()
                     .HasMaxLength(15);
 
-                entity.Property(e => e.NatureName)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.NatureName).HasMaxLength(30);
+
+                entity.Property(e => e.REFERENCE).IsRequired();
 
                 entity.Property(e => e.SectorName)
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.TotallingGL).HasMaxLength(35);
+                entity.Property(e => e.TotallingGL)
+                    .IsRequired()
+                    .HasMaxLength(35);
 
                 entity.Property(e => e.UnitName)
                     .IsRequired()

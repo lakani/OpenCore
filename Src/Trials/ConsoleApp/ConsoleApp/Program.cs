@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Model = SIS.OpenCore.Model;
-using EL = SIS.OpenCore.Context;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 
@@ -50,13 +50,13 @@ namespace ConsoleApp
 
         static void TestAccountClassSetup()
         {
-            List<Model.DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<Model.DEF_ACCT_CLASS_ACCT_STRUCT>();
-            ACCTS.Add(new Model.DEF_ACCT_CLASS_ACCT_STRUCT{
+            List<DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<DEF_ACCT_CLASS_ACCT_STRUCT>();
+            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 1
                 });
 
-            ACCTS.Add(new Model.DEF_ACCT_CLASS_ACCT_STRUCT{
+            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 2
                 });
@@ -122,7 +122,7 @@ namespace ConsoleApp
 
         static void Test_fn_GetGLInfo_29()
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            OpenCoreContext db = new OpenCoreContext();
             var GLs =   (from g in db.VW_DEF_GL select g).ToArray();
             //var GLs =   from g in db.VW_DEF_GL
               //          select g.CURR , g.DepNo , g.GL;
@@ -132,10 +132,10 @@ namespace ConsoleApp
             //foreach(VW_DEF_GL GLRec in GLs)
             for(int nLoop=0; nLoop < GLs.Length; nLoop++)
             {
-                EL.VW_DEF_GL GLRec = GLs[nLoop];
+                VW_DEF_GL GLRec = GLs[nLoop];
                 //foreach(VW_DEF_GL GLRec in GLs)
 
-                EL.DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
+                DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
 
                 if(_GL == null)
                     throw new Exception("NULL for GL" + GLRec.GL);
@@ -183,8 +183,8 @@ namespace ConsoleApp
 
         static void Test_Cast()
         {
-            EL.DEF_CK_ACCT_ACCT_STRUCT ACCTS = new EL.DEF_CK_ACCT_ACCT_STRUCT();
-            Model.DEF_CK_ACCT_ACCT_STRUCT ModelACCTS ;
+            DEF_CK_ACCT_ACCT_STRUCT ACCTS = new DEF_CK_ACCT_ACCT_STRUCT();
+            DEF_CK_ACCT_ACCT_STRUCT ModelACCTS ;
 
             ACCTS.AccountCode = "1";
             ACCTS.AccountStructID = 1;
@@ -192,9 +192,9 @@ namespace ConsoleApp
             ACCTS.GLComments = "ACCTS.GLComments";
             ACCTS.GLNum = "12345";
 
-            ModelACCTS = new Model.DEF_CK_ACCT_ACCT_STRUCT();
+            ModelACCTS = new DEF_CK_ACCT_ACCT_STRUCT();
 
-            ModelACCTS = ACCTS as Model.DEF_CK_ACCT_ACCT_STRUCT;
+            ModelACCTS = ACCTS as DEF_CK_ACCT_ACCT_STRUCT;
             
 
             ModelACCTS.GLComments = "After Casting";
@@ -206,21 +206,21 @@ namespace ConsoleApp
             
             //CurrentAccount.Add()
 
-            List<Model.DEF_CK_ACCT_ACCT_STRUCT> ACCTS = new List<Model.DEF_CK_ACCT_ACCT_STRUCT>();
+            List<DEF_CK_ACCT_ACCT_STRUCT> ACCTS = new List<DEF_CK_ACCT_ACCT_STRUCT>();
 
-            ACCTS.Add(new Model.DEF_CK_ACCT_ACCT_STRUCT{
+            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 1
                 });
 
-            ACCTS.Add(new Model.DEF_CK_ACCT_ACCT_STRUCT{
+            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT{
                 GLNum = "01-01-01-01-01-01-00001",
                 GLCategory = 2
                 });
 
 
             CurrentAccount.Add(
-                new Model.DEF_CK_ACCT  { 
+                new DEF_CK_ACCT  { 
                         OpenDate = new DateTime(2020, 1, 1),
                         CompanyNo = 1, //Company
                         ACCT_TYPE = "CK", // Account Type)

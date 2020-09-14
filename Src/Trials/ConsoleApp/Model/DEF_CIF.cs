@@ -18,6 +18,7 @@ namespace SIS.OpenCore.Model
         public DateTime? CREATE_DT { get; set; }
         public short? CIF_TYPE { get; set; }
         public string CIF_CLASS { get; set; }
+        public string RSM { get; set; }
         public string Gender { get; set; }
         public int? Country { get; set; }
         public int? COUNTRY_OF_BIRTH { get; set; }

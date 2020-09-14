@@ -29,7 +29,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static bool Search(string stAcctNo)
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            OpenCoreContext db = new OpenCoreContext();
             var Ret =   (from   c in db.DEF_CK_ACCT
                         where   c.ACCT_NO == stAcctNo && c.STATUS == 1
                         select  c.ACCT_NO).FirstOrDefault();
@@ -41,9 +41,9 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
-        public static EL.DEF_CK_ACCT GetAccountInfo(string stAcctNo)
+        public static DEF_CK_ACCT GetAccountInfo(string stAcctNo)
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            OpenCoreContext db = new OpenCoreContext();
             var Ret =   (from   c in db.DEF_CK_ACCT
                         where   c.ACCT_NO == stAcctNo && c.STATUS == 1
                         select  c).FirstOrDefault();
@@ -53,7 +53,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
         {
-            EL.OpenCoreContext  db = new EL.OpenCoreContext();
+            OpenCoreContext  db = new OpenCoreContext();
             //decimal?            BalanceAfter = 0 ;
 
             var BalanceAfter =  ((from l in db.TRN_LEGS
@@ -70,10 +70,10 @@ namespace SIS.OpenCore.BL.Objects
         }
 
 
-        public static string Add(Model.DEF_CK_ACCT NewAcct, Model.DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
+        public static string Add(DEF_CK_ACCT NewAcct, DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
-            EL.DEF_CK_ACCT  newAcctEL = new EL.DEF_CK_ACCT();
+            OpenCoreContext db = new OpenCoreContext();
+            DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
             
             // Validate on Company
             if(false == Company.ValidateExists(NewAcct.CompanyNo))
@@ -88,7 +88,7 @@ namespace SIS.OpenCore.BL.Objects
             if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
                 throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 
-            foreach(Model.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             {
                 //GLNum, short GLCategory , string stCurrency)   
                 if(false == AccountClassAccountingStructure.ValidateExists(ACCT_STRUCT.GLNum, ACCT_STRUCT.GLCategory, NewAcct.Currency))
@@ -117,9 +117,9 @@ namespace SIS.OpenCore.BL.Objects
             db.DEF_CK_ACCT.Add(newAcctEL);
             db.SaveChanges();   
 
-            foreach(Model.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             {
-                EL.DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new EL.DEF_CK_ACCT_ACCT_STRUCT();
+                DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new DEF_CK_ACCT_ACCT_STRUCT();
 
                 ACCT_STRUCT_EL.AccountCode = NewAcct.ACCT_NO;
                 ACCT_STRUCT_EL.GLCategory = ACCT_STRUCT.GLCategory;
@@ -135,16 +135,16 @@ namespace SIS.OpenCore.BL.Objects
 
         static protected string GetMaxCode()
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
+            OpenCoreContext db = new OpenCoreContext();
             string stMaxCode = (from r in db.DEF_CK_ACCT
                                 select r.ACCT_NO).Max();
             return stMaxCode;
         }
 
-        static public EL.DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
+        static public DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
         {
-            EL.OpenCoreContext db = new EL.OpenCoreContext();
-            EL.DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
+            OpenCoreContext db = new OpenCoreContext();
+            DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
                                                         where r.AccountCode == stACCT_NO
                                                         select r ).ToArray();
             return AcctStruct;
@@ -152,7 +152,7 @@ namespace SIS.OpenCore.BL.Objects
 
         static public string GetPrincipleGLForAccount(string stACCT_NO)
         {
-            EL.DEF_CK_ACCT_ACCT_STRUCT [] AcctStruct = GetAccountingStruct(stACCT_NO);
+            DEF_CK_ACCT_ACCT_STRUCT [] AcctStruct = GetAccountingStruct(stACCT_NO);
             string PrincipleGL =    (from g in AcctStruct
                                     where g.GLCategory == 1
                                     orderby g.AccountStructID descending
