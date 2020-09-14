@@ -1,10 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   
   <ItemGroup>
-    <ProjectReference Include="..\EL\SIS.OpenCore.EL.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
+    <ProjectReference Include="..\DAL\SIS.OpenCore.DAL.csproj" />
     <ProjectReference Include="..\Model\SIS.OpenCore.Model.csproj" />
   </ItemGroup>
 

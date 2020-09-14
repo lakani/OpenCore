@@ -2,9 +2,10 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.DAL;
 using SIS.OpenCore.BL;
-
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 
 namespace SIS.OpenCore.BL.Objects
 {
