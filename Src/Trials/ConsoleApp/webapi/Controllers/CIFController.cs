@@ -17,6 +17,7 @@ namespace SIS.OpenCore.webapi.Controllers
     {
         private readonly ILogger<CIFController> _logger;
 
+        /*
         public static List<DEF_CIF> List(short cRecordsPerPage)
         {
             OpenCoreContext db = new OpenCoreContext();
@@ -26,6 +27,7 @@ namespace SIS.OpenCore.webapi.Controllers
                      select c).Take(cRecordsPerPage).ToList());
 
         }
+        */
 
         [HttpGet]
         public IEnumerable<DEF_CIF> Get()
@@ -45,10 +47,14 @@ namespace SIS.OpenCore.webapi.Controllers
         //    return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
         //}
 
-        //[HttpPost]
-        ////public IHttpActionResult PostNewCIF(DEF_CIF def_CIF)
-        //{
+        [HttpPost]
+        public async Task<ActionResult<DEF_CIF>> PostNewCIF(DEF_CIF def_CIF)
+        {
+            string stCIFNo = Cif.Add_CIF(DateTime.Now, 1, def_CIF);
+            def_CIF.CIF_NO = stCIFNo;
+            return def_CIF;
+        }
 
-        //}
+        
     }
 }

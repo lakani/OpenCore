@@ -12,11 +12,18 @@ namespace SIS.OpenCore.BL.Objects
 {
     public partial class Cif
     {
-        
+        static public string Add_CIF (DateTime dtEFFECTIVE_DT,
+            short nCompanyNo, DEF_CIF _CIF)
+        {
+            return Cif.Add_CIF(dtEFFECTIVE_DT, nCompanyNo, _CIF.CIF_TYPE ?? 0, _CIF.CIF_CLASS, _CIF.NationalID,
+                _CIF.FirstName, _CIF.MiddleName, _CIF.LastName, _CIF.SearchKey,
+                _CIF.CIF_NO);
+        }
+
         static public string Add_CIF (
             DateTime    dtEFFECTIVE_DT,
             short       nCompanyNo,
-            byte        nCIF_TYPE,
+            short       nCIF_TYPE,
             string      nCIF_CLASS,
             string      sNationalID ,
             string      sFirstName,
@@ -160,8 +167,12 @@ namespace SIS.OpenCore.BL.Objects
                     
                     if (string.IsNullOrEmpty(sMax))
                         sMax = 0.ToString();
-                    
-                    int nMax = int.Parse(sMax);
+
+                    int nMax ;
+
+                    bool bParseSucess = int.TryParse(sMax, out nMax);
+                    if (bParseSucess == false)
+                        throw new ArithmeticException("unable to parse Last CIF number");
                     nMax = nMax + 1;
                     sMax = Settings.fn_OPT_GetCIFFormatDigits() + nMax.ToString();
                     int cToRemove = sMax.Length - Settings.fn_OPT_GetCIFFormatDigitsNum();
