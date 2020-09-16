@@ -48,13 +48,13 @@ namespace SIS.OpenCore.webapi.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<DEF_CIF>> PostNewCIF(DEF_CIF def_CIF)
+        public ActionResult<DEF_CIF> PostNewCIF(DEF_CIF def_CIF)
         {
             string stCIFNo = Cif.Add_CIF(DateTime.Now, 1, def_CIF);
             def_CIF.CIF_NO = stCIFNo;
             return def_CIF;
         }
 
-        
+
     }
 }
