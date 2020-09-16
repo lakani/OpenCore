@@ -2,7 +2,9 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL;
 
 
@@ -45,6 +47,8 @@ namespace SIS.OpenCore.BL.Objects
             //-- if not supplied , assume its the base currency
             if (String.IsNullOrEmpty(CURR))
                 CURR = Settings.fn_OPT_GetBaseCurrency();
+            if (string.IsNullOrEmpty(CURR))
+                throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
             
             //-- if not supplied , assume its current bussiness date
             if(EFFECTIVE_DT <= DateTime.MinValue || EFFECTIVE_DT >= DateTime.MaxValue )
@@ -256,7 +260,7 @@ namespace SIS.OpenCore.BL.Objects
                             where   l.GL == true && l.STATUS_ID == 1 && 
                                     l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
                             orderby l.EffDt descending , l.CREATE_DT descending, 
-                                    l.Sequence descending, l.TRN_LEGS_ID descending
+                                    l.TRN_LEGS_ID descending , l.Sequence descending
                             select  l.Balance_After).FirstOrDefault();
 
             return BalanceAfter;

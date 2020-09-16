@@ -1,6 +1,8 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.Context;
 
 
 
@@ -16,7 +18,7 @@ namespace SIS.OpenCore.BL.Objects
             var Ret =   (from c in db.LUT_ACCT_TYPE
                         where c.Name == stAccountType
                         select c.Name).FirstOrDefault();
-            if(false == String.IsNullOrEmpty (Ret))
+            if(true == String.IsNullOrEmpty (Ret))
                 return false;  
             
             return true;

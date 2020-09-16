@@ -1,6 +1,8 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.Context;
 
 
 namespace SIS.OpenCore.BL.Objects
@@ -16,8 +18,8 @@ namespace SIS.OpenCore.BL.Objects
 
             Ret =   (from r in db.DEF_ACCT_CLASS
                     where r.Code == stCode
-                    select r.Code).First();
-            if( false == string.IsNullOrEmpty(Ret))
+                    select r.Code).FirstOrDefault();
+            if( true == string.IsNullOrEmpty(Ret))
                 return false;
             return true;
         }
@@ -51,7 +53,7 @@ namespace SIS.OpenCore.BL.Objects
                 }
             }
 
-            return stAcctClassCode;
+            return sReturn;
         }
 
         static public string GetMaxCode()
@@ -64,13 +66,14 @@ namespace SIS.OpenCore.BL.Objects
         }
 
         static public string Add (
-            DateTime    dtEFFECTIVE_DT,
-            short       nCompanyNo,
-            string      stAccountType,
-            string      stName,
-            string      stCurrency,
-            string      stREFERENCE,
-            string      stCode = "")
+            DateTime                    dtEFFECTIVE_DT,
+            short                       nCompanyNo,
+            string                      stAccountType,
+            string                      stName,
+            string                      stCurrency,
+            string                      stREFERENCE,
+            DEF_ACCT_CLASS_ACCT_STRUCT  [] Accts,
+            string                      stCode = "")
         {
             object CIFLock = new object();
             OpenCoreContext db = new OpenCoreContext();
@@ -86,6 +89,9 @@ namespace SIS.OpenCore.BL.Objects
             if(false == Currency.ValidateExists(stCurrency))
                 throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
+            if(false == AccountClassAccountingStructure.ValidateExists(Accts, stCurrency))
+                throw new ArgumentOutOfRangeException("Accts", "invalid Accounting structure");
+            
             stCode = GenerateNewCode(stCode);
             if(true == string.IsNullOrEmpty(stCode))
                 throw new ArgumentOutOfRangeException("Code", "Invalid Account Class Code");
@@ -102,6 +108,8 @@ namespace SIS.OpenCore.BL.Objects
 
             db.DEF_ACCT_CLASS.Add(newAcctClass);
             db.SaveChanges();
+
+            AccountClassAccountingStructure.Add(Accts, stCode);
 
             return stCode;
         }

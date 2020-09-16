@@ -1,7 +1,8 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.EL;
-
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 
 
 namespace SIS.OpenCore.BL
@@ -24,7 +25,7 @@ namespace SIS.OpenCore.BL
 
             String CIFFormatDigits =    ((from s in db.Settings
                                         orderby s.VerID descending
-                                        select s.CIFFormatDigits).First()).Trim();
+                                        select s.CIFFormatDigits).FirstOrDefault()).Trim();
             
             return CIFFormatDigits;
         }
@@ -35,7 +36,7 @@ namespace SIS.OpenCore.BL
 
             String sBaseCurrency =      ((from s in db.Settings
                                         orderby s.VerID descending
-                                        select s.BaseCurrency).First()).Trim();
+                                        select s.BaseCurrency).FirstOrDefault()).Trim();
             
             return sBaseCurrency;
         }
@@ -51,7 +52,7 @@ namespace SIS.OpenCore.BL
 
             String sGlformatDigits =    ((from s in db.Settings
                                         orderby s.VerID descending
-                                        select s.GLFormatDigits).First()).Trim();
+                                        select s.GLFormatDigits).FirstOrDefault()).Trim();
             
             return sGlformatDigits;
         }

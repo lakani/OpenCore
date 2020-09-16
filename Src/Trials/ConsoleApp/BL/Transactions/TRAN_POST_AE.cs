@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 
 
@@ -65,7 +67,7 @@ namespace SIS.OpenCore.BL.Transactions
                 ARR.Add (new TRAN_POST_AE_TYPE_PARAM{   Acct_CR_DR = l.Acct_CR_DR , 
                                                         Acct_No = l.Acct_No,
                                                         GL = (bool)l.GL, 
-                                                        Acct_Amt = (decimal)l.Acct_Amt,
+                                                        Trn_Amt = (decimal)l.Trn_Amt,
                                                         Acct_Curr = l.Acct_Curr,
                                                         Acct_Description = "Rev : " + l.Ref,
                                                         EffDt=DateTime.Today});
@@ -85,7 +87,7 @@ namespace SIS.OpenCore.BL.Transactions
             // Get Base Curren\cy
             stBaseCurrency = Settings.fn_OPT_GetBaseCurrency();
             if (string.IsNullOrEmpty(stBaseCurrency))
-                return Guid.Empty;
+                throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
             
             // get Current Bussiness date
             MaxEffDt = Settings.fn_GetCurrentBusinessDate();
@@ -94,21 +96,26 @@ namespace SIS.OpenCore.BL.Transactions
             CRT_DT = DateTime.Now;
 
             if (CRT_DT.Date > MaxEffDt.Date )
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("CRT_DT.Date", "CRT_DT.Date bigger than MaxEffDt");
             
             // Get All Legs GLs information 
             // ensure that all Gls got the supplied currency 
-            if(Retrive_GL_Info(ae_Param,stBaseCurrency) == false)
-                return Guid.Empty;
+            if(Retrive_GL_Info(ae_Param, stBaseCurrency) == false)
+                throw new ArgumentOutOfRangeException("ae_Param", "Legs currency is not the base currency");
 
             if(Validation_Sum_of_CR_Equal_Sum_of_DR(ae_Param, stBaseCurrency) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "sum of CR Legs is not sum of DR Legs");
 
             if(Validation_All_Legs_Within_Same_Company(ae_Param) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "All legs are not within the same company");
 
             if(Validation_All_Legs_Backdated(ae_Param, MaxEffDt ) == false)
-                return Guid.Empty;
+                throw new ArgumentOutOfRangeException("ae_Param", "Ensure all legs are less than or equal the current business date");
+
+            // Validates AE_CATEGORY
+            if(Validation_All_Legs_Same_Category(ae_Param) == false)
+                throw new ArgumentOutOfRangeException("ae_Param", "All legs are not within the same category");
+
 
             // Generate the new Refrerence
             RetGUID = Guid.NewGuid();
@@ -119,16 +126,19 @@ namespace SIS.OpenCore.BL.Transactions
             {
                 TRN_LEGS    trn_LEGSNewObject = new TRN_LEGS();
                 
-                trn_LEGSNewObject.Acct_Amt          = Leg.Acct_Amt;
+                trn_LEGSNewObject.Trn_Amt           = Leg.Trn_Amt;
                 trn_LEGSNewObject.Acct_CR_DR        = Leg.Acct_CR_DR; 
                 trn_LEGSNewObject.Acct_Curr         = Leg.Acct_Curr;
                 trn_LEGSNewObject.Acct_Description  = Leg.Acct_Description;
                 trn_LEGSNewObject.Acct_No           = Leg.Acct_No;
                 trn_LEGSNewObject.Balance_Before    = GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
+                // TODO :
+                // Currently it’s hard coded for accounts to be Liability but however to support other types of
+                // accounts such as Loans, the Nature of the Account should be retrieved  
                 trn_LEGSNewObject.Balance_After     =  AccountingMisc.NUM_ACT_CR_DR
                                                             ((decimal)trn_LEGSNewObject.Balance_Before, 
-                                                            Leg.Acct_Amt, 
-                                                            Leg.GL_Info.Nature,
+                                                            Leg.Trn_Amt, 
+                                                            (byte)(Leg.GL == true ? Leg.GL_Info.Nature : 2),
                                                             Leg.Acct_CR_DR);
                 trn_LEGSNewObject.CHANNEL_ID        = 1;
                 trn_LEGSNewObject.CREATE_DT         = CRT_DT;
@@ -138,6 +148,7 @@ namespace SIS.OpenCore.BL.Transactions
                 trn_LEGSNewObject.Ref               = RetGUID;
                 trn_LEGSNewObject.Sequence          = Sequence;
                 trn_LEGSNewObject.STATUS_ID         = 1;
+                trn_LEGSNewObject.Category          = Leg.Category;
                 trn_LEGSNewObject.Related_Ref       = RelatedRef;
 
                 db.TRN_LEGS.Add(trn_LEGSNewObject);
@@ -151,11 +162,11 @@ namespace SIS.OpenCore.BL.Transactions
 
         static protected decimal GetLastBalance(string Acct_No, bool isGL, string Acct_Curr)
         {
-            // TODO : Seperate a call, one for GL and another for Account
+            // TODO : Done, Seperate a call, one for GL and another for Account
             if(isGL)
                 return GL.GetLastBalance( Acct_No, Acct_Curr);
-            else
-                return GL.GetLastBalance( Acct_No, Acct_Curr);
+            else // TODO , Done,  replace call by Account . GetLastBalance
+                return CurrentAccount.GetLastBalance( Acct_No, Acct_Curr);
 
         }
 
@@ -170,11 +181,11 @@ namespace SIS.OpenCore.BL.Transactions
 
             SumOfCR =   (from l in Legs
                         where l.Acct_CR_DR == "CR" && l.Acct_Curr == stBaseCurr
-                        select l.Acct_Amt).Sum();
+                        select l.Trn_Amt).Sum();
 
             SumOfDR =   (from l in Legs
                         where l.Acct_CR_DR == "DR" && l.Acct_Curr == stBaseCurr
-                        select l.Acct_Amt).Sum();
+                        select l.Trn_Amt).Sum();
 
             if (SumOfDR != SumOfCR)
                 return false;
@@ -184,13 +195,41 @@ namespace SIS.OpenCore.BL.Transactions
 
         static protected bool Validation_All_Legs_Within_Same_Company(TRAN_POST_AE_TYPE_PARAM[] Legs)
         {
-            short[] companyArr =    (from l in Legs
-                                    select l.GL_Info.CompanyNo).Distinct().ToArray();
+            //short[] companyArr =    (from l in Legs where l.GL == true select l.GL_Info.CompanyNo).Union(
+              //                      (from cl in Legs where cl.GL == false select cl.CK_Acct.CompanyNo)
+                //            )
             
+            short[] companyArr =    (from cl in Legs
+                                    select 
+                                        cl.GL == true ? cl.GL_Info.CompanyNo : cl.CK_Acct.CompanyNo
+                                    ).Distinct().ToArray();       
+
+            
+            //.Distinct().Union(
+              //                      (from cl in Legs
+                //                    where cl.GL == false
+                  //                  select cl.CK_Acct.CompanyNo).Distinct()).ToArray();
+
             if(companyArr.Length > 1)
-                return false;
+                return false;           
+            
             return true;
         }
+
+        static protected bool Validation_All_Legs_Same_Category(TRAN_POST_AE_TYPE_PARAM[] Legs)
+        {
+            short[] CategoryArr =   (from l in Legs
+                                    select l.Category).Distinct().ToArray();
+            
+            if(CategoryArr.Length > 1)
+                return false;
+
+            if(false == TRAN_POST_AE_CATEGORY.ValidateExists(CategoryArr[0]))
+                return false;
+
+            return true;
+        }
+        
 
         static protected  bool Validation_All_Legs_Backdated(TRAN_POST_AE_TYPE_PARAM[] Legs, DateTime MaxEffDt )
         {
@@ -211,6 +250,10 @@ namespace SIS.OpenCore.BL.Transactions
                 if (Leg.GL == true)
                     Leg.GL_Info = GL.fn_GetGLInfo(Leg.Acct_No, stBaseCurr);
                 if (Leg.GL == true && Leg.GL_Info == null)
+                    return false;
+                if (Leg.GL == false)
+                    Leg.CK_Acct = CurrentAccount.GetAccountInfo(Leg.Acct_No);
+                if (Leg.GL == false && Leg.CK_Acct == null )
                     return false;
             }
 

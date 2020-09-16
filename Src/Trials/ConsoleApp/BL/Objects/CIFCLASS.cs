@@ -2,9 +2,10 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SIS.OpenCore.EL;
+using SIS.OpenCore.DAL;
 using SIS.OpenCore.BL;
-
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 
 namespace SIS.OpenCore.BL.Objects
 {
@@ -91,7 +92,7 @@ namespace SIS.OpenCore.BL.Objects
 
             sCIFClassCode = GenerateNewCode(nCompanyNo, sCIFClassCode) ;
             if(string.IsNullOrEmpty(sCIFClassCode))
-                return string.Empty;
+                throw new ArgumentOutOfRangeException("sCIFClassCode", "Invalid CIF class Code");
             
             if(true == ValidateExists(sCIFClassCode, nCompanyNo))
                 throw new Exception("sCIFClassCode Already Exists");
