@@ -15,7 +15,7 @@ namespace SIS.OpenCore.webapi.Controllers
     [Route("[controller]")]
     public class CIFController : ControllerBase
     {
-        private readonly ILogger<CIFController> _logger;
+        //private readonly ILogger<CIFController> _logger;
 
         /*
         public static List<DEF_CIF> List(short cRecordsPerPage)

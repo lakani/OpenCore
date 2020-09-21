@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL.Context;
+//using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 
@@ -73,17 +73,7 @@ namespace ConsoleApp
 
         }
 
-        static void testCIF()
-        {
-            for (int x=0; x<10000; x++)
-            {
-                          //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
-                          Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed", "", "", "","");
-            }
-            
-            
-            
-        }
+        
 
         static void testReverse()
         {
@@ -120,66 +110,66 @@ namespace ConsoleApp
 
         }
 
-        static void Test_fn_GetGLInfo_29()
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            var GLs =   (from g in db.VW_DEF_GL select g).ToArray();
-            //var GLs =   from g in db.VW_DEF_GL
-              //          select g.CURR , g.DepNo , g.GL;
+        //static void Test_fn_GetGLInfo_29()
+        //{
+        //    OpenCoreContext db = new OpenCoreContext();
+        //    var GLs =   (from g in db.VW_DEF_GL select g).ToArray();
+        //    //var GLs =   from g in db.VW_DEF_GL
+        //      //          select g.CURR , g.DepNo , g.GL;
             
             
 
-            //foreach(VW_DEF_GL GLRec in GLs)
-            for(int nLoop=0; nLoop < GLs.Length; nLoop++)
-            {
-                VW_DEF_GL GLRec = GLs[nLoop];
-                //foreach(VW_DEF_GL GLRec in GLs)
+        //    //foreach(VW_DEF_GL GLRec in GLs)
+        //    for(int nLoop=0; nLoop < GLs.Length; nLoop++)
+        //    {
+        //        VW_DEF_GL GLRec = GLs[nLoop];
+        //        //foreach(VW_DEF_GL GLRec in GLs)
 
-                DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
+        //        DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
 
-                if(_GL == null)
-                    throw new Exception("NULL for GL" + GLRec.GL);
+        //        if(_GL == null)
+        //            throw new Exception("NULL for GL" + GLRec.GL);
                 
-                if(_GL.CURR != GLRec.CURR)
-                    throw new Exception("_GL.CURR != GLRec.CURR");
+        //        if(_GL.CURR != GLRec.CURR)
+        //            throw new Exception("_GL.CURR != GLRec.CURR");
                 
-                if(_GL.BranchNo != GLRec.BranchNo)
-                    throw new Exception("_GL.BranchNo != GLRec.BranchNo");
+        //        if(_GL.BranchNo != GLRec.BranchNo)
+        //            throw new Exception("_GL.BranchNo != GLRec.BranchNo");
 
-                if(_GL.CompanyNo != GLRec.CompanyNo)
-                    throw new Exception("_GL.CompanyNo != GLRec.CompanyNo");
+        //        if(_GL.CompanyNo != GLRec.CompanyNo)
+        //            throw new Exception("_GL.CompanyNo != GLRec.CompanyNo");
 
-                if(_GL.CURR != GLRec.CURR)
-                    throw new Exception("_GL.CURR != GLRec.CURR");
+        //        if(_GL.CURR != GLRec.CURR)
+        //            throw new Exception("_GL.CURR != GLRec.CURR");
                 
-                if(_GL.DepNo != GLRec.DepNo)
-                    throw new Exception("_GL.DepNo != GLRec.DepNo");
+        //        if(_GL.DepNo != GLRec.DepNo)
+        //            throw new Exception("_GL.DepNo != GLRec.DepNo");
                 
-                if(_GL.LedgerNO != GLRec.LedgerNO)
-                    throw new Exception("_GL.LedgerNO != GLRec.LedgerNO");
+        //        if(_GL.LedgerNO != GLRec.LedgerNO)
+        //            throw new Exception("_GL.LedgerNO != GLRec.LedgerNO");
 
-                if(_GL.Nature != GLRec.Nature)
-                    throw new Exception("_GL.Nature != GLRec.Nature");
+        //        if(_GL.Nature != GLRec.Nature)
+        //            throw new Exception("_GL.Nature != GLRec.Nature");
 
-                if(_GL.PostingLevel != GLRec.PostingLevel)
-                    throw new Exception("_GL.PostingLevel != GLRec.PostingLevel");
+        //        if(_GL.PostingLevel != GLRec.PostingLevel)
+        //            throw new Exception("_GL.PostingLevel != GLRec.PostingLevel");
 
-                if(_GL.SectorNo != GLRec.SectorNo)
-                    throw new Exception("_GL.SectorNo != GLRec.SectorNo");
+        //        if(_GL.SectorNo != GLRec.SectorNo)
+        //            throw new Exception("_GL.SectorNo != GLRec.SectorNo");
 
-                //if(_GL.TotallingGL != GLRec.TotallingGL)
-                  //  throw new Exception("_GL.TotallingGL != GLRec.TotallingGL");
+        //        //if(_GL.TotallingGL != GLRec.TotallingGL)
+        //          //  throw new Exception("_GL.TotallingGL != GLRec.TotallingGL");
 
-                if(_GL.UnitNO != GLRec.UnitNO)
-                    throw new Exception("_GL.UnitNO != GLRec.UnitNO");
+        //        if(_GL.UnitNO != GLRec.UnitNO)
+        //            throw new Exception("_GL.UnitNO != GLRec.UnitNO");
                 
-                if(_GL.Zone != GLRec.Zone)
-                    throw new Exception("_GL.Zone != GLRec.Zone");
+        //        if(_GL.Zone != GLRec.Zone)
+        //            throw new Exception("_GL.Zone != GLRec.Zone");
 
 
-            }
+        //    }
             
-        }
+        //}
 
         static void Test_Cast()
         {
