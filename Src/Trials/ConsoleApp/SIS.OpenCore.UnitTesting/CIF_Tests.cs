@@ -7,14 +7,21 @@ using SIS.OpenCore.Model;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 using SIS.OpenCore.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace SIS.OpenCore.UnitTesting
 {
     public class CIF_Tests
     {
-        [SetUp]
+        // TODO : we need to run this setup only for the (CIF_Create) but for other tests , we do not
+        [OneTimeSetUp]
         public void Setup()
         {
+            //OpenCoreContext db = new OpenCoreContext();
+            //db.Database.ExecuteSqlCommand("DELETE DEF_CIF");
+            //db.Database.ExecuteSqlCommand("DELETE DEF_CIF_Company");
+            //db.Database.ExecuteSqlCommand("TRUNCATE TABLE DEF_CIF");
+            //db.Database.ExecuteSqlCommand("TRUNCATE TABLE DEF_CIF_Company");
         }
 
         [Test]
@@ -23,8 +30,28 @@ namespace SIS.OpenCore.UnitTesting
             for (int x = 0; x < 100; x++)
             {
                 //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
-                Cif.Add_CIF(new DateTime(2020, 1, 1), 1, 1, "0001", "123456789", "Dalia", "", "", "", "");
+                string stNewCIF = Cif.Add_CIF(new DateTime(2020, 1, 1), 1, 1, "0001", "123456789", "Dalia Ahmed", "", "", "", "");
+                string stNewCIFCompany = Cif.Add_CIF(new DateTime(2020, 1, 1), 2, 1, "0001", "123456789", "Dalia Ahmed", "", "", stNewCIF, stNewCIF);
+                if(stNewCIFCompany != stNewCIF)
+                    Assert.Fail("stNewCIF != stNewCIFCompany");
             }
         }
+
+
+        [Test]
+        public void CIF_List()
+        {
+            DEF_CIF SearchKey = new DEF_CIF();
+
+            SearchKey.FirstName = "SOSO";
+
+            // TODO : add a pre Condition that a new CIF 'SOSO' in inserted
+            var dEF_CIFs = Cif.Find(SearchKey);
+            if(dEF_CIFs.Count() == 0)
+                Assert.Fail("Cant Find");
+        }
+
+
+
     }
 }

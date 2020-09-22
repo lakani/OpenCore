@@ -105,6 +105,36 @@ namespace SIS.OpenCore.BL.Objects
             return sCIF_NO;
         }
 
+        public static IEnumerable<DEF_CIF> Find(DEF_CIF searchCIF)
+        {
+            //var db = new HealthvaultContext();
+            //var ret = from o in db.patient
+            //          select o;
+            //if (String.IsNullOrEmpty(filterObj.identifier) == false)    ret = ret.Where(o => o.identifier == filterObj.identifier);
+            //if (filterObj.address_city > 0)     ret = ret.Where(o => o.address_city == filterObj.address_city);
+            //if (String.IsNullOrEmpty(filterObj.address) == false)   ret = ret.Where(o => o.address.Contains(filterObj.address) == true);
+            //if (filterObj.deceased == true) {
+            //    ret = ret.Where(o => o.deceased == true);
+            //    if (filterObj.deceased_date > DateTime.MinValue)
+            //        ret = ret.Where(o => o.deceased_date == filterObj.deceased_date);
+            //}
+            //if (String.IsNullOrEmpty(filterObj.email) == false) ret = ret.Where(o => o.email.Contains(filterObj.email) == true);
+            //if (String.IsNullOrEmpty(filterObj.familyname) == false)    ret = ret.Where(o => o.familyname.Contains(filterObj.familyname) == true);
+            //if (String.IsNullOrEmpty(filterObj.name) == false)  ret = ret.Where(o => o.name.Contains(filterObj.name) == true);
+            //return ret.ToList();
+            
+            var db = new OpenCoreContext();
+            var Ret = from c in db.DEF_CIF
+                      select c;
+
+            if (String.IsNullOrEmpty(searchCIF.SearchKey) == false) Ret.Where(c => c.SearchKey == searchCIF.SearchKey);
+            
+            if (String.IsNullOrEmpty(searchCIF.FirstName) == false) 
+                Ret = Ret.Where(c => c.FirstName.Contains(searchCIF.FirstName));
+
+            return Ret.ToList();
+        }
+
         protected static bool ValidateExists(string sCIF_NO)
         {
             OpenCoreContext db = new OpenCoreContext();
