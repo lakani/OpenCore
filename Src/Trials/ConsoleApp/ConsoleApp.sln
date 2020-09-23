@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.DAL", "SIS.Ope
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Model", "SIS.OpenCore.Model\SIS.OpenCore.Model.csproj", "{BED12F96-A82A-4C6B-942C-ECFD6B701E70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.webapi", "SIS.OpenCore.WebAPI\SIS.OpenCore.webapi.csproj", "{31E18C8A-6049-4C96-8B0C-98DD731BB6B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.WebAPI", "SIS.OpenCore.WebAPI\SIS.OpenCore.WebAPI.csproj", "{31E18C8A-6049-4C96-8B0C-98DD731BB6B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
