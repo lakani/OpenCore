@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BL\SIS.OpenCore.BL.csproj" />
     <ProjectReference Include="..\SIS.OpenCore.BL\SIS.OpenCore.BL.csproj" />
-    <ProjectReference Include="..\SIS.OpenCore.DAL\SIS.OpenCore.DAL.csproj" />
     <ProjectReference Include="..\SIS.OpenCore.Model\SIS.OpenCore.Model.csproj" />
   </ItemGroup>
 
