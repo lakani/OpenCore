@@ -18,66 +18,6 @@ namespace SIS.OpenCore.UnitTesting
         }
 
         [Test]
-        public void Test_fn_GetGLInfo_29()
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            var GLs = (from g in db.VW_DEF_GL select g).ToArray();
-            //var GLs =   from g in db.VW_DEF_GL
-            //          select g.CURR , g.DepNo , g.GL;
-
-
-
-            //foreach(VW_DEF_GL GLRec in GLs)
-            for (int nLoop = 0; nLoop < GLs.Length; nLoop++)
-            {
-                VW_DEF_GL GLRec = GLs[nLoop];
-                //foreach(VW_DEF_GL GLRec in GLs)
-
-                DEF_GL _GL = GL.fn_GetGLInfo(GLRec.GL, GLRec.CURR);
-
-                if (_GL == null)
-                    Assert.Fail("NULL for GL" + GLRec.GL);
-
-                if (_GL.CURR != GLRec.CURR)
-                    Assert.Fail("_GL.CURR != GLRec.CURR");
-
-                if (_GL.BranchNo != GLRec.BranchNo)
-                    Assert.Fail("_GL.BranchNo != GLRec.BranchNo");
-
-                if (_GL.CompanyNo != GLRec.CompanyNo)
-                    Assert.Fail("_GL.CompanyNo != GLRec.CompanyNo");
-
-                if (_GL.CURR != GLRec.CURR)
-                    Assert.Fail("_GL.CURR != GLRec.CURR");
-
-                if (_GL.DepNo != GLRec.DepNo)
-                    Assert.Fail("_GL.DepNo != GLRec.DepNo");
-
-                if (_GL.LedgerNO != GLRec.LedgerNO)
-                    Assert.Fail("_GL.LedgerNO != GLRec.LedgerNO");
-
-                if (_GL.Nature != GLRec.Nature)
-                    Assert.Fail("_GL.Nature != GLRec.Nature");
-
-                if (_GL.PostingLevel != GLRec.PostingLevel)
-                    Assert.Fail("_GL.PostingLevel != GLRec.PostingLevel");
-
-                if (_GL.SectorNo != GLRec.SectorNo)
-                    Assert.Fail("_GL.SectorNo != GLRec.SectorNo");
-
-                //if(_GL.TotallingGL != GLRec.TotallingGL)
-                //  Assert.Fail("_GL.TotallingGL != GLRec.TotallingGL");
-
-                if (_GL.UnitNO != GLRec.UnitNO)
-                    Assert.Fail("_GL.UnitNO != GLRec.UnitNO");
-
-                if (_GL.Zone != GLRec.Zone)
-                    Assert.Fail("_GL.Zone != GLRec.Zone");
-            }
-
-        }
-
-        [Test]
         public void TestPostAE()
         {
             List<TRAN_POST_AE_TYPE_PARAM> ARR = new List<TRAN_POST_AE_TYPE_PARAM>();
@@ -145,6 +85,12 @@ namespace SIS.OpenCore.UnitTesting
             if (Guid.TryParse(Ret.ToString(), out RetGuid) == false)
                 Assert.Fail("TRAN_POST_AE.Post");
 
+        }
+
+        [Test]
+        public void testReverse()
+        {
+            TRAN_POST_AE.Reverse(new Guid("2D858C4B-6B16-4D33-ABC0-F67E365B0F0B"));
         }
 
         [Test]

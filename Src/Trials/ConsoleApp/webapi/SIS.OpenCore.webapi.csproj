@@ -12,9 +12,5 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BL\SIS.OpenCore.BL.csproj" />
-  </ItemGroup>
-
 
 </Project>
