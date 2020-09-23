@@ -32,3 +32,7 @@ Src/Trials/ConsoleApp/webapi/appsettings.json
 /.vs/slnx.sqlite-journal
 /Src/Trials/ConsoleApp/.vs/ConsoleApp/v16/TestStore/0/000.testlog
 /Src/Trials/ConsoleApp/.vs/ConsoleApp/v16/TestStore/0/testlog.manifest
+/Src/.vs/ConsoleApp/v16/TestStore/0/000.testlog
+/Src/.vs/ConsoleApp/v16/TestStore/0/testlog.manifest
+/Src/.vscode/launch.json
+/Src/.vscode/tasks.json
