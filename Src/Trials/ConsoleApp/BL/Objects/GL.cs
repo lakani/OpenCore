@@ -254,16 +254,19 @@ namespace SIS.OpenCore.BL.Objects
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
         {
             OpenCoreContext     db = new OpenCoreContext();
-            decimal             BalanceAfter = 0 ;
+            decimal             ?BalanceAfter  ;
 
-            BalanceAfter =  (decimal)(from l in db.TRN_LEGS
+            BalanceAfter =  (from l in db.TRN_LEGS
                             where   l.GL == true && l.STATUS_ID == 1 && 
                                     l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
                             orderby l.EffDt descending , l.CREATE_DT descending, 
                                     l.TRN_LEGS_ID descending , l.Sequence descending
-                            select  l.Balance_After).FirstOrDefault();
+                             select l.Balance_After).FirstOrDefault();
 
-            return BalanceAfter;
+            if (BalanceAfter.HasValue == false)
+                return 0;
+
+            return BalanceAfter.Value;
         }
 
         public static DEF_GL fn_String_ParseGL(string stGL)
