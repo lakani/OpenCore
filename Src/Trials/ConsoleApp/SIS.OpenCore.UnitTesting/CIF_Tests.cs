@@ -32,11 +32,21 @@ namespace SIS.OpenCore.UnitTesting
                 //Cif.Add_CIF(new DateTime(2019,1,1), 1, 1, "0001", "123456789", "Ahmed");
                 string stNewCIF = Cif.Add_CIF(new DateTime(2020, 1, 1), 1, 1, "0001", "123456789", "Dalia Ahmed", "", "", "", "");
                 string stNewCIFCompany = Cif.Add_CIF(new DateTime(2020, 1, 1), 2, 1, "0001", "123456789", "Dalia Ahmed", "", "", stNewCIF, stNewCIF);
-                if(stNewCIFCompany != stNewCIF)
+                if (stNewCIFCompany != stNewCIF)
                     Assert.Fail("stNewCIF != stNewCIFCompany");
             }
         }
-
+    }
+    public class CIF_MISC_Tests
+    {
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            string stNewCIF = Cif.Add_CIF(new DateTime(2020, 1, 1), 1, 1, "0001", "123456789", "SOSO", "", "", "", "");
+            string stNewCIFCompany = Cif.Add_CIF(new DateTime(2020, 1, 1), 2, 1, "0001", "123456789", "SOSO", "", "", stNewCIF, stNewCIF);
+            if (stNewCIFCompany != stNewCIF)
+                Assert.Fail("stNewCIF != stNewCIFCompany");
+        }
 
         [Test]
         public void CIF_List()
@@ -45,7 +55,6 @@ namespace SIS.OpenCore.UnitTesting
 
             SearchKey.FirstName = "SOSO";
 
-            // TODO : add a pre Condition that a new CIF 'SOSO' in inserted
             var dEF_CIFs = Cif.Find(SearchKey);
             if(dEF_CIFs.Count() == 0)
                 Assert.Fail("Cant Find");
