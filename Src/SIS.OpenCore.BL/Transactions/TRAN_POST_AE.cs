@@ -24,6 +24,11 @@ namespace SIS.OpenCore.BL.Transactions
             return  false;
         }
 
+        static public bool ValidRef(Guid Ref)
+        {
+            return TRN_LEGS_DAL.ValidRef(Ref);
+        }
+
         static public bool Reverse(Guid Ref)
         {
             OpenCoreContext db = new OpenCoreContext();

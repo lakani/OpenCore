@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace SIS.OpenCore.Model
 {
     public partial class DEF_CIF_CLASS

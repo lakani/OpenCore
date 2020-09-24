@@ -87,10 +87,13 @@ namespace SIS.OpenCore.UnitTesting
 
         }
 
-        [Test]
-        public void testReverse()
+        [TestCase("2D858C4B-6B16-4D33-ABC0-F67E365B0F0B")]
+        public void testReverse(string Ref)
         {
-            TRAN_POST_AE.Reverse(new Guid("2D858C4B-6B16-4D33-ABC0-F67E365B0F0B"));
+            Guid RefGuid = new Guid(Ref);
+
+            if(TRAN_POST_AE.ValidRef(RefGuid) == true)
+                TRAN_POST_AE.Reverse(RefGuid);
         }
 
         [Test]

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace SIS.OpenCore.Model
 {
     public partial class TRN_LEGS
@@ -21,7 +19,7 @@ namespace SIS.OpenCore.Model
         public DateTime? EffDt { get; set; }
         public DateTime? CREATE_DT { get; set; }
         public short? EMP_ID { get; set; }
-        public byte? STATUS_ID { get; set; }
+        public byte STATUS_ID { get; set; }
         public short? CHANNEL_ID { get; set; }
         public short? Category { get; set; }
         public string Acct_Description { get; set; }

@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SIS.OpenCore.Model;
 
-#nullable disable
-
 namespace SIS.OpenCore.DAL.Context
 {
     public partial class OpenCoreContext : DbContext
@@ -55,8 +53,8 @@ namespace SIS.OpenCore.DAL.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;User ID=sa;Password=get@get1");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1");
             }
         }
 
@@ -64,7 +62,7 @@ namespace SIS.OpenCore.DAL.Context
         {
             modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
             {
-                entity.HasKey(x => x.AccountClassID);
+                entity.HasKey(e => e.AccountClassID);
 
                 entity.Property(e => e.Code)
                     .IsRequired()
@@ -72,9 +70,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.Currency).HasMaxLength(5);
 
-                entity.Property(e => e.EFFECTIVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(80);
 
@@ -85,7 +81,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_ACCT_CLASS_ACCT_STRUCT>(entity =>
             {
-                entity.HasKey(x => x.AccountStructID);
+                entity.HasKey(e => e.AccountStructID);
 
                 entity.Property(e => e.AccountClassCode)
                     .IsRequired()
@@ -109,18 +105,14 @@ namespace SIS.OpenCore.DAL.Context
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.BusinessDay)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                entity.Property(e => e.BusinessDay).HasColumnType("date");
 
                 entity.Property(e => e.ID).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<DEF_CIF>(entity =>
             {
-                entity.Property(e => e.BIRTH_DT)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                entity.Property(e => e.BIRTH_DT).HasColumnType("date");
 
                 entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
 
@@ -128,9 +120,7 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(35);
 
-                entity.Property(e => e.CREATE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.FamilyName).HasMaxLength(80);
 
@@ -140,9 +130,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
-                entity.Property(e => e.LAST_SAVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.LastName).HasMaxLength(80);
 
@@ -161,14 +149,12 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_CIF_CLASS>(entity =>
             {
-                entity.HasKey(x => new { x.Code, x.CompanyNo })
+                entity.HasKey(e => new { e.Code, e.CompanyNo })
                     .HasName("PK__DEF_CIF___A25C5AA6127E02BB");
 
                 entity.Property(e => e.Code).HasMaxLength(10);
 
-                entity.Property(e => e.EFFECTIVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -177,14 +163,14 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_CIF_Company>(entity =>
             {
-                entity.HasKey(x => x.DEF_CIF_Company_ID);
+                entity.HasKey(e => e.DEF_CIF_Company_ID);
 
                 entity.Property(e => e.CIF_NO).HasMaxLength(35);
             });
 
             modelBuilder.Entity<DEF_CK_ACCT>(entity =>
             {
-                entity.HasKey(x => x.DEF_ACCT_ID)
+                entity.HasKey(e => e.DEF_ACCT_ID)
                     .HasName("PK_DEF_ACCT");
 
                 entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
@@ -209,9 +195,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.IBAN).HasMaxLength(35);
 
-                entity.Property(e => e.OpenDate)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                entity.Property(e => e.OpenDate).HasColumnType("date");
 
                 entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
 
@@ -222,7 +206,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_CK_ACCT_ACCT_STRUCT>(entity =>
             {
-                entity.HasKey(x => x.AccountStructID)
+                entity.HasKey(e => e.AccountStructID)
                     .HasName("PK_DEF_ACCT_ACCT_STRUCT");
 
                 entity.Property(e => e.AccountCode)
@@ -277,9 +261,7 @@ namespace SIS.OpenCore.DAL.Context
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.CREATE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.EMP_ID).ValueGeneratedOnAdd();
 
@@ -289,9 +271,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
-                entity.Property(e => e.LAST_SAVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.LastName).HasMaxLength(80);
 
@@ -304,7 +284,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_GL>(entity =>
             {
-                entity.HasKey(x => x.GL_DEFID);
+                entity.HasKey(e => e.GL_DEFID);
 
                 entity.Property(e => e.COMMENTS).HasMaxLength(200);
 
@@ -312,9 +292,7 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(4);
 
-                entity.Property(e => e.EFFECTIVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.LedgerNO)
                     .IsRequired()
@@ -354,27 +332,21 @@ namespace SIS.OpenCore.DAL.Context
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.ExRateDate)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.ExRateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.FromCurIsoCode)
                     .IsRequired()
                     .HasMaxLength(3)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
-                entity.Property(e => e.Rate)
-                    .HasColumnType("decimal(24, 9)")
-                    .HasAnnotation("Relational:ColumnType", "decimal(24, 9)");
+                entity.Property(e => e.Rate).HasColumnType("decimal(24, 9)");
 
-                entity.Property(e => e.TimeEXC)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.TimeEXC).HasColumnType("datetime");
 
                 entity.Property(e => e.ToCurIsoCode)
                     .IsRequired()
                     .HasMaxLength(3)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<LUT_ACCT_TYPE>(entity =>
@@ -399,7 +371,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
-                entity.HasKey(x => x.Code)
+                entity.HasKey(e => e.Code)
                     .HasName("PK__LUT_CIF___A25C5AA6A1F27BC6");
 
                 entity.Property(e => e.Name).HasMaxLength(80);
@@ -407,7 +379,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<LUT_CITY>(entity =>
             {
-                entity.HasKey(x => x.Code);
+                entity.HasKey(e => e.Code);
 
                 entity.Property(e => e.Code).HasMaxLength(10);
 
@@ -422,7 +394,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<LUT_COUNTRY>(entity =>
             {
-                entity.HasKey(x => x.Code);
+                entity.HasKey(e => e.Code);
 
                 entity.Property(e => e.Code).HasMaxLength(10);
 
@@ -445,7 +417,7 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.CR_DR)
                     .IsRequired()
                     .HasMaxLength(2)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -481,71 +453,59 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<Settings>(entity =>
             {
-                entity.HasKey(x => x.VerID);
+                entity.HasKey(e => e.VerID);
 
                 entity.Property(e => e.ACCTFormat)
                     .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.ACCTFormatDigits)
                     .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.ACCTFormatDigitsNum)
                     .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.BaseCurrency)
                     .IsRequired()
                     .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.CIFFormatDigits)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
-                entity.Property(e => e.EffectiveDate)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                entity.Property(e => e.EffectiveDate).HasColumnType("date");
 
                 entity.Property(e => e.GLFormat)
                     .IsRequired()
                     .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.GLFormatDigits)
                     .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<TRN_LEGS>(entity =>
             {
-                entity.HasKey(x => x.TRN_LEGS_ID);
+                entity.HasKey(e => e.TRN_LEGS_ID);
 
                 entity.Property(e => e.Acct_CR_DR).HasMaxLength(2);
 
                 entity.Property(e => e.Acct_Curr).HasMaxLength(3);
 
-                entity.Property(e => e.Balance_After)
-                    .HasColumnType("decimal(28, 3)")
-                    .HasAnnotation("Relational:ColumnType", "decimal(28, 3)");
+                entity.Property(e => e.Balance_After).HasColumnType("decimal(28, 3)");
 
-                entity.Property(e => e.Balance_Before)
-                    .HasColumnType("decimal(28, 3)")
-                    .HasAnnotation("Relational:ColumnType", "decimal(28, 3)");
+                entity.Property(e => e.Balance_Before).HasColumnType("decimal(28, 3)");
 
-                entity.Property(e => e.CREATE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.EffDt)
-                    .HasColumnType("date")
-                    .HasAnnotation("Relational:ColumnType", "date");
+                entity.Property(e => e.EffDt).HasColumnType("date");
 
-                entity.Property(e => e.Trn_Amt)
-                    .HasColumnType("decimal(28, 3)")
-                    .HasAnnotation("Relational:ColumnType", "decimal(28, 3)");
+                entity.Property(e => e.Trn_Amt).HasColumnType("decimal(28, 3)");
             });
 
             modelBuilder.Entity<VW_DEF_GL>(entity =>
@@ -560,7 +520,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.CR_DR)
                     .HasMaxLength(2)
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.CURR)
                     .IsRequired()
@@ -572,9 +532,7 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.EFFECTIVE_DT)
-                    .HasColumnType("datetime")
-                    .HasAnnotation("Relational:ColumnType", "datetime");
+                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.LedgerNO)
                     .IsRequired()
