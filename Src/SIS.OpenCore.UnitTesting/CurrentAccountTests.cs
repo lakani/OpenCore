@@ -1,0 +1,50 @@
+﻿using NUnit.Framework;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using SIS.OpenCore.Model;
+//using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.BL.Objects;
+using SIS.OpenCore.BL.Transactions;
+using SIS.OpenCore.DAL.Context;
+
+namespace SIS.OpenCore.UnitTesting
+{
+    class CurrentAccountTests
+    {
+        [Test]
+        public void CurrentAccount_Create_Test()
+        {
+
+            //CurrentAccount.Add()
+
+            List<DEF_CK_ACCT_ACCT_STRUCT> ACCTS = new List<DEF_CK_ACCT_ACCT_STRUCT>();
+
+            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
+            {
+                GLNum = "01-01-01-01-01-01-00001",
+                GLCategory = 1
+            });
+
+            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
+            {
+                GLNum = "01-01-01-01-01-01-00001",
+                GLCategory = 2
+            });
+
+
+            CurrentAccount.Add(
+                new DEF_CK_ACCT
+                {
+                    OpenDate = new DateTime(2020, 1, 1),
+                    CompanyNo = 1, //Company
+                    ACCT_TYPE = "CK", // Account Type)
+                    ACCT_CLASS = "00001",
+                    Currency = "EGP",       // Currency
+                    CIF_NO = "000000001"
+                }, // CIF    
+                        ACCTS.ToArray());
+
+        }
+    }
+}
