@@ -36,6 +36,7 @@ namespace SIS.OpenCore.BL.Objects
                 byte        SectorNo = 0,
                 byte        DepNo = 0,
                 byte        UNITNO = 0,
+                short       ProductNo = 0,
                 string      CURR = "" ,
                 byte        POSTINGLEVEL = 1,
                 string      LEDGERNO = "",

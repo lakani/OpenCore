@@ -7,12 +7,13 @@ namespace SIS.OpenCore.Model
     public partial class DEF_GL
     {
         public int GL_DEFID { get; set; }
-        public byte Zone { get; set; }
+        public byte? Zone { get; set; }
         public short CompanyNo { get; set; }
-        public short BranchNo { get; set; }
-        public byte SectorNo { get; set; }
-        public byte DepNo { get; set; }
-        public byte UnitNO { get; set; }
+        public short? BranchNo { get; set; }
+        public byte? SectorNo { get; set; }
+        public byte? DepNo { get; set; }
+        public byte? UnitNO { get; set; }
+        public short? ProductNo { get; set; }
         public byte Nature { get; set; }
         public byte PostingLevel { get; set; }
         public string LedgerNO { get; set; }
