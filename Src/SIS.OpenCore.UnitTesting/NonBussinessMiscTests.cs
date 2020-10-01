@@ -60,5 +60,18 @@ namespace SIS.OpenCore.UnitTesting
 
         }
 
+        [Test]
+        public void TestStringFormat()
+        {
+            string str = "Nature";
+            byte Nature = 1;
+            string sNature = String.Format("{0, 0:D2}", Nature);
+            string sRes = str.Replace("Nature", sNature);
+
+            str = sRes;
+
+
+        }
+
     }
 }

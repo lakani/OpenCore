@@ -3,31 +3,44 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Model;
+using System.Linq;
 using SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL;
-
+using SIS.OpenCore.Shared.Extensions;
 
 namespace SIS.OpenCore.BL.Objects
 {
     public partial class GL
     {
-            //@LEDGERNO_OUT	nvarchar(15)	OUTPUT,
-            // @CompanyNo		int,
-            // @Zone			int,
-            // @BranchNo		int,
-            // @SectorNo		int,
-            // @DepNo			int,
-            // @UNITNO			int,
-            // @NATURE			int,
-            // @LEDGERNO		nvarchar(MAX) = null,
-            // @TotallingGL	nvarchar(100) = null,
-            // @POSTINGLEVEL	int = null,
-            // @CURR			nvarchar(4) = null, 
-            // @COMMENTS		nvarchar(200) = null,
-            // @EFFECTIVE_DT	datetime = null,
-            // @REFERENCE		nvarchar(MAX) = null
-         static public string Add_GL (
+        static Segment[] _segments = new Segment[] {   
+            new Segment { Type = 1,   Name = "Nature",          DigitsValue = "#",      DigitsLength = 1},
+            new Segment { Type = 2,   Name = "Zone",            DigitsValue = "##",     DigitsLength = 2},
+            new Segment { Type = 3,   Name = "CompanyNo",       DigitsValue = "##",     DigitsLength = 2},
+            new Segment { Type = 4,   Name = "BranchNo",        DigitsValue = "####",   DigitsLength = 4},
+            new Segment { Type = 5,   Name = "SectorNo",        DigitsValue = "##",     DigitsLength = 2},
+            new Segment { Type = 6,   Name = "DepNo",           DigitsValue = "##",     DigitsLength = 2},
+            new Segment { Type = 7,   Name = "UnitNo",          DigitsValue = "##",     DigitsLength = 2},
+            new Segment { Type = 8,   Name = "ProductNo",       DigitsValue = "####",   DigitsLength = 4},
+            new Segment { Type = 9,   Name = "PostingLevel",    DigitsValue = "#",      DigitsLength = 1},
+            new Segment { Type = 10,  Name = "LedgerNo",        DigitsValue = "######", DigitsLength = 6}};
+
+        //@LEDGERNO_OUT	nvarchar(15)	OUTPUT,
+        // @CompanyNo		int,
+        // @Zone			int,
+        // @BranchNo		int,
+        // @SectorNo		int,
+        // @DepNo			int,
+        // @UNITNO			int,
+        // @NATURE			int,
+        // @LEDGERNO		nvarchar(MAX) = null,
+        // @TotallingGL	nvarchar(100) = null,
+        // @POSTINGLEVEL	int = null,
+        // @CURR			nvarchar(4) = null, 
+        // @COMMENTS		nvarchar(200) = null,
+        // @EFFECTIVE_DT	datetime = null,
+        // @REFERENCE		nvarchar(MAX) = null
+        static public string Add_GL (
                 DateTime    EFFECTIVE_DT ,
                 short       CompanyNo,
                 byte        NATURE,
@@ -90,19 +103,22 @@ namespace SIS.OpenCore.BL.Objects
                 byte cGLFormatDigitsNum = Settings.fn_OPT_GetGLFormatDigitsNum();
 
                 // ensure that @LEDGERNO length equel the GLFormatDigitsNum if @LEDGERNO is provided
-                if(LEDGERNO.Length > cGLFormatDigitsNum)
-                    throw new ArgumentOutOfRangeException("LEDGERNO", "Ledger number Length is greater than Digits Length");
+                //if(LEDGERNO.Length > cGLFormatDigitsNum)
+                  //  throw new ArgumentOutOfRangeException("LEDGERNO", "Ledger number Length is greater than Digits Length");
             }
             else
             {
-                string sMaxLedger = GL.GetMaxLedger(CompanyNo, (byte)NATURE, CURR, nZone, BranchNo, 
-                                                    SectorNo, DepNo, UNITNO, POSTINGLEVEL);
+                // TODO
+                //string sMaxLedger = GL.GetMaxLedger(CompanyNo, (byte)NATURE, CURR, nZone, BranchNo, 
+                //                                    SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL);
+                string sMaxLedger = "";
                 int nMax;
                 nMax = int.Parse(sMaxLedger);
                 nMax = nMax + 1;
                 sMaxLedger = Settings.fn_OPT_GetGLFormatDigits() + nMax.ToString();
                 int cToRemove = sMaxLedger.Length - Settings.fn_OPT_GetGLFormatDigitsNum();
-                LEDGERNO = sMaxLedger.Remove(0, cToRemove);
+                //TODO
+                //LEDGERNO = sMaxLedger.Remove(0, cToRemove);
             }
 
             #region TotallingGL
@@ -123,10 +139,11 @@ namespace SIS.OpenCore.BL.Objects
                 }
             }
             #endregion
-            
+
             #region Check_if_Exists
-            
-            if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, LEDGERNO) == true)
+            int temp = 0;
+            temp = temp.TryParse(LEDGERNO);
+            if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, temp) == true)
                 return string.Empty;
                 
             #endregion
@@ -144,21 +161,23 @@ namespace SIS.OpenCore.BL.Objects
             newGLTobeInserted.DepNo = DepNo;
             newGLTobeInserted.UnitNO = UNITNO;
             newGLTobeInserted.PostingLevel = POSTINGLEVEL;
-            newGLTobeInserted.LedgerNO = LEDGERNO;
+            // TODO
+            //newGLTobeInserted.LedgerNO = LEDGERNO;
             newGLTobeInserted.STATUS = 1;
             newGLTobeInserted.COMMENTS = COMMENTS;
-            newGLTobeInserted.TotallingGL = TotallingGL;
+            // TODO
+            //newGLTobeInserted.TotallingGL = TotallingGL;
 
             OpenCoreContext db = new OpenCoreContext();
             db.DEF_GL.Add(newGLTobeInserted);
             db.SaveChanges();
             #endregion
-           
-            return newGLTobeInserted.LedgerNO;
+
+            return newGLTobeInserted.GL;
         }
 
         public static bool ValidateExists (short nCompany, byte nNature, string CurrISO, byte nZone, short nBranch, byte nSector,
-                                          byte nDep, byte nUNITNO, byte nPOSTINGLEVEL , string Ledger)
+                                          byte nDep, byte nUNITNO, byte nPOSTINGLEVEL , int Ledger)
         {
             DEF_GL  gl = new DEF_GL() {
                 CompanyNo = nCompany,
@@ -180,6 +199,7 @@ namespace SIS.OpenCore.BL.Objects
             return false;
         }
 
+        /*
         public static string fn_String_BuildGL( int Zone,  int CompanyNo,  int BranchNo,  int SectorNo,  int DepNo,  
                                                 int UnitNO, string LedgerNO)
         {
@@ -203,25 +223,35 @@ namespace SIS.OpenCore.BL.Objects
 
             return stReturn;
         }
+        */
 
 
-        public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
-                                          int nDep, int nUNITNO, int nPOSTINGLEVEL )
-        {
-            OpenCoreContext db = new OpenCoreContext();
+        // TODO :
+        //public static string GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
+        //                                  int nDep, int nUNITNO, short nProduct, int nPOSTINGLEVEL )
+        //{
+        //    OpenCoreContext db = new OpenCoreContext();
 
-            //GL.CompanyNo = @CompanyNo AND GL.Zone = @Zone AND Gl.BranchNo = @BranchNo AND Gl.SectorNo = @SectorNo)
+        //    //GL.CompanyNo = @CompanyNo AND GL.Zone = @Zone AND Gl.BranchNo = @BranchNo AND Gl.SectorNo = @SectorNo)
 
-            // TODO : Add more Conditions
-            string stMaxLedger =    (from g in db.DEF_GL
-                                    where ( (nCompany > 0 && g.CompanyNo == nCompany) || 
-                                            (nNature > 0 && g.Nature == nNature)  )
-                                    select g.LedgerNO).Max();
-            if(string.IsNullOrEmpty(stMaxLedger))
-                stMaxLedger = Settings.fn_OPT_GetGLFormatDigits();
+        //    // TODO : Done, Add more Conditions
+        //    int stMaxLedger =    (from g in db.DEF_GL
+        //                            where ( (nCompany > 0 && g.CompanyNo == nCompany) || 
+        //                                    (nNature > 0 && g.Nature == nNature)  ||
+        //                                    (nZone > 0 && g.Zone == nZone) ||
+        //                                    (nBranch > 0 && g.BranchNo== nBranch) ||
+        //                                    (nSector > 0 && g.SectorNo == nSector) ||
+        //                                    (nDep > 0 && g.DepNo == nDep) ||
+        //                                    (nUNITNO > 0 && g.UnitNO == nUNITNO) ||
+        //                                    (nProduct > 0 && g.ProductNo == nProduct) ||
+        //                                    (nPOSTINGLEVEL > 0 && g.PostingLevel == nPOSTINGLEVEL) )
+        //                            select g.LedgerNO).Max();
 
-            return stMaxLedger;
-        }
+        //    if(string.IsNullOrEmpty(stMaxLedger))
+        //        stMaxLedger = Settings.fn_OPT_GetGLFormatDigits();
+
+        //    return stMaxLedger;
+        //}
 
         public static DEF_GL fn_GetGLInfo(DEF_GL gL, string stCURR)
         {
@@ -273,8 +303,8 @@ namespace SIS.OpenCore.BL.Objects
         public static DEF_GL fn_String_ParseGL(string stGL)
         {
             if(string.IsNullOrEmpty(stGL))
-                return null;
-            
+                throw new ArgumentException("Invalid GL", "GL");
+
             // TODO : restrcture as Format should be dynamic
 
 
@@ -287,16 +317,76 @@ namespace SIS.OpenCore.BL.Objects
             // SUBSTRING(@GL,13, 2)	'DepNo'	,								-- DepNo
             // SUBSTRING(@GL,16, 2)	'UnitNO',								-- UnitNO
             // SUBSTRING(@GL,19, dbo.fn_OPT_GetGLFormatDigitsNum()) 'LedgerNO'	-- LedgerNO
+            //RetGL.Zone = (byte)int.Parse(stGL.Substring(0, 2));
+            //RetGL.CompanyNo = (short)int.Parse(stGL.Substring(3, 2));
+            //RetGL.BranchNo = (byte)int.Parse(stGL.Substring(6, 2));
+            //RetGL.SectorNo = (byte)int.Parse(stGL.Substring(9, 2));
+            //RetGL.DepNo = (byte)int.Parse(stGL.Substring(12, 2));
+            //RetGL.UnitNO = (byte)int.Parse(stGL.Substring(15, 2));
+            //RetGL.LedgerNO = stGL.Substring(18, Settings.fn_OPT_GetGLFormatDigitsNum());
 
-            RetGL.Zone = (byte)int.Parse(stGL.Substring(0, 2));
-            RetGL.CompanyNo = (short)int.Parse(stGL.Substring(3, 2));
-            RetGL.BranchNo = (byte)int.Parse(stGL.Substring(6, 2));
-            RetGL.SectorNo = (byte)int.Parse(stGL.Substring(9, 2));
-            RetGL.DepNo = (byte)int.Parse(stGL.Substring(12, 2));
-            RetGL.UnitNO = (byte)int.Parse(stGL.Substring(15, 2));
-            RetGL.LedgerNO = stGL.Substring(18, Settings.fn_OPT_GetGLFormatDigitsNum());
+            string SegmentsSetup = Settings.GetSystemSegments();
+            string[] SegmentsSetupSplited = SegmentsSetup.Split('-');
+            string[] GLSegments =   stGL.Split('-');
+
+            // 
+            if(SegmentsSetupSplited.Length != GLSegments.Length)
+                throw new ArgumentException("Invalid GL", "GL");
+
+            for(int nSeg=0; nSeg< GLSegments.Length; nSeg++)
+            {
+                // find the corresponding segment Setup
+                Segment CurSegmentDef = (from s in _segments
+                                        where s.Name == SegmentsSetupSplited[nSeg]
+                                        select s).First();
+
+                if(CurSegmentDef is null)
+                    throw new ArgumentException("Invalid GL", "GL");
+
+                if(GLSegments[nSeg].Length != CurSegmentDef.DigitsLength)
+                    throw new ArgumentException("Invalid GL", "GL");
+
+                UpdateGL(ref RetGL, CurSegmentDef, GLSegments[nSeg]);
+            }
 
             return RetGL;
+        }
+
+        private static void UpdateGL(ref DEF_GL retGL, Segment curSegmentDef, string v)
+        {
+            switch (curSegmentDef.Type)
+            {
+                case 1: // Nature
+                    retGL.Nature = retGL.Nature.TryParse(v) ;
+                    break;
+                case 2: // Zone
+                    retGL.Zone = retGL.Zone.TryParse(v);
+                    break;
+                case 3: // CompanyNo
+                    retGL.CompanyNo = retGL.CompanyNo.TryParse(v);
+                    break;
+                case 4: // BranchNo
+                    retGL.BranchNo = retGL.BranchNo.TryParse(v);
+                    break;
+                case 5: // SectorNo
+                    retGL.SectorNo = retGL.SectorNo.TryParse(v);
+                    break;
+                case 6: // DepNo
+                    retGL.DepNo = retGL.DepNo.TryParse(v);
+                    break;
+                case 7: // UnitNo
+                    retGL.UnitNO = retGL.UnitNO.TryParse(v);
+                    break;
+                case 8: // ProductNo
+                    retGL.ProductNo = retGL.ProductNo.TryParse(v);
+                    break;
+                case 9: // PostingLevel
+                    retGL.PostingLevel = retGL.PostingLevel.TryParse(v);
+                    break;
+                case 10: // LedgerNo
+                    retGL.LedgerNO = retGL.LedgerNO.TryParse(v);
+                    break;
+            }
         }
     }
 }

@@ -48,20 +48,36 @@ namespace SIS.OpenCore.BL
 
         static public string fn_OPT_GetGLFormatDigits()
         {
+            /*
             OpenCoreContext db = new OpenCoreContext();
 
             String sGlformatDigits =    ((from s in db.Settings
                                         orderby s.VerID descending
                                         select s.GLFormatDigits).FirstOrDefault()).Trim();
-            
+            */
+
+            String sGlformatDigits = "######";
+
             return sGlformatDigits;
+        }
+
+        static public string GetSystemSegments()
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            String sGlformat =  ((from s in db.Settings
+                                orderby s.VerID descending
+                                select s.GLFormat).FirstOrDefault()).Trim();
+
+            return sGlformat;
         }
 
         static public byte fn_OPT_GetGLFormatDigitsNum()
         {
-            string r = fn_OPT_GetGLFormatDigits();
+            //string r = fn_OPT_GetGLFormatDigits();
+            string r = "######";
 
-            if(String.IsNullOrEmpty(r)) 
+            if (String.IsNullOrEmpty(r)) 
                 return 0;
             return (byte)r.Length;
         }

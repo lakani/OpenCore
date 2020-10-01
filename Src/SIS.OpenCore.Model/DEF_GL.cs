@@ -16,9 +16,9 @@ namespace SIS.OpenCore.Model
         public short? ProductNo { get; set; }
         public byte Nature { get; set; }
         public byte PostingLevel { get; set; }
-        public string LedgerNO { get; set; }
+        public int LedgerNO { get; set; }
+        public string GL { get; set; }
         public string CURR { get; set; }
-        public string TotallingGL { get; set; }
         public string COMMENTS { get; set; }
         public DateTime EFFECTIVE_DT { get; set; }
         public byte STATUS { get; set; }
