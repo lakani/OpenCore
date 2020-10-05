@@ -29,11 +29,16 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
             // TODO
             //newGLTobeInserted.TotallingGL = TotallingGL;
 
+            return AddGl(newGLTobeInserted);
+        }
+
+        private static string AddGl(DEF_GL newRecord)
+        {
             OpenCoreContext db = new OpenCoreContext();
-            db.DEF_GL.Add(newGLTobeInserted);
+            db.DEF_GL.Add(newRecord);
             db.SaveChanges();
 
-            return newGLTobeInserted.GL;
+            return newRecord.GL;
         }
     }
 }
