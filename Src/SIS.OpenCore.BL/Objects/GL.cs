@@ -145,35 +145,12 @@ namespace SIS.OpenCore.BL.Objects
             temp = temp.TryParse(LEDGERNO);
             if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, temp) == true)
                 return string.Empty;
-                
+
             #endregion
 
             #region Insert_into_Database
-
-            DEF_GL newGLTobeInserted = new DEF_GL();
-            newGLTobeInserted.EFFECTIVE_DT = EFFECTIVE_DT;
-            newGLTobeInserted.CompanyNo = CompanyNo;
-            newGLTobeInserted.Nature = NATURE;
-            newGLTobeInserted.CURR = CURR;
-            newGLTobeInserted.Zone = nZone;
-            newGLTobeInserted.BranchNo = BranchNo;
-            newGLTobeInserted.SectorNo = SectorNo;
-            newGLTobeInserted.DepNo = DepNo;
-            newGLTobeInserted.UnitNO = UNITNO;
-            newGLTobeInserted.PostingLevel = POSTINGLEVEL;
-            // TODO
-            //newGLTobeInserted.LedgerNO = LEDGERNO;
-            newGLTobeInserted.STATUS = 1;
-            newGLTobeInserted.COMMENTS = COMMENTS;
-            // TODO
-            //newGLTobeInserted.TotallingGL = TotallingGL;
-
-            OpenCoreContext db = new OpenCoreContext();
-            db.DEF_GL.Add(newGLTobeInserted);
-            db.SaveChanges();
+            return DEF_GL_DAL.AddGL(EFFECTIVE_DT, CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, POSTINGLEVEL, COMMENTS);
             #endregion
-
-            return newGLTobeInserted.GL;
         }
 
         public static bool ValidateExists (short nCompany, byte nNature, string CurrISO, byte nZone, short nBranch, byte nSector,
@@ -192,7 +169,8 @@ namespace SIS.OpenCore.BL.Objects
                 LedgerNO = Ledger
             };
 
-            gl = fn_GetGLInfo(gl, gl.CURR);
+            // TODO, pass valid GL instead of empty
+            gl = fn_GetGLInfo(gl, "", gl.CURR);
             if(gl != null)
                 return true;
 
@@ -253,7 +231,7 @@ namespace SIS.OpenCore.BL.Objects
         //    return stMaxLedger;
         //}
 
-        public static DEF_GL fn_GetGLInfo(DEF_GL gL, string stCURR)
+        public static DEF_GL fn_GetGLInfo(DEF_GL gL, string stGL, string stCURR)
         {
             OpenCoreContext db = new OpenCoreContext();
             //where		GLTbl.LedgerNO = @LedgerNO and GLTbl.Zone = @ZoneNo AND	
@@ -262,11 +240,19 @@ namespace SIS.OpenCore.BL.Objects
 			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
 			
             var RetGL = (from g in db.DEF_GL
-                        where   g.LedgerNO == gL.LedgerNO && g.Zone == gL.Zone &&
-                                g.CompanyNo == gL.CompanyNo && g.BranchNo == gL.BranchNo &&
-                                g.CURR == stCURR && g.SectorNo == gL.SectorNo && 
-                                g.DepNo == gL.DepNo && g.UnitNO == gL.UnitNO
-                        select g).FirstOrDefault();
+                        where   g.LedgerNO == gL.LedgerNO && 
+                                g.Zone == gL.Zone &&
+                                g.CompanyNo == gL.CompanyNo && 
+                                g.BranchNo == gL.BranchNo &&
+                                g.CURR == stCURR && 
+                                g.SectorNo == gL.SectorNo && 
+                                g.DepNo == gL.DepNo && 
+                                g.UnitNO == gL.UnitNO &&
+                                g.GL == stGL &&
+                                g.Nature == gL.Nature &&
+                                g.PostingLevel == gL.PostingLevel && 
+                                g.ProductNo == gL.ProductNo 
+                         select g).FirstOrDefault();
                         
 
             return RetGL;
@@ -279,7 +265,7 @@ namespace SIS.OpenCore.BL.Objects
             //          GLTbl.CompanyNo = @CompanyNo and GLTbl.BranchNo = @BranchNo AND 
             //          GLTbl.CURR = @ISOCurr and GLTbl.SectorNo = @SectorNo and 
 			//          GLTbl.DepNo = @DepNo and GLTbl.UnitNO = @UnitNO 
-            return fn_GetGLInfo(RetGL, stCURR);
+            return fn_GetGLInfo(RetGL, stGL, stCURR);
         }
 
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
