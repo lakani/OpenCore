@@ -25,7 +25,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "CR",
-                Acct_No = "01-01-01-01-01-01-00010",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000050",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -36,7 +36,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "DR",
-                Acct_No = "01-01-01-01-01-01-00002",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000049",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -48,7 +48,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "DR",
-                Acct_No = "01-01-01-01-01-01-00010",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000048",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -59,8 +59,8 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "CR",
-                Acct_No = "000000000000001",
-                GL = false,
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000047",
+                GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
                 Acct_Curr = "EGP",
@@ -103,13 +103,13 @@ namespace SIS.OpenCore.UnitTesting
 
             ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
             {
-                GLNum = "01-01-01-01-01-01-00001",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000045",
                 GLCategory = 1
             });
 
             ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
             {
-                GLNum = "01-01-01-01-01-01-00001",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000044",
                 GLCategory = 2
             });
 

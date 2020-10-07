@@ -39,13 +39,13 @@ namespace SIS.OpenCore.UnitTesting
             List<DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<DEF_ACCT_CLASS_ACCT_STRUCT>();
             ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT
             {
-                GLNum = "01-01-01-01-01-01-00001",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000043",
                 GLCategory = 1
             });
 
             ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT
             {
-                GLNum = "01-01-01-01-01-01-00001",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000042",
                 GLCategory = 2
             });
 

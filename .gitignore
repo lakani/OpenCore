@@ -45,3 +45,4 @@ Src/Trials/ConsoleApp/webapi/appsettings.json
 /Src/.vs/SIS.OpenCore.Server/config/applicationhost.config
 /Src/.vs/SIS.OpenCore.Server/v16/TestStore/0/004.testlog
 /Src/.vs/SIS.OpenCore.Server/v16/TestStore/0/005.testlog
+/Src/.vs/SIS.OpenCore.Server/v16/TestStore/0/*.testlog

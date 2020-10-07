@@ -532,9 +532,9 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.LedgerNO)
-                    .IsRequired()
-                    .HasMaxLength(15);
+                entity.Property(e => e.GL)
+                    .HasMaxLength(40)
+                    .IsFixedLength();
 
                 entity.Property(e => e.NatureName).HasMaxLength(30);
 
@@ -543,10 +543,6 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.SectorName)
                     .IsRequired()
                     .HasMaxLength(30);
-
-                entity.Property(e => e.TotallingGL)
-                    .IsRequired()
-                    .HasMaxLength(35);
 
                 entity.Property(e => e.UnitName)
                     .IsRequired()
