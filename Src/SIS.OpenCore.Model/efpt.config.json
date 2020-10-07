@@ -2,13 +2,11 @@
    "ContextClassName": "OpenCoreContext",
    "ContextNamespace": "DAL.Context",
    "DefaultDacpacSchema": null,
-   "FilterSchemas": false,
    "IncludeConnectionString": true,
    "ModelNamespace": "Model",
    "OutputContextPath": "..\\SIS.OpenCore.DAL",
    "OutputPath": "",
    "ProjectRootNamespace": "SIS.OpenCore",
-   "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [

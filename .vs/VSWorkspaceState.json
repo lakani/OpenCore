@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\SQL",
-    "\\SQL\\Test"
+    "\\SQL\\Test",
+    "\\Src",
+    "\\Src\\SIS.OpenCore.BL"
   ],
-  "SelectedNode": "\\SQL\\Test\\SP_AddCIF_Testing.sql",
+  "SelectedNode": "\\Src\\SIS.OpenCore.BL\\Settings.cs",
   "PreviewInSolutionExplorer": false
 }

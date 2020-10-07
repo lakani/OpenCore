@@ -19,14 +19,14 @@ namespace SIS.OpenCore.Model
         public string DepName { get; set; }
         public byte UnitNO { get; set; }
         public string UnitName { get; set; }
+        public short ProductNo { get; set; }
         public byte Nature { get; set; }
         public string NatureName { get; set; }
         public string CR_DR { get; set; }
         public byte PostingLevel { get; set; }
-        public string LedgerNO { get; set; }
+        public int LedgerNO { get; set; }
         public string CURR { get; set; }
         public DateTime EFFECTIVE_DT { get; set; }
-        public string TotallingGL { get; set; }
         public string REFERENCE { get; set; }
     }
 }

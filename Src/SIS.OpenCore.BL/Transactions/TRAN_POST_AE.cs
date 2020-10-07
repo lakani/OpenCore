@@ -254,7 +254,7 @@ namespace SIS.OpenCore.BL.Transactions
             foreach(TRAN_POST_AE_TYPE_PARAM Leg in Legs)
             {
                 if (Leg.GL == true)
-                    Leg.GL_Info = GL.fn_GetGLInfo(Leg.Acct_No, stBaseCurr);
+                    Leg.GL_Info = GL.GetGLInfo(Leg.Acct_No, stBaseCurr);
                 if (Leg.GL == true && Leg.GL_Info == null)
                     return false;
                 if (Leg.GL == false)
