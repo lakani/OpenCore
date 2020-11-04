@@ -18,7 +18,13 @@ namespace SIS.OpenCore.Client.Win
         }
         private void LeftSideMenu_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("CIF");
+            this.splitContainer.Panel2.
+        }
 
+        private void LeftSideMenu_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+         
         }
     }
 }
