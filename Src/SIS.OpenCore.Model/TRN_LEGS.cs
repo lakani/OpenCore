@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace SIS.OpenCore.Model
 {
     public partial class TRN_LEGS
