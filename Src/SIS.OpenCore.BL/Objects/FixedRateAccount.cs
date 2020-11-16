@@ -80,6 +80,15 @@ namespace SIS.OpenCore.BL.Objects
         }
 
         /// <summary>
+        /// Interest Calculation Process
+        /// </summary>
+        static protected void InterestCalculationProcess(DateTime RunDate)
+        {
+            // TODO : Should process from last calculated date till the given date
+
+        }
+
+        /// <summary>
         /// Close Accounts Process , 
         /// Close all Mature anccounts 
         /// </summary>
