@@ -19,14 +19,14 @@ namespace SIS.OpenCore.Model
         public string ACCT_TYPE { get; set; }
         public string ACCT_CLASS { get; set; }
         public string Currency { get; set; }
-        public DateTime? OpenDate { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public DateTime? CloseDate { get; set; }
-        public decimal? Principle { get; set; }
+        public DateTime OpenDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime CloseDate { get; set; }
+        public decimal Principle { get; set; }
         public decimal? Rate { get; set; }
         public byte? AccrualBasis { get; set; }
         public string CSP_Code { get; set; }
         public short CompanyNo { get; set; }
-        public byte? STATUS { get; set; }
+        public byte STATUS_ID { get; set; }
     }
 }

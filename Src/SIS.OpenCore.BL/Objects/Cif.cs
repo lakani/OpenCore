@@ -50,7 +50,7 @@ namespace SIS.OpenCore.BL.Objects
                 throw new ArgumentOutOfRangeException("nCIF_TYPE", "Type doesn't Exists");
 
             // check if CIF not exists
-            if( false == ValidateExists(sCIF_NO))
+            if( true == ValidateExists(sCIF_NO))
             {
                 // check if CIF exists in this company or not
                 if(CIFCompany.ValidateExists(nCompanyNo, sCIF_NO))
@@ -135,7 +135,7 @@ namespace SIS.OpenCore.BL.Objects
             return Ret.ToList();
         }
 
-        protected static bool ValidateExists(string sCIF_NO)
+        public static bool ValidateExists(string sCIF_NO)
         {
             OpenCoreContext db = new OpenCoreContext();
 
@@ -143,7 +143,7 @@ namespace SIS.OpenCore.BL.Objects
                                 where c.CIF_NO == sCIF_NO
                                 select c.CIF_NO).FirstOrDefault();
 
-            if( false == string.IsNullOrEmpty(sExists))
+            if( true == string.IsNullOrEmpty(sExists))
                 return false;
             return true;
         }

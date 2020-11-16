@@ -91,7 +91,7 @@ namespace SIS.OpenCore.BL.Objects
 
             //-- if not supplied , assume its current bussiness date
             if (EFFECTIVE_DT <= DateTime.MinValue || EFFECTIVE_DT >= DateTime.MaxValue)
-                EFFECTIVE_DT = Settings.fn_GetCurrentBusinessDate();
+                EFFECTIVE_DT = Settings.GetCurrentBusinessDate();
 
             //-- check paramters
             //PRINT 'Checking DEF_Currency Table'

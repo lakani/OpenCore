@@ -59,7 +59,7 @@ namespace SIS.OpenCore.DAL.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;User ID=sa;Password=get@get1");
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1");
             }
         }
 
@@ -289,7 +289,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_FIXRATE_ACCT>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.DEF_ACCT_ID);
 
                 entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
 
@@ -313,8 +313,6 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.Currency).HasMaxLength(3);
 
-                entity.Property(e => e.DEF_ACCT_ID).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Description).HasMaxLength(80);
 
                 entity.Property(e => e.IBAN).HasMaxLength(35);
@@ -334,17 +332,13 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_FIXRATE_ACCT_DATES>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.DEF_FIXRATE_ACCT_DATES_ID);
 
                 entity.Property(e => e.ACCT_DATE).HasColumnType("date");
 
                 entity.Property(e => e.ACCT_NO)
                     .IsRequired()
                     .HasMaxLength(35);
-
-                entity.Property(e => e.DEF_FIXRATE_ACCT_DATES1)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("DEF_FIXRATE_ACCT_DATES");
             });
 
             modelBuilder.Entity<DEF_GL>(entity =>

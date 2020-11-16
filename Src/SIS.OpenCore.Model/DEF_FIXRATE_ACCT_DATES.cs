@@ -8,7 +8,7 @@ namespace SIS.OpenCore.Model
 {
     public partial class DEF_FIXRATE_ACCT_DATES
     {
-        public int DEF_FIXRATE_ACCT_DATES1 { get; set; }
+        public int DEF_FIXRATE_ACCT_DATES_ID { get; set; }
         public int DEF_ACCT_ID { get; set; }
         public string ACCT_NO { get; set; }
         public DateTime ACCT_DATE { get; set; }

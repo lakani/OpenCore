@@ -96,7 +96,7 @@ namespace SIS.OpenCore.BL.Transactions
                 throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
             
             // get Current Bussiness date
-            MaxEffDt = Settings.fn_GetCurrentBusinessDate();
+            MaxEffDt = Settings.GetCurrentBusinessDate();
 
             // get Today
             CRT_DT = DateTime.Now;
@@ -106,7 +106,7 @@ namespace SIS.OpenCore.BL.Transactions
             
             // Get All Legs GLs information 
             // ensure that all Gls got the supplied currency 
-            if(Retrive_GL_Info(ae_Param, stBaseCurrency) == false)
+            if(GetGInfo(ae_Param, stBaseCurrency) == false)
                 throw new ArgumentOutOfRangeException("ae_Param", "Legs currency is not the base currency");
 
             if(Validation_Sum_of_CR_Equal_Sum_of_DR(ae_Param, stBaseCurrency) == false)
@@ -249,7 +249,7 @@ namespace SIS.OpenCore.BL.Transactions
         }
 
         // Ensure that all legs are within the same company
-        static protected bool Retrive_GL_Info(TRAN_POST_AE_TYPE_PARAM[] Legs, string stBaseCurr )
+        static protected bool GetGInfo(TRAN_POST_AE_TYPE_PARAM[] Legs, string stBaseCurr )
         {
             foreach(TRAN_POST_AE_TYPE_PARAM Leg in Legs)
             {

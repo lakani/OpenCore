@@ -69,7 +69,7 @@ namespace SIS.OpenCore.BL.Objects
             return (decimal)BalanceAfter;
         }
 
-
+        
         public static string Add(DEF_CK_ACCT NewAcct, DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
             OpenCoreContext db = new OpenCoreContext();
