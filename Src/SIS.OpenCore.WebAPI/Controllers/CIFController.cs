@@ -35,17 +35,22 @@ namespace SIS.OpenCore.webapi.Controllers
             return Cif.List(10);
         }
 
-        //[HttpPost]
-        ////[ProducesResponseType(StatusCodes.Status201Created)]
-        ////[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public ActionResult<DEF_CIF> Create(DEF_CIF def_CIF)
-        //{
-        //    //pet.Id = _petsInMemoryStore.Any() ?
-        //    //         _petsInMemoryStore.Max(p => p.Id) + 1 : 1;
-        //    //_petsInMemoryStore.Add(pet);
+        [HttpGet]
+        [Route("{Cif_NO}/{ACCT_TYPE}")]
+        public IEnumerable<string> GetCK(string Cif_NO, string ACCT_TYPE)
+        {
+            if(ACCT_TYPE == "CK")
+                return new string[] { Cif_NO + " CK1", Cif_NO + " ck2" };
+            else
+                return new string[] { Cif_NO + " FIXED", Cif_NO + " FIXED" };
+        }
 
-        //    return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
-        //}
+        [HttpGet("{Cif_NO}")]
+        // GET: api/values/5
+        public DEF_CIF Get(string Cif_NO)
+        {
+            return Cif.Get(Cif_NO);
+        }
 
         [HttpPost]
         public ActionResult<DEF_CIF> PostNewCIF(DEF_CIF def_CIF)

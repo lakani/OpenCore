@@ -80,6 +80,29 @@ namespace SIS.OpenCore.BL.Objects
                                     LEDGERNO, GL, COMMENTS);
         }
 
+
+        static public string Create(DEF_GL newGL)
+        {
+            return  Add_GL(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Nature, 
+                newGL.Zone.HasValue? newGL.Zone.Value:0, 
+                newGL.BranchNo.HasValue ? newGL.BranchNo.Value :0,
+                newGL.SectorNo.HasValue ? newGL.SectorNo.Value : 0 ,
+                newGL.DepNo.HasValue ? newGL.DepNo.Value : 0, 
+                newGL.UnitNO.HasValue ? newGL.UnitNO.Value : 0, 
+                newGL.ProductNo.HasValue ? newGL.ProductNo.Value : 0, 
+                newGL.CURR, 
+                newGL.PostingLevel, 
+                newGL.LedgerNO,  newGL.GL, newGL.COMMENTS, newGL.REFERENCE);
+         
+        }
+
+        public static DEF_GL[] List(short cRecordsPerPage)
+        {
+            return DEF_GL_DAL.List(cRecordsPerPage);
+        }
+
+
+
         private static bool ValidatesNewGLParams( ref DateTime EFFECTIVE_DT, short CompanyNo, byte nZone, short BranchNo, byte SectorNo, byte DepNo, 
                                             byte UNITNO, ref string CURR)
         {
