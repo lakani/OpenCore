@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 using SIS.OpenCore.Model;
 using SIS.OpenCore.DAL.Context;
 
-
-
-
 namespace SIS.OpenCore.DAL
 {
-    class PROC_FIXRATE_INTEREST_DAL
+    public partial class PROC_FIXRATE_INTEREST_DAL
     {
-
         /// <summary>
         /// Get Last Active Interest Calculation Process for the Given Fixed Account
         /// </summary>
