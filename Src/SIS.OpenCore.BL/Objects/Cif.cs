@@ -132,9 +132,10 @@ namespace SIS.OpenCore.BL.Objects
             var Ret = from c in db.DEF_CIF
                       select c;
 
-            if (String.IsNullOrEmpty(searchCIF.SearchKey) == false) Ret.Where(c => c.SearchKey == searchCIF.SearchKey);
+            if (false == String.IsNullOrEmpty(searchCIF.SearchKey)) 
+                Ret.Where(c => c.SearchKey == searchCIF.SearchKey);
             
-            if (String.IsNullOrEmpty(searchCIF.FirstName) == false) 
+            if (false  == String.IsNullOrEmpty(searchCIF.FirstName)) 
                 Ret = Ret.Where(c => c.FirstName.Contains(searchCIF.FirstName));
 
             return Ret.ToList();

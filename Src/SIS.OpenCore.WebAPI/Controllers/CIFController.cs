@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SIS.OpenCore.DAL;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 
 namespace SIS.OpenCore.webapi.Controllers
@@ -36,13 +31,19 @@ namespace SIS.OpenCore.webapi.Controllers
         }
 
         [HttpGet]
-        [Route("{Cif_NO}/{ACCT_TYPE}")]
-        public IEnumerable<string> GetCK(string Cif_NO, string ACCT_TYPE)
+        [Route("{CIF_NO}/{ACCT_TYPE}")]
+        public IEnumerable<DEF_CK_ACCT> GetCK(string CIF_NO, string ACCT_TYPE)
         {
-            if(ACCT_TYPE == "CK")
-                return new string[] { Cif_NO + " CK1", Cif_NO + " ck2" };
-            else
-                return new string[] { Cif_NO + " FIXED", Cif_NO + " FIXED" };
+            //if (ACCT_TYPE == "CK")
+            {
+                //var ret = CurrentAccount.List(CIF_NO, string.Empty, 10);
+                //string[] r = new string[ret.Length];
+                //for (int x = 0; x < r.Length; x++)
+                //    r[x] = ret[x].ToString();
+                return CurrentAccount.List(CIF_NO, string.Empty, 10); 
+            }
+            ///else
+                //return new string[] { CIF_NO + " FIXED", CIF_NO + " FIXED" };
         }
 
         [HttpGet("{Cif_NO}")]
