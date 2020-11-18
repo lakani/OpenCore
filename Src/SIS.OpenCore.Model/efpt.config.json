@@ -169,6 +169,11 @@
       },
       {
          "HasPrimaryKey": true,
+         "Name": "[dbo].[PROC_FIXRATE_INTEREST]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
          "Name": "[dbo].[Settings]",
          "ObjectType": 0
       },

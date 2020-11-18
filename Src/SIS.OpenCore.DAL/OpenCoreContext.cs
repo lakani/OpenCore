@@ -50,6 +50,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
         public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
         public virtual DbSet<LUT_TRN_STATUS> LUT_TRN_STATUS { get; set; }
+        public virtual DbSet<PROC_FIXRATE_INTEREST> PROC_FIXRATE_INTEREST { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
         public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
@@ -353,9 +354,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.GL)
-                    .HasMaxLength(40)
-                    .IsFixedLength(true);
+                entity.Property(e => e.GL).HasMaxLength(50);
             });
 
             modelBuilder.Entity<DEF_Sector>(entity =>
@@ -515,6 +514,27 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.NAME).HasMaxLength(80);
 
                 entity.Property(e => e.STATUS_ID).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<PROC_FIXRATE_INTEREST>(entity =>
+            {
+                entity.HasKey(e => e.PROC_FIXRATE_INTEREST_ID);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CALC_INTEREST_AMT).HasColumnType("decimal(32, 2)");
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.FROM_DATE).HasColumnType("datetime");
+
+                entity.Property(e => e.PRINCIPLE_AMT).HasColumnType("decimal(32, 2)");
+
+                entity.Property(e => e.TO_DATE).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Settings>(entity =>

@@ -69,10 +69,7 @@ namespace SIS.OpenCore.BL.Objects
 
 #if DEBUG
             decimal CalcInterest = 0;
-            for (DateTime x = NewAcct.OpenDate; x < NewAcct.CloseDate; x = x.AddDays(1))
-            {
-                CalcInterest += CalcDayInterest(NewAcct, x);
-            }
+            CalcInterest = CalcDayInterest(NewAcct, NewAcct.OpenDate, NewAcct.CloseDate.AddDays(-1));
 #endif
 
             // 
@@ -80,11 +77,50 @@ namespace SIS.OpenCore.BL.Objects
         }
 
         /// <summary>
-        /// Interest Calculation Process
+        /// Interest Calculation Process for All Accounts
         /// </summary>
         static protected void InterestCalculationProcess(DateTime RunDate)
         {
             // TODO : Should process from last calculated date till the given date
+
+            // Get All Fixed Rate Active Accounts
+            DEF_FIXRATE_ACCT[] ActiveAccTs = FixedRateAccount_DAL.List(0);
+            foreach(DEF_FIXRATE_ACCT FixedAcct in ActiveAccTs)
+            {
+                InterestCalculationProcess(FixedAcct, RunDate);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Interest Calculation Process for sepcific Account
+        /// </summary>
+        static protected void InterestCalculationProcess(DEF_FIXRATE_ACCT Acct, DateTime RunDate)
+        {
+            // Escape Close Date 
+            if (Acct.CloseDate == RunDate)
+                return;
+            PROC_FIXRATE_INTEREST LastAccrual = FixedRateAccount_DAL.GetLastActiveInterestProcess(Acct);
+
+            // if already executed for the Given Date
+            if (LastAccrual.TO_DATE >= RunDate)
+                return;
+            else
+            {
+                PROC_FIXRATE_INTEREST NewInterestRecord = new PROC_FIXRATE_INTEREST();
+                
+                NewInterestRecord.FROM_DATE = LastAccrual.TO_DATE;
+                NewInterestRecord.TO_DATE = RunDate;
+                NewInterestRecord.PRINCIPLE_AMT = Acct.Principle;
+                NewInterestRecord.STATUS_ID = 1;
+                NewInterestRecord.ACCT_NO = Acct.ACCT_NO;
+                NewInterestRecord.CIF_NO = Acct.CIF_NO;
+                NewInterestRecord.CALC_INTEREST_AMT = CalcDayInterest(Acct, LastAccrual.TO_DATE, RunDate);
+
+                NewInterestRecord
+            }
 
         }
 
@@ -107,8 +143,22 @@ namespace SIS.OpenCore.BL.Objects
             }
         }
 
+
         /// <summary>
-        /// open all pending for Open Date Accounts, and Turn them to Active 
+        /// Calc Interest for the given (From date, To Date) and Fiven account
+        /// </summary>
+        static protected decimal CalcDayInterest(DEF_FIXRATE_ACCT Acct, DateTime FromDate, DateTime ToDate)
+        {
+            decimal CalcInterest = 0;
+            for (DateTime x = FromDate; x <= ToDate; x = x.AddDays(1))
+            {
+                CalcInterest += CalcDayInterest(Acct, x);
+            }
+            return CalcInterest;
+        }
+
+        /// <summary>
+        /// Calc Interest for the given date and Fiven account
         /// </summary>
         static protected decimal CalcDayInterest(DEF_FIXRATE_ACCT Acct, DateTime RunDate)
         {

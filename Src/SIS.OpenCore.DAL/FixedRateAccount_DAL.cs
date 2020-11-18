@@ -26,7 +26,21 @@ namespace SIS.OpenCore.DAL
         {
             OpenCoreContext db = new OpenCoreContext();
 
+            // TODO
             return true;
+        }
+
+
+        /// <summary>
+        /// Get All Active Accounts for the requested count of records, if Zero is passed then all records will be retrived 
+        /// </summary>
+        static public DEF_FIXRATE_ACCT[] List(short cRecordsPerPage)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            return ((from l in db.DEF_FIXRATE_ACCT
+                    where l.STATUS_ID == 1
+                    orderby l.OpenDate descending
+                    select l).ToArray());
         }
 
         /// <summary>
@@ -41,9 +55,8 @@ namespace SIS.OpenCore.DAL
                     select r).ToArray();
         }
 
-
         /// <summary>
-        /// Insert into the Database
+        /// Insert new Fixed Rate Account into the Database
         /// </summary>
         static public string Create(DEF_FIXRATE_ACCT NewAcct, DEF_FIXRATE_ACCT_DATES[] SettlmentDates)
         {
