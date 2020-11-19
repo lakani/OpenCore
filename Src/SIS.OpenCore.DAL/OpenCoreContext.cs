@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SIS.OpenCore.Model;
 
+#nullable disable
+
 namespace SIS.OpenCore.DAL.Context
 {
     public partial class OpenCoreContext : DbContext
@@ -30,11 +32,14 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
         public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
         public virtual DbSet<DEF_EMP> DEF_EMP { get; set; }
+        public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
+        public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
         public virtual DbSet<DEF_GL> DEF_GL { get; set; }
         public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
         public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
         public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
         public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
+        public virtual DbSet<LUT_ACCRUAL_BASIS> LUT_ACCRUAL_BASIS { get; set; }
         public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
         public virtual DbSet<LUT_AE_CATEGORY> LUT_AE_CATEGORY { get; set; }
         public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
@@ -45,6 +50,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
         public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
         public virtual DbSet<LUT_TRN_STATUS> LUT_TRN_STATUS { get; set; }
+        public virtual DbSet<PROC_FIXRATE_INTEREST> PROC_FIXRATE_INTEREST { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
         public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
@@ -53,7 +59,7 @@ namespace SIS.OpenCore.DAL.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1");
             }
         }
@@ -282,6 +288,60 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
 
+            modelBuilder.Entity<DEF_FIXRATE_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.DEF_ACCT_ID);
+
+                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_TYPE)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CSP_Code).HasMaxLength(10);
+
+                entity.Property(e => e.CloseDate).HasColumnType("date");
+
+                entity.Property(e => e.CreateDate).HasColumnType("date");
+
+                entity.Property(e => e.Currency).HasMaxLength(3);
+
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.IBAN).HasMaxLength(35);
+
+                entity.Property(e => e.OpenDate).HasColumnType("date");
+
+                entity.Property(e => e.Principle).HasColumnType("decimal(28, 2)");
+
+                entity.Property(e => e.Rate).HasColumnType("decimal(28, 26)");
+
+                entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
+
+                entity.Property(e => e.ReferenceOrg).HasMaxLength(35);
+
+                entity.Property(e => e.Title).HasMaxLength(80);
+            });
+
+            modelBuilder.Entity<DEF_FIXRATE_ACCT_DATES>(entity =>
+            {
+                entity.HasKey(e => e.DEF_FIXRATE_ACCT_DATES_ID);
+
+                entity.Property(e => e.ACCT_DATE).HasColumnType("date");
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+            });
+
             modelBuilder.Entity<DEF_GL>(entity =>
             {
                 entity.HasKey(e => e.GL_DEFID);
@@ -294,9 +354,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.GL)
-                    .HasMaxLength(40)
-                    .IsFixedLength();
+                entity.Property(e => e.GL).HasMaxLength(50);
             });
 
             modelBuilder.Entity<DEF_Sector>(entity =>
@@ -335,7 +393,7 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.FromCurIsoCode)
                     .IsRequired()
                     .HasMaxLength(3)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Rate).HasColumnType("decimal(24, 9)");
 
@@ -344,7 +402,16 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.ToCurIsoCode)
                     .IsRequired()
                     .HasMaxLength(3)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<LUT_ACCRUAL_BASIS>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(10);
             });
 
             modelBuilder.Entity<LUT_ACCT_TYPE>(entity =>
@@ -415,7 +482,7 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.CR_DR)
                     .IsRequired()
                     .HasMaxLength(2)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -449,42 +516,63 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.STATUS_ID).ValueGeneratedOnAdd();
             });
 
+            modelBuilder.Entity<PROC_FIXRATE_INTEREST>(entity =>
+            {
+                entity.HasKey(e => e.PROC_FIXRATE_INTEREST_ID);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CALC_INTEREST_AMT).HasColumnType("decimal(32, 2)");
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.FROM_DATE).HasColumnType("datetime");
+
+                entity.Property(e => e.PRINCIPLE_AMT).HasColumnType("decimal(32, 2)");
+
+                entity.Property(e => e.TO_DATE).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<Settings>(entity =>
             {
                 entity.HasKey(e => e.VerID);
 
                 entity.Property(e => e.ACCTFormat)
                     .HasMaxLength(200)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.ACCTFormatDigits)
                     .HasMaxLength(200)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.ACCTFormatDigitsNum)
                     .HasMaxLength(200)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.BaseCurrency)
                     .IsRequired()
                     .HasMaxLength(10)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.CIFFormatDigits)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.EffectiveDate).HasColumnType("date");
 
                 entity.Property(e => e.GLFormat)
                     .IsRequired()
                     .HasMaxLength(200)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.GLFormatDigits)
                     .HasMaxLength(200)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<TRN_LEGS>(entity =>
@@ -518,7 +606,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.CR_DR)
                     .HasMaxLength(2)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.CURR)
                     .IsRequired()
@@ -534,7 +622,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.GL)
                     .HasMaxLength(40)
-                    .IsFixedLength();
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.NatureName).HasMaxLength(30);
 

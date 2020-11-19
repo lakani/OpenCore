@@ -2,137 +2,220 @@
    "ContextClassName": "OpenCoreContext",
    "ContextNamespace": "DAL.Context",
    "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
    "IncludeConnectionString": true,
    "ModelNamespace": "Model",
    "OutputContextPath": "..\\SIS.OpenCore.DAL",
    "OutputPath": "",
    "ProjectRootNamespace": "SIS.OpenCore",
+   "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_ACCT_CLASS]"
+         "Name": "[dbo].[DEF_ACCT_CLASS]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]"
+         "Name": "[dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Branch]"
+         "Name": "[dbo].[DEF_Branch]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_BusinessDate]"
+         "Name": "[dbo].[DEF_BusinessDate]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_CIF]"
+         "Name": "[dbo].[DEF_CIF]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_CIF_CLASS]"
+         "Name": "[dbo].[DEF_CIF_CLASS]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_CIF_Company]"
+         "Name": "[dbo].[DEF_CIF_Company]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_CK_ACCT]"
+         "Name": "[dbo].[DEF_CK_ACCT]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_CK_ACCT_ACCT_STRUCT]"
+         "Name": "[dbo].[DEF_CK_ACCT_ACCT_STRUCT]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Company]"
+         "Name": "[dbo].[DEF_Company]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Currency]"
+         "Name": "[dbo].[DEF_Currency]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Dep]"
+         "Name": "[dbo].[DEF_Dep]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_EMP]"
+         "Name": "[dbo].[DEF_EMP]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_GL]"
+         "Name": "[dbo].[DEF_FIXRATE_ACCT]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Sector]"
+         "Name": "[dbo].[DEF_FIXRATE_ACCT_DATES]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Unit]"
+         "Name": "[dbo].[DEF_GL]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[DEF_Zone]"
+         "Name": "[dbo].[DEF_Sector]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[ExchangeRates]"
+         "Name": "[dbo].[DEF_Unit]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_ACCT_TYPE]"
+         "Name": "[dbo].[DEF_Zone]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_AE_CATEGORY]"
+         "Name": "[dbo].[ExchangeRates]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_CIF_TYPE]"
+         "Name": "[dbo].[LUT_ACCRUAL_BASIS]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_CITY]"
+         "Name": "[dbo].[LUT_ACCT_TYPE]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_COUNTRY]"
+         "Name": "[dbo].[LUT_AE_CATEGORY]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_GL_ACCT_CATEGORY]"
+         "Name": "[dbo].[LUT_CIF_TYPE]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_LedgerNature]"
+         "Name": "[dbo].[LUT_CITY]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_LedgerPostingLevel]"
+         "Name": "[dbo].[LUT_COUNTRY]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_OBJ_STATUS]"
+         "Name": "[dbo].[LUT_GL_ACCT_CATEGORY]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[LUT_TRN_STATUS]"
+         "Name": "[dbo].[LUT_LedgerNature]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[Settings]"
+         "Name": "[dbo].[LUT_LedgerPostingLevel]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[TRN_LEGS]"
+         "Name": "[dbo].[LUT_OBJ_STATUS]",
+         "ObjectType": 0
       },
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[VW_DEF_GL]"
+         "Name": "[dbo].[LUT_TRN_STATUS]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PROC_FIXRATE_INTEREST]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Settings]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[TRN_LEGS]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[VW_DEF_GL]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_ADD_LedgerNature]",
+         "ObjectType": 1
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_ADD_LedgerPostingLevel]",
+         "ObjectType": 1
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_AddCIF]",
+         "ObjectType": 1
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_AddCIF_Class]",
+         "ObjectType": 1
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_AddCIF_EXT1]",
+         "ObjectType": 1
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SP_AddEditCurrency]",
+         "ObjectType": 1
       }
    ],
    "UseDatabaseNames": true,
@@ -142,6 +225,5 @@
    "UseInflector": false,
    "UseLegacyPluralizer": false,
    "UseNodaTime": false,
-   "UseSpatial": false,
-   "UseStoredProcedures": false
+   "UseSpatial": false
 }

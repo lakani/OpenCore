@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SIS.OpenCore.DAL;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 
 namespace SIS.OpenCore.webapi.Controllers
@@ -35,17 +30,28 @@ namespace SIS.OpenCore.webapi.Controllers
             return Cif.List(10);
         }
 
-        //[HttpPost]
-        ////[ProducesResponseType(StatusCodes.Status201Created)]
-        ////[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public ActionResult<DEF_CIF> Create(DEF_CIF def_CIF)
-        //{
-        //    //pet.Id = _petsInMemoryStore.Any() ?
-        //    //         _petsInMemoryStore.Max(p => p.Id) + 1 : 1;
-        //    //_petsInMemoryStore.Add(pet);
+        [HttpGet]
+        [Route("{CIF_NO}/{ACCT_TYPE}")]
+        public IEnumerable<DEF_CK_ACCT> GetCK(string CIF_NO, string ACCT_TYPE)
+        {
+            //if (ACCT_TYPE == "CK")
+            {
+                //var ret = CurrentAccount.List(CIF_NO, string.Empty, 10);
+                //string[] r = new string[ret.Length];
+                //for (int x = 0; x < r.Length; x++)
+                //    r[x] = ret[x].ToString();
+                return CurrentAccount.List(CIF_NO, string.Empty, 10); 
+            }
+            ///else
+                //return new string[] { CIF_NO + " FIXED", CIF_NO + " FIXED" };
+        }
 
-        //    return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
-        //}
+        [HttpGet("{Cif_NO}")]
+        // GET: api/values/5
+        public DEF_CIF Get(string Cif_NO)
+        {
+            return Cif.Get(Cif_NO);
+        }
 
         [HttpPost]
         public ActionResult<DEF_CIF> PostNewCIF(DEF_CIF def_CIF)

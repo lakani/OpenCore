@@ -41,8 +41,12 @@ namespace SIS.OpenCore.BL
             return sBaseCurrency;
         }
 
-        static public DateTime fn_GetCurrentBusinessDate()
+        /// <summary>
+        /// Return the Current Business Date
+        /// </summary>
+        static public DateTime GetCurrentBusinessDate()
         {
+            // TODO , should return the last executed Business Date as per the End of date EOD Process 
             return DateTime.Today;
         }
 

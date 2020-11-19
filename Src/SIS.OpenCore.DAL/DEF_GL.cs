@@ -56,6 +56,16 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
             return newRecord.GL;
         }
 
+        public static DEF_GL[] List(short cRecordsPerPage)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            return ((from g in db.DEF_GL
+                    where g.STATUS == 1
+                    orderby g.GL_DEFID descending
+                    select g).Take(cRecordsPerPage).ToArray());
+        }
+
         public static int GetMaxLedger(int nCompany, byte nNature, string CurrISO, int nZone, int nBranch, int nSector,
                                           int nDep, int nUNITNO, short nProduct, int nPOSTINGLEVEL)
         {

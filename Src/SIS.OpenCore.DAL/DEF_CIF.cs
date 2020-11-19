@@ -1,34 +1,31 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.Context;
 
-namespace SIS.OpenCore.DAL.TODO // Check the correct table attributes
+namespace SIS.OpenCore.DAL // Check the correct table attributes
 {
-    public partial class DEF_CIF
+    public partial class DEF_CIF_DAL
     {
-        public int Id { get; set; }
-        public string CIF_NO { get; set; }
-        public string SearchKey { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string FamilyName { get; set; }
-        public DateTime? CREATE_DT { get; set; }
-        public short? CIF_TYPE { get; set; }
-        public string CIF_CLASS { get; set; }
-        public string RSM { get; set; }
-        public string Gender { get; set; }
-        public int? Country { get; set; }
-        public int? COUNTRY_OF_BIRTH { get; set; }
-        public int? GOVERNORATE { get; set; }
-        public int? City { get; set; }
-        public int? Area { get; set; }
-        public string Address { get; set; }
-        public int? Nationality { get; set; }
-        public DateTime? BIRTH_DT { get; set; }
-        public DateTime? LAST_SAVE_DT { get; set; }
-        public string MobileNumber { get; set; }
-        public string HomeNumber { get; set; }
-        public string WorkNumber { get; set; }
-        public string NationalID { get; set; }
+        public static DEF_CIF[] List(short cRecordsPerPage)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            return ((from c in db.DEF_CIF
+                     orderby c.CREATE_DT descending
+                     select c).Take(cRecordsPerPage).ToArray());
+        }
+
+        public static DEF_CIF Get(string cifNO)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            return  (from c in db.DEF_CIF
+                    where c.CIF_NO == cifNO
+                    select c).First();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Linq;
 using System;
 using SIS.OpenCore.Model;
 using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.DAL;
 
 
 
@@ -25,6 +26,11 @@ namespace SIS.OpenCore.BL.Objects
             if(Ret != stAcctNo)
                 return false;
             return true;
+        }
+
+        public static DEF_CK_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
+        {
+            return DEF_CK_ACCT_DAL.List(CIF_NO, ISO, cRecordsPerPage);
         }
 
         public static bool Search(string stAcctNo)
@@ -69,7 +75,7 @@ namespace SIS.OpenCore.BL.Objects
             return (decimal)BalanceAfter;
         }
 
-
+        
         public static string Add(DEF_CK_ACCT NewAcct, DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
             OpenCoreContext db = new OpenCoreContext();

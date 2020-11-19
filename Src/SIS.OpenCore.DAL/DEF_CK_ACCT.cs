@@ -1,24 +1,26 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using SIS.OpenCore.Model;
+using SIS.OpenCore.DAL.Context;
 
-namespace SIS.OpenCore.DAL.TODO // Check the correct table attributes
+namespace SIS.OpenCore.DAL // Check the correct table attributes
 {
-    public partial class DEF_CK_ACCT
+    public partial class DEF_CK_ACCT_DAL
     {
-        public int DEF_ACCT_ID { get; set; }
-        public string CIF_NO { get; set; }
-        public string ACCT_NO { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ReferenceACCT { get; set; }
-        public string ReferenceOrg { get; set; }
-        public string IBAN { get; set; }
-        public string ACCT_TYPE { get; set; }
-        public string ACCT_CLASS { get; set; }
-        public string Currency { get; set; }
-        public DateTime? OpenDate { get; set; }
-        public string CSP_Code { get; set; }
-        public short CompanyNo { get; set; }
-        public byte? STATUS { get; set; }
+        public static DEF_CK_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+
+            var Query = from a in db.DEF_CK_ACCT
+                        where a.CIF_NO == CIF_NO && a.STATUS == 1 && a.ACCT_TYPE == "CK"
+                        select a;
+
+            if (false == String.IsNullOrEmpty(ISO))
+                Query = Query.Where(a => a.Currency == ISO);
+
+            return Query.Take(cRecordsPerPage).ToArray();
+        }
     }
 }

@@ -20,6 +20,11 @@ namespace SIS.OpenCore.BL.Objects
                 _CIF.CIF_NO);
         }
 
+        static public DEF_CIF Get(string CifNO)
+        {
+            return DEF_CIF_DAL.Get(CifNO);
+        }
+
         static public string Add_CIF (
             DateTime    dtEFFECTIVE_DT,
             short       nCompanyNo,
@@ -50,7 +55,7 @@ namespace SIS.OpenCore.BL.Objects
                 throw new ArgumentOutOfRangeException("nCIF_TYPE", "Type doesn't Exists");
 
             // check if CIF not exists
-            if( false == ValidateExists(sCIF_NO))
+            if( true == ValidateExists(sCIF_NO))
             {
                 // check if CIF exists in this company or not
                 if(CIFCompany.ValidateExists(nCompanyNo, sCIF_NO))
@@ -127,15 +132,16 @@ namespace SIS.OpenCore.BL.Objects
             var Ret = from c in db.DEF_CIF
                       select c;
 
-            if (String.IsNullOrEmpty(searchCIF.SearchKey) == false) Ret.Where(c => c.SearchKey == searchCIF.SearchKey);
+            if (false == String.IsNullOrEmpty(searchCIF.SearchKey)) 
+                Ret.Where(c => c.SearchKey == searchCIF.SearchKey);
             
-            if (String.IsNullOrEmpty(searchCIF.FirstName) == false) 
+            if (false  == String.IsNullOrEmpty(searchCIF.FirstName)) 
                 Ret = Ret.Where(c => c.FirstName.Contains(searchCIF.FirstName));
 
             return Ret.ToList();
         }
 
-        protected static bool ValidateExists(string sCIF_NO)
+        public static bool ValidateExists(string sCIF_NO)
         {
             OpenCoreContext db = new OpenCoreContext();
 
@@ -143,7 +149,7 @@ namespace SIS.OpenCore.BL.Objects
                                 where c.CIF_NO == sCIF_NO
                                 select c.CIF_NO).FirstOrDefault();
 
-            if( false == string.IsNullOrEmpty(sExists))
+            if( true == string.IsNullOrEmpty(sExists))
                 return false;
             return true;
         }
@@ -162,14 +168,9 @@ namespace SIS.OpenCore.BL.Objects
             return true;
         }
 
-        public static List<DEF_CIF> List(short cRecordsPerPage)
+        public static DEF_CIF[] List(short cRecordsPerPage)
         {
-            OpenCoreContext db = new OpenCoreContext();
-
-            return ((from c in db.DEF_CIF
-                     orderby c.CREATE_DT descending
-                     select c).Take(cRecordsPerPage).ToList());
-
+            return DEF_CIF_DAL.List(cRecordsPerPage);
         }
 
         protected static string GenerateNewCode(string sCIF_NO)
