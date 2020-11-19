@@ -320,9 +320,9 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.OpenDate).HasColumnType("date");
 
-                entity.Property(e => e.Principle).HasColumnType("decimal(32, 2)");
+                entity.Property(e => e.Principle).HasColumnType("decimal(28, 2)");
 
-                entity.Property(e => e.Rate).HasColumnType("decimal(32, 30)");
+                entity.Property(e => e.Rate).HasColumnType("decimal(28, 26)");
 
                 entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
 

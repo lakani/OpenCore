@@ -70,7 +70,7 @@ namespace SIS.OpenCore.BL.Objects
 
 #if DEBUG
             decimal CalcInterest = 0;
-            CalcInterest = FixedRateAccountProc.CalcDayInterest(NewAcct, NewAcct.OpenDate, NewAcct.CloseDate.AddDays(-1));
+            CalcInterest = FixedRateAccountProc.CalcDayInterest(NewAcct, NewAcct.OpenDate, NewAcct.CloseDate);
 #endif
 
             // 

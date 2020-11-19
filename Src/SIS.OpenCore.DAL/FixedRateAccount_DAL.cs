@@ -34,13 +34,25 @@ namespace SIS.OpenCore.DAL
         /// <summary>
         /// Get All Active Accounts for the requested count of records, if Zero is passed then all records will be retrived 
         /// </summary>
-        static public DEF_FIXRATE_ACCT[] List(short cRecordsPerPage)
+        static public DEF_FIXRATE_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
         {
             OpenCoreContext db = new OpenCoreContext();
-            return ((from l in db.DEF_FIXRATE_ACCT
-                    where l.STATUS_ID == 1
-                    orderby l.OpenDate descending
-                    select l).ToArray());
+            var Query = from l in db.DEF_FIXRATE_ACCT
+                        where l.STATUS_ID == 1
+                        select l;
+
+            if (false == String.IsNullOrEmpty(CIF_NO))
+                Query = Query.Where(l => l.CIF_NO == CIF_NO);
+
+            if (false == String.IsNullOrEmpty(ISO))
+                Query = Query.Where(l => l.Currency== ISO);
+
+            Query.OrderBy(l => l.OpenDate);
+
+            if (cRecordsPerPage == 0)
+                return Query.ToArray();
+            else
+                return Query.Take(cRecordsPerPage).ToArray();
         }
 
         /// <summary>
@@ -81,7 +93,8 @@ namespace SIS.OpenCore.DAL
             NewAcct_EL.ReferenceACCT = NewAcct.ReferenceACCT;
             NewAcct_EL.ReferenceOrg = NewAcct.ReferenceOrg;
             NewAcct_EL.Title = NewAcct.Title;
-            
+            NewAcct_EL.STATUS_ID = NewAcct.STATUS_ID;
+
             db.DEF_FIXRATE_ACCT.Add(NewAcct_EL);
             db.SaveChanges();
 
@@ -90,8 +103,8 @@ namespace SIS.OpenCore.DAL
                 DEF_FIXRATE_ACCT_DATES SettlmentDate_EL = new DEF_FIXRATE_ACCT_DATES();
 
                 SettlmentDate_EL.ACCT_DATE = SettlmentDate.ACCT_DATE;
-                SettlmentDate_EL.ACCT_NO = NewAcct.ACCT_NO;
-                SettlmentDate_EL.DEF_ACCT_ID = NewAcct.DEF_ACCT_ID;
+                SettlmentDate_EL.ACCT_NO = NewAcct_EL.ACCT_NO;
+                SettlmentDate_EL.DEF_ACCT_ID = NewAcct_EL.DEF_ACCT_ID;
 
                 db.DEF_FIXRATE_ACCT_DATES.Add(SettlmentDate_EL);
                 db.SaveChanges();

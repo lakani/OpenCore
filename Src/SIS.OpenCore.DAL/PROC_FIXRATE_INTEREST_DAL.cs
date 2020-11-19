@@ -19,7 +19,7 @@ namespace SIS.OpenCore.DAL
             return ((from p in db.PROC_FIXRATE_INTEREST
                      where p.STATUS_ID == 1 && p.CIF_NO == Acct.CIF_NO && p.ACCT_NO == Acct.ACCT_NO
                      orderby p.TO_DATE descending
-                     select p).First());
+                     select p).FirstOrDefault());
         }
 
         /// <summary>
