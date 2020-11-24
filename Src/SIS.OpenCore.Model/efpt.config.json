@@ -99,6 +99,11 @@
       },
       {
          "HasPrimaryKey": true,
+         "Name": "[dbo].[DEF_SHARE_ACCT]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
          "Name": "[dbo].[DEF_Unit]",
          "ObjectType": 0
       },
@@ -180,6 +185,11 @@
       {
          "HasPrimaryKey": true,
          "Name": "[dbo].[TRN_LEGS]",
+         "ObjectType": 0
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[TRN_SHARE_ACCT]",
          "ObjectType": 0
       },
       {

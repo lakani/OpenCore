@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Model
 {
-    public partial class DEF_FIXRATE_ACCT
+    public partial class DEF_SHARE_ACCT
     {
         public int DEF_ACCT_ID { get; set; }
         public string CIF_NO { get; set; }
         public string ACCT_NO { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string ReferenceACCT { get; set; }
         public string ReferenceOrg { get; set; }
@@ -20,11 +20,10 @@ namespace SIS.OpenCore.Model
         public string ACCT_CLASS { get; set; }
         public string Currency { get; set; }
         public DateTime OpenDate { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime CloseDate { get; set; }
-        public decimal Principle { get; set; }
-        public decimal? Rate { get; set; }
-        public byte? AccrualBasis { get; set; }
+        public decimal ACCT_QTY { get; set; }
+        public decimal ACCT_AMT { get; set; }
+        public decimal ACCT_AVG { get; set; }
+        public decimal ACCT_P_L { get; set; }
         public string CSP_Code { get; set; }
         public short CompanyNo { get; set; }
         public byte STATUS_ID { get; set; }

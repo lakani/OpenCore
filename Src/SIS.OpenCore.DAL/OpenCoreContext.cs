@@ -35,6 +35,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
         public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
         public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+        public virtual DbSet<DEF_SHARE_ACCT> DEF_SHARE_ACCT { get; set; }
         public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
         public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
         public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
@@ -53,6 +54,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<PROC_FIXRATE_INTEREST> PROC_FIXRATE_INTEREST { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
+        public virtual DbSet<TRN_SHARE_ACCT> TRN_SHARE_ACCT { get; set; }
         public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -60,7 +62,7 @@ namespace SIS.OpenCore.DAL.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1");
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;User ID=sa;Password=get@get1");
             }
         }
 
@@ -357,6 +359,49 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.GL).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<DEF_SHARE_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.DEF_ACCT_ID);
+
+                entity.Property(e => e.ACCT_AMT).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_AVG).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_P_L).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_QTY).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_TYPE)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CSP_Code).HasMaxLength(10);
+
+                entity.Property(e => e.Currency).HasMaxLength(3);
+
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.IBAN).HasMaxLength(35);
+
+                entity.Property(e => e.Name).HasMaxLength(80);
+
+                entity.Property(e => e.OpenDate).HasColumnType("date");
+
+                entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
+
+                entity.Property(e => e.ReferenceOrg).HasMaxLength(35);
+            });
+
             modelBuilder.Entity<DEF_Sector>(entity =>
             {
                 entity.HasNoKey();
@@ -395,7 +440,7 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(3)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Rate).HasColumnType("decimal(24, 9)");
+                entity.Property(e => e.Rate).HasColumnType("decimal(28, 9)");
 
                 entity.Property(e => e.TimeEXC).HasColumnType("datetime");
 
@@ -524,7 +569,7 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(35);
 
-                entity.Property(e => e.CALC_INTEREST_AMT).HasColumnType("decimal(32, 2)");
+                entity.Property(e => e.CALC_INTEREST_AMT).HasColumnType("decimal(28, 2)");
 
                 entity.Property(e => e.CIF_NO)
                     .IsRequired()
@@ -532,7 +577,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.FROM_DATE).HasColumnType("datetime");
 
-                entity.Property(e => e.PRINCIPLE_AMT).HasColumnType("decimal(32, 2)");
+                entity.Property(e => e.PRINCIPLE_AMT).HasColumnType("decimal(28, 2)");
 
                 entity.Property(e => e.TO_DATE).HasColumnType("datetime");
             });
@@ -594,6 +639,25 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.Trn_Amt).HasColumnType("decimal(28, 3)");
             });
 
+            modelBuilder.Entity<TRN_SHARE_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.TRN_SHARE_ACCT_ID);
+
+                entity.Property(e => e.Acct_CR_DR).HasMaxLength(2);
+
+                entity.Property(e => e.Acct_Curr).HasMaxLength(3);
+
+                entity.Property(e => e.Balance_After).HasColumnType("decimal(28, 3)");
+
+                entity.Property(e => e.Balance_Before).HasColumnType("decimal(28, 3)");
+
+                entity.Property(e => e.CREATE_DT).HasColumnType("datetime");
+
+                entity.Property(e => e.EffDt).HasColumnType("date");
+
+                entity.Property(e => e.Trn_Amt).HasColumnType("decimal(28, 3)");
+            });
+
             modelBuilder.Entity<VW_DEF_GL>(entity =>
             {
                 entity.HasNoKey();
@@ -620,9 +684,7 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
-                entity.Property(e => e.GL)
-                    .HasMaxLength(40)
-                    .IsFixedLength(true);
+                entity.Property(e => e.GL).HasMaxLength(50);
 
                 entity.Property(e => e.NatureName).HasMaxLength(30);
 
