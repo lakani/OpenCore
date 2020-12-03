@@ -25,7 +25,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "CR",
-                Acct_No = "2-01-02-0000-00-00-00-0000-1-000050",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000010",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -36,7 +36,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "DR",
-                Acct_No = "2-01-02-0000-00-00-00-0000-1-000049",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000011",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -48,7 +48,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "DR",
-                Acct_No = "2-01-02-0000-00-00-00-0000-1-000048",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000012",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -59,7 +59,7 @@ namespace SIS.OpenCore.UnitTesting
             ARR.Add(new TRAN_POST_AE_TYPE_PARAM
             {
                 Acct_CR_DR = "CR",
-                Acct_No = "2-01-02-0000-00-00-00-0000-1-000047",
+                Acct_No = "2-01-02-0000-00-00-00-0000-1-000013",
                 GL = true,
                 Category = 3,
                 Trn_Amt = 150000,
@@ -103,13 +103,13 @@ namespace SIS.OpenCore.UnitTesting
 
             ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
             {
-                GLNum = "2-01-02-0000-00-00-00-0000-1-000045",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000029",
                 GLCategory = 1
             });
 
             ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
             {
-                GLNum = "2-01-02-0000-00-00-00-0000-1-000044",
+                GLNum = "2-01-02-0000-00-00-00-0000-1-000035",
                 GLCategory = 2
             });
 

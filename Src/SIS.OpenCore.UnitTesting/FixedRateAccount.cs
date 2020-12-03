@@ -27,7 +27,7 @@ namespace SIS.OpenCore.UnitTesting
             newAcct.CompanyNo = 1;
             newAcct.CreateDate = new DateTime(2020, 11, 1);
             newAcct.OpenDate = new DateTime(2020, 11, 1);
-            newAcct.CloseDate = new DateTime(2020, 11, 25);
+            newAcct.CloseDate = DateTime.Now;
             newAcct.Principle = 1000000;
             newAcct.Currency = "EGP";
             newAcct.Rate = (decimal)5.5;
