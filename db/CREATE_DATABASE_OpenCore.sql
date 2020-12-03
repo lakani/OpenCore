@@ -1,13 +1,203 @@
+USE [OpenCore]
+GO
+EXEC sys.sp_dropextendedproperty @name=N'MS_DiagramPaneCount' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'VW_DEF_GL'
+GO
+EXEC sys.sp_dropextendedproperty @name=N'MS_DiagramPane2' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'VW_DEF_GL'
+GO
+EXEC sys.sp_dropextendedproperty @name=N'MS_DiagramPane1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'VW_DEF_GL'
+GO
+EXEC sys.sp_dropextendedproperty @name=N'DESCRIPTION' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TYPE',@level1name=N'TYPE_POST_TRAN_PARAM', @level2type=N'COLUMN',@level2name=N'Acct_No'
+GO
+/****** Object:  StoredProcedure [dbo].[SP_AddEditCurrency]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_AddEditCurrency]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF_EXT1]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_AddCIF_EXT1]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF_Class]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_AddCIF_Class]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_AddCIF]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerPostingLevel]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_ADD_LedgerPostingLevel]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerNature]    Script Date: 03/12/2020 12:01:20 ******/
+DROP PROCEDURE [dbo].[SP_ADD_LedgerNature]
+GO
+/****** Object:  View [dbo].[VW_DEF_GL]    Script Date: 03/12/2020 12:01:20 ******/
+DROP VIEW [dbo].[VW_DEF_GL]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_String_ParseGL]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_String_ParseGL]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_GetSettings]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_GetSettings]
+GO
+/****** Object:  Table [dbo].[TRN_SHARE_ACCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[TRN_SHARE_ACCT]
+GO
+/****** Object:  Table [dbo].[TRN_LEGS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[TRN_LEGS]
+GO
+/****** Object:  Table [dbo].[Settings]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[Settings]
+GO
+/****** Object:  Table [dbo].[PROC_FIXRATE_INTEREST]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[PROC_FIXRATE_INTEREST]
+GO
+/****** Object:  Table [dbo].[LUT_TRN_STATUS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_TRN_STATUS]
+GO
+/****** Object:  Table [dbo].[LUT_OBJ_STATUS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_OBJ_STATUS]
+GO
+/****** Object:  Table [dbo].[LUT_LedgerPostingLevel]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_LedgerPostingLevel]
+GO
+/****** Object:  Table [dbo].[LUT_LedgerNature]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_LedgerNature]
+GO
+/****** Object:  Table [dbo].[LUT_GL_ACCT_CATEGORY]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_GL_ACCT_CATEGORY]
+GO
+/****** Object:  Table [dbo].[LUT_COUNTRY]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_COUNTRY]
+GO
+/****** Object:  Table [dbo].[LUT_CITY]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_CITY]
+GO
+/****** Object:  Table [dbo].[LUT_CIF_TYPE]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_CIF_TYPE]
+GO
+/****** Object:  Table [dbo].[LUT_AE_CATEGORY]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_AE_CATEGORY]
+GO
+/****** Object:  Table [dbo].[LUT_ACCT_TYPE]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_ACCT_TYPE]
+GO
+/****** Object:  Table [dbo].[LUT_ACCRUAL_BASIS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[LUT_ACCRUAL_BASIS]
+GO
+/****** Object:  Table [dbo].[ExchangeRates]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[ExchangeRates]
+GO
+/****** Object:  Table [dbo].[DEF_Zone]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Zone]
+GO
+/****** Object:  Table [dbo].[DEF_Unit]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Unit]
+GO
+/****** Object:  Table [dbo].[DEF_SHARE_ACCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_SHARE_ACCT]
+GO
+/****** Object:  Table [dbo].[DEF_Sector]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Sector]
+GO
+/****** Object:  Table [dbo].[DEF_GL]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_GL]
+GO
+/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT_DATES]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_FIXRATE_ACCT_DATES]
+GO
+/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_FIXRATE_ACCT]
+GO
+/****** Object:  Table [dbo].[DEF_EMP]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_EMP]
+GO
+/****** Object:  Table [dbo].[DEF_Dep]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Dep]
+GO
+/****** Object:  Table [dbo].[DEF_Currency]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Currency]
+GO
+/****** Object:  Table [dbo].[DEF_Company]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Company]
+GO
+/****** Object:  Table [dbo].[DEF_CK_ACCT_ACCT_STRUCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_CK_ACCT_ACCT_STRUCT]
+GO
+/****** Object:  Table [dbo].[DEF_CK_ACCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_CK_ACCT]
+GO
+/****** Object:  Table [dbo].[DEF_CIF_Company]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_CIF_Company]
+GO
+/****** Object:  Table [dbo].[DEF_CIF_CLASS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_CIF_CLASS]
+GO
+/****** Object:  Table [dbo].[DEF_CIF]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_CIF]
+GO
+/****** Object:  Table [dbo].[DEF_BusinessDate]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_BusinessDate]
+GO
+/****** Object:  Table [dbo].[DEF_Branch]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_Branch]
+GO
+/****** Object:  Table [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]
+GO
+/****** Object:  Table [dbo].[DEF_ACCT_CLASS]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TABLE [dbo].[DEF_ACCT_CLASS]
+GO
+/****** Object:  UserDefinedFunction [dbo].[RANDBETWEEN]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[RANDBETWEEN]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_String_BuildGL]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_String_BuildGL]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigitsNum]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_OPT_GetGLFormatDigitsNum]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigits]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_OPT_GetGLFormatDigits]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigitsNum]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_OPT_GetCIFFormatDigitsNum]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigits]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_OPT_GetCIFFormatDigits]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetBaseCurrency]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_OPT_GetBaseCurrency]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_NUM_ACT_CR_DR]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_NUM_ACT_CR_DR]
+GO
+/****** Object:  UserDefinedFunction [dbo].[FN_GL_GetLast_LEDGERNO]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[FN_GL_GetLast_LEDGERNO]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_GetGLInfo]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_GetGLInfo]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_GetCurrentBusinessDate]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_GetCurrentBusinessDate]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_Get_MAX_TABLE_CODE]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_Get_MAX_TABLE_CODE]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_ACT_GL_GetLastBalance]    Script Date: 03/12/2020 12:01:20 ******/
+DROP FUNCTION [dbo].[fn_ACT_GL_GetLastBalance]
+GO
+/****** Object:  UserDefinedTableType [dbo].[TYPE_POST_TRAN_PARAM]    Script Date: 03/12/2020 12:01:20 ******/
+DROP TYPE [dbo].[TYPE_POST_TRAN_PARAM]
+GO
 USE [master]
 GO
-/****** Object:  Database [OpenCore]    Script Date: 11/25/2020 12:18:32 AM ******/
+/****** Object:  Database [OpenCore]    Script Date: 03/12/2020 12:01:20 ******/
+DROP DATABASE [OpenCore]
+GO
+/****** Object:  Database [OpenCore]    Script Date: 03/12/2020 12:01:20 ******/
 CREATE DATABASE [OpenCore]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'OpenCore', FILENAME = N'D:\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\OpenCore.mdf' , SIZE = 11264KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+( NAME = N'OpenCore', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\OpenCore.mdf' , SIZE = 11264KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'OpenCore_log', FILENAME = N'D:\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\OpenCore_log.ldf' , SIZE = 395456KB , MAXSIZE = 2048GB , FILEGROWTH = 1024KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT
+( NAME = N'OpenCore_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\OpenCore_log.ldf' , SIZE = 395400KB , MAXSIZE = 2048GB , FILEGROWTH = 1024KB )
+ COLLATE Arabic_CI_AS
 GO
 ALTER DATABASE [OpenCore] SET COMPATIBILITY_LEVEL = 100
 GO
@@ -72,29 +262,23 @@ ALTER DATABASE [OpenCore] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF )
 GO
 ALTER DATABASE [OpenCore] SET TARGET_RECOVERY_TIME = 0 SECONDS 
 GO
-ALTER DATABASE [OpenCore] SET DELAYED_DURABILITY = DISABLED 
-GO
-ALTER DATABASE [OpenCore] SET ACCELERATED_DATABASE_RECOVERY = OFF  
-GO
 EXEC sys.sp_db_vardecimal_storage_format N'OpenCore', N'ON'
-GO
-ALTER DATABASE [OpenCore] SET QUERY_STORE = OFF
 GO
 USE [OpenCore]
 GO
-/****** Object:  UserDefinedTableType [dbo].[TYPE_POST_TRAN_PARAM]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedTableType [dbo].[TYPE_POST_TRAN_PARAM]    Script Date: 03/12/2020 12:01:21 ******/
 CREATE TYPE [dbo].[TYPE_POST_TRAN_PARAM] AS TABLE(
 	[Row_NUM] [int] IDENTITY(1,1) NOT NULL,
-	[Acct_CR_DR] [nvarchar](2) NULL,
-	[Acct_No] [nvarchar](max) NULL,
+	[Acct_CR_DR] [nvarchar](2) COLLATE Arabic_CI_AS NULL,
+	[Acct_No] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
 	[GL] [bit] NULL,
 	[Acct_Amt] [decimal](28, 3) NULL,
-	[Acct_Curr] [nvarchar](3) NULL,
+	[Acct_Curr] [nvarchar](3) COLLATE Arabic_CI_AS NULL,
 	[EffDt] [datetime] NULL,
-	[Acct_Description] [nvarchar](max) NULL
+	[Acct_Description] [nvarchar](max) COLLATE Arabic_CI_AS NULL
 )
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_ACT_GL_GetLastBalance]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_ACT_GL_GetLastBalance]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,9 +301,8 @@ BEGIN
 	RETURN 	( ISNULL(@Ret,0) );
 END;
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_Get_MAX_TABLE_CODE]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_Get_MAX_TABLE_CODE]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -162,9 +345,8 @@ BEGIN
 
 
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_GetCurrentBusinessDate]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_GetCurrentBusinessDate]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,9 +364,8 @@ BEGIN
 		)
 
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_GetGLInfo]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_GetGLInfo]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -231,9 +412,8 @@ DECLARE
 	
 END
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[FN_GL_GetLast_LEDGERNO]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[FN_GL_GetLast_LEDGERNO]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -266,9 +446,8 @@ BEGIN
 
 	RETURN (@MAX_LED)
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_NUM_ACT_CR_DR]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_NUM_ACT_CR_DR]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -322,9 +501,8 @@ BEGIN
 	RETURN 	( @Ret );
 END;
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetBaseCurrency]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetBaseCurrency]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -339,9 +517,8 @@ BEGIN
 				order by Options.VerID desc
 		)
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigits]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigits]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -362,9 +539,8 @@ BEGIN
 
 END
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigitsNum]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetCIFFormatDigitsNum]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -387,9 +563,8 @@ BEGIN
 END
 
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigits]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigits]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -408,9 +583,8 @@ BEGIN
 		)
 
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigitsNum]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_OPT_GetGLFormatDigitsNum]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -430,9 +604,8 @@ BEGIN
 		)
 
 END
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_String_BuildGL]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_String_BuildGL]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -462,9 +635,8 @@ BEGIN
 	)
 END
 
-
 GO
-/****** Object:  UserDefinedFunction [dbo].[RANDBETWEEN]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[RANDBETWEEN]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -476,126 +648,295 @@ AS
 BEGIN
   RETURN (SELECT CAST(((@maxval + 1) - @minval) * @random + @minval AS TINYINT))
 END
-
 GO
-/****** Object:  Table [dbo].[Settings]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_ACCT_CLASS]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Settings](
-	[VerID] [int] IDENTITY(1,1) NOT NULL,
-	[EffectiveDate] [date] NULL,
-	[GLFormat] [nchar](200) NOT NULL,
-	[GLFormatDigits] [nchar](200) NULL,
-	[BaseCurrency] [nchar](10) NOT NULL,
-	[ACCTFormatDigits] [nchar](200) NULL,
-	[ACCTFormatDigitsNum] [nchar](200) NULL,
-	[ACCTFormat] [nchar](200) NULL,
-	[CIFFormatDigits] [nchar](100) NOT NULL,
- CONSTRAINT [PK_Settings] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[DEF_ACCT_CLASS](
+	[AccountClassID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](5) COLLATE Arabic_CI_AS NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[Type] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[CompanyNo] [int] NULL,
+	[Currency] [nvarchar](5) COLLATE Arabic_CI_AS NULL,
+	[EFFECTIVE_DT] [datetime] NULL,
+	[REFERENCE] [nvarchar](max) COLLATE Arabic_CI_AS NOT NULL,
+ CONSTRAINT [PK_DEF_ACCT_CLASS] PRIMARY KEY CLUSTERED 
 (
-	[VerID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	[AccountClassID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT](
+	[AccountStructID] [smallint] IDENTITY(1,1) NOT NULL,
+	[AccountClassCode] [nvarchar](5) COLLATE Arabic_CI_AS NOT NULL,
+	[GLNum] [nvarchar](40) COLLATE Arabic_CI_AS NOT NULL,
+	[GLCategory] [smallint] NOT NULL,
+	[GLComments] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK_DEF_ACCT_CLASS_ACCT_STRUCT] PRIMARY KEY CLUSTERED 
+(
+	[AccountStructID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_GetSettings]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE FUNCTION [dbo].[fn_GetSettings]()
-RETURNS TABLE 
-AS
-RETURN 
-(
-	-- Add the SELECT statement with parameter references here
-	SELECT top 1 * from OpenCore.dbo.Settings Options order by Options.VerID desc
-)
-
-
-GO
-/****** Object:  Table [dbo].[DEF_Branch]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_Branch]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[DEF_Branch](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](30) NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL,
 	[CompanyNo] [int] NULL,
  CONSTRAINT [PK_DEF_Branch] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DEF_Company]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_BusinessDate]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_BusinessDate](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[BusinessDay] [date] NULL,
+	[IsClosed] [bit] NULL,
+	[IsEndOfWeek] [bit] NULL,
+	[IsEndOfMonth] [bit] NULL,
+	[IsEndOfQuarter] [bit] NULL,
+	[IsEndOfYear] [bit] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_CIF]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_CIF](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[SearchKey] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[FirstName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[MiddleName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[LastName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[FamilyName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[CREATE_DT] [datetime] NULL,
+	[CIF_TYPE] [smallint] NULL,
+	[CIF_CLASS] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[RSM] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[Gender] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[Country] [int] NULL,
+	[COUNTRY_OF_BIRTH] [int] NULL,
+	[GOVERNORATE] [int] NULL,
+	[City] [int] NULL,
+	[Area] [int] NULL,
+	[Address] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+	[Nationality] [int] NULL,
+	[BIRTH_DT] [date] NULL,
+	[LAST_SAVE_DT] [datetime] NULL,
+	[MobileNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[HomeNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[WorkNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[NationalID] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK__tmp_ms_x__3214EC073F31DDF2] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_CIF_CLASS]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_CIF_CLASS](
+	[Code] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NOT NULL,
+	[Type] [tinyint] NOT NULL,
+	[CompanyNo] [smallint] NOT NULL,
+	[EFFECTIVE_DT] [datetime] NULL,
+	[REFERENCE] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK__DEF_CIF___A25C5AA6127E02BB] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC,
+	[CompanyNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_CIF_Company]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_CIF_Company](
+	[DEF_CIF_Company_ID] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[Company_ID] [smallint] NULL,
+ CONSTRAINT [PK_DEF_CIF_Company] PRIMARY KEY CLUSTERED 
+(
+	[DEF_CIF_Company_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_CK_ACCT]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_CK_ACCT](
+	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[Title] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[Description] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[ReferenceACCT] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ReferenceOrg] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[IBAN] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ACCT_TYPE] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_CLASS] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[Currency] [nvarchar](3) COLLATE Arabic_CI_AS NULL,
+	[OpenDate] [date] NULL,
+	[CSP_Code] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[CompanyNo] [smallint] NOT NULL,
+	[STATUS] [tinyint] NULL,
+ CONSTRAINT [PK_DEF_ACCT] PRIMARY KEY CLUSTERED 
+(
+	[DEF_ACCT_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_CK_ACCT_ACCT_STRUCT]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_CK_ACCT_ACCT_STRUCT](
+	[AccountStructID] [smallint] IDENTITY(1,1) NOT NULL,
+	[AccountCode] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[GLNum] [nvarchar](40) COLLATE Arabic_CI_AS NOT NULL,
+	[GLCategory] [smallint] NOT NULL,
+	[GLComments] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK_DEF_ACCT_ACCT_STRUCT] PRIMARY KEY CLUSTERED 
+(
+	[AccountStructID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_Company]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[DEF_Company](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](30) NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL,
  CONSTRAINT [PK_DEF_Company] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DEF_Dep]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_Currency]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_Currency](
+	[CurrencyID] [smallint] IDENTITY(1,1) NOT NULL,
+	[ISOCode] [nvarchar](3) COLLATE Arabic_CI_AS NOT NULL,
+	[Symbol] [nvarchar](3) COLLATE Arabic_CI_AS NOT NULL,
+	[Fractions] [smallint] NOT NULL,
+	[Name] [nvarchar](100) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_Dep]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[DEF_Dep](
 	[ID] [tinyint] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](30) NOT NULL
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DEF_Sector]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_EMP]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[DEF_Sector](
-	[ID] [tinyint] NOT NULL,
-	[Name] [nvarchar](30) NOT NULL
-) ON [PRIMARY]
+CREATE TABLE [dbo].[DEF_EMP](
+	[EMP_ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+	[FirstName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[MiddleName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[LastName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[FamilyName] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[CREATE_DT] [datetime] NULL,
+	[LAST_SAVE_DT] [datetime] NULL,
+	[MobileNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[HomeNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[WorkNumber] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[STATUS_ID] [tinyint] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DEF_Unit]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[DEF_Unit](
-	[ID] [tinyint] NOT NULL,
-	[Name] [nvarchar](30) NOT NULL
+CREATE TABLE [dbo].[DEF_FIXRATE_ACCT](
+	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[Title] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[Description] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[ReferenceACCT] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ReferenceOrg] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[IBAN] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ACCT_TYPE] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_CLASS] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[Currency] [nvarchar](3) COLLATE Arabic_CI_AS NULL,
+	[OpenDate] [date] NOT NULL,
+	[CreateDate] [date] NOT NULL,
+	[CloseDate] [date] NOT NULL,
+	[Principle] [decimal](28, 2) NOT NULL,
+	[Rate] [decimal](28, 26) NULL,
+	[AccrualBasis] [tinyint] NULL,
+	[CSP_Code] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[CompanyNo] [smallint] NOT NULL,
+	[STATUS_ID] [tinyint] NOT NULL,
+ CONSTRAINT [PK_DEF_FIXRATE_ACCT] PRIMARY KEY CLUSTERED 
+(
+	[DEF_ACCT_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DEF_Zone]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT_DATES]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[DEF_Zone](
-	[ID] [tinyint] NOT NULL,
-	[Name] [nvarchar](30) NOT NULL
+CREATE TABLE [dbo].[DEF_FIXRATE_ACCT_DATES](
+	[DEF_FIXRATE_ACCT_DATES_ID] [int] IDENTITY(1,1) NOT NULL,
+	[DEF_ACCT_ID] [int] NOT NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_DATE] [date] NOT NULL,
+ CONSTRAINT [PK_DEF_FIXRATE_ACCT_DATES] PRIMARY KEY CLUSTERED 
+(
+	[DEF_FIXRATE_ACCT_DATES_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LUT_LedgerNature]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_LedgerNature](
-	[ID] [tinyint] NOT NULL,
-	[Name] [nvarchar](30) NOT NULL,
-	[CR_DR] [nchar](2) NOT NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_GL]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_GL]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -612,40 +953,340 @@ CREATE TABLE [dbo].[DEF_GL](
 	[Nature] [tinyint] NOT NULL,
 	[PostingLevel] [tinyint] NOT NULL,
 	[LedgerNO] [int] NOT NULL,
-	[GL] [nvarchar](50) NULL,
-	[CURR] [nvarchar](4) NOT NULL,
-	[COMMENTS] [nvarchar](200) NULL,
+	[GL] [nvarchar](50) COLLATE Arabic_CI_AS NULL,
+	[CURR] [nvarchar](4) COLLATE Arabic_CI_AS NOT NULL,
+	[COMMENTS] [nvarchar](200) COLLATE Arabic_CI_AS NULL,
 	[EFFECTIVE_DT] [datetime] NOT NULL,
 	[STATUS] [tinyint] NOT NULL,
-	[REFERENCE] [nvarchar](max) NULL,
+	[REFERENCE] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
  CONSTRAINT [PK_DEF_GL] PRIMARY KEY CLUSTERED 
 (
 	[GL_DEFID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  View [dbo].[VW_DEF_GL]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  Table [dbo].[DEF_Sector]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE VIEW [dbo].[VW_DEF_GL]
+CREATE TABLE [dbo].[DEF_Sector](
+	[ID] [tinyint] NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_SHARE_ACCT]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_SHARE_ACCT](
+	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[Description] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[ReferenceACCT] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ReferenceOrg] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[IBAN] [nvarchar](35) COLLATE Arabic_CI_AS NULL,
+	[ACCT_TYPE] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_CLASS] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[Currency] [nvarchar](3) COLLATE Arabic_CI_AS NULL,
+	[OpenDate] [date] NOT NULL,
+	[ACCT_QTY] [decimal](28, 8) NOT NULL,
+	[ACCT_AMT] [decimal](28, 8) NOT NULL,
+	[ACCT_AVG] [decimal](28, 8) NOT NULL,
+	[ACCT_P_L] [decimal](28, 8) NOT NULL,
+	[CSP_Code] [nvarchar](10) COLLATE Arabic_CI_AS NULL,
+	[CompanyNo] [smallint] NOT NULL,
+	[STATUS_ID] [tinyint] NOT NULL,
+ CONSTRAINT [PK_DEF_SHARE_ACCT] PRIMARY KEY CLUSTERED 
+(
+	[DEF_ACCT_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_Unit]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_Unit](
+	[ID] [tinyint] NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DEF_Zone]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEF_Zone](
+	[ID] [tinyint] NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ExchangeRates]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ExchangeRates](
+	[FromCurIsoCode] [nchar](3) COLLATE Arabic_CI_AS NOT NULL,
+	[ToCurIsoCode] [nchar](3) COLLATE Arabic_CI_AS NOT NULL,
+	[Rate] [decimal](24, 9) NULL,
+	[ExRateDate] [datetime] NULL,
+	[TimeEXC] [datetime] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_ACCRUAL_BASIS]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_ACCRUAL_BASIS](
+	[ID] [tinyint] NOT NULL,
+	[Name] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[Description] [nvarchar](max) COLLATE Arabic_CI_AS NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_ACCT_TYPE]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_ACCT_TYPE](
+	[ID] [smallint] NOT NULL,
+	[Name] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[Description] [nvarchar](max) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_AE_CATEGORY]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_AE_CATEGORY](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NOT NULL,
+	[Description] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[ParentCat] [smallint] NULL,
+ CONSTRAINT [PK_LUT_AE_CATEGORY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_CIF_TYPE]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_CIF_TYPE](
+	[Code] [tinyint] NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK__LUT_CIF___A25C5AA6A1F27BC6] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_CITY]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_CITY](
+	[Code] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NOT NULL,
+	[CountryCode] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+ CONSTRAINT [PK_LUT_CITY] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_COUNTRY]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_COUNTRY](
+	[ID] [smallint] NOT NULL,
+	[Code] [nvarchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+ CONSTRAINT [PK_LUT_COUNTRY] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_GL_ACCT_CATEGORY]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_GL_ACCT_CATEGORY](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](80) COLLATE Arabic_CI_AS NOT NULL,
+	[Description] [nvarchar](80) COLLATE Arabic_CI_AS NULL,
+	[ParentCat] [smallint] NULL,
+ CONSTRAINT [PK_LUT_GL_ACCT_CATEGORY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_LedgerNature]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_LedgerNature](
+	[ID] [tinyint] NOT NULL,
+	[Name] [nvarchar](30) COLLATE Arabic_CI_AS NOT NULL,
+	[CR_DR] [nchar](2) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_LedgerPostingLevel]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_LedgerPostingLevel](
+	[ID] [tinyint] NOT NULL,
+	[PostingLevel] [nvarchar](50) COLLATE Arabic_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_OBJ_STATUS]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_OBJ_STATUS](
+	[STATUS_ID] [tinyint] IDENTITY(1,1) NOT NULL,
+	[NAME] [nvarchar](80) COLLATE Arabic_CI_AS NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LUT_TRN_STATUS]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LUT_TRN_STATUS](
+	[STATUS_ID] [tinyint] IDENTITY(1,1) NOT NULL,
+	[NAME] [nvarchar](80) COLLATE Arabic_CI_AS NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PROC_FIXRATE_INTEREST]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PROC_FIXRATE_INTEREST](
+	[PROC_FIXRATE_INTEREST_ID] [int] IDENTITY(1,1) NOT NULL,
+	[CIF_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[PRINCIPLE_AMT] [decimal](32, 2) NOT NULL,
+	[CALC_INTEREST_AMT] [decimal](32, 2) NOT NULL,
+	[FROM_DATE] [datetime] NOT NULL,
+	[TO_DATE] [datetime] NOT NULL,
+	[STATUS_ID] [tinyint] NOT NULL,
+ CONSTRAINT [PK_PROC_FIXRATE_INTEREST] PRIMARY KEY CLUSTERED 
+(
+	[PROC_FIXRATE_INTEREST_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Settings]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Settings](
+	[VerID] [int] IDENTITY(1,1) NOT NULL,
+	[EffectiveDate] [date] NULL,
+	[GLFormat] [nchar](200) COLLATE Arabic_CI_AS NOT NULL,
+	[GLFormatDigits] [nchar](200) COLLATE Arabic_CI_AS NULL,
+	[BaseCurrency] [nchar](10) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCTFormatDigits] [nchar](200) COLLATE Arabic_CI_AS NULL,
+	[ACCTFormatDigitsNum] [nchar](200) COLLATE Arabic_CI_AS NULL,
+	[ACCTFormat] [nchar](200) COLLATE Arabic_CI_AS NULL,
+	[CIFFormatDigits] [nchar](100) COLLATE Arabic_CI_AS NOT NULL,
+ CONSTRAINT [PK_Settings] PRIMARY KEY CLUSTERED 
+(
+	[VerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TRN_LEGS]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TRN_LEGS](
+	[TRN_LEGS_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Ref] [uniqueidentifier] NULL,
+	[Sequence] [smallint] NULL,
+	[Acct_CR_DR] [nvarchar](2) COLLATE Arabic_CI_AS NULL,
+	[Acct_No] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+	[GL] [bit] NULL,
+	[Balance_Before] [decimal](28, 3) NULL,
+	[Trn_Amt] [decimal](28, 3) NULL,
+	[Balance_After] [decimal](28, 3) NULL,
+	[Acct_Curr] [nvarchar](3) COLLATE Arabic_CI_AS NULL,
+	[EffDt] [date] NULL,
+	[CREATE_DT] [datetime] NULL,
+	[EMP_ID] [smallint] NULL,
+	[STATUS_ID] [tinyint] NOT NULL,
+	[CHANNEL_ID] [smallint] NULL,
+	[Category] [smallint] NULL,
+	[Acct_Description] [nvarchar](max) COLLATE Arabic_CI_AS NULL,
+	[Related_Ref] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_TRN_LEGS] PRIMARY KEY CLUSTERED 
+(
+	[TRN_LEGS_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TRN_SHARE_ACCT]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TRN_SHARE_ACCT](
+	[TRN_SHARE_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Ref] [uniqueidentifier] NULL,
+	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[TRAN_DT] [datetime] NOT NULL,
+	[SETTLMENT_DT] [datetime] NOT NULL,
+	[TRAN_TYPE_ID] [tinyint] NOT NULL,
+	[TRAN_QTY] [decimal](28, 8) NOT NULL,
+	[UNIT_PRICE] [decimal](28, 8) NOT NULL,
+	[TRAN_AMT] [decimal](28, 8) NOT NULL,
+	[TRAN_P_L] [decimal](28, 8) NOT NULL,
+ CONSTRAINT [PK_TRN_SHARE_ACCT] PRIMARY KEY CLUSTERED 
+(
+	[TRN_SHARE_ACCT_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_GetSettings]    Script Date: 03/12/2020 12:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE FUNCTION [dbo].[fn_GetSettings]()
+RETURNS TABLE 
 AS
-SELECT        GL.GL, ISNULL(GL.Zone, 0) AS Zone, ISNULL(dbo.DEF_Zone.Name, '') AS ZoneName, GL.CompanyNo, dbo.DEF_Company.Name AS CompanyName, ISNULL(GL.BranchNo, 0) AS BranchNo, ISNULL(dbo.DEF_Branch.Name, '') 
-                         AS BranchName, ISNULL(GL.SectorNo, 0) AS SectorNo, ISNULL(dbo.DEF_Sector.Name, '') AS SectorName, ISNULL(GL.DepNo, 0) AS DepNo, ISNULL(dbo.DEF_Dep.Name, '') AS DepName, ISNULL(GL.UnitNO, 0) AS UnitNO, 
-                         ISNULL(dbo.DEF_Unit.Name, '') AS UnitName, ISNULL(GL.ProductNo, '') AS ProductNo, ISNULL(GL.Nature, 0) AS Nature, dbo.LUT_LedgerNature.Name AS NatureName, dbo.LUT_LedgerNature.CR_DR, GL.PostingLevel, 
-                         GL.LedgerNO, GL.CURR, GL.EFFECTIVE_DT, ISNULL(GL.REFERENCE, '') AS REFERENCE
-FROM            dbo.DEF_GL AS GL LEFT OUTER JOIN
-                         dbo.DEF_Zone ON dbo.DEF_Zone.ID = GL.Zone LEFT OUTER JOIN
-                         dbo.DEF_Company ON dbo.DEF_Company.ID = GL.CompanyNo LEFT OUTER JOIN
-                         dbo.DEF_Branch ON dbo.DEF_Branch.ID = GL.BranchNo LEFT OUTER JOIN
-                         dbo.DEF_Sector ON dbo.DEF_Sector.ID = GL.SectorNo LEFT OUTER JOIN
-                         dbo.DEF_Dep ON dbo.DEF_Dep.ID = GL.DepNo LEFT OUTER JOIN
-                         dbo.DEF_Unit ON dbo.DEF_Unit.ID = GL.UnitNO LEFT OUTER JOIN
-                         dbo.LUT_LedgerNature ON dbo.LUT_LedgerNature.ID = GL.Nature
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT top 1 * from OpenCore.dbo.Settings Options order by Options.VerID desc
+)
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_String_ParseGL]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_String_ParseGL]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -667,509 +1308,28 @@ RETURN
 )
 
 
-
 GO
-/****** Object:  Table [dbo].[DEF_ACCT_CLASS]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  View [dbo].[VW_DEF_GL]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[DEF_ACCT_CLASS](
-	[AccountClassID] [smallint] IDENTITY(1,1) NOT NULL,
-	[Code] [nvarchar](5) NOT NULL,
-	[Name] [nvarchar](80) NULL,
-	[Type] [nvarchar](10) NULL,
-	[CompanyNo] [int] NULL,
-	[Currency] [nvarchar](5) NULL,
-	[EFFECTIVE_DT] [datetime] NULL,
-	[REFERENCE] [nvarchar](max) NOT NULL,
- CONSTRAINT [PK_DEF_ACCT_CLASS] PRIMARY KEY CLUSTERED 
-(
-	[AccountClassID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_ACCT_CLASS_ACCT_STRUCT](
-	[AccountStructID] [smallint] IDENTITY(1,1) NOT NULL,
-	[AccountClassCode] [nvarchar](5) NOT NULL,
-	[GLNum] [nvarchar](40) NOT NULL,
-	[GLCategory] [smallint] NOT NULL,
-	[GLComments] [nvarchar](80) NULL,
- CONSTRAINT [PK_DEF_ACCT_CLASS_ACCT_STRUCT] PRIMARY KEY CLUSTERED 
-(
-	[AccountStructID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_BusinessDate]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_BusinessDate](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[BusinessDay] [date] NULL,
-	[IsClosed] [bit] NULL,
-	[IsEndOfWeek] [bit] NULL,
-	[IsEndOfMonth] [bit] NULL,
-	[IsEndOfQuarter] [bit] NULL,
-	[IsEndOfYear] [bit] NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_CIF]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_CIF](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NOT NULL,
-	[SearchKey] [nvarchar](35) NOT NULL,
-	[FirstName] [nvarchar](80) NULL,
-	[MiddleName] [nvarchar](80) NULL,
-	[LastName] [nvarchar](80) NULL,
-	[FamilyName] [nvarchar](80) NULL,
-	[CREATE_DT] [datetime] NULL,
-	[CIF_TYPE] [smallint] NULL,
-	[CIF_CLASS] [nvarchar](10) NULL,
-	[RSM] [nvarchar](35) NULL,
-	[Gender] [nvarchar](10) NULL,
-	[Country] [int] NULL,
-	[COUNTRY_OF_BIRTH] [int] NULL,
-	[GOVERNORATE] [int] NULL,
-	[City] [int] NULL,
-	[Area] [int] NULL,
-	[Address] [nvarchar](max) NULL,
-	[Nationality] [int] NULL,
-	[BIRTH_DT] [date] NULL,
-	[LAST_SAVE_DT] [datetime] NULL,
-	[MobileNumber] [nvarchar](80) NULL,
-	[HomeNumber] [nvarchar](80) NULL,
-	[WorkNumber] [nvarchar](80) NULL,
-	[NationalID] [nvarchar](max) NULL,
- CONSTRAINT [PK__tmp_ms_x__3214EC073F31DDF2] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_CIF_CLASS]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_CIF_CLASS](
-	[Code] [nvarchar](10) NOT NULL,
-	[Name] [nvarchar](80) NOT NULL,
-	[Type] [tinyint] NOT NULL,
-	[CompanyNo] [smallint] NOT NULL,
-	[EFFECTIVE_DT] [datetime] NULL,
-	[REFERENCE] [nvarchar](max) NULL,
- CONSTRAINT [PK__DEF_CIF___A25C5AA6127E02BB] PRIMARY KEY CLUSTERED 
-(
-	[Code] ASC,
-	[CompanyNo] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_CIF_Company]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_CIF_Company](
-	[DEF_CIF_Company_ID] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NULL,
-	[Company_ID] [smallint] NULL,
- CONSTRAINT [PK_DEF_CIF_Company] PRIMARY KEY CLUSTERED 
-(
-	[DEF_CIF_Company_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_CK_ACCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_CK_ACCT](
-	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NOT NULL,
-	[ACCT_NO] [nvarchar](35) NOT NULL,
-	[Title] [nvarchar](80) NULL,
-	[Description] [nvarchar](80) NULL,
-	[ReferenceACCT] [nvarchar](35) NULL,
-	[ReferenceOrg] [nvarchar](35) NULL,
-	[IBAN] [nvarchar](35) NULL,
-	[ACCT_TYPE] [nvarchar](10) NOT NULL,
-	[ACCT_CLASS] [nvarchar](10) NULL,
-	[Currency] [nvarchar](3) NULL,
-	[OpenDate] [date] NULL,
-	[CSP_Code] [nvarchar](10) NULL,
-	[CompanyNo] [smallint] NOT NULL,
-	[STATUS] [tinyint] NULL,
- CONSTRAINT [PK_DEF_ACCT] PRIMARY KEY CLUSTERED 
-(
-	[DEF_ACCT_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_CK_ACCT_ACCT_STRUCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_CK_ACCT_ACCT_STRUCT](
-	[AccountStructID] [smallint] IDENTITY(1,1) NOT NULL,
-	[AccountCode] [nvarchar](35) NOT NULL,
-	[GLNum] [nvarchar](40) NOT NULL,
-	[GLCategory] [smallint] NOT NULL,
-	[GLComments] [nvarchar](80) NULL,
- CONSTRAINT [PK_DEF_ACCT_ACCT_STRUCT] PRIMARY KEY CLUSTERED 
-(
-	[AccountStructID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_Currency]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_Currency](
-	[CurrencyID] [smallint] IDENTITY(1,1) NOT NULL,
-	[ISOCode] [nvarchar](3) NOT NULL,
-	[Symbol] [nvarchar](3) NOT NULL,
-	[Fractions] [smallint] NOT NULL,
-	[Name] [nvarchar](100) NOT NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_EMP]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_EMP](
-	[EMP_ID] [smallint] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](max) NULL,
-	[FirstName] [nvarchar](80) NULL,
-	[MiddleName] [nvarchar](80) NULL,
-	[LastName] [nvarchar](80) NULL,
-	[FamilyName] [nvarchar](80) NULL,
-	[CREATE_DT] [datetime] NULL,
-	[LAST_SAVE_DT] [datetime] NULL,
-	[MobileNumber] [nvarchar](80) NULL,
-	[HomeNumber] [nvarchar](80) NULL,
-	[WorkNumber] [nvarchar](80) NULL,
-	[STATUS_ID] [tinyint] NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_FIXRATE_ACCT](
-	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NOT NULL,
-	[ACCT_NO] [nvarchar](35) NOT NULL,
-	[Title] [nvarchar](80) NULL,
-	[Description] [nvarchar](80) NULL,
-	[ReferenceACCT] [nvarchar](35) NULL,
-	[ReferenceOrg] [nvarchar](35) NULL,
-	[IBAN] [nvarchar](35) NULL,
-	[ACCT_TYPE] [nvarchar](10) NOT NULL,
-	[ACCT_CLASS] [nvarchar](10) NULL,
-	[Currency] [nvarchar](3) NULL,
-	[OpenDate] [date] NOT NULL,
-	[CreateDate] [date] NOT NULL,
-	[CloseDate] [date] NOT NULL,
-	[Principle] [decimal](28, 2) NOT NULL,
-	[Rate] [decimal](28, 26) NULL,
-	[AccrualBasis] [tinyint] NULL,
-	[CSP_Code] [nvarchar](10) NULL,
-	[CompanyNo] [smallint] NOT NULL,
-	[STATUS_ID] [tinyint] NOT NULL,
- CONSTRAINT [PK_DEF_FIXRATE_ACCT] PRIMARY KEY CLUSTERED 
-(
-	[DEF_ACCT_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_FIXRATE_ACCT_DATES]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_FIXRATE_ACCT_DATES](
-	[DEF_FIXRATE_ACCT_DATES_ID] [int] IDENTITY(1,1) NOT NULL,
-	[DEF_ACCT_ID] [int] NOT NULL,
-	[ACCT_NO] [nvarchar](35) NOT NULL,
-	[ACCT_DATE] [date] NOT NULL,
- CONSTRAINT [PK_DEF_FIXRATE_ACCT_DATES] PRIMARY KEY CLUSTERED 
-(
-	[DEF_FIXRATE_ACCT_DATES_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[DEF_SHARE_ACCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[DEF_SHARE_ACCT](
-	[DEF_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NOT NULL,
-	[ACCT_NO] [nvarchar](35) NOT NULL,
-	[Name] [nvarchar](80) NULL,
-	[Description] [nvarchar](80) NULL,
-	[ReferenceACCT] [nvarchar](35) NULL,
-	[ReferenceOrg] [nvarchar](35) NULL,
-	[IBAN] [nvarchar](35) NULL,
-	[ACCT_TYPE] [nvarchar](10) NOT NULL,
-	[ACCT_CLASS] [nvarchar](10) NULL,
-	[Currency] [nvarchar](3) NULL,
-	[OpenDate] [date] NOT NULL,
-	[ACCT_QTY] [decimal](28, 8) NOT NULL,
-	[ACCT_AMT] [decimal](28, 8) NOT NULL,
-	[ACCT_AVG] [decimal](28, 8) NOT NULL,
-	[ACCT_P_L] [decimal](28, 8) NOT NULL,
-	[CSP_Code] [nvarchar](10) NULL,
-	[CompanyNo] [smallint] NOT NULL,
-	[STATUS_ID] [tinyint] NOT NULL,
- CONSTRAINT [PK_DEF_SHARE_ACCT] PRIMARY KEY CLUSTERED 
-(
-	[DEF_ACCT_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[ExchangeRates]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[ExchangeRates](
-	[FromCurIsoCode] [nchar](3) NOT NULL,
-	[ToCurIsoCode] [nchar](3) NOT NULL,
-	[Rate] [decimal](28, 9) NULL,
-	[ExRateDate] [datetime] NULL,
-	[TimeEXC] [datetime] NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_ACCRUAL_BASIS]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_ACCRUAL_BASIS](
-	[ID] [tinyint] NOT NULL,
-	[Name] [nvarchar](10) NOT NULL,
-	[Description] [nvarchar](max) NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_ACCT_TYPE]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_ACCT_TYPE](
-	[ID] [smallint] NOT NULL,
-	[Name] [nvarchar](10) NOT NULL,
-	[Description] [nvarchar](max) NOT NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_AE_CATEGORY]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_AE_CATEGORY](
-	[ID] [smallint] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](80) NOT NULL,
-	[Description] [nvarchar](80) NULL,
-	[ParentCat] [smallint] NULL,
- CONSTRAINT [PK_LUT_AE_CATEGORY] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_CIF_TYPE]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_CIF_TYPE](
-	[Code] [tinyint] NOT NULL,
-	[Name] [nvarchar](80) NULL,
- CONSTRAINT [PK__LUT_CIF___A25C5AA6A1F27BC6] PRIMARY KEY CLUSTERED 
-(
-	[Code] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_CITY]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_CITY](
-	[Code] [nvarchar](10) NOT NULL,
-	[Name] [nvarchar](80) NOT NULL,
-	[CountryCode] [nvarchar](10) NOT NULL,
- CONSTRAINT [PK_LUT_CITY] PRIMARY KEY CLUSTERED 
-(
-	[Code] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_COUNTRY]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_COUNTRY](
-	[ID] [smallint] NOT NULL,
-	[Code] [nvarchar](10) NOT NULL,
-	[Name] [nvarchar](80) NULL,
- CONSTRAINT [PK_LUT_COUNTRY] PRIMARY KEY CLUSTERED 
-(
-	[Code] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_GL_ACCT_CATEGORY]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_GL_ACCT_CATEGORY](
-	[ID] [smallint] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](80) NOT NULL,
-	[Description] [nvarchar](80) NULL,
-	[ParentCat] [smallint] NULL,
- CONSTRAINT [PK_LUT_GL_ACCT_CATEGORY] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_LedgerPostingLevel]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_LedgerPostingLevel](
-	[ID] [tinyint] NOT NULL,
-	[PostingLevel] [nvarchar](50) NOT NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_OBJ_STATUS]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_OBJ_STATUS](
-	[STATUS_ID] [tinyint] IDENTITY(1,1) NOT NULL,
-	[NAME] [nvarchar](80) NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[LUT_TRN_STATUS]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LUT_TRN_STATUS](
-	[STATUS_ID] [tinyint] IDENTITY(1,1) NOT NULL,
-	[NAME] [nvarchar](80) NULL
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[PROC_FIXRATE_INTEREST]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[PROC_FIXRATE_INTEREST](
-	[PROC_FIXRATE_INTEREST_ID] [int] IDENTITY(1,1) NOT NULL,
-	[CIF_NO] [nvarchar](35) NOT NULL,
-	[ACCT_NO] [nvarchar](35) NOT NULL,
-	[PRINCIPLE_AMT] [decimal](28, 2) NOT NULL,
-	[CALC_INTEREST_AMT] [decimal](28, 2) NOT NULL,
-	[FROM_DATE] [datetime] NOT NULL,
-	[TO_DATE] [datetime] NOT NULL,
-	[STATUS_ID] [tinyint] NOT NULL,
- CONSTRAINT [PK_PROC_FIXRATE_INTEREST] PRIMARY KEY CLUSTERED 
-(
-	[PROC_FIXRATE_INTEREST_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[TRN_LEGS]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[TRN_LEGS](
-	[TRN_LEGS_ID] [int] IDENTITY(1,1) NOT NULL,
-	[Ref] [uniqueidentifier] NULL,
-	[Sequence] [smallint] NULL,
-	[Acct_CR_DR] [nvarchar](2) NULL,
-	[Acct_No] [nvarchar](max) NULL,
-	[GL] [bit] NULL,
-	[Balance_Before] [decimal](28, 3) NULL,
-	[Trn_Amt] [decimal](28, 3) NULL,
-	[Balance_After] [decimal](28, 3) NULL,
-	[Acct_Curr] [nvarchar](3) NULL,
-	[EffDt] [date] NULL,
-	[CREATE_DT] [datetime] NULL,
-	[EMP_ID] [smallint] NULL,
-	[STATUS_ID] [tinyint] NOT NULL,
-	[CHANNEL_ID] [smallint] NULL,
-	[Category] [smallint] NULL,
-	[Acct_Description] [nvarchar](max) NULL,
-	[Related_Ref] [uniqueidentifier] NULL,
- CONSTRAINT [PK_TRN_LEGS] PRIMARY KEY CLUSTERED 
-(
-	[TRN_LEGS_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[TRN_SHARE_ACCT]    Script Date: 11/25/2020 12:18:33 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[TRN_SHARE_ACCT](
-	[TRN_SHARE_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
-	[Ref] [uniqueidentifier] NULL,
-	[Sequence] [smallint] NULL,
-	[Acct_CR_DR] [nvarchar](2) NULL,
-	[Acct_No] [nvarchar](max) NULL,
-	[GL] [bit] NULL,
-	[Balance_Before] [decimal](28, 3) NULL,
-	[Trn_Amt] [decimal](28, 3) NULL,
-	[Balance_After] [decimal](28, 3) NULL,
-	[Acct_Curr] [nvarchar](3) NULL,
-	[EffDt] [date] NULL,
-	[CREATE_DT] [datetime] NULL,
-	[EMP_ID] [smallint] NULL,
-	[STATUS_ID] [tinyint] NOT NULL,
-	[CHANNEL_ID] [smallint] NULL,
-	[Category] [smallint] NULL,
-	[Acct_Description] [nvarchar](max) NULL,
-	[Related_Ref] [uniqueidentifier] NULL,
- CONSTRAINT [PK_TRN_SHARE_ACCT] PRIMARY KEY CLUSTERED 
-(
-	[TRN_SHARE_ACCT_ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerNature]    Script Date: 11/25/2020 12:18:33 AM ******/
+CREATE VIEW [dbo].[VW_DEF_GL]
+AS
+SELECT        GL.GL, ISNULL(GL.Zone, 0) AS Zone, ISNULL(dbo.DEF_Zone.Name, '') AS ZoneName, GL.CompanyNo, dbo.DEF_Company.Name AS CompanyName, ISNULL(GL.BranchNo, 0) AS BranchNo, ISNULL(dbo.DEF_Branch.Name, '') 
+                         AS BranchName, ISNULL(GL.SectorNo, 0) AS SectorNo, ISNULL(dbo.DEF_Sector.Name, '') AS SectorName, ISNULL(GL.DepNo, 0) AS DepNo, ISNULL(dbo.DEF_Dep.Name, '') AS DepName, ISNULL(GL.UnitNO, 0) AS UnitNO, 
+                         ISNULL(dbo.DEF_Unit.Name, '') AS UnitName, ISNULL(GL.ProductNo, '') AS ProductNo, ISNULL(GL.Nature, 0) AS Nature, dbo.LUT_LedgerNature.Name AS NatureName, dbo.LUT_LedgerNature.CR_DR, GL.PostingLevel, 
+                         GL.LedgerNO, GL.CURR, GL.EFFECTIVE_DT, ISNULL(GL.REFERENCE, '') AS REFERENCE
+FROM            dbo.DEF_GL AS GL LEFT OUTER JOIN
+                         dbo.DEF_Zone ON dbo.DEF_Zone.ID = GL.Zone LEFT OUTER JOIN
+                         dbo.DEF_Company ON dbo.DEF_Company.ID = GL.CompanyNo LEFT OUTER JOIN
+                         dbo.DEF_Branch ON dbo.DEF_Branch.ID = GL.BranchNo LEFT OUTER JOIN
+                         dbo.DEF_Sector ON dbo.DEF_Sector.ID = GL.SectorNo LEFT OUTER JOIN
+                         dbo.DEF_Dep ON dbo.DEF_Dep.ID = GL.DepNo LEFT OUTER JOIN
+                         dbo.DEF_Unit ON dbo.DEF_Unit.ID = GL.UnitNO LEFT OUTER JOIN
+                         dbo.LUT_LedgerNature ON dbo.LUT_LedgerNature.ID = GL.Nature
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerNature]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1200,9 +1360,8 @@ BEGIN
 		insert into LUT_LedgerNature values (5, 'Capital', 'CR')
 	
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerPostingLevel]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_ADD_LedgerPostingLevel]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1219,9 +1378,8 @@ BEGIN
 	IF not exists (select top 1 ID from LUT_LedgerPostingLevel where PostingLevel = 'OffBss')
 		insert into LUT_LedgerPostingLevel values (1, 'OffBss')
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[SP_AddCIF]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1369,9 +1527,8 @@ BEGIN
 	RETURN (0)
 
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[SP_AddCIF_Class]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF_Class]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1483,9 +1640,8 @@ BEGIN
 	RETURN (0)
 
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[SP_AddCIF_EXT1]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_AddCIF_EXT1]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1529,9 +1685,8 @@ BEGIN
 	RETURN (1)
 
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[SP_AddEditCurrency]    Script Date: 11/25/2020 12:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_AddEditCurrency]    Script Date: 03/12/2020 12:01:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1582,7 +1737,6 @@ BEGIN
 	RETURN (@CurrencyID)
 
 END
-
 GO
 EXEC sys.sp_addextendedproperty @name=N'DESCRIPTION', @value=N'Account number' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TYPE',@level1name=N'TYPE_POST_TRAN_PARAM', @level2type=N'COLUMN',@level2name=N'Acct_No'
 GO

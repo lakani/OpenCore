@@ -12,8 +12,8 @@ namespace SIS.OpenCore.BL.Objects
     public partial class FixedRateAccount
     {
 
-        static protected byte _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH = 15;
-        static protected string _CURRENT_ACCOUNT_NUM_FORMAT = "000000000000000";
+        static protected byte _FIXED_RATE_NUM_FORMAT_LENGTH = 15;
+        static protected string _FIXED_RATE_NUM_FORMAT = "000000000000000";
 
         /// <summary>
         /// create new Fixed Rate account for the given CIF
@@ -132,21 +132,21 @@ namespace SIS.OpenCore.BL.Objects
             {
                 stACCT_NO = FixedRateAccount_DAL.GetMaxCode();
                 if(true == string.IsNullOrEmpty(stACCT_NO))
-                     stACCT_NO = _CURRENT_ACCOUNT_NUM_FORMAT;
+                     stACCT_NO = _FIXED_RATE_NUM_FORMAT;
                 nAcctNo = (int) int.Parse(stACCT_NO);
                 nAcctNo ++;
-                sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + nAcctNo.ToString();
-                int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
+                sReturn = _FIXED_RATE_NUM_FORMAT + nAcctNo.ToString();
+                int cToRemove = sReturn.Length - _FIXED_RATE_NUM_FORMAT_LENGTH;
                 sReturn = sReturn.Remove(0,cToRemove);
             }
             else
             {
-                if(stACCT_NO.Length > _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH)
+                if(stACCT_NO.Length > _FIXED_RATE_NUM_FORMAT_LENGTH)
                     sReturn = string.Empty; // ERROR
                 else
                 {
-                    sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + stACCT_NO.ToString();
-                    int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
+                    sReturn = _FIXED_RATE_NUM_FORMAT + stACCT_NO.ToString();
+                    int cToRemove = sReturn.Length - _FIXED_RATE_NUM_FORMAT_LENGTH;
                     sReturn = sReturn.Remove(0,cToRemove);
                 }
             }
