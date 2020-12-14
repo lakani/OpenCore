@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIS.OpenCore.BL.Process;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.DAL;
 
 namespace SIS.OpenCore.BL.Objects
 {
@@ -74,7 +74,7 @@ namespace SIS.OpenCore.BL.Objects
 #endif
 
             // 
-            return FixedRateAccount_DAL.Create(NewAcct, SettlmentDates);
+            return DAL.FixedRateAccount.Create(NewAcct, SettlmentDates);
         }
 
         
@@ -86,7 +86,7 @@ namespace SIS.OpenCore.BL.Objects
         /// </summary>
         static protected void CloseAccountsProcess(DateTime RunDate)
         {
-            DEF_FIXRATE_ACCT[] PFOAccts = FixedRateAccount_DAL.GetAllPendingForOpen();
+            DEF_FIXRATE_ACCT[] PFOAccts = DAL.FixedRateAccount.GetAllPendingForOpen();
 
             // TODO : shuold execute the Open Account Accounting Strcture 
 
@@ -95,7 +95,7 @@ namespace SIS.OpenCore.BL.Objects
             {
                 Acct.STATUS_ID = 1;
 
-                FixedRateAccount_DAL.Update(Acct);
+                DAL.FixedRateAccount.Update(Acct);
             }
         }
 
@@ -107,7 +107,7 @@ namespace SIS.OpenCore.BL.Objects
         /// </summary>
         static protected void OpenAccountsProcess(DateTime RunDate)
         {
-            DEF_FIXRATE_ACCT[] PFOAccts = FixedRateAccount_DAL.GetAllPendingForOpen();
+            DEF_FIXRATE_ACCT[] PFOAccts = DAL.FixedRateAccount.GetAllPendingForOpen();
 
             // TODO : shuold execute the Open Account Accounting Strcture 
 
@@ -116,7 +116,7 @@ namespace SIS.OpenCore.BL.Objects
             {
                 Acct.STATUS_ID = 1;
 
-                FixedRateAccount_DAL.Update(Acct);
+                DAL.FixedRateAccount.Update(Acct);
             }
         }
 
@@ -130,7 +130,7 @@ namespace SIS.OpenCore.BL.Objects
 
             if(string.IsNullOrEmpty(stACCT_NO)) 
             {
-                stACCT_NO = FixedRateAccount_DAL.GetMaxCode();
+                stACCT_NO = DAL.FixedRateAccount.GetMaxCode();
                 if(true == string.IsNullOrEmpty(stACCT_NO))
                      stACCT_NO = _FIXED_RATE_NUM_FORMAT;
                 nAcctNo = (int) int.Parse(stACCT_NO);

@@ -42,7 +42,7 @@ namespace SIS.OpenCore.webapi.Controllers
                 //    r[x] = ret[x].ToString();
                 return CurrentAccount.List(CIF_NO, string.Empty, 10); 
             }
-            ///else
+            //else
                 //return new string[] { CIF_NO + " FIXED", CIF_NO + " FIXED" };
         }
 
