@@ -46,6 +46,13 @@ namespace SIS.OpenCore.BL.Objects
                 // TODO : shuold execute the Open Account Accounting Strcture 
             }
 
+            #region Check_for_the_Net_Amt
+            decimal Calc_ACCT_AMT ;
+            Calc_ACCT_AMT = NewAcct.ACCT_AVG * NewAcct.ACCT_QTY;
+            if (NewAcct.ACCT_AMT == 0)
+                NewAcct.ACCT_AMT = Calc_ACCT_AMT;
+            #endregion
+
             NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
             if (true == string.IsNullOrEmpty(NewAcct.ACCT_NO))
                 throw new ArgumentOutOfRangeException("ACCT_NO", "Invalid Account Number");
