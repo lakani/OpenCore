@@ -82,7 +82,7 @@ namespace SIS.OpenCore.BL.Transactions
             return ARR;
         }
 
-        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param , Guid RelatedRef)        
+        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param , Guid RelatedRef)
         {
             string      stBaseCurrency;
             DateTime    MaxEffDt = DateTime.MinValue;
