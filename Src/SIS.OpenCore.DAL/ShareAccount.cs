@@ -53,6 +53,10 @@ namespace SIS.OpenCore.DAL
             NewAcct_EL.ReferenceACCT = NewAcct.ReferenceACCT;
             NewAcct_EL.ReferenceOrg = NewAcct.ReferenceOrg;
             NewAcct_EL.STATUS_ID = NewAcct.STATUS_ID;
+            NewAcct_EL.ACCT_QTY = NewAcct.ACCT_QTY;
+            NewAcct_EL.ACCT_AMT = NewAcct.ACCT_AMT;
+            NewAcct_EL.ACCT_AVG = NewAcct.ACCT_AVG;
+            NewAcct_EL.ACCT_P_L = 0;
 
             db.DEF_SHARE_ACCT.Add(NewAcct_EL);
             db.SaveChanges();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
+using System.Threading;
 using System.Threading.Tasks;
 using SIS.OpenCore.Model;
 
@@ -17,7 +18,7 @@ namespace SIS.OpenCore.DAL.Context
             _context = context;
         }
 
-        public async Task<int> SP_ADD_LedgerNature(OutputParameter<int> returnValue = null)
+        public async Task<SP_ADD_LedgerNatureResult[]> SP_ADD_LedgerNature(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -26,14 +27,18 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_ADD_LedgerNature]", parameterreturnValue);
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_ADD_LedgerNatureResult>("EXEC @returnValue = [dbo].[SP_ADD_LedgerNature]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;
         }
 
-        public async Task<int> SP_ADD_LedgerPostingLevel(OutputParameter<int> returnValue = null)
+        public async Task<SP_ADD_LedgerPostingLevelResult[]> SP_ADD_LedgerPostingLevel(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -42,94 +47,26 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_ADD_LedgerPostingLevel]", parameterreturnValue);
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_ADD_LedgerPostingLevelResult>("EXEC @returnValue = [dbo].[SP_ADD_LedgerPostingLevel]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;
         }
 
-        public async Task<int> SP_AddCIF(short? CompanyNo, short? CIF_TYPE, string CIF_CLASS, string CIF_NO, string SearchKey, string FirstName, string MiddleName, string LastName, string NationalID, DateTime? EFFECTIVE_DT, OutputParameter<string> CIF_NO_OUT, OutputParameter<int> returnValue = null)
+        public async Task<SP_AddCIFResult[]> SP_AddCIF(short? CompanyNo, short? CIF_TYPE, string CIF_CLASS, string CIF_NO, string SearchKey, string FirstName, string MiddleName, string LastName, string NationalID, DateTime? EFFECTIVE_DT, OutputParameter<string> CIF_NO_OUT, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterCIF_NO_OUT = new SqlParameter
             {
                 ParameterName = "CIF_NO_OUT",
+                Size = -1,
                 Direction = System.Data.ParameterDirection.Output,
                 SqlDbType = System.Data.SqlDbType.NVarChar,
             };
-
-            var parameterCompanyNo = new SqlParameter
-            {
-                ParameterName = "CompanyNo",
-                Value = CompanyNo ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.SmallInt,
-            };
-
-            var parameterCIF_TYPE = new SqlParameter
-            {
-                ParameterName = "CIF_TYPE",
-                Value = CIF_TYPE ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.SmallInt,
-            };
-
-            var parameterCIF_CLASS = new SqlParameter
-            {
-                ParameterName = "CIF_CLASS",
-                Size = 20,
-                Value = CIF_CLASS ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterCIF_NO = new SqlParameter
-            {
-                ParameterName = "CIF_NO",
-                Value = CIF_NO ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterSearchKey = new SqlParameter
-            {
-                ParameterName = "SearchKey",
-                Value = SearchKey ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterFirstName = new SqlParameter
-            {
-                ParameterName = "FirstName",
-                Value = FirstName ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterMiddleName = new SqlParameter
-            {
-                ParameterName = "MiddleName",
-                Value = MiddleName ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterLastName = new SqlParameter
-            {
-                ParameterName = "LastName",
-                Value = LastName ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterNationalID = new SqlParameter
-            {
-                ParameterName = "NationalID",
-                Size = 160,
-                Value = NationalID ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterEFFECTIVE_DT = new SqlParameter
-            {
-                ParameterName = "EFFECTIVE_DT",
-                Value = EFFECTIVE_DT ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.DateTime,
-            };
-
             var parameterreturnValue = new SqlParameter
             {
                 ParameterName = "returnValue",
@@ -137,7 +74,79 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_AddCIF] @CIF_NO_OUT OUTPUT, @CompanyNo, @CIF_TYPE, @CIF_CLASS, @CIF_NO, @SearchKey, @FirstName, @MiddleName, @LastName, @NationalID, @EFFECTIVE_DT", parameterCIF_NO_OUT, parameterCompanyNo, parameterCIF_TYPE, parameterCIF_CLASS, parameterCIF_NO, parameterSearchKey, parameterFirstName, parameterMiddleName, parameterLastName, parameterNationalID, parameterEFFECTIVE_DT, parameterreturnValue);
+            var sqlParameters = new []
+            {
+                parameterCIF_NO_OUT,
+                new SqlParameter
+                {
+                    ParameterName = "CompanyNo",
+                    Value = CompanyNo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CIF_TYPE",
+                    Value = CIF_TYPE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CIF_CLASS",
+                    Size = 20,
+                    Value = CIF_CLASS ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CIF_NO",
+                    Size = -1,
+                    Value = CIF_NO ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SearchKey",
+                    Size = -1,
+                    Value = SearchKey ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FirstName",
+                    Size = -1,
+                    Value = FirstName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MiddleName",
+                    Size = -1,
+                    Value = MiddleName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "LastName",
+                    Size = -1,
+                    Value = LastName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "NationalID",
+                    Size = 160,
+                    Value = NationalID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EFFECTIVE_DT",
+                    Value = EFFECTIVE_DT ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_AddCIFResult>("EXEC @returnValue = [dbo].[SP_AddCIF] @CIF_NO_OUT OUTPUT, @CompanyNo, @CIF_TYPE, @CIF_CLASS, @CIF_NO, @SearchKey, @FirstName, @MiddleName, @LastName, @NationalID, @EFFECTIVE_DT", sqlParameters, cancellationToken);
 
             CIF_NO_OUT.SetValue(parameterCIF_NO_OUT.Value);
             returnValue?.SetValue(parameterreturnValue.Value);
@@ -145,7 +154,7 @@ namespace SIS.OpenCore.DAL.Context
             return _;
         }
 
-        public async Task<int> SP_AddCIF_Class(short? CompanyNo, byte? TYPE, string NAME, string CIF_CLASS, DateTime? EFFECTIVE_DT, string REFERENCE, OutputParameter<string> CIF_CLASS_OUT, OutputParameter<int> returnValue = null)
+        public async Task<SP_AddCIF_ClassResult[]> SP_AddCIF_Class(short? CompanyNo, byte? TYPE, string NAME, string CIF_CLASS, DateTime? EFFECTIVE_DT, string REFERENCE, OutputParameter<string> CIF_CLASS_OUT, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterCIF_CLASS_OUT = new SqlParameter
             {
@@ -154,51 +163,6 @@ namespace SIS.OpenCore.DAL.Context
                 Direction = System.Data.ParameterDirection.Output,
                 SqlDbType = System.Data.SqlDbType.NVarChar,
             };
-
-            var parameterCompanyNo = new SqlParameter
-            {
-                ParameterName = "CompanyNo",
-                Value = CompanyNo ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.SmallInt,
-            };
-
-            var parameterTYPE = new SqlParameter
-            {
-                ParameterName = "TYPE",
-                Value = TYPE ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.TinyInt,
-            };
-
-            var parameterNAME = new SqlParameter
-            {
-                ParameterName = "NAME",
-                Size = 160,
-                Value = NAME ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterCIF_CLASS = new SqlParameter
-            {
-                ParameterName = "CIF_CLASS",
-                Size = 8,
-                Value = CIF_CLASS ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterEFFECTIVE_DT = new SqlParameter
-            {
-                ParameterName = "EFFECTIVE_DT",
-                Value = EFFECTIVE_DT ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.DateTime,
-            };
-
-            var parameterREFERENCE = new SqlParameter
-            {
-                ParameterName = "REFERENCE",
-                Value = REFERENCE ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
             var parameterreturnValue = new SqlParameter
             {
                 ParameterName = "returnValue",
@@ -206,7 +170,51 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_AddCIF_Class] @CIF_CLASS_OUT OUTPUT, @CompanyNo, @TYPE, @NAME, @CIF_CLASS, @EFFECTIVE_DT, @REFERENCE", parameterCIF_CLASS_OUT, parameterCompanyNo, parameterTYPE, parameterNAME, parameterCIF_CLASS, parameterEFFECTIVE_DT, parameterREFERENCE, parameterreturnValue);
+            var sqlParameters = new []
+            {
+                parameterCIF_CLASS_OUT,
+                new SqlParameter
+                {
+                    ParameterName = "CompanyNo",
+                    Value = CompanyNo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TYPE",
+                    Value = TYPE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.TinyInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "NAME",
+                    Size = 160,
+                    Value = NAME ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CIF_CLASS",
+                    Size = 8,
+                    Value = CIF_CLASS ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EFFECTIVE_DT",
+                    Value = EFFECTIVE_DT ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "REFERENCE",
+                    Size = -1,
+                    Value = REFERENCE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_AddCIF_ClassResult>("EXEC @returnValue = [dbo].[SP_AddCIF_Class] @CIF_CLASS_OUT OUTPUT, @CompanyNo, @TYPE, @NAME, @CIF_CLASS, @EFFECTIVE_DT, @REFERENCE", sqlParameters, cancellationToken);
 
             CIF_CLASS_OUT.SetValue(parameterCIF_CLASS_OUT.Value);
             returnValue?.SetValue(parameterreturnValue.Value);
@@ -214,15 +222,8 @@ namespace SIS.OpenCore.DAL.Context
             return _;
         }
 
-        public async Task<int> SP_AddCIF_EXT1(string CIF, OutputParameter<int> returnValue = null)
+        public async Task<SP_AddCIF_EXT1Result[]> SP_AddCIF_EXT1(string CIF, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
-            var parameterCIF = new SqlParameter
-            {
-                ParameterName = "CIF",
-                Value = CIF ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
             var parameterreturnValue = new SqlParameter
             {
                 ParameterName = "returnValue",
@@ -230,46 +231,26 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_AddCIF_EXT1] @CIF", parameterCIF, parameterreturnValue);
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "CIF",
+                    Size = -1,
+                    Value = CIF ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_AddCIF_EXT1Result>("EXEC @returnValue = [dbo].[SP_AddCIF_EXT1] @CIF", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;
         }
 
-        public async Task<int> SP_AddEditCurrency(string ISOCode, string Symbol, short? Fractions, string Name, OutputParameter<int> returnValue = null)
+        public async Task<SP_AddEditCurrencyResult[]> SP_AddEditCurrency(string ISOCode, string Symbol, short? Fractions, string Name, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
-            var parameterISOCode = new SqlParameter
-            {
-                ParameterName = "ISOCode",
-                Size = 8,
-                Value = ISOCode ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterSymbol = new SqlParameter
-            {
-                ParameterName = "Symbol",
-                Size = 8,
-                Value = Symbol ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
-            var parameterFractions = new SqlParameter
-            {
-                ParameterName = "Fractions",
-                Value = Fractions ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.SmallInt,
-            };
-
-            var parameterName = new SqlParameter
-            {
-                ParameterName = "Name",
-                Size = 200,
-                Value = Name ?? Convert.DBNull,
-                SqlDbType = System.Data.SqlDbType.NVarChar,
-            };
-
             var parameterreturnValue = new SqlParameter
             {
                 ParameterName = "returnValue",
@@ -277,7 +258,38 @@ namespace SIS.OpenCore.DAL.Context
                 SqlDbType = System.Data.SqlDbType.Int,
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[SP_AddEditCurrency] @ISOCode, @Symbol, @Fractions, @Name", parameterISOCode, parameterSymbol, parameterFractions, parameterName, parameterreturnValue);
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ISOCode",
+                    Size = 8,
+                    Value = ISOCode ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Symbol",
+                    Size = 8,
+                    Value = Symbol ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Fractions",
+                    Value = Fractions ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Name",
+                    Size = 200,
+                    Value = Name ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SP_AddEditCurrencyResult>("EXEC @returnValue = [dbo].[SP_AddEditCurrency] @ISOCode, @Symbol, @Fractions, @Name", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

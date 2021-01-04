@@ -68,6 +68,8 @@ namespace SIS.OpenCore.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
+
             modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
             {
                 entity.HasKey(e => e.AccountClassID);
@@ -643,9 +645,17 @@ namespace SIS.OpenCore.DAL.Context
             {
                 entity.HasKey(e => e.TRN_SHARE_ACCT_ID);
 
+                entity.Property(e => e.ACCT_AMT).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_AVG).HasColumnType("decimal(28, 8)");
+
                 entity.Property(e => e.ACCT_NO)
                     .IsRequired()
                     .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_P_L).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_QTY).HasColumnType("decimal(28, 8)");
 
                 entity.Property(e => e.SETTLMENT_DT).HasColumnType("datetime");
 

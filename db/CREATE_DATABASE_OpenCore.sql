@@ -1257,7 +1257,7 @@ GO
 CREATE TABLE [dbo].[TRN_SHARE_ACCT](
 	[TRN_SHARE_ACCT_ID] [int] IDENTITY(1,1) NOT NULL,
 	[Ref] [uniqueidentifier] NULL,
-	[ACCT_NO] [nvarchar](35) COLLATE Arabic_CI_AS NOT NULL,
+	[ACCT_NO] [nvarchar](35) NOT NULL,
 	[TRAN_DT] [datetime] NOT NULL,
 	[SETTLMENT_DT] [datetime] NOT NULL,
 	[TRAN_TYPE_ID] [tinyint] NOT NULL,
@@ -1265,6 +1265,11 @@ CREATE TABLE [dbo].[TRN_SHARE_ACCT](
 	[UNIT_PRICE] [decimal](28, 8) NOT NULL,
 	[TRAN_AMT] [decimal](28, 8) NOT NULL,
 	[TRAN_P_L] [decimal](28, 8) NOT NULL,
+	[ACCT_QTY] [decimal](28, 8) NULL,
+	[ACCT_AMT] [decimal](28, 8) NULL,
+	[ACCT_AVG] [decimal](28, 8) NULL,
+	[ACCT_P_L] [decimal](28, 8) NULL,
+	[STATUS_ID] [tinyint] NULL,
  CONSTRAINT [PK_TRN_SHARE_ACCT] PRIMARY KEY CLUSTERED 
 (
 	[TRN_SHARE_ACCT_ID] ASC

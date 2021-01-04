@@ -18,5 +18,10 @@ namespace SIS.OpenCore.Model
         public decimal UNIT_PRICE { get; set; }
         public decimal TRAN_AMT { get; set; }
         public decimal TRAN_P_L { get; set; }
+        public decimal? ACCT_QTY { get; set; }
+        public decimal? ACCT_AMT { get; set; }
+        public decimal? ACCT_AVG { get; set; }
+        public decimal? ACCT_P_L { get; set; }
+        public byte? STATUS_ID { get; set; }
     }
 }

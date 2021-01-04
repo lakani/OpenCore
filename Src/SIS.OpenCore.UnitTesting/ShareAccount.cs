@@ -29,9 +29,9 @@ namespace SIS.OpenCore.UnitTesting
             DeleteAccounts();
 
             DEF_SHARE_ACCT newAcct = new DEF_SHARE_ACCT();
-            newAcct.ACCT_AMT = 100;
             newAcct.ACCT_AVG = 10;
             newAcct.ACCT_QTY = 100;
+            newAcct.ACCT_AMT = newAcct.ACCT_QTY * newAcct.ACCT_AVG;
             newAcct.CIF_NO = "000000001";
             newAcct.CompanyNo = 1;
             newAcct.CSP_Code = "01"; ;
@@ -51,7 +51,6 @@ namespace SIS.OpenCore.UnitTesting
 
             if (rF.ACCT_NO != newAcct.ACCT_NO)
                 throw new Exception("Failed to Create new Share Account");
-
         }
     }
 }
