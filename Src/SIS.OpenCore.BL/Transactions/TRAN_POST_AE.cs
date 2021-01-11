@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL.Objects;
 
@@ -26,7 +26,7 @@ namespace SIS.OpenCore.BL.Transactions
 
         static public bool ValidRef(Guid Ref)
         {
-            return TRN_LEGS_DAL.ValidRef(Ref);
+            return DAL.TRN_LEGS_DAL.ValidRef(Ref);
         }
 
         static public bool Reverse(Guid Ref)
@@ -82,7 +82,7 @@ namespace SIS.OpenCore.BL.Transactions
             return ARR;
         }
 
-        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param , Guid RelatedRef)        
+        static public Guid Post(TRAN_POST_AE_TYPE_PARAM[] ae_Param , Guid RelatedRef)
         {
             string      stBaseCurrency;
             DateTime    MaxEffDt = DateTime.MinValue;

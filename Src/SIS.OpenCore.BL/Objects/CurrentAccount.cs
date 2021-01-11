@@ -2,7 +2,7 @@ using System.Linq;
 using System;
 using SIS.OpenCore.Model;
 using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.DAL;
 
 
 
@@ -30,7 +30,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static DEF_CK_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
         {
-            return DEF_CK_ACCT_DAL.List(CIF_NO, ISO, cRecordsPerPage);
+            return DAL.CurrentAccount.List(CIF_NO, ISO, cRecordsPerPage);
         }
 
         public static bool Search(string stAcctNo)

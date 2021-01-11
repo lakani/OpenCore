@@ -8,7 +8,7 @@ using SIS.OpenCore.DAL.Context;
 
 namespace SIS.OpenCore.DAL // Check the correct table attributes
 {
-    public partial class DEF_CIF_DAL
+    public partial class Cif
     {
         public static DEF_CIF[] List(short cRecordsPerPage)
         {

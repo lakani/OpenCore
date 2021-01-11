@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL;
 using System.Xml.Schema;
@@ -22,7 +22,7 @@ namespace SIS.OpenCore.BL.Objects
 
         static public DEF_CIF Get(string CifNO)
         {
-            return DEF_CIF_DAL.Get(CifNO);
+            return DAL.Cif.Get(CifNO);
         }
 
         static public string Add_CIF (
@@ -170,7 +170,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static DEF_CIF[] List(short cRecordsPerPage)
         {
-            return DEF_CIF_DAL.List(cRecordsPerPage);
+            return DAL.Cif.List(cRecordsPerPage);
         }
 
         protected static string GenerateNewCode(string sCIF_NO)

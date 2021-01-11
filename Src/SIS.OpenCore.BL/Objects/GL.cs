@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Model;
 using System.Linq;
-using SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.BL;
 using SIS.OpenCore.Shared.Extensions;
@@ -62,7 +62,7 @@ namespace SIS.OpenCore.BL.Objects
 
             if (LEDGERNO == 0)
             {
-                LEDGERNO = DEF_GL_DAL.GetMaxLedger(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL);
+                LEDGERNO = DAL.DEF_GL_DAL.GetMaxLedger(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL);
                 LEDGERNO++;
             }
                                 
@@ -76,7 +76,7 @@ namespace SIS.OpenCore.BL.Objects
             if (ValidateExists(CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL, LEDGERNO, GL) == true)
                 throw new ArgumentException("GL", "GL Already Exists");
 
-            return DEF_GL_DAL.AddGL(EFFECTIVE_DT, CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL,
+            return DAL.DEF_GL_DAL.AddGL(EFFECTIVE_DT, CompanyNo, NATURE, CURR, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, POSTINGLEVEL,
                                     LEDGERNO, GL, COMMENTS);
         }
 
@@ -98,7 +98,7 @@ namespace SIS.OpenCore.BL.Objects
 
         public static DEF_GL[] List(short cRecordsPerPage)
         {
-            return DEF_GL_DAL.List(cRecordsPerPage);
+            return DAL.DEF_GL_DAL.List(cRecordsPerPage);
         }
 
 
@@ -154,7 +154,7 @@ namespace SIS.OpenCore.BL.Objects
             //  1- check only for the GL string
             //  2- check for all the below paramaters 
 
-            if (DEF_GL_DAL.ValidateExists(stGL) == true)
+            if (DAL.DEF_GL_DAL.ValidateExists(stGL) == true)
                 return true;          
 
 

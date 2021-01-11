@@ -35,6 +35,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
         public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
         public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+        public virtual DbSet<DEF_SHARE_ACCT> DEF_SHARE_ACCT { get; set; }
         public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
         public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
         public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
@@ -53,6 +54,7 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<PROC_FIXRATE_INTEREST> PROC_FIXRATE_INTEREST { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
+        public virtual DbSet<TRN_SHARE_ACCT> TRN_SHARE_ACCT { get; set; }
         public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -66,6 +68,8 @@ namespace SIS.OpenCore.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
+
             modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
             {
                 entity.HasKey(e => e.AccountClassID);
@@ -357,6 +361,49 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.GL).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<DEF_SHARE_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.DEF_ACCT_ID);
+
+                entity.Property(e => e.ACCT_AMT).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_AVG).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_P_L).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_QTY).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_TYPE)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CIF_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.CSP_Code).HasMaxLength(10);
+
+                entity.Property(e => e.Currency).HasMaxLength(3);
+
+                entity.Property(e => e.Description).HasMaxLength(80);
+
+                entity.Property(e => e.IBAN).HasMaxLength(35);
+
+                entity.Property(e => e.Name).HasMaxLength(80);
+
+                entity.Property(e => e.OpenDate).HasColumnType("date");
+
+                entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
+
+                entity.Property(e => e.ReferenceOrg).HasMaxLength(35);
+            });
+
             modelBuilder.Entity<DEF_Sector>(entity =>
             {
                 entity.HasNoKey();
@@ -592,6 +639,35 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.EffDt).HasColumnType("date");
 
                 entity.Property(e => e.Trn_Amt).HasColumnType("decimal(28, 3)");
+            });
+
+            modelBuilder.Entity<TRN_SHARE_ACCT>(entity =>
+            {
+                entity.HasKey(e => e.TRN_SHARE_ACCT_ID);
+
+                entity.Property(e => e.ACCT_AMT).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_AVG).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_NO)
+                    .IsRequired()
+                    .HasMaxLength(35);
+
+                entity.Property(e => e.ACCT_P_L).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.ACCT_QTY).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.SETTLMENT_DT).HasColumnType("datetime");
+
+                entity.Property(e => e.TRAN_AMT).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.TRAN_DT).HasColumnType("datetime");
+
+                entity.Property(e => e.TRAN_P_L).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.TRAN_QTY).HasColumnType("decimal(28, 8)");
+
+                entity.Property(e => e.UNIT_PRICE).HasColumnType("decimal(28, 8)");
             });
 
             modelBuilder.Entity<VW_DEF_GL>(entity =>

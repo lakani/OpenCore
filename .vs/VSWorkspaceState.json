@@ -1,11 +1,5 @@
 {
-  "ExpandedNodes": [
-    "",
-    "\\SQL",
-    "\\SQL\\Test",
-    "\\Src",
-    "\\Src\\SIS.OpenCore.BL"
-  ],
-  "SelectedNode": "\\Src\\SIS.OpenCore.BL\\Settings.cs",
+  "ExpandedNodes": [],
+  "SelectedNode": "\\SIS.OpenCore.Server.sln",
   "PreviewInSolutionExplorer": false
 }

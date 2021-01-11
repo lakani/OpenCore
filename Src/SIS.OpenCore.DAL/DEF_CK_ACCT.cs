@@ -7,7 +7,7 @@ using SIS.OpenCore.DAL.Context;
 
 namespace SIS.OpenCore.DAL // Check the correct table attributes
 {
-    public partial class DEF_CK_ACCT_DAL
+    public partial class CurrentAccount
     {
         public static DEF_CK_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
         {

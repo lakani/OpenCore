@@ -16,7 +16,7 @@ namespace SIS.OpenCore.BL.Process
         static public void InterestCalculationProcess(DateTime RunDate)
         {
             // Get All Fixed Rate Active Accounts
-            DEF_FIXRATE_ACCT[] ActiveAccTs = FixedRateAccount_DAL.List(string.Empty, string.Empty, 0);
+            DEF_FIXRATE_ACCT[] ActiveAccTs = DAL.FixedRateAccount.List(string.Empty, string.Empty, 0);
             foreach (DEF_FIXRATE_ACCT FixedAcct in ActiveAccTs)
             {
                 if(FixedAcct.CloseDate != RunDate)

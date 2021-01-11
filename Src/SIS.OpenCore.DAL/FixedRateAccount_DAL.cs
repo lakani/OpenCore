@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.DAL
 {
-    public partial class FixedRateAccount_DAL
+    public partial class FixedRateAccount
     {
         /// <summary>
         /// Return the MAX Code
