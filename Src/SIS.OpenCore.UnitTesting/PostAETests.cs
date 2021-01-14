@@ -7,6 +7,8 @@ using SIS.OpenCore.Model;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Shared.Transactions;
+
 
 namespace SIS.OpenCore.UnitTesting
 {

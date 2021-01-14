@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Transactions;
 using BAL = SIS.OpenCore.BL.Objects;
 
 namespace SIS.OpenCore.BL.Transactions

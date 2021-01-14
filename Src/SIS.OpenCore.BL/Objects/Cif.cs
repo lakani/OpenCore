@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Model;
 using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Shared.Objects;
 using SIS.OpenCore.BL;
 using System.Xml.Schema;
 
@@ -171,6 +172,13 @@ namespace SIS.OpenCore.BL.Objects
         public static DEF_CIF[] List(short cRecordsPerPage)
         {
             return DAL.Cif.List(cRecordsPerPage);
+        }
+        
+        public static DEF_CIF[] List(DEF_CIF_PARAM param)
+        {
+            if (param.cRecords == 0)
+                param.cRecords = 10;
+            return DAL.Cif.List(param);
         }
 
         protected static string GenerateNewCode(string sCIF_NO)

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using SIS.OpenCore.Model;
 using SIS.OpenCore.BL.Objects;
+using SIS.OpenCore.Shared.Objects;
 
 namespace SIS.OpenCore.webapi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("API/[controller]")]
     public class CIFController : ControllerBase
     {
         //private readonly ILogger<CIFController> _logger;
@@ -25,13 +26,19 @@ namespace SIS.OpenCore.webapi.Controllers
         */
 
         [HttpGet]
-        public IEnumerable<DEF_CIF> Get()
+        [Route("/API/CIF")]
+        public IEnumerable<DEF_CIF> Get(string firstName, int cRecords = 0)
         {
-            return Cif.List(10);
+            DEF_CIF_PARAM cIF_PARAM = new DEF_CIF_PARAM();
+
+            cIF_PARAM.cRecords = cRecords;
+            cIF_PARAM.FirstName = firstName;
+            
+            return Cif.List(cIF_PARAM);
         }
 
         [HttpGet]
-        [Route("{CIF_NO}/{ACCT_TYPE}")]
+        [Route("API/{CIF_NO}/{ACCT_TYPE}")]
         public IEnumerable<DEF_CK_ACCT> GetCK(string CIF_NO, string ACCT_TYPE)
         {
             //if (ACCT_TYPE == "CK")
@@ -47,7 +54,7 @@ namespace SIS.OpenCore.webapi.Controllers
         }
 
         [HttpGet("{Cif_NO}")]
-        // GET: api/values/5
+        // GET: api/CIF/5/
         public DEF_CIF Get(string Cif_NO)
         {
             return Cif.Get(Cif_NO);

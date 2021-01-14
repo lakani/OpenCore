@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Model;
 using SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Shared.Objects;
 
 namespace SIS.OpenCore.DAL // Check the correct table attributes
 {
@@ -17,6 +18,25 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
             return ((from c in db.DEF_CIF
                      orderby c.CREATE_DT descending
                      select c).Take(cRecordsPerPage).ToArray());
+        }
+
+        public static DEF_CIF[] List(DEF_CIF_PARAM param)
+        {
+            OpenCoreContext db = new OpenCoreContext();
+            var Ret = from c in db.DEF_CIF
+                      select c;
+
+            ////orderby c.CREATE_DT descending
+
+            if (false == String.IsNullOrEmpty(param.SearchKey))
+                Ret.Where(c => c.SearchKey == param.SearchKey);
+
+            if (false == String.IsNullOrEmpty(param.FirstName))
+                Ret = Ret.Where(c => c.FirstName.Contains(param.FirstName));
+
+            Ret = Ret.OrderByDescending(c => c.CREATE_DT);
+
+            return Ret.Take(param.cRecords).ToArray();
         }
 
         public static DEF_CIF Get(string cifNO)

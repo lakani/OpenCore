@@ -1,12 +1,8 @@
 using System.Linq;
 using System;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL;
-using SIS.OpenCore.DAL.Context;
 
-
-
-namespace SIS.OpenCore.BL.Transactions
+namespace SIS.OpenCore.Shared.Transactions
 {
     public partial class TRAN_POST_AE_TYPE_PARAM
     {
