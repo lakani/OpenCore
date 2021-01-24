@@ -34,6 +34,9 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
             if (false == String.IsNullOrEmpty(param.FirstName))
                 Ret = Ret.Where(c => c.FirstName.Contains(param.FirstName));
 
+            if (false == String.IsNullOrEmpty(param.LastName))
+                Ret = Ret.Where(c => c.LastName.Contains(param.LastName));
+
             Ret = Ret.OrderByDescending(c => c.CREATE_DT);
 
             return Ret.Take(param.cRecords).ToArray();
