@@ -29,13 +29,22 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
             ////orderby c.CREATE_DT descending
 
             if (false == String.IsNullOrEmpty(param.SearchKey))
-                Ret.Where(c => c.SearchKey == param.SearchKey);
+                Ret = Ret.Where(c => c.SearchKey == param.SearchKey);
 
             if (false == String.IsNullOrEmpty(param.FirstName))
                 Ret = Ret.Where(c => c.FirstName.Contains(param.FirstName));
 
             if (false == String.IsNullOrEmpty(param.LastName))
                 Ret = Ret.Where(c => c.LastName.Contains(param.LastName));
+
+            if (false == String.IsNullOrEmpty(param.FamilyName))
+                Ret = Ret.Where(c => c.FamilyName.Contains(param.FamilyName));
+
+            if (false == String.IsNullOrEmpty(param.MobileNumber))
+                Ret = Ret.Where(c => c.MobileNumber.Contains(param.MobileNumber));
+
+            if (false == String.IsNullOrEmpty(param.NationalID))
+                Ret = Ret.Where(c => c.NationalID.Contains(param.NationalID));
 
             Ret = Ret.OrderByDescending(c => c.CREATE_DT);
 

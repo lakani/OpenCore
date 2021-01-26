@@ -27,7 +27,8 @@ namespace SIS.OpenCore.webapi.Controllers
 
         [HttpGet]
         [Route("/API/CIF")]
-        public IEnumerable<DEF_CIF> Get(string firstName, int cRecords = 0, string lastName = "", string SearchKey = "")
+        public IEnumerable<DEF_CIF> Get(string firstName, int cRecords = 0, string lastName = "", string SearchKey = "", 
+                                        string FamilyName = "", string MobileNumber = "", string NationalID = "")
         {
             DEF_CIF_PARAM cIF_PARAM = new DEF_CIF_PARAM();
 
@@ -35,6 +36,9 @@ namespace SIS.OpenCore.webapi.Controllers
             cIF_PARAM.FirstName = firstName;
             cIF_PARAM.LastName = lastName;
             cIF_PARAM.SearchKey = SearchKey;
+            cIF_PARAM.FamilyName = FamilyName;
+            cIF_PARAM.MobileNumber = MobileNumber;
+            cIF_PARAM.NationalID = NationalID;
 
             return Cif.List(cIF_PARAM);
         }

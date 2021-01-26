@@ -1,0 +1,12 @@
+https://localhost:5001/index.html
+
+https://localhost:5001/API/CIF?cRecords=5&searchKey=000000311&firstName=ahmed
+https://localhost:5001/API/CIF?cRecords=5
+https://localhost:5001/API/CIF/000000313
+https://localhost:5001/API/CIF?cRecords=1&firstName=ahmed
+https://localhost:5001/API/CIF?cRecords=5&firstName=ahmed
+https://localhost:5001/API/CIF?cRecords=5&lastName=ahmed
+https://localhost:5001/API/CIF?cRecords=5&MobileNumber=01001595896
+
+
+https://github.com/microsoft/RulesEngine
