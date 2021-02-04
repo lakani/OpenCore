@@ -19,4 +19,6 @@
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties rules_4cifrules_1json__JsonSchema="https://github.com/microsoft/RulesEngine/blob/main/schema/workflowRules-schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
