@@ -26,6 +26,8 @@ namespace SIS.OpenCore.BL.RE.Helper
             //select ID from DEF_CIF WHERE ID = 1203
             stSQL = "select " + ID + " from " + table + " WHERE " + ID + " = " + value;
             //context.Database.ExecuteSqlInterpolatedAsync()
+            //await context.SqlQueryAsync(stSQL);
+
             return true;
         }
     }
