@@ -7,6 +7,7 @@ using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.Shared.Objects;
 using SIS.OpenCore.BL;
+using SIS.OpenCore.BL.RE;
 using System.Xml.Schema;
 
 namespace SIS.OpenCore.BL.Objects
@@ -16,7 +17,9 @@ namespace SIS.OpenCore.BL.Objects
         static public string Add_CIF (DateTime dtEFFECTIVE_DT,
             short nCompanyNo, DEF_CIF _CIF)
         {
-            
+            SmartRulesEngine.Run(_CIF);
+
+
             return Cif.Add_CIF(dtEFFECTIVE_DT, nCompanyNo, _CIF.CIF_TYPE ?? 0, _CIF.CIF_CLASS, _CIF.NationalID,
                 _CIF.FirstName, _CIF.MiddleName, _CIF.LastName, _CIF.SearchKey,
                 _CIF.CIF_NO);
