@@ -24,7 +24,7 @@
         "ErrorMessage": "Middle Name Should Exist.",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
-        "Expression": "String.IsNullOrEmpty(CIF.MiddleName) == false"
+        "Expression": "REDBUtils.Exists(\"LUT_CIF_TYPE\", \"Code\", CIF.CIF_TYPE) == true"
       }
     ]
   }

@@ -7,11 +7,21 @@ using SIS.OpenCore.Model;
 using SIS.OpenCore.BL.Objects;
 using SIS.OpenCore.BL.Transactions;
 using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.BL.RE.Helper;
 
 namespace SIS.OpenCore.UnitTesting
 {
     class NonBussinessMiscTests
     {
+        [Test]
+        public void Test_REDBUtils()
+        {
+            REDBUtils.Exists("LUT_CIF_TYPE", "Code", 1);
+            REDBUtils.Exists("LUT_CIF_TYPE", "Code", 5);
+            //REDBUtils.Exists("LUT_CIF_TYPE", "Code", ((DEF_CIF)inputOne).CIF_TYPE);
+        }
+
+        
         [Test]
         public void Test_Cast()
         {
