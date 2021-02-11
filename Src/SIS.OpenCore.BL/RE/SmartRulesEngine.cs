@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using RulesEngine.Models;
+using SIS.OpenCore.BL.RE.Helper;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -19,14 +20,15 @@ namespace SIS.OpenCore.BL.RE
                 throw new Exception("Rules not found.");
             var fileData = File.ReadAllText(files[0]);
             var workflowRules = JsonConvert.DeserializeObject<List<WorkflowRules>>(fileData);
-            var bre = new RulesEngine.RulesEngine(workflowRules.ToArray(), null);
             #endregion
 
             #region load paramters and run engine
             var inputs = new RuleParameter[1];
             // this is the mapping between the name in expression and the object
             inputs[0] = new RuleParameter("CIF", inputOne);
-            
+
+            var reSettingsWithCustomTypes = new ReSettings { CustomTypes = new Type[] { typeof(REDBUtils) } };
+            var bre = new RulesEngine.RulesEngine(workflowRules.ToArray(), null, reSettingsWithCustomTypes) ;
             List<RuleResultTree> resultList = bre.ExecuteAllRulesAsync("CIFPOST", inputs).Result;
             #endregion
 

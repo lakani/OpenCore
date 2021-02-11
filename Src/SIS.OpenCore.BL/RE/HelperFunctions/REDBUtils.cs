@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.DAL;
+
 
 namespace SIS.OpenCore.BL.RE.Helper
 {
@@ -18,17 +19,17 @@ namespace SIS.OpenCore.BL.RE.Helper
             return list.Contains(check);
         }
 
+        public static bool Exists(string table, string ID, short? value)
+        {
+            if (value.HasValue)
+                return REDBUtils.Exists(table, ID, (value.Value).ToString());
+            else
+                return false;
+        }
+
         public static bool Exists(string table, string ID, string value)
         {
-            string stSQL;
-            var context = new OpenCoreContext();
-
-            //select ID from DEF_CIF WHERE ID = 1203
-            stSQL = "select " + ID + " from " + table + " WHERE " + ID + " = " + value;
-            //context.Database.ExecuteSqlInterpolatedAsync()
-            //await context.SqlQueryAsync(stSQL);
-
-            return true;
+            return DBUtilities.Exists(table, ID, value);
         }
     }
 }
