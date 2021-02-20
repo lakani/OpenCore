@@ -19,12 +19,20 @@
         "Expression": "String.IsNullOrEmpty(CIF.MobileNumber) == false"
       },
       {
-        "RuleName": "MiddleNameVal",
+        "RuleName": "CIFTypeVal",
         "SuccessEvent": "20",
-        "ErrorMessage": "Middle Name Should Exist.",
+        "ErrorMessage": "CIF Type Should Exist.",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "REDBUtils.Exists(\"LUT_CIF_TYPE\", \"Code\", CIF.CIF_TYPE) == true"
+      },
+      {
+        "RuleName": "CIFCompanyVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "CIF Company Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "REDBUtils.Exists(\"DEF_Company\", \"ID\", fields[\"CompanyNo\"]) == true"
       }
     ]
   }

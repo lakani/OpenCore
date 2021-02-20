@@ -12,7 +12,7 @@ namespace SIS.OpenCore.BL.RE
 {
     class SmartRulesEngine
     {
-        public static void Run(object inputOne)
+        public static void Run(object inputOne, Dictionary<string, string> fields)
         {
             #region load Rule file and load it
             var files = Directory.GetFiles(Directory.GetCurrentDirectory() + "", "CIFRules.json", SearchOption.AllDirectories);
@@ -23,9 +23,10 @@ namespace SIS.OpenCore.BL.RE
             #endregion
 
             #region load paramters and run engine
-            var inputs = new RuleParameter[1];
+            var inputs = new RuleParameter[2];
             // this is the mapping between the name in expression and the object
             inputs[0] = new RuleParameter("CIF", inputOne);
+            inputs[1] = new RuleParameter("fields", fields); 
 
             var reSettingsWithCustomTypes = new ReSettings { CustomTypes = new Type[] { typeof(REDBUtils) } };
             var bre = new RulesEngine.RulesEngine(workflowRules.ToArray(), null, reSettingsWithCustomTypes) ;
