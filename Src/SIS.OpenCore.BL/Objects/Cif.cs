@@ -17,7 +17,10 @@ namespace SIS.OpenCore.BL.Objects
         static public string Add_CIF (DateTime dtEFFECTIVE_DT,
             short nCompanyNo, DEF_CIF _CIF)
         {
-            SmartRulesEngine.Run(_CIF);
+            Dictionary<string, string> fields = new Dictionary<string, string>();
+            fields.Add("CompanyNo", nCompanyNo.ToString());
+
+            SmartRulesEngine.Run(_CIF, fields);
 
 
             return Cif.Add_CIF(dtEFFECTIVE_DT, nCompanyNo, _CIF.CIF_TYPE ?? 0, _CIF.CIF_CLASS, _CIF.NationalID,
@@ -54,10 +57,11 @@ namespace SIS.OpenCore.BL.Objects
             // check DEF_CIF_CLASS
             if(false == CifClass.ValidateExists(nCIF_CLASS, nCompanyNo))
                 throw new ArgumentOutOfRangeException("nCIF_CLASS", "Class Code doesn't Exists");
-
+            
+            // Removed the check as its not coverd by Bus Rules Eng
             //IF NOT EXISTS (select top 1 Code from LUT_CIF_TYPE where Code = @CIF_TYPE)
-            if(false == CifTYPE.ValidateExists(nCIF_TYPE))
-                throw new ArgumentOutOfRangeException("nCIF_TYPE", "Type doesn't Exists");
+            //if(false == CifTYPE.ValidateExists(nCIF_TYPE))
+            //    throw new ArgumentOutOfRangeException("nCIF_TYPE", "Type doesn't Exists");
 
             // check if CIF not exists
             if( true == ValidateExists(sCIF_NO))
