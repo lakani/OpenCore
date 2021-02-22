@@ -1,11 +1,9 @@
 using System.Linq;
 using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.DAL;
-using SIS.OpenCore.BL;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.DAL.Context;
+using System.Collections.Generic;
+using SIS.OpenCore.BL.RE;
 
 namespace SIS.OpenCore.BL.Objects
 {
@@ -14,29 +12,10 @@ namespace SIS.OpenCore.BL.Objects
         protected const byte    _CIF_Class_Format_Length = 4;
         protected const string  _CIF_Class_Format = "0000";
 
-        static public string GetMaxCodePerCompany(short nCompanyNo)
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            /*(string sCode =  (from c in db.DEF_CIF_CLASS
-                            where c.CompanyNo == nCompanyNo
-                            select c.Code).Max(); */
-            string sCode =  (from c in db.DEF_CIF_CLASS
-                            select c.Code).Max(); 
-
-            if(string.IsNullOrEmpty(sCode))
-                return string.Empty;
-            return (sCode);
-        }
 
         public static bool ValidateExists(string sCIFClassCode, short nCompanyNo)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            string sCode =  (from c in db.DEF_CIF_CLASS
-                            where c.CompanyNo == nCompanyNo && c.Code == sCIFClassCode
-                            select c.Code).FirstOrDefault();
-            if(string.IsNullOrEmpty(sCode))
-                return false;
-            return true;
+            return DEF_CIF_CLASSDAL.ValidateExists(sCIFClassCode, nCompanyNo);
         }
 
         static public string GenerateNewCode (short nCompanyNo, string sCIFClassCode)
@@ -46,7 +25,7 @@ namespace SIS.OpenCore.BL.Objects
             // sCIFClassCode is provided or not
             if(string.IsNullOrEmpty(sCIFClassCode)) 
             {
-                sCIFClassCode = GetMaxCodePerCompany(nCompanyNo);
+                sCIFClassCode = DEF_CIF_CLASSDAL.GetMaxCodePerCompany(nCompanyNo);
                 if(string.IsNullOrEmpty(sCIFClassCode))
                     sCIFClassCode = _CIF_Class_Format;
                 nCIFClassCode = (short)short.Parse(sCIFClassCode);
@@ -78,17 +57,23 @@ namespace SIS.OpenCore.BL.Objects
             string      sReference = ""
         )
         {
-            object CIFLock = new object();
-            OpenCoreContext db = new OpenCoreContext();
             DEF_CIF_CLASS   newCIF_CLASSObj = new DEF_CIF_CLASS();
 
+            newCIF_CLASSObj.Code = sCIFClassCode;
+            newCIF_CLASSObj.CompanyNo = nCompanyNo;
+            newCIF_CLASSObj.EFFECTIVE_DT = dtEFFECTIVE_DT;
+            newCIF_CLASSObj.Name = sCIFClassName;
+            newCIF_CLASSObj.Type = nCIF_TYPE;
+            newCIF_CLASSObj.REFERENCE = sReference;
+
+            SmartRulesEngine.Run("CIF_CLASS", "CIFCLASSPOST", newCIF_CLASSObj, null);
+
             // check Company
-            if(false == Company.ValidateExists(nCompanyNo))
-                throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
+            //if (false == Company.ValidateExists(nCompanyNo))
+            //    throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
 
-            if(false == CifTYPE.ValidateExists(nCIF_TYPE))
-                throw new ArgumentOutOfRangeException("nCIF_TYPE", "CIF Type doesn't Exists");
-
+            //if(false == CifTYPE.ValidateExists(nCIF_TYPE))
+            //    throw new ArgumentOutOfRangeException("nCIF_TYPE", "CIF Type doesn't Exists");
 
             sCIFClassCode = GenerateNewCode(nCompanyNo, sCIFClassCode) ;
             if(string.IsNullOrEmpty(sCIFClassCode))
@@ -98,15 +83,10 @@ namespace SIS.OpenCore.BL.Objects
                 throw new Exception("sCIFClassCode Already Exists");
 
             newCIF_CLASSObj.Code = sCIFClassCode;
-            newCIF_CLASSObj.CompanyNo = nCompanyNo;
-            newCIF_CLASSObj.EFFECTIVE_DT = dtEFFECTIVE_DT;
-            newCIF_CLASSObj.Name = sCIFClassName;
-            newCIF_CLASSObj.Type = nCIF_TYPE;
-            newCIF_CLASSObj.REFERENCE = sReference;
-            
-            db.DEF_CIF_CLASS.Add (newCIF_CLASSObj);
-            db.SaveChanges();
-            
+
+            if (-1 == DEF_CIF_CLASSDAL.Add_CIF_CLASS(newCIF_CLASSObj))
+                return "";
+
             return sCIFClassCode;
         }
     }
