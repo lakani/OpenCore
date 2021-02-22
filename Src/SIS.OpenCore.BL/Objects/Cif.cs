@@ -20,7 +20,7 @@ namespace SIS.OpenCore.BL.Objects
             Dictionary<string, string> fields = new Dictionary<string, string>();
             fields.Add("CompanyNo", nCompanyNo.ToString());
 
-            SmartRulesEngine.Run(_CIF, fields);
+            SmartRulesEngine.Run("CIF", "CIFPOST", _CIF, fields);
 
 
             return Cif.Add_CIF(dtEFFECTIVE_DT, nCompanyNo, _CIF.CIF_TYPE ?? 0, _CIF.CIF_CLASS, _CIF.NationalID,
