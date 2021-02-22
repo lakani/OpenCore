@@ -51,3 +51,4 @@ Src/Trials/ConsoleApp/webapi/appsettings.json
 /Src/.vs/SIS.OpenCore.Client/config
 /Src/.vs/SIS.OpenCore.Client/v16/TestStore/0/testlog.manifest
 /Src/.vs/SIS.OpenCore.Client/v16/TestStore/0/000.testlog
+/Src/SIS.OpenCore.WebAPI/libman.json
