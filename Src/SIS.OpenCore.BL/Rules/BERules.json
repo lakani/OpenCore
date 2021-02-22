@@ -1,0 +1,61 @@
+[
+  {
+    "WorkflowName": "CIFPOST",
+    "Rules": [
+      {
+        "RuleName": "NationalIDVal",
+        "SuccessEvent": "10",
+        "ErrorMessage": "National ID Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "String.IsNullOrEmpty(CIF.NationalID) == false"
+      },
+      {
+        "RuleName": "MobileNumberVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "Mobile Number Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "String.IsNullOrEmpty(CIF.MobileNumber) == false"
+      },
+      {
+        "RuleName": "CIFTypeVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "CIF Type Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "REDBUtils.Exists(\"LUT_CIF_TYPE\", \"Code\", CIF.CIF_TYPE) == true"
+      },
+      {
+        "RuleName": "CIFCompanyVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "CIF Company Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "REDBUtils.Exists(\"DEF_Company\", \"ID\", fields[\"CompanyNo\"]) == true"
+      }
+    ]
+  },
+  {
+    "WorkflowName": "CIFCLASSPOST",
+    "Rules": [
+      {
+        "RuleName": "CIFTypeVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "CIF Type Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "REDBUtils.Exists(\"LUT_CIF_TYPE\", \"Code\", CIF_CLASS.Type) == true"
+      },
+      {
+        "RuleName": "CIFCompanyVal",
+        "SuccessEvent": "20",
+        "ErrorMessage": "CIF Company Should Exist.",
+        "ErrorType": "Error",
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "REDBUtils.Exists(\"DEF_Company\", \"ID\", CIF_CLASS.CompanyNo) == true"
+      }
+    ]
+  }
+
+]

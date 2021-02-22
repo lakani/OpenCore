@@ -19,4 +19,12 @@
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Rules\BERules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties rules_4cifrules_1json__JsonSchema="https://github.com/microsoft/RulesEngine/blob/main/schema/workflowRules-schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
