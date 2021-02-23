@@ -9,6 +9,7 @@ namespace SIS.OpenCore.Shared.Objects
 {
     public class DEF_CIF_PARAM : DEF_CIF
     {
+        public string Name { get; set; }
         public int cRecords { get; set; }
     }
 }
