@@ -2,39 +2,64 @@
 @using SIS.OpenCore.Model
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
+<h1>CIF List</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<table>
+
+</table>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>CIF NO</th>
+            <th>Search Key</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Type</th>
+            <th>Class</th>
+            <th>Mobile Number</th>
+            <th>National ID</th>
         </tr>
     </thead>
     <tbody>
         @*@foreach (var forecast in forecasts)
-        {
-            <tr>
-                <td>@forecast.Date.ToShortDateString()</td>
-                <td>@forecast.TemperatureC</td>
-                <td>@forecast.TemperatureF</td>
-                <td>@forecast.Summary</td>
-            </tr>
-        }*@
+        {*@
+        <tr>
+            <td>000000624</td>
+            <td>000000624</td>
+            <td>Dalia Ahmed</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>0001</td>
+            <td></td>
+            <td>123456789</td>
+        </tr>
+        <tr>
+            <td>000000624</td>
+            <td>000000624</td>
+            <td>Dalia Ahmed</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>0001</td>
+            <td></td>
+            <td>123456789</td>
+        </tr>
+        @*}*@
     </tbody>
 </table>
 
 
 @code {
-    private DEF_CIF[] cifList;
+    //private DEF_CIF[] cifList;
 
+    /*
     protected override async Task OnInitializedAsync()
     {
         //forecasts = await Http.GetFromJsonAsync<DEF_CIF[]>("WeatherForecast");
     }
+    */
 
 }
