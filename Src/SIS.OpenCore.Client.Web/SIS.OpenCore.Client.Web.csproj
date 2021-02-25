@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>SIS.OpenCore.Client.Web</RootNamespace>
+    <AssemblyName>SIS.OpenCore.Client.Web</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

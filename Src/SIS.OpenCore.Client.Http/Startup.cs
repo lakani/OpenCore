@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 
-namespace SIS.OpenCore.Client.Web.Server
+namespace SIS.OpenCore.Client.Web.Http
 {
     public class Startup
     {
