@@ -9,11 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\SIS.OpenCore.Client.Web.Client.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\SIS.OpenCore.Model\SIS.OpenCore.Model.csproj" />
+    <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 
 
