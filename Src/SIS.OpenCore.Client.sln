@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Client.Web.Server", "SIS.OpenCore.Client.Web\Server\SIS.OpenCore.Client.Web.Server.csproj", "{F5089F1A-5D6A-41A2-A689-6C4A9B08F023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Client.Http", "SIS.OpenCore.Client.Web\Server\SIS.OpenCore.Client.Http.csproj", "{F5089F1A-5D6A-41A2-A689-6C4A9B08F023}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E6E4606-70E9-4FEB-BDA1-9B4386A2632B} = {5E6E4606-70E9-4FEB-BDA1-9B4386A2632B}
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE} = {22A3136F-00CD-4798-964E-F47EAD22D7EE}
