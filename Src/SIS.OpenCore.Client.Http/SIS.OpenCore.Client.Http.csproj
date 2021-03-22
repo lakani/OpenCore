@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.1" />
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
