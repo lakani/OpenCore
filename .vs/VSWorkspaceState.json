@@ -1,5 +1,8 @@
 {
-  "ExpandedNodes": [],
-  "SelectedNode": "\\SIS.OpenCore.Server.sln",
+  "ExpandedNodes": [
+    "",
+    "\\Src"
+  ],
+  "SelectedNode": "\\Src\\SIS.OpenCore.sln",
   "PreviewInSolutionExplorer": false
 }
