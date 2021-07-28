@@ -84,12 +84,12 @@ namespace SIS.OpenCore.BL.Objects
         static public string Create(DEF_GL newGL)
         {
             return  Add_GL(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Nature, 
-                newGL.Zone.HasValue? newGL.Zone.Value:0, 
-                newGL.BranchNo.HasValue ? newGL.BranchNo.Value :0,
-                newGL.SectorNo.HasValue ? newGL.SectorNo.Value : 0 ,
-                newGL.DepNo.HasValue ? newGL.DepNo.Value : 0, 
-                newGL.UnitNO.HasValue ? newGL.UnitNO.Value : 0, 
-                newGL.ProductNo.HasValue ? newGL.ProductNo.Value : 0, 
+                newGL.Zone.Value, 
+                newGL.BranchNo.Value ,
+                newGL.SectorNo.Value ,
+                newGL.DepNo.Value , 
+                newGL.UnitNO.Value , 
+                newGL.ProductNo.Value , 
                 newGL.CURR, 
                 newGL.PostingLevel, 
                 newGL.LedgerNO,  newGL.GL, newGL.COMMENTS, newGL.REFERENCE);

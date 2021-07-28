@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.Client.Web.Server", "SIS.OpenCore.Client.Web\Server\SIS.OpenCore.Client.Web.Server.csproj", "{F5089F1A-5D6A-41A2-A689-6C4A9B08F023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Client.Http", "SIS.OpenCore.Client.Web\Server\SIS.OpenCore.Client.Http.csproj", "{F5089F1A-5D6A-41A2-A689-6C4A9B08F023}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E6E4606-70E9-4FEB-BDA1-9B4386A2632B} = {5E6E4606-70E9-4FEB-BDA1-9B4386A2632B}
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE} = {22A3136F-00CD-4798-964E-F47EAD22D7EE}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.Client.Web.Client", "SIS.OpenCore.Client.Web\Client\SIS.OpenCore.Client.Web.Client.csproj", "{6CFE5EE0-86C1-4000-9901-F35E9311788B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Client.Web.Client", "SIS.OpenCore.Client.Web\Client\SIS.OpenCore.Client.Web.Client.csproj", "{6CFE5EE0-86C1-4000-9901-F35E9311788B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E6E4606-70E9-4FEB-BDA1-9B4386A2632B} = {5E6E4606-70E9-4FEB-BDA1-9B4386A2632B}
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE} = {22A3136F-00CD-4798-964E-F47EAD22D7EE}
@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Shared", "SIS.
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Model", "SIS.OpenCore.Model\SIS.OpenCore.Model.csproj", "{22A3136F-00CD-4798-964E-F47EAD22D7EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.Client.Win", "SIS.OpenCore.Client.Win\SIS.OpenCore.Client.Win.csproj", "{B06D1106-884F-4A09-BC99-BBB76EB6FDBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22A3136F-00CD-4798-964E-F47EAD22D7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06D1106-884F-4A09-BC99-BBB76EB6FDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06D1106-884F-4A09-BC99-BBB76EB6FDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06D1106-884F-4A09-BC99-BBB76EB6FDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06D1106-884F-4A09-BC99-BBB76EB6FDBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SIS.OpenCore.Client.Web.Server
+namespace SIS.OpenCore.Client.Web.Http
 {
     public class Program
     {

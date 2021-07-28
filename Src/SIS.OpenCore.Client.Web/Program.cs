@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIS.OpenCore.Client.Web.Client
+namespace SIS.OpenCore.Client.Web
 {
     public class Program
     {
