@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Src"
+    "\\Src",
+    "\\Src\\SIS.OpenCore.UnitTesting"
   ],
-  "SelectedNode": "\\Src\\SIS.OpenCore.sln",
+  "SelectedNode": "\\Src\\SIS.OpenCore.UnitTesting\\CIF_Tests.cs",
   "PreviewInSolutionExplorer": false
 }

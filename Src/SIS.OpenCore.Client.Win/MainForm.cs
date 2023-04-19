@@ -10,12 +10,17 @@ using System.Windows.Forms;
 
 namespace SIS.OpenCore.Client.Win
 {
-    public partial class MainForm : Form
-    {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+	public partial class MainForm : Form
+	{
+		public MainForm()
+		{
+			InitializeComponent();
+		}
 
-    }
+		private void listToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CIFList list = new CIFList();
+			list.Show(this);
+		}
+	}
 }

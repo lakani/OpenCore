@@ -43,7 +43,7 @@ namespace SIS.OpenCore.BL.RE
             }
                 
             var reSettingsWithCustomTypes = new ReSettings { CustomTypes = new Type[] { typeof(REDBUtils) } };
-            var bre = new RulesEngine.RulesEngine(workflowRules.ToArray(), null, reSettingsWithCustomTypes) ;
+            var bre = new RulesEngine.RulesEngine(workflowRules.ToArray(), reSettingsWithCustomTypes) ;
             List<RuleResultTree> resultList = bre.ExecuteAllRulesAsync(RuleName, inputs).Result;
             #endregion
 
