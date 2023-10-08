@@ -16,6 +16,6 @@ namespace SIS.OpenCore.DAL.TODO // Check the correct table attributes
         public string MobileNumber { get; set; }
         public string HomeNumber { get; set; }
         public string WorkNumber { get; set; }
-        public byte? STATUS_ID { get; set; }
+        public short? STATUS_ID { get; set; }
     }
 }

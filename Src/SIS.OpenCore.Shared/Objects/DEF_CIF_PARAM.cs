@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 
 namespace SIS.OpenCore.Shared.Objects
 {

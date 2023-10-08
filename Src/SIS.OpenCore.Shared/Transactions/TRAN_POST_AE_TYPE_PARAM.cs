@@ -1,6 +1,6 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 
 namespace SIS.OpenCore.Shared.Transactions
 {

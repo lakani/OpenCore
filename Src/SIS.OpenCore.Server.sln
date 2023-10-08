@@ -5,13 +5,11 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.UnitTesting", "SIS.OpenCore.UnitTesting\SIS.OpenCore.UnitTesting.csproj", "{2B88723B-28D5-49FF-96F9-62B4AD9ECE01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.BL", "SIS.OpenCore.BL\SIS.OpenCore.BL.csproj", "{8407EF63-3718-4C04-A21E-290150E61132}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.DAL", "SIS.OpenCore.DAL\SIS.OpenCore.DAL.csproj", "{BA173E57-0AC8-44D6-AE9D-79D334C89764}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Model", "SIS.OpenCore.Model\SIS.OpenCore.Model.csproj", "{BED12F96-A82A-4C6B-942C-ECFD6B701E70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.WebAPI", "SIS.OpenCore.WebAPI\SIS.OpenCore.WebAPI.csproj", "{31E18C8A-6049-4C96-8B0C-98DD731BB6B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Server", "SIS.OpenCore.Server\SIS.OpenCore.Server.csproj", "{31E18C8A-6049-4C96-8B0C-98DD731BB6B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Shared", "SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj", "{F1173102-7A06-476B-9112-3A6A75F5B0C4}"
 EndProject

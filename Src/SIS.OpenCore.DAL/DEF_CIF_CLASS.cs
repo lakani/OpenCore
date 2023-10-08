@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 
 namespace SIS.OpenCore.DAL
 {

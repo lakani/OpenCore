@@ -2,11 +2,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 //using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.BL.Objects;
-using SIS.OpenCore.BL.Transactions;
-using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Server.BL.Objects;
+
 
 namespace SIS.OpenCore.UnitTesting
 {

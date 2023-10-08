@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Common;
 
-namespace SIS.OpenCore.DAL
+namespace SIS.OpenCore.DAL.Context
 {
     public static class DbContextExtensions2
     {

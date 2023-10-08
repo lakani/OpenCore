@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using SIS.OpenCore.Model;
-//using SIS.OpenCore.DAL.Context;
-using BAL = SIS.OpenCore.BL.Objects;
-using SIS.OpenCore.BL.Transactions;
+using SIS.OpenCore.Shared.Model;
+using BAL = SIS.OpenCore.Server.BL.Objects;
+using SIS.OpenCore.DAL;
+using SIS.OpenCore.DAL.TODO;
 using SIS.OpenCore.DAL.Context;
 using Microsoft.EntityFrameworkCore;
-
 
 
 namespace SIS.OpenCore.UnitTesting
@@ -18,6 +15,7 @@ namespace SIS.OpenCore.UnitTesting
         public static void DeleteAccounts()
         {
             OpenCoreContext db = new OpenCoreContext();
+            
             db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_SHARE_ACCT");
             //db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_FIXRATE_ACCT_DATES");
             //db.Database.ExecuteSqlRaw("truncate table OpenCore..PROC_FIXRATE_INTEREST");

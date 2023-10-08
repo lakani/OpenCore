@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 using System.Linq;
 
 
@@ -12,7 +12,7 @@ namespace SIS.OpenCore.DAL // Check the correct table attributes
         static public bool ValidRef(Guid Ref)
         {
             OpenCoreContext db = new OpenCoreContext();
-            byte ?LegsStatus =  (from l in db.TRN_LEGS
+            short ?LegsStatus =  (from l in db.TRN_LEGS
                                 where l.Ref == Ref 
                                 select l.STATUS_ID).FirstOrDefault() ;
             

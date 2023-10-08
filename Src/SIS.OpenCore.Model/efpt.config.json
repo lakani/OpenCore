@@ -129,10 +129,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[LUT_LedgerPostingLevel]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[LUT_OBJ_STATUS]",
          "ObjectType": 0
       },
@@ -162,10 +158,6 @@
       },
       {
          "Name": "[dbo].[SP_ADD_LedgerNature]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[SP_ADD_LedgerPostingLevel]",
          "ObjectType": 1
       },
       {

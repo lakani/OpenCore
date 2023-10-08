@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.DAL.Context;
 using System.Collections.Generic;
 

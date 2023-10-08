@@ -2,12 +2,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 //using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.BL.Objects;
-using SIS.OpenCore.BL.Transactions;
-using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.BL.RE.Helper;
+using SIS.OpenCore.Server.BL.Objects;
+using SIS.OpenCore.Server.BL.RE.Helper;
 
 namespace SIS.OpenCore.UnitTesting
 {
@@ -74,7 +72,7 @@ namespace SIS.OpenCore.UnitTesting
         public void TestStringFormat()
         {
             string str = "Nature";
-            byte Nature = 1;
+            short Nature = 1;
             string sNature = String.Format("{0, 0:D2}", Nature);
             string sRes = str.Replace("Nature", sNature);
 

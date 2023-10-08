@@ -5,7 +5,7 @@ using System;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 
 namespace SIS.OpenCore.DAL.Context
 {
@@ -32,26 +32,6 @@ namespace SIS.OpenCore.DAL.Context
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<SP_ADD_LedgerNatureResult>("EXEC @returnValue = [dbo].[SP_ADD_LedgerNature]", sqlParameters, cancellationToken);
-
-            returnValue?.SetValue(parameterreturnValue.Value);
-
-            return _;
-        }
-
-        public async Task<SP_ADD_LedgerPostingLevelResult[]> SP_ADD_LedgerPostingLevel(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
-        {
-            var parameterreturnValue = new SqlParameter
-            {
-                ParameterName = "returnValue",
-                Direction = System.Data.ParameterDirection.Output,
-                SqlDbType = System.Data.SqlDbType.Int,
-            };
-
-            var sqlParameters = new []
-            {
-                parameterreturnValue,
-            };
-            var _ = await _context.SqlQueryAsync<SP_ADD_LedgerPostingLevelResult>("EXEC @returnValue = [dbo].[SP_ADD_LedgerPostingLevel]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
@@ -154,7 +134,7 @@ namespace SIS.OpenCore.DAL.Context
             return _;
         }
 
-        public async Task<SP_AddCIF_ClassResult[]> SP_AddCIF_Class(short? CompanyNo, byte? TYPE, string NAME, string CIF_CLASS, DateTime? EFFECTIVE_DT, string REFERENCE, OutputParameter<string> CIF_CLASS_OUT, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public async Task<SP_AddCIF_ClassResult[]> SP_AddCIF_Class(short? CompanyNo, short? TYPE, string NAME, string CIF_CLASS, DateTime? EFFECTIVE_DT, string REFERENCE, OutputParameter<string> CIF_CLASS_OUT, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterCIF_CLASS_OUT = new SqlParameter
             {

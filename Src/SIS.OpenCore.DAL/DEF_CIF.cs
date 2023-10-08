@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.Shared.Objects;
