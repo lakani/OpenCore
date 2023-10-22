@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using System.Linq;
 using DAL = SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
@@ -64,7 +65,8 @@ namespace SIS.OpenCore.Server.BL.Objects
 			_logger.Log(LogLevel.Information, "GL : InitServices");
 		}
 
-
+        // TODO : should match the number of diggits from the Setup , not from the below table
+        // for example if specified in the setup that BranchNo is only 2 diggits, it should be generated as 2
 		static GLSegment[] _segments = new GLSegment[] {   
             new GLSegment { Type = 1,   Name = "Nature",          DigitsValue = "#",      DigitsLength = 1},
             new GLSegment { Type = 2,   Name = "Zone",            DigitsValue = "##",     DigitsLength = 2},
@@ -182,13 +184,6 @@ namespace SIS.OpenCore.Server.BL.Objects
          
         }
 
-        public static DEF_GL[] List(short cRecordsPerPage)
-        {
-            return DAL.DEF_GL_DAL.List(cRecordsPerPage);
-        }
-
-
-
         private static bool ValidatesNewGLParams(DateTime EFFECTIVE_DT, short CompanyNo, short nZone, short BranchNo, 
                                     short SectorNo, short DepNo, short UNITNO, short Nature)
         {
@@ -253,7 +248,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(_DEF_GLRepository.GetByCode(stGL) != null)
                 return true;
 
-            // TODO search for matching for the paramaters
+            // TODO search for matching for the paramaters, 
 
 
             // // if (DAL.DEF_GL_DAL.ValidateExists(stGL) == true)
@@ -282,30 +277,31 @@ namespace SIS.OpenCore.Server.BL.Objects
             return false;
         }
 
-        public static DEF_GL GetGLInfo(DEF_GL gL, string stGL)
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            var RetGL = (from g in db.DEF_GL
-                        where   g.CompanyNo == gL.CompanyNo &&
-                                g.Nature == gL.Nature &&
-                                g.Zone == gL.Zone &&
-                                g.BranchNo == gL.BranchNo &&
-                                g.SectorNo == gL.SectorNo &&
-                                g.DepNo == gL.DepNo &&
-                                g.UnitNO == gL.UnitNO &&
-                                g.ProductNo == gL.ProductNo &&
-                                g.LedgerNO == gL.LedgerNO &&
-                                g.GL == stGL 
-                         select g).FirstOrDefault();
+        // public static DEF_GL GetGLInfo(DEF_GL gL, string stGL)
+        // {
+        //     // TODO : remove any mention for OpenCoreContext 
+        //     OpenCoreContext db = new OpenCoreContext();
+        //     var RetGL = (from g in db.DEF_GL
+        //                 where   g.CompanyNo == gL.CompanyNo &&
+        //                         g.Nature == gL.Nature &&
+        //                         g.Zone == gL.Zone &&
+        //                         g.BranchNo == gL.BranchNo &&
+        //                         g.SectorNo == gL.SectorNo &&
+        //                         g.DepNo == gL.DepNo &&
+        //                         g.UnitNO == gL.UnitNO &&
+        //                         g.ProductNo == gL.ProductNo &&
+        //                         g.LedgerNO == gL.LedgerNO &&
+        //                         g.GL == stGL 
+        //                  select g).FirstOrDefault();
                         
-            return RetGL;
-        }
-        public static DEF_GL GetGLInfo(string stGL, string stCURR)
-        {
-            DEF_GL RetGL = GL.fn_String_ParseGL(stGL);
+        //     return RetGL;
+        // }
+        // public static DEF_GL GetGLInfo(string stGL, string stCURR)
+        // {
+        //     DEF_GL RetGL = GL.fn_String_ParseGL(stGL);
             
-            return GetGLInfo(RetGL, stGL);
-        }
+        //     return GetGLInfo(RetGL, stGL);
+        // }
 
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
         {

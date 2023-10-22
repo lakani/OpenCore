@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 
 
 //namespace SIS.OpenCore.Shared.Model.PostRequest

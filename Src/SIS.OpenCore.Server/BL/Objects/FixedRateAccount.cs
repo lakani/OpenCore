@@ -28,8 +28,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             if (false == Currency.ValidateExists(NewAcct.Currency))
                 throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
-            if (false == Cif.ValidateExists(NewAcct.CIF_NO))
-                throw new ArgumentOutOfRangeException("CIF_NO", "CIF_NO doesn't Exists");
+            // TODO : replace by the CIF Rep
+            // if (false == Cif.ValidateExists(NewAcct.CIF_NO))
+            //     throw new ArgumentOutOfRangeException("CIF_NO", "CIF_NO doesn't Exists");
 
             //check dates
             if(NewAcct.CloseDate < Settings.GetCurrentBusinessDate())

@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq.Dynamic.Core;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation
 {
@@ -39,6 +40,22 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
             var Ret =   _dbContext.Settings.OrderByDescending(e => e.VerID).Take(1);
             return Ret;
         }
+
+        public int GetCIFFormatDigitsNum()
+        {
+            return GetCIFFormatDigits().Length;
+        }
+
+        public String GetCIFFormatDigits()
+        {
+            var SearchLast = this.Search(null);
+            SettingsModel Last = SearchLast.First();
+            
+            return Last.CIFFormatDigits;
+        }
+
+
+
 
     }
 }

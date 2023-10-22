@@ -374,7 +374,186 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.DEF_GL", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
+                {
+                    b.Property<int>("CIF_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CIF_ID"));
+
+                    b.Property<string>("CIF_NO")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("CLASS_ID")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("CREATE_DT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("FamilyName")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTime>("LAST_SAVE_DT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("MiddleName")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("RSM")
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
+
+                    b.Property<string>("SearchKey")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("CIF_ID");
+
+                    b.HasIndex("CLASS_ID");
+
+                    b.ToTable("DEF_CIF");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
+                {
+                    b.Property<short>("CIF_CLASS_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CIF_CLASS_ID"));
+
+                    b.Property<short>("CIF_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("CIF_CLASS_ID");
+
+                    b.HasIndex("CIF_TYPE");
+
+                    b.ToTable("DEF_CIF_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", b =>
+                {
+                    b.Property<int>("DEF_CIF_PERSONALID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DEF_CIF_PERSONALID"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int?>("Area")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("BIRTH_DT")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("CIF_ID")
+                        .HasColumnType("int");
+
+                    b.Property<short?>("COUNTRY_OF_BIRTH")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("City")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("Country")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("GOVERNORATE")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HomeNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MobileNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NationalID")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short?>("Nationality")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("WorkNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("DEF_CIF_PERSONALID");
+
+                    b.HasIndex("CIF_ID")
+                        .IsUnique();
+
+                    b.ToTable("DEF_CIF_PERSONAL");
+                });
+
+            // modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
+            //     {
+            //         b.Property<short>("ID")
+            //             .ValueGeneratedOnAdd()
+            //             .HasColumnType("smallint");
+
+            //         SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+            //         b.Property<string>("Name")
+            //             .IsRequired()
+            //             .HasMaxLength(50)
+            //             .HasColumnType("nvarchar(50)");
+
+            //         b.HasKey("ID");
+
+            //         b.ToTable("LUT_CIF_TYPE");
+
+            //         b.HasData(
+            //             new
+            //             {
+            //                 ID = (short)1,
+            //                 Name = "Personal"
+            //             },
+            //             new
+            //             {
+            //                 ID = (short)2,
+            //                 Name = "Non Personal"
+            //             });
+            //     });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.DEF_GL", b =>
                 {
                     b.Property<int>("GL_DEFID")
                         .ValueGeneratedOnAdd()
@@ -433,6 +612,117 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("DEF_GL");
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Branch", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<int?>("CompanyNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Branch");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Company", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Company");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Dep", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Dep");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Sector", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Sector");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Unit", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Unit");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Zone", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DEF_Zone");
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.SettingsModel", b =>
                 {
                     b.Property<short>("VerID")
@@ -485,117 +775,21 @@ namespace SIS.OpenCore.Server.Migrations
                     b.HasKey("VerID");
 
                     b.ToTable("Settings");
-                });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Branch", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<int?>("CompanyNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Branch");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Company", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Company");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Dep", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Dep");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Sector", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Sector");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Unit", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Unit");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.UserData.DEF_Zone", b =>
-                {
-                    b.Property<short>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DEF_Zone");
+                    b.HasData(
+                        new
+                        {
+                            VerID = (short)1,
+                            ACCTFormat = "",
+                            ACCTFormatDigits = "000000000",
+                            ACCTFormatDigitsNum = "4",
+                            BaseCurrency = "EGP",
+                            CIFFormatDigits = "000000000",
+                            CompanyNo = (short)1,
+                            EffectiveDate = new DateTime(2023, 10, 12, 14, 34, 46, 197, DateTimeKind.Local).AddTicks(4342),
+                            GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
+                            GLFormatDigits = "#-##-####-######"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -647,6 +841,54 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", "DEF_CIF_CLASS")
+                        .WithMany("DEF_CIF")
+                        .HasForeignKey("CLASS_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DEF_CIF_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", "lUT_CIF_TYPE")
+                        .WithMany("DEF_CIF_CLASS")
+                        .HasForeignKey("CIF_TYPE")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("lUT_CIF_TYPE");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", "DEF_CIF")
+                        .WithOne("PERSONAL")
+                        .HasForeignKey("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", "CIF_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DEF_CIF");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
+                {
+                    b.Navigation("PERSONAL");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
+                {
+                    b.Navigation("DEF_CIF");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
+                {
+                    b.Navigation("DEF_CIF_CLASS");
                 });
 #pragma warning restore 612, 618
         }

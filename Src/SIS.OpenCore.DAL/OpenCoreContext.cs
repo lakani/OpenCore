@@ -3,7 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.CIF;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 
 
 #nullable disable
@@ -22,7 +24,7 @@ namespace SIS.OpenCore.DAL.Context
         }
 
 		// TODO : remove the below after completing the cleaning and full migration to the new structure
-		public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
+		//public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
 		public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
 		public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
 		public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
@@ -36,7 +38,6 @@ namespace SIS.OpenCore.DAL.Context
 		public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
         public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
         public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
-        public virtual DbSet<DEF_CIF_Company> DEF_CIF_Company { get; set; }
         public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
         public virtual DbSet<DEF_CK_ACCT_ACCT_STRUCT> DEF_CK_ACCT_ACCT_STRUCT { get; set; }
         public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
@@ -120,9 +121,10 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_CIF>(entity =>
             {
-                entity.Property(e => e.BIRTH_DT).HasColumnType("date");
+                //BUILD_ERR : 
+                //entity.Property(e => e.BIRTH_DT).HasColumnType("date");
 
-                entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
+                //entity.Property(e => e.CIF_CLASS_ID).HasMaxLength(10);
 
                 entity.Property(e => e.CIF_NO)
                     .IsRequired()
@@ -134,9 +136,11 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.FirstName).HasMaxLength(80);
 
-                entity.Property(e => e.Gender).HasMaxLength(10);
+                //BUILD_ERR : 
+                //entity.Property(e => e.Gender).HasMaxLength(10);
 
-                entity.Property(e => e.HomeNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
                 entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
@@ -144,7 +148,8 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
 
-                entity.Property(e => e.MobileNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.MobileNumber).HasMaxLength(80);
 
                 entity.Property(e => e.RSM).HasMaxLength(35);
 
@@ -152,29 +157,26 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(35);
 
-                entity.Property(e => e.WorkNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
 
             modelBuilder.Entity<DEF_CIF_CLASS>(entity =>
             {
-                entity.HasKey(e => new { e.Code, e.CompanyNo })
+                entity.HasKey(e => new { e.CIF_CLASS_ID })
                     .HasName("PK__DEF_CIF___A25C5AA6127E02BB");
-
-                entity.Property(e => e.Code).HasMaxLength(10);
-
-                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(80);
             });
 
-            modelBuilder.Entity<DEF_CIF_Company>(entity =>
-            {
-                entity.HasKey(e => e.DEF_CIF_Company_ID);
+            // modelBuilder.Entity<DEF_CIF_Company>(entity =>
+            // {
+            //     entity.HasKey(e => e.DEF_CIF_Company_ID);
 
-                entity.Property(e => e.CIF_NO).HasMaxLength(35);
-            });
+            //     entity.Property(e => e.CIF_NO).HasMaxLength(35);
+            // });
 
             modelBuilder.Entity<DEF_CK_ACCT>(entity =>
             {
@@ -421,7 +423,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
-                entity.HasKey(e => e.Code)
+                entity.HasKey(e => e.ID)
                     .HasName("PK__LUT_CIF___A25C5AA6A1F27BC6");
 
                 entity.Property(e => e.Name).HasMaxLength(80);

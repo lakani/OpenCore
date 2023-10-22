@@ -25,5 +25,9 @@
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Repository\Implementation\CIF\" />
+  </ItemGroup>
+
 
 </Project>

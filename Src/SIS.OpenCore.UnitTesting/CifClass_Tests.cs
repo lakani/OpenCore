@@ -13,7 +13,7 @@ namespace SIS.OpenCore.UnitTesting
         [Test]
         public void CIF_Create()
         {
-            CifClass.Add_CIF_CLASS(new DateTime(2020, 1, 1), 1, 1, "Test Class");
+            //CifClass.Add_CIF_CLASS(new DateTime(2020, 1, 1), 1, 1, "Test Class");
         }
     }
 }

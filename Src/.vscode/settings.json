@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "SIS.OpenCore.sln"
+    "dotnet.defaultSolution": "SIS.OpenCore.sln",
+    "todo-tree.tree.showBadges": false
 }

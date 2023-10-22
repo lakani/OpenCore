@@ -11,11 +11,14 @@ using Microsoft.Extensions.Options;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Server.Data.Repository.Implementation.UserData;
 using SIS.OpenCore.Server.Data.Repository.Implementation.LUT;
+using SIS.OpenCore.Server.Data.Repository.Implementation.CIF;
 
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Shared.Model.PostRequest;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Server.Data.Repository.Implementation;
+using SIS.OpenCore.Shared.Model.Objects.CIF;
 
 namespace SIS.OpenCore.Server.Data.Repository
 {
@@ -30,9 +33,15 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<IUserDataRepository<DEF_Branch>, BranchRepositoryImp>();
 			services.AddScoped<IUserDataRepository<DEF_Dep>, DepRepositoryImp>();
 			services.AddScoped<ISettingsRepository<SettingsModel>, SettingsRepositoryImp>();
+			
+			// GL
 			services.AddScoped<IDEF_GLRepository<DEF_GL>, DEF_GLRepositoryImp>();
 			services.AddScoped<ILUTRepository<LUT_GLLedgerNature>, GLLedgerNatureRepositoryImp>();
-
+			// CIF
+			services.AddScoped<ILUTRepository<LUT_CIF_TYPE>, LUT_CIF_TYPERepositoryImp>();
+			services.AddScoped<IDEF_CIF_CLASSRepository<DEF_CIF_CLASS>, DEF_CIF_CLASSRepositoryImp>();
+			services.AddScoped<IDEF_CIFRepository<DEF_CIF>, DEF_CIFRepositoryImp>();
+			
 			return services;
 		}
 	}

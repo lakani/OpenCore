@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\GL\" />
+  </ItemGroup>
+
 </Project>

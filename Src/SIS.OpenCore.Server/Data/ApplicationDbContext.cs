@@ -2,9 +2,12 @@
 using Microsoft.Extensions.Options;
 using Duende.IdentityServer.EntityFramework.Options;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.CIF;
+using SIS.OpenCore.Shared.Model.Objects.GL;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using SIS.OpenCore.Server.Data.Model.Config;
+using SIS.OpenCore.Server.Data.Config;
+using SIS.OpenCore.Server.Data.Config.CIF;
 using System.Reflection.Emit;
 
 namespace SIS.OpenCore.Server.Data
@@ -41,6 +44,10 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<DEF_Company> DEF_Company { get; set; }
 		public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
 		public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+		public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
+		public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
+		public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
+		public virtual DbSet<DEF_CIF_PERSONAL> DEF_CIF_PERSONAL { get; set; }
 		public virtual DbSet<SettingsModel>  Settings { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -49,15 +56,6 @@ namespace SIS.OpenCore.Server.Data
 
 			builder.ApplyConfiguration(new RoleConfiguration());
 
-			//new lut_CountryConfig().Configure(builder.Entity<lut_Country>());
-			//new lut_CityConfig().Configure(builder.Entity<lut_City>());
-			//new lut_PatientUserRelationshipConfig().Configure(builder.Entity<lut_PatientUserRelationship>());
-			//new lut_AreaConfig().Configure(builder.Entity<lut_Area>());
-			//new lut_SpecialityConfig().Configure(builder.Entity<lut_Speciality>());
-			//new DoctorConfig().Configure(builder.Entity<Doctor>());
-			//new PatientConfig().Configure(builder.Entity<Patient>());
-			//new DoctorRecipientConfig().Configure(builder.Entity<DoctorRecipient>());
-			
 			new UserDataConfig().Configure(builder.Entity<DEF_Zone>());
 			new UserDataConfig().Configure(builder.Entity<DEF_Dep>());
 			new UserDataConfig().Configure(builder.Entity<DEF_Sector>());
@@ -66,6 +64,15 @@ namespace SIS.OpenCore.Server.Data
 			new UserDataConfig().Configure(builder.Entity<DEF_Branch>());
 			new DEF_GLConfig().Configure(builder.Entity<DEF_GL>());
 			new SettingsModelConfig().Configure(builder.Entity<SettingsModel>());
+			new LUT_CIF_TYPEConfig().Configure(builder.Entity<LUT_CIF_TYPE>());
+			new DEF_CIF_CLASSConfig().Configure(builder.Entity<DEF_CIF_CLASS>());
+			new DEF_CIFConfig().Configure(builder.Entity<DEF_CIF>());
+			new DEF_CIF_PERSONALConfig().Configure(builder.Entity<DEF_CIF_PERSONAL>());
 		}
+
+		// protected override void Seed(ApplicationDbContext context)
+		// {
+
+		// }
 	}
 }

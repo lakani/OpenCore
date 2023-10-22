@@ -27,25 +27,16 @@ namespace SIS.OpenCore.Server.BL
                 _lastVersionSettings = SettingsRep.Search(new BaseRequesModel()).First();
         }
 
-        static public int fn_OPT_GetCIFFormatDigitsNum()
-        {
-            //-- Add the SELECT statement with parameter references here
-	        //    return (	SELECT top 1	LEN(rtrim(Options.CIFFormatDigits))
-			//	from			OpenCore.dbo.Settings Options 
-			//	order by Options.VerID desc
-            return fn_OPT_GetCIFFormatDigits().Length;
-        }
+        // static public int fn_OPT_GetCIFFormatDigitsNum()
+        // {
+        //     //-- Add the SELECT statement with parameter references here
+	    //     //    return (	SELECT top 1	LEN(rtrim(Options.CIFFormatDigits))
+		// 	//	from			OpenCore.dbo.Settings Options 
+		// 	//	order by Options.VerID desc
+        //     return fn_OPT_GetCIFFormatDigits().Length;
+        // }
 
-        static public String fn_OPT_GetCIFFormatDigits()
-        {
-            OpenCoreContext db = new OpenCoreContext();
-
-            String CIFFormatDigits =    ((from s in db.Settings
-                                        orderby s.VerID descending
-                                        select s.CIFFormatDigits).FirstOrDefault()).Trim();
-            
-            return CIFFormatDigits;
-        }
+        
 
         public static SettingsModel GetLastVersion()
         {

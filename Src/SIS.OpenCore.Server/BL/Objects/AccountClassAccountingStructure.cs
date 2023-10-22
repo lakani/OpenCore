@@ -47,8 +47,9 @@ namespace SIS.OpenCore.Server.BL.Objects
         static public bool ValidateExists(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stCurrency)   
         {
             // Validate acct.GLNum
-            if(null == GL.GetGLInfo(GLAccount.GLNum, stCurrency))
-                return false;
+            // BUILD_ERR: 
+            // if(null == GL.GetGLInfo(GLAccount.GLNum, stCurrency))
+            //     return false;
 
             // Validate acct.GLCategory
             if(false == LUTGLAccountCategory.ValidateExists(GLAccount.GLCategory))
@@ -60,8 +61,9 @@ namespace SIS.OpenCore.Server.BL.Objects
         static public bool ValidateExists(string GLNum, short GLCategory , string stCurrency)   
         {
             // Validate acct.GLNum
-            if(null == GL.GetGLInfo(GLNum, stCurrency))
-                return false;
+            // BUILD_ERR: 
+            // if(null == GL.GetGLInfo(GLNum, stCurrency))
+            //     return false;
 
             // Validate acct.GLCategory
             if(false == LUTGLAccountCategory.ValidateExists(GLCategory))

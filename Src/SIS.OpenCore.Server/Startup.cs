@@ -38,13 +38,6 @@ namespace SIS.OpenCore.Server
 	            .AddRoles<IdentityRole>()
 	            .AddEntityFrameworkStores<ApplicationDbContext>();
 
-			services.AddAuthorization(options =>
-			{
-				// TODO : Commented for now
-				//options.AddPolicy(RoleType.Patient.ToString(), policy => policy.RequireRole(RoleType.Patient.ToString()));
-			});
-
-
 			services.AddIdentityServer()
 	        .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
 	        {

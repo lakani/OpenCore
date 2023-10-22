@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 //using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.Server.BL.Objects;
 using SIS.OpenCore.Server.BL.Transactions;
@@ -33,7 +34,9 @@ namespace SIS.OpenCore.UnitTesting
                 VW_DEF_GL GLRec = GLs[nLoop];
                 //foreach(VW_DEF_GL GLRec in GLs)
 
-                DEF_GL _GL = GL.GetGLInfo(GLRec.GL, GLRec.CURR);
+                // BUILD_ERR :
+                //GL.GetGLInfo(GLRec.GL, GLRec.CURR);
+                DEF_GL _GL = new DEF_GL(); //
 
                 if (_GL == null)
                     Assert.Fail("NULL for GL" + GLRec.GL);

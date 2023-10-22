@@ -26,7 +26,7 @@ namespace SIS.OpenCore.DAL
         {
             OpenCoreContext db = new OpenCoreContext();
 
-            // TODO
+            // TODO : review this function if needed
             return true;
         }
 

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using SIS.OpenCore.Shared.Model.PostRequest;
 using SIS.OpenCore.Shared.Model.GetRequest;
 
  
-#nullable enable
+#nullable disable
 //namespace SIS.OpenCore.Server.Controllers
 namespace SIS.OpenCore.Server.Controllers
 {
@@ -77,24 +78,16 @@ namespace SIS.OpenCore.Server.Controllers
 			_logger.Log(LogLevel.Information, "GLLedgerController() : constructor");
 		}
 
-        // [HttpGet]
-		// //public async Task<IActionResult>
-		// public async Task<ActionResult> GetLastSettings(string? Configuration)
-		// {
-		// 	var settings = new List<string>();
-		// 	if(string.IsNullOrEmpty(Configuration))
-		// 	{
-		// 		return Ok( GetSettings());
-		// 	}
-		// 	return  Ok(Enumerable.Empty<String>().AsQueryable());
-		// }
-
+        // TODO : test different GL formats
+		// TODO : test Test Many Creation Variables
+		// WHEN_NEEDED : IF Get All then retrive only the max Server response number of records
+		//               , it should be defaulted from Configurations
 		[HttpGet]
 		public async Task<ActionResult> Get(int nGLNo)
 		{
 			_logger.Log(LogLevel.Information, "[HttpGet] GLLedgerController - > Get");
 
-			GetGLLedgerResponseModel	ret = new GetGLLedgerResponseModel{ Error="" , Successful = true};
+			GetGLLedgerResponseModel	ret = new GetGLLedgerResponseModel{ Message="" , Successful = true};
 
 			try{
 				if(nGLNo == 0) { // return all
@@ -108,7 +101,7 @@ namespace SIS.OpenCore.Server.Controllers
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Error = ex.Message });		
+				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
 			}
 
 			if(ret.Gls != null)
@@ -143,7 +136,7 @@ namespace SIS.OpenCore.Server.Controllers
 			}
 			catch(Exception ex)
 			{
-				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Error = ex.Message });		
+				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
 			}
 			return Ok(new PostGLLedgerResponseModel { Successful = true , GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
 		}

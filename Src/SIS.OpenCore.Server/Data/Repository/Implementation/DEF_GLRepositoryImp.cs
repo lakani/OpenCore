@@ -1,8 +1,7 @@
 ﻿using IdentityModel;
 using Microsoft.Extensions.Configuration;
 using SIS.OpenCore.Server.Data.Repository.Interface;
-using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

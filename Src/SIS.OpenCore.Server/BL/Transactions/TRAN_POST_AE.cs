@@ -140,8 +140,7 @@ namespace SIS.OpenCore.Server.BL.Transactions
                 trn_LEGSNewObject.Acct_Description  = Leg.Acct_Description;
                 trn_LEGSNewObject.Acct_No           = Leg.Acct_No;
                 trn_LEGSNewObject.Balance_Before    = GetLastBalance(Leg.Acct_No, Leg.GL, Leg.Acct_Curr);
-                // TODO :
-                // Currently it’s hard coded for accounts to be Liability but however to support other types of
+                // TODO : Currently it’s hard coded for accounts to be Liability but however to support other types of
                 // accounts such as Loans, the Nature of the Account should be retrieved  
                 trn_LEGSNewObject.Balance_After     =  AccountingMisc.NUM_ACT_CR_DR
                                                             ((decimal)trn_LEGSNewObject.Balance_Before, 
@@ -255,8 +254,9 @@ namespace SIS.OpenCore.Server.BL.Transactions
         {
             foreach(TRAN_POST_AE_TYPE_PARAM Leg in Legs)
             {
-                if (Leg.GL == true)
-                    Leg.GL_Info = GL.GetGLInfo(Leg.Acct_No, stBaseCurr);
+                // BUILD_ERR: 
+                // if (Leg.GL == true)
+                //     Leg.GL_Info = GL.GetGLInfo(Leg.Acct_No, stBaseCurr);
                 if (Leg.GL == true && Leg.GL_Info == null)
                     return false;
                 if (Leg.GL == false)

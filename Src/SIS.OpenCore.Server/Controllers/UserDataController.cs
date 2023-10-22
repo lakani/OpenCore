@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.Shared.Model.UserData;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Shared.Model.PostRequest;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using System;
@@ -102,7 +102,6 @@ namespace SIS.OpenCore.Server.Controllers
 		}
 
 		[HttpGet]
-		//public async Task<IActionResult>
 		public async Task<IEnumerable<string>> GetLastSettings(string? Configuration)
 		{
 			var settings = new List<string>();
@@ -155,7 +154,7 @@ namespace SIS.OpenCore.Server.Controllers
 			}
 			catch (Exception ex) 
 			{ 
-				return BadRequest(new PostBaseResponseModel{ Error=ex.Message, Successful=false} );
+				return BadRequest(new PostBaseResponseModel{ Message=ex.Message, Successful=false} );
 			}
 		}
 	}
