@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Src"
+    "\\Src",
+    "\\Src\\SIS.OpenCore.Client.Win",
+    "\\Src\\SIS.OpenCore.Client.Win\\OpenAPIs",
+    "\\Src\\SIS.OpenCore.UnitTesting"
   ],
   "SelectedNode": "\\Src\\SIS.OpenCore.sln",
   "PreviewInSolutionExplorer": false

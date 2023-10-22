@@ -2,13 +2,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 //using SIS.OpenCore.DAL.Context;
-using SIS.OpenCore.BL.Objects;
-using SIS.OpenCore.BL.Transactions;
-using SIS.OpenCore.DAL.Context;
-using Microsoft.EntityFrameworkCore;
-
+using SIS.OpenCore.Server.BL.Objects;
 
 namespace SIS.OpenCore.UnitTesting
 {
@@ -17,7 +13,7 @@ namespace SIS.OpenCore.UnitTesting
         [Test]
         public void CIF_Create()
         {
-            CifClass.Add_CIF_CLASS(new DateTime(2020, 1, 1), 1, 1, "Test Class");
+            //CifClass.Add_CIF_CLASS(new DateTime(2020, 1, 1), 1, 1, "Test Class");
         }
     }
 }

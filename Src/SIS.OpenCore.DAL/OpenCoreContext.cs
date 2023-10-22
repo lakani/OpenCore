@@ -2,7 +2,11 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.CIF;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
+
 
 #nullable disable
 
@@ -19,26 +23,29 @@ namespace SIS.OpenCore.DAL.Context
         {
         }
 
-        public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
+		// TODO : remove the below after completing the cleaning and full migration to the new structure
+		//public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
+		public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
+		public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
+		public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
+		public virtual DbSet<DEF_Company> DEF_Company { get; set; }
+		public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
+
+
+
+		public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
         public virtual DbSet<DEF_ACCT_CLASS_ACCT_STRUCT> DEF_ACCT_CLASS_ACCT_STRUCT { get; set; }
-        public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
-        public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
+		public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
         public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
         public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
-        public virtual DbSet<DEF_CIF_Company> DEF_CIF_Company { get; set; }
         public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
         public virtual DbSet<DEF_CK_ACCT_ACCT_STRUCT> DEF_CK_ACCT_ACCT_STRUCT { get; set; }
-        public virtual DbSet<DEF_Company> DEF_Company { get; set; }
         public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
-        public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
         public virtual DbSet<DEF_EMP> DEF_EMP { get; set; }
         public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
         public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
         public virtual DbSet<DEF_GL> DEF_GL { get; set; }
         public virtual DbSet<DEF_SHARE_ACCT> DEF_SHARE_ACCT { get; set; }
-        public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
-        public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
-        public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
         public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
         public virtual DbSet<LUT_ACCRUAL_BASIS> LUT_ACCRUAL_BASIS { get; set; }
         public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
@@ -47,12 +54,11 @@ namespace SIS.OpenCore.DAL.Context
         public virtual DbSet<LUT_CITY> LUT_CITY { get; set; }
         public virtual DbSet<LUT_COUNTRY> LUT_COUNTRY { get; set; }
         public virtual DbSet<LUT_GL_ACCT_CATEGORY> LUT_GL_ACCT_CATEGORY { get; set; }
-        public virtual DbSet<LUT_LedgerNature> LUT_LedgerNature { get; set; }
-        public virtual DbSet<LUT_LedgerPostingLevel> LUT_LedgerPostingLevel { get; set; }
+        public virtual DbSet<LUT_GLLedgerNature> LUT_GLLedgerNature { get; set; }
         public virtual DbSet<LUT_OBJ_STATUS> LUT_OBJ_STATUS { get; set; }
         public virtual DbSet<LUT_TRN_STATUS> LUT_TRN_STATUS { get; set; }
         public virtual DbSet<PROC_FIXRATE_INTEREST> PROC_FIXRATE_INTEREST { get; set; }
-        public virtual DbSet<Settings> Settings { get; set; }
+        public virtual DbSet<SettingsModel> Settings { get; set; }
         public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
         public virtual DbSet<TRN_SHARE_ACCT> TRN_SHARE_ACCT { get; set; }
         public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
@@ -62,7 +68,7 @@ namespace SIS.OpenCore.DAL.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1");
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=OpenCore;Persist Security Info=True;User ID=sa;Password=get@get1;TrustServerCertificate=True");
             }
         }
 
@@ -104,13 +110,6 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(40);
             });
 
-            modelBuilder.Entity<DEF_Branch>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
-            });
-
             modelBuilder.Entity<DEF_BusinessDate>(entity =>
             {
                 entity.HasNoKey();
@@ -122,9 +121,10 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_CIF>(entity =>
             {
-                entity.Property(e => e.BIRTH_DT).HasColumnType("date");
+                //BUILD_ERR : 
+                //entity.Property(e => e.BIRTH_DT).HasColumnType("date");
 
-                entity.Property(e => e.CIF_CLASS).HasMaxLength(10);
+                //entity.Property(e => e.CIF_CLASS_ID).HasMaxLength(10);
 
                 entity.Property(e => e.CIF_NO)
                     .IsRequired()
@@ -136,9 +136,11 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.FirstName).HasMaxLength(80);
 
-                entity.Property(e => e.Gender).HasMaxLength(10);
+                //BUILD_ERR : 
+                //entity.Property(e => e.Gender).HasMaxLength(10);
 
-                entity.Property(e => e.HomeNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.HomeNumber).HasMaxLength(80);
 
                 entity.Property(e => e.LAST_SAVE_DT).HasColumnType("datetime");
 
@@ -146,7 +148,8 @@ namespace SIS.OpenCore.DAL.Context
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
 
-                entity.Property(e => e.MobileNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.MobileNumber).HasMaxLength(80);
 
                 entity.Property(e => e.RSM).HasMaxLength(35);
 
@@ -154,29 +157,26 @@ namespace SIS.OpenCore.DAL.Context
                     .IsRequired()
                     .HasMaxLength(35);
 
-                entity.Property(e => e.WorkNumber).HasMaxLength(80);
+                //BUILD_ERR : 
+                //entity.Property(e => e.WorkNumber).HasMaxLength(80);
             });
 
             modelBuilder.Entity<DEF_CIF_CLASS>(entity =>
             {
-                entity.HasKey(e => new { e.Code, e.CompanyNo })
+                entity.HasKey(e => new { e.CIF_CLASS_ID })
                     .HasName("PK__DEF_CIF___A25C5AA6127E02BB");
-
-                entity.Property(e => e.Code).HasMaxLength(10);
-
-                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(80);
             });
 
-            modelBuilder.Entity<DEF_CIF_Company>(entity =>
-            {
-                entity.HasKey(e => e.DEF_CIF_Company_ID);
+            // modelBuilder.Entity<DEF_CIF_Company>(entity =>
+            // {
+            //     entity.HasKey(e => e.DEF_CIF_Company_ID);
 
-                entity.Property(e => e.CIF_NO).HasMaxLength(35);
-            });
+            //     entity.Property(e => e.CIF_NO).HasMaxLength(35);
+            // });
 
             modelBuilder.Entity<DEF_CK_ACCT>(entity =>
             {
@@ -230,13 +230,6 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(40);
             });
 
-            modelBuilder.Entity<DEF_Company>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
-            });
-
             modelBuilder.Entity<DEF_Currency>(entity =>
             {
                 entity.HasNoKey();
@@ -254,17 +247,6 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.Symbol)
                     .IsRequired()
                     .HasMaxLength(3);
-            });
-
-            modelBuilder.Entity<DEF_Dep>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.ID).ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<DEF_EMP>(entity =>
@@ -346,21 +328,6 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(35);
             });
 
-            modelBuilder.Entity<DEF_GL>(entity =>
-            {
-                entity.HasKey(e => e.GL_DEFID);
-
-                entity.Property(e => e.COMMENTS).HasMaxLength(200);
-
-                entity.Property(e => e.CURR)
-                    .IsRequired()
-                    .HasMaxLength(4);
-
-                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
-
-                entity.Property(e => e.GL).HasMaxLength(50);
-            });
-
             modelBuilder.Entity<DEF_SHARE_ACCT>(entity =>
             {
                 entity.HasKey(e => e.DEF_ACCT_ID);
@@ -402,33 +369,6 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.ReferenceACCT).HasMaxLength(35);
 
                 entity.Property(e => e.ReferenceOrg).HasMaxLength(35);
-            });
-
-            modelBuilder.Entity<DEF_Sector>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
-            });
-
-            modelBuilder.Entity<DEF_Unit>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
-            });
-
-            modelBuilder.Entity<DEF_Zone>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<ExchangeRates>(entity =>
@@ -483,7 +423,7 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<LUT_CIF_TYPE>(entity =>
             {
-                entity.HasKey(e => e.Code)
+                entity.HasKey(e => e.ID)
                     .HasName("PK__LUT_CIF___A25C5AA6A1F27BC6");
 
                 entity.Property(e => e.Name).HasMaxLength(80);
@@ -522,7 +462,7 @@ namespace SIS.OpenCore.DAL.Context
                     .HasMaxLength(80);
             });
 
-            modelBuilder.Entity<LUT_LedgerNature>(entity =>
+            modelBuilder.Entity<LUT_GLLedgerNature>(entity =>
             {
                 entity.HasNoKey();
 
@@ -534,15 +474,6 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30);
-            });
-
-            modelBuilder.Entity<LUT_LedgerPostingLevel>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.PostingLevel)
-                    .IsRequired()
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<LUT_OBJ_STATUS>(entity =>
@@ -584,7 +515,7 @@ namespace SIS.OpenCore.DAL.Context
                 entity.Property(e => e.TO_DATE).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Settings>(entity =>
+            modelBuilder.Entity<SettingsModel>(entity =>
             {
                 entity.HasKey(e => e.VerID);
 

@@ -58,3 +58,5 @@ Src/Trials/ConsoleApp/webapi/appsettings.json
 /Src/.vs/SIS.OpenCore/v16/TestStore/0/000.testlog
 /Src/.vs/SIS.OpenCore/v16/TestStore/0/testlog.manifest
 /Src/.vs/SIS.OpenCore/DesignTimeBuild/.dtbcache.v2
+/Src/.vs
+/.vs/OpenCore

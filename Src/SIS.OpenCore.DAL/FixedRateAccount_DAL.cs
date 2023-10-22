@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.DAL.Context;
 using System.Collections.Generic;
 
@@ -26,7 +26,7 @@ namespace SIS.OpenCore.DAL
         {
             OpenCoreContext db = new OpenCoreContext();
 
-            // TODO
+            // TODO : review this function if needed
             return true;
         }
 

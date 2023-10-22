@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SIS.OpenCore.Model;
-using SIS.OpenCore.Shared.Objects;
+using SIS.OpenCore.Shared.Model;
 
 namespace SIS.OpenCore.Client.Http.Adapters.Objects
 {

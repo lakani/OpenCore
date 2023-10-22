@@ -2,10 +2,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using SIS.OpenCore.Model;
+using SIS.OpenCore.Shared.Model;
 //using SIS.OpenCore.DAL.Context;
-using BLO = SIS.OpenCore.BL;
-using SIS.OpenCore.BL.Transactions;
+using BLO = SIS.OpenCore.Server.BL;
 using SIS.OpenCore.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 

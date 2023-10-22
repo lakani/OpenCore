@@ -1,25 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\SIS.OpenCore.Model\SIS.OpenCore.Model.csproj" />
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 
