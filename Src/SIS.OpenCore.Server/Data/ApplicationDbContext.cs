@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Duende.IdentityServer.EntityFramework.Options;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Common;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Shared.Model.Objects.UserData;

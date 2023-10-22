@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Common;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using System;
 using System.Linq;

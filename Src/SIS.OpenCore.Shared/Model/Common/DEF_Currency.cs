@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Common
 {
     public partial class DEF_Currency
     {

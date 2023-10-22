@@ -1,7 +1,7 @@
 ﻿using System;
 #nullable enable
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Common
 {
     public partial class BaseResponseModel
     {

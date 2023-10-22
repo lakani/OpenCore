@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 #nullable enable
 
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Common
 {
 	public class ApplicationUser : IdentityUser, BaseEntity
 	{

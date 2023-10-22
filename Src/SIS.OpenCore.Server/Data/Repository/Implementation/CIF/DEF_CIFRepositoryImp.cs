@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
+using SIS.OpenCore.Shared.Model.Common;
 using Microsoft.Extensions.Logging;
 
 

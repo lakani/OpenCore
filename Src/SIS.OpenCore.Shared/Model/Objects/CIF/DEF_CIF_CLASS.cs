@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {

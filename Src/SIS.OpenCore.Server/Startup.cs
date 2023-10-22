@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Common;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace SIS.OpenCore.Server

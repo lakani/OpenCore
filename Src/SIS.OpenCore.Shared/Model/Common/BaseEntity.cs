@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Common
 {
 	public interface BaseEntity
 	{

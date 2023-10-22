@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using SIS.OpenCore.Shared.Model;
-
+using SIS.OpenCore.Shared.Model.Common;
 #nullable disable
 
 namespace SIS.OpenCore.Shared.Model.Objects.CIF

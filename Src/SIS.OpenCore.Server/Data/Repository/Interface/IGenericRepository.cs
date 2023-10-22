@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SIS.OpenCore.Shared;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Common;
 
 #nullable enable
 

@@ -1,4 +1,6 @@
-﻿#nullable disable
+﻿using SIS.OpenCore.Shared.Model.Common;
+
+#nullable disable
 
 namespace SIS.OpenCore.Shared.Model
 {

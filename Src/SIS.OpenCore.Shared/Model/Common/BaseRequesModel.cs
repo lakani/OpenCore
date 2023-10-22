@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 #nullable enable
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Common
 {
 	public partial class BaseRequesModel
 	{

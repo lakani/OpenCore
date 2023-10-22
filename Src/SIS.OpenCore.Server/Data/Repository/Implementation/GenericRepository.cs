@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
