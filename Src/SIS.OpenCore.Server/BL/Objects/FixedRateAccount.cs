@@ -25,8 +25,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             // if (false == Company.ValidateExists(NewAcct.CompanyNo))
             //     throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
 
-            if (false == Currency.ValidateExists(NewAcct.Currency))
-                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
+            // BUILD_ERR
+            // if (false == Currency.ValidateExists(NewAcct.Currency))
+            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
             // TODO : replace by the CIF Rep
             // if (false == Cif.ValidateExists(NewAcct.CIF_NO))
@@ -39,8 +40,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(NewAcct.CreateDate > NewAcct.OpenDate)
                 throw new ArgumentOutOfRangeException("OpenDate", "Open Date should be bigger than Create date");
 
-            if (false == Currency.ValidateExists(NewAcct.Currency))
-                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
+            // BUILD_ERR
+            // if (false == Currency.ValidateExists(NewAcct.Currency))
+            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
             if (NewAcct.Principle <= 0)
                 throw new ArgumentOutOfRangeException("Principle", "Principle amount is not Valid");

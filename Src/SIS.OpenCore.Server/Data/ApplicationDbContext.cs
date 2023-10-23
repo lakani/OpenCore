@@ -9,6 +9,7 @@ using SIS.OpenCore.Shared.Model.Objects.UserData;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using SIS.OpenCore.Server.Data.Config;
 using SIS.OpenCore.Server.Data.Config.CIF;
+using SIS.OpenCore.Server.Data.Config.Common;
 using System.Reflection.Emit;
 
 namespace SIS.OpenCore.Server.Data
@@ -50,6 +51,7 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
 		public virtual DbSet<DEF_CIF_PERSONAL> DEF_CIF_PERSONAL { get; set; }
 		public virtual DbSet<SettingsModel>  Settings { get; set; }
+		public virtual DbSet<DEF_Currency>  DEF_Currency { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -69,6 +71,7 @@ namespace SIS.OpenCore.Server.Data
 			new DEF_CIF_CLASSConfig().Configure(builder.Entity<DEF_CIF_CLASS>());
 			new DEF_CIFConfig().Configure(builder.Entity<DEF_CIF>());
 			new DEF_CIF_PERSONALConfig().Configure(builder.Entity<DEF_CIF_PERSONAL>());
+			new DEF_CurrencyConfig().Configure(builder.Entity<DEF_Currency>());
 		}
 
 		// protected override void Seed(ApplicationDbContext context)

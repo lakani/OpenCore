@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model.Common
 {
-    public partial class DEF_Currency
+    public partial class DEF_Currency : BaseEntity
     {
         public short CurrencyID { get; set; }
         public string ISOCode { get; set; }

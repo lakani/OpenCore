@@ -18,9 +18,9 @@ namespace SIS.OpenCore.Server.BL.Transactions
 
             if (string.IsNullOrEmpty(buyParam.CIF_NO) == true)
                 throw new ArgumentOutOfRangeException("CIF_NO", "CIF_NO doesn't Exists");
-            
-            if (false == Currency.ValidateExists(buyParam.Currency))
-                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
+            // BUILD_ERR
+            // if (false == Currency.ValidateExists(buyParam.Currency))
+            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
             DEF_SHARE_ACCT  SHARE_ACCT = BAL.ShareAccount.Find(
                 new DEF_SHARE_ACCT

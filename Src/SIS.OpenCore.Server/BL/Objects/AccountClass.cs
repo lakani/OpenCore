@@ -87,8 +87,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(false == AccountType.ValidateExists(stAccountType))
                 throw new ArgumentOutOfRangeException("AccountType", "Account Type doesn't Exists");
 
-            if(false == Currency.ValidateExists(stCurrency))
-                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
+            // BUILD_ERR 
+            // if(false == Currency.ValidateExists(stCurrency))
+            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
             if(false == AccountClassAccountingStructure.ValidateExists(Accts, stCurrency))
                 throw new ArgumentOutOfRangeException("Accts", "invalid Accounting structure");

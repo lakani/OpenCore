@@ -26,8 +26,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             // if (false == Company.ValidateExists(NewAcct.CompanyNo))
             //     throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
 
-            if (false == Currency.ValidateExists(NewAcct.Currency))
-                throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
+            // BUILD_ERR 
+            // if (false == Currency.ValidateExists(NewAcct.Currency))
+            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
 
             // TODO : replace by the CIF Rep
             // if (false == Cif.ValidateExists(NewAcct.CIF_NO))
