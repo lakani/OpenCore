@@ -300,7 +300,7 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.ApplicationUser", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -372,6 +372,88 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.DEF_Currency", b =>
+                {
+                    b.Property<short>("CurrencyID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CurrencyID"));
+
+                    b.Property<short>("Fractions")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ISOCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.HasKey("CurrencyID");
+
+                    b.ToTable("DEF_Currency");
+
+                    b.HasData(
+                        new
+                        {
+                            CurrencyID = (short)1,
+                            Fractions = (short)2,
+                            ISOCode = "EGP",
+                            Name = "Egyptian Pound"
+                        },
+                        new
+                        {
+                            CurrencyID = (short)2,
+                            Fractions = (short)2,
+                            ISOCode = "USD",
+                            Name = "US Dollar"
+                        },
+                        new
+                        {
+                            CurrencyID = (short)3,
+                            Fractions = (short)2,
+                            ISOCode = "SAR",
+                            Name = "Saudi Riyal "
+                        });
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ExchangeRates", b =>
+                {
+                    b.Property<int>("ExchangeRateID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExchangeRateID"));
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("FromCurrency")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ToCurrency")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.HasKey("ExchangeRateID");
+
+                    b.ToTable("ExchangeRates");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
@@ -523,35 +605,35 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("DEF_CIF_PERSONAL");
                 });
 
-            // modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
-            //     {
-            //         b.Property<short>("ID")
-            //             .ValueGeneratedOnAdd()
-            //             .HasColumnType("smallint");
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
 
-            //         SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
 
-            //         b.Property<string>("Name")
-            //             .IsRequired()
-            //             .HasMaxLength(50)
-            //             .HasColumnType("nvarchar(50)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-            //         b.HasKey("ID");
+                    b.HasKey("ID");
 
-            //         b.ToTable("LUT_CIF_TYPE");
+                    b.ToTable("LUT_CIF_TYPE");
 
-            //         b.HasData(
-            //             new
-            //             {
-            //                 ID = (short)1,
-            //                 Name = "Personal"
-            //             },
-            //             new
-            //             {
-            //                 ID = (short)2,
-            //                 Name = "Non Personal"
-            //             });
-            //     });
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            Name = "Personal"
+                        },
+                        new
+                        {
+                            ID = (short)2,
+                            Name = "Non Personal"
+                        });
+                });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.DEF_GL", b =>
                 {
@@ -786,7 +868,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 10, 12, 14, 34, 46, 197, DateTimeKind.Local).AddTicks(4342),
+                            EffectiveDate = new DateTime(2023, 10, 23, 14, 8, 41, 280, DateTimeKind.Local).AddTicks(5503),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -803,7 +885,7 @@ namespace SIS.OpenCore.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SIS.OpenCore.Shared.Model.ApplicationUser", null)
+                    b.HasOne("SIS.OpenCore.Shared.Model.Common.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -812,7 +894,7 @@ namespace SIS.OpenCore.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SIS.OpenCore.Shared.Model.ApplicationUser", null)
+                    b.HasOne("SIS.OpenCore.Shared.Model.Common.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -827,7 +909,7 @@ namespace SIS.OpenCore.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIS.OpenCore.Shared.Model.ApplicationUser", null)
+                    b.HasOne("SIS.OpenCore.Shared.Model.Common.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -836,7 +918,7 @@ namespace SIS.OpenCore.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SIS.OpenCore.Shared.Model.ApplicationUser", null)
+                    b.HasOne("SIS.OpenCore.Shared.Model.Common.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -83,6 +83,22 @@ namespace SIS.OpenCore.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DEF_Currency",
+                columns: table => new
+                {
+                    CurrencyID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ISOCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Symbol = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    Fractions = table.Column<short>(type: "smallint", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DEF_Currency", x => x.CurrencyID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DEF_Dep",
                 columns: table => new
                 {
@@ -177,6 +193,22 @@ namespace SIS.OpenCore.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExchangeRates",
+                columns: table => new
+                {
+                    ExchangeRateID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    ToCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExchangeRates", x => x.ExchangeRateID);
                 });
 
             migrationBuilder.CreateTable(
@@ -440,6 +472,16 @@ namespace SIS.OpenCore.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "DEF_Currency",
+                columns: new[] { "CurrencyID", "Fractions", "ISOCode", "Name", "Symbol" },
+                values: new object[,]
+                {
+                    { (short)1, (short)2, "EGP", "Egyptian Pound", null },
+                    { (short)2, (short)2, "USD", "US Dollar", null },
+                    { (short)3, (short)2, "SAR", "Saudi Riyal ", null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "LUT_CIF_TYPE",
                 columns: new[] { "ID", "Name" },
                 values: new object[,]
@@ -451,7 +493,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 10, 12, 14, 34, 46, 197, DateTimeKind.Local).AddTicks(4342), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 10, 23, 14, 8, 41, 280, DateTimeKind.Local).AddTicks(5503), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -573,6 +615,9 @@ namespace SIS.OpenCore.Server.Migrations
                 name: "DEF_Company");
 
             migrationBuilder.DropTable(
+                name: "DEF_Currency");
+
+            migrationBuilder.DropTable(
                 name: "DEF_Dep");
 
             migrationBuilder.DropTable(
@@ -589,6 +634,9 @@ namespace SIS.OpenCore.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");
+
+            migrationBuilder.DropTable(
+                name: "ExchangeRates");
 
             migrationBuilder.DropTable(
                 name: "Keys");

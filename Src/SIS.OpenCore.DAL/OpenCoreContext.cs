@@ -376,18 +376,18 @@ namespace SIS.OpenCore.DAL.Context
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.ExRateDate).HasColumnType("datetime");
+                entity.Property(e => e.EffectiveDate).HasColumnType("datetime");
 
-                entity.Property(e => e.FromCurIsoCode)
+                entity.Property(e => e.FromCurrency)
                     .IsRequired()
                     .HasMaxLength(3)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Rate).HasColumnType("decimal(24, 9)");
 
-                entity.Property(e => e.TimeEXC).HasColumnType("datetime");
+                entity.Property(e => e.EffectiveDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ToCurIsoCode)
+                entity.Property(e => e.ToCurrency)
                     .IsRequired()
                     .HasMaxLength(3)
                     .IsFixedLength(true);

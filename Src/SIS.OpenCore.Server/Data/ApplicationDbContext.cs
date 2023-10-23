@@ -52,6 +52,7 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<DEF_CIF_PERSONAL> DEF_CIF_PERSONAL { get; set; }
 		public virtual DbSet<SettingsModel>  Settings { get; set; }
 		public virtual DbSet<DEF_Currency>  DEF_Currency { get; set; }
+		public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -72,11 +73,7 @@ namespace SIS.OpenCore.Server.Data
 			new DEF_CIFConfig().Configure(builder.Entity<DEF_CIF>());
 			new DEF_CIF_PERSONALConfig().Configure(builder.Entity<DEF_CIF_PERSONAL>());
 			new DEF_CurrencyConfig().Configure(builder.Entity<DEF_Currency>());
+			new ExchangeRatesConfig().Configure(builder.Entity<ExchangeRates>());
 		}
-
-		// protected override void Seed(ApplicationDbContext context)
-		// {
-
-		// }
 	}
 }
