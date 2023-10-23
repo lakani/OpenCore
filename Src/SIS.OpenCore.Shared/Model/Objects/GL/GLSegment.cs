@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Objects.GL
 {
     public partial class GLSegment
     {
