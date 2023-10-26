@@ -1,5 +1,5 @@
 ﻿using System;
-
+#nullable enable
 namespace SIS.OpenCore.Shared.Model.PostRequest
 {
     public class PostGLLedgerRequestModel : PostBaseRequestModel
