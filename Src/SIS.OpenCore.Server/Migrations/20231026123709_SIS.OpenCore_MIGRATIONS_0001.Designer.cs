@@ -12,7 +12,7 @@ using SIS.OpenCore.Server.Data;
 namespace SIS.OpenCore.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231023130841_SIS.OpenCore_MIGRATIONS_0001")]
+    [Migration("20231026123709_SIS.OpenCore_MIGRATIONS_0001")]
     partial class SISOpenCore_MIGRATIONS_0001
     {
         /// <inheritdoc />
@@ -459,6 +459,58 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("ExchangeRates");
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
+                {
+                    b.Property<short>("ACCT_CLASS_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ACCT_CLASS_ID"));
+
+                    b.Property<short>("ACCT_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("ACCT_CLASS_ID");
+
+                    b.HasIndex("ACCT_TYPE");
+
+                    b.ToTable("DEF_ACCT_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LUT_ACCT_TYPE");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            Name = "CK"
+                        });
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
                 {
                     b.Property<int>("CIF_ID")
@@ -871,7 +923,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 10, 23, 14, 8, 41, 280, DateTimeKind.Local).AddTicks(5503),
+                            EffectiveDate = new DateTime(2023, 10, 26, 13, 37, 9, 750, DateTimeKind.Local).AddTicks(1837),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -928,6 +980,17 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", "lUT_ACCT_TYPE")
+                        .WithMany("DEF_ACCT_CLASS")
+                        .HasForeignKey("ACCT_TYPE")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("lUT_ACCT_TYPE");
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", "DEF_CIF_CLASS")
@@ -959,6 +1022,11 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("DEF_CIF");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>
+                {
+                    b.Navigation("DEF_ACCT_CLASS");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
