@@ -7,6 +7,7 @@ using SIS.OpenCore.Shared.Model.Common;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Shared.Model.Objects.GL;
+using SIS.OpenCore.Shared.Model.Objects.Account;
 
 
 #nullable disable
@@ -79,21 +80,13 @@ namespace SIS.OpenCore.DAL.Context
 
             modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
             {
-                entity.HasKey(e => e.AccountClassID);
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(5);
-
-                entity.Property(e => e.Currency).HasMaxLength(5);
-
-                entity.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
+                entity.HasKey(e => e.ACCT_CLASS_ID);
 
                 entity.Property(e => e.Name).HasMaxLength(80);
 
                 entity.Property(e => e.REFERENCE).IsRequired();
 
-                entity.Property(e => e.Type).HasMaxLength(10);
+                entity.Property(e => e.ACCT_TYPE).HasMaxLength(10);
             });
 
             modelBuilder.Entity<DEF_ACCT_CLASS_ACCT_STRUCT>(entity =>
@@ -405,8 +398,6 @@ namespace SIS.OpenCore.DAL.Context
             modelBuilder.Entity<LUT_ACCT_TYPE>(entity =>
             {
                 entity.HasNoKey();
-
-                entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.Name)
                     .IsRequired()

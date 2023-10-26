@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
 
+#nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 {
     public class DEF_CIF_CLASSRepositoryImp : GenericRepository<DEF_CIF_CLASS>, IDEF_CIF_CLASSRepository<DEF_CIF_CLASS>
@@ -18,7 +19,7 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 
         override public DEF_CIF_CLASS? GetById(int id)
         {
-            DEF_CIF_CLASS Ret = (from t in _dbContext.DEF_CIF_CLASS
+            DEF_CIF_CLASS? Ret = (from t in _dbContext.DEF_CIF_CLASS
                                 where t.CIF_CLASS_ID == id
                                 select t).FirstOrDefault();
 

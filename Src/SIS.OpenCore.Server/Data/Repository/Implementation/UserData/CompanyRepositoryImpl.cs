@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
+#nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
 	public class CompanyRepositoryImpl : GenericRepository<DEF_Company>, IUserDataRepository<DEF_Company>

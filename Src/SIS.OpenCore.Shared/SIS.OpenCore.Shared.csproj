@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Model\Objects\Account\CK\" />
   </ItemGroup>
 
 </Project>

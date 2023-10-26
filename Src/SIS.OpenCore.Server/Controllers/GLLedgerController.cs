@@ -80,38 +80,41 @@ namespace SIS.OpenCore.Server.Controllers
 		}
 
         // TODO : test different GL formats
-		// TODO : test Test Many Creation Variables
-		// WHEN_NEEDED : IF Get All then retrive only the max Server response number of records
-		//               , it should be defaulted from Configurations
-		[HttpGet]
-		public async Task<ActionResult> Get(int nGLNo)
-		{
-			_logger.Log(LogLevel.Information, "[HttpGet] GLLedgerController - > Get");
+        // TODO : test Test Many Creation Variables
+        // WHEN_NEEDED : IF Get All then retrive only the max Server response number of records
+        //               , it should be defaulted from Configurations
+        [HttpGet]
+        public ActionResult Get(int nGLNo)
+        {
+            _logger.Log(LogLevel.Information, "[HttpGet] GLLedgerController - > Get");
 
-			GetGLLedgerResponseModel	ret = new GetGLLedgerResponseModel{ Message="" , Successful = true};
+            GetGLLedgerResponseModel ret = new GetGLLedgerResponseModel { Message = "", Successful = true };
 
-			try{
-				if(nGLNo == 0) { // return all
-					ret.Gls = _DEF_GLRepository.GetAll();
-				}
-				else{
-					var record = _DEF_GLRepository.GetById(nGLNo);
-					if(record != null)
-						ret.Gls = new [] { record } . AsQueryable();
-				}
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
-			}
+            try
+            {
+                if (nGLNo == 0)
+                { // return all
+                    ret.Gls = _DEF_GLRepository.GetAll();
+                }
+                else
+                {
+                    var record = _DEF_GLRepository.GetById(nGLNo);
+                    if (record != null)
+                        ret.Gls = new[] { record }.AsQueryable();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });
+            }
 
-			if(ret.Gls != null)
-				return Ok(ret);
-			else
-				return NotFound();
-		}
-		
-		[HttpPost]
+            if (ret.Gls != null)
+                return Ok(ret);
+            else
+                return NotFound();
+        }
+
+        [HttpPost]
 		public async Task<ActionResult> Create(PostGLLedgerRequestModel model)
 		{
 			DEF_GL	newGL = new DEF_GL { 	BranchNo = model.BranchNo, 

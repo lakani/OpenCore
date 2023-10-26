@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
 //LUT_CIF_TYPERepositoryImp
-
+#nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 {
     public class LUT_CIF_TYPERepositoryImp : GenericRepository<LUT_CIF_TYPE>, ILUTRepository<LUT_CIF_TYPE>
@@ -25,7 +25,7 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 
 		override public LUT_CIF_TYPE? GetById(int id)
 		{
-			LUT_CIF_TYPE Ret = (from   t in _dbContext.LUT_CIF_TYPE
+			LUT_CIF_TYPE? Ret = (from   t in _dbContext.LUT_CIF_TYPE
                                 where   t.ID == id
                                 select  t).FirstOrDefault();
 

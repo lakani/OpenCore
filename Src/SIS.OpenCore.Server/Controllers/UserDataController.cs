@@ -102,21 +102,21 @@ namespace SIS.OpenCore.Server.Controllers
 				return Enumerable.Empty<String>().AsQueryable();
 		}
 
-		[HttpGet]
-		public async Task<IEnumerable<string>> GetLastSettings(string? Configuration)
-		{
-			var settings = new List<string>();
+        [HttpGet]
+        public IEnumerable<string> GetLastSettings(string? Configuration)
+        {
+            var settings = new List<string>();
 
-			if(string.IsNullOrEmpty(Configuration))
-			{
-				//return await Task.Run(GetSettings());
-				return GetSettings();
-			}
+            if (string.IsNullOrEmpty(Configuration))
+            {
+                //return await Task.Run(GetSettings());
+                return GetSettings();
+            }
 
-			return GetList(Configuration);
-		}
-		
-		[HttpPost]
+            return GetList(Configuration);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> Post(string Configuration, IEnumerable<string> values)
 		{
 			try

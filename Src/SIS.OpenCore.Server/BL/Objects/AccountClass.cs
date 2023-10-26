@@ -1,6 +1,7 @@
 using System.Linq;
 using System;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.DAL;
 using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.Server.BL;
@@ -16,11 +17,12 @@ namespace SIS.OpenCore.Server.BL.Objects
             OpenCoreContext db = new OpenCoreContext();
             string Ret = string.Empty;
 
-            Ret =   (from r in db.DEF_ACCT_CLASS
-                    where r.Code == stCode
-                    select r.Code).FirstOrDefault();
-            if( true == string.IsNullOrEmpty(Ret))
-                return false;
+            // TODO should be removed
+            // Ret =   (from r in db.DEF_ACCT_CLASS
+            //         where r.Code == stCode
+            //         select r.Code).FirstOrDefault();
+            // if( true == string.IsNullOrEmpty(Ret))
+            //     return false;
             return true;
         }
 
@@ -56,12 +58,13 @@ namespace SIS.OpenCore.Server.BL.Objects
             return sReturn;
         }
 
+        // TODO SHOULD be removed
         static public string GetMaxCode()
         {
             OpenCoreContext db = new OpenCoreContext();
-            string stMaxCode = (from r in db.DEF_ACCT_CLASS
-                                select r.Code).Max();
-            return stMaxCode;
+            short stMaxCode = (from r in db.DEF_ACCT_CLASS
+                                select r.ACCT_CLASS_ID).Max();
+            return stMaxCode.ToString();
 
         }
 
@@ -101,11 +104,8 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(true == ValidateExists(stCode))
                 throw new Exception("Account Class Code Already Exists");
 
-            newAcctClass.Code = stCode;
-            newAcctClass.CompanyNo = nCompanyNo;
-            newAcctClass.EFFECTIVE_DT = dtEFFECTIVE_DT;
             newAcctClass.Name = stName;
-            newAcctClass.Type = stAccountType;
+            newAcctClass.ACCT_TYPE = short.Parse(stAccountType);
             newAcctClass.REFERENCE = stREFERENCE;
 
             db.DEF_ACCT_CLASS.Add(newAcctClass);

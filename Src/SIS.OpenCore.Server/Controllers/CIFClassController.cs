@@ -62,20 +62,21 @@ namespace SIS.OpenCore.Server.Controllers
 		}
 
         [HttpGet]
-		public async Task<ActionResult> Get(int nClassID)
-		{
+        public ActionResult Get(int nClassID)
+        {
             _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > Get");
 
-            if(nClassID == 0) // Get All
+            if (nClassID == 0) // Get All
             {
-                try{
+                try
+                {
                     var Ret = _CifClassRepository.GetAll();
-                    if(Ret != null && Ret.Count() > 0 )
+                    if (Ret != null && Ret.Count() > 0)
                         return Ok(Ret);
                     else
                         return NotFound("No Data");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError("Error [HttpGet] CIFClassController - > Get");
                     _logger.LogError(ex.Message);
@@ -84,14 +85,15 @@ namespace SIS.OpenCore.Server.Controllers
             }
             else
             {
-                try{
+                try
+                {
                     var Ret = _CifClassRepository.GetById(nClassID);
-                    if(Ret != null)
+                    if (Ret != null)
                         return Ok(Ret);
                     else
                         return NotFound("No Data");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError("[HttpGet] CIFClassController - > Get");
                     _logger.LogError(ex.Message);
@@ -100,11 +102,11 @@ namespace SIS.OpenCore.Server.Controllers
             }
         }
 
-                
-                
-        
 
-        
+
+
+
+
         [HttpPost]
         public async Task<ActionResult> PostNewCIFClass(PostCIFClassRequestModel CIFClassReq)
         {

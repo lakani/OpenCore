@@ -62,20 +62,21 @@ namespace SIS.OpenCore.Server.Controllers
 		}
 
         [HttpGet]
-		public async Task<ActionResult> Get(string CIF_NO)
-		{
+        public ActionResult Get(string CIF_NO)
+        {
             _logger.Log(LogLevel.Information, "[HttpGet] CIFController - > Get");
 
-            if(string.IsNullOrEmpty(CIF_NO) != false) 
+            if (string.IsNullOrEmpty(CIF_NO) != false)
             {
-                try{
+                try
+                {
                     var Ret = _CifRepository.GetByCode(CIF_NO);
-                    if(Ret != null)
+                    if (Ret != null)
                         return Ok(Ret);
                     else
                         return NotFound("No Data");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError("Error [HttpGet] CIFController - > Get");
                     _logger.LogError(ex.Message);
