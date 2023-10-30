@@ -81,19 +81,8 @@ namespace SIS.OpenCore.Server.BL.Objects
         {
             OpenCoreContext db = new OpenCoreContext();
             DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
-            
-            // TODO : check using Repository
-            // // Validate on Company
-            // if(false == Company.ValidateExists(NewAcct.CompanyNo))
-            //     throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
-
-            if(false == AccountType.ValidateExists(NewAcct.ACCT_TYPE))
-                throw new ArgumentOutOfRangeException("AccountType", "Account Type doesn't Exists");
-
-            // BUILD_ERR 
-            // if(false == Currency.ValidateExists(NewAcct.Currency))
-            //     throw new ArgumentOutOfRangeException("Currency", "Currency doesn't Exists");
-            
+                                  
+                        
             if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
                 throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 

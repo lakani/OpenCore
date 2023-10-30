@@ -154,7 +154,12 @@ namespace SIS.OpenCore.Server.Controllers
 				return Ok(new PostBaseResponseModel{ Successful=true});
 			}
 			catch (Exception ex) 
-			{ 
+			{
+				if (ex.InnerException != null)
+				{
+					_logger.LogError("Inner Exception");
+					_logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
+				} 
 				return BadRequest(new PostBaseResponseModel{ Message=ex.Message, Successful=false} );
 			}
 		}

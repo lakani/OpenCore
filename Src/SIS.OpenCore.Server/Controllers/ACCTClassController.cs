@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Common;
-using SIS.OpenCore.Shared.Model.Objects.CIF;
-using SIS.OpenCore.Server.BL.Objects;
+using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
@@ -13,15 +10,16 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using SIS.OpenCore.Shared.Model.PostRequest;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Data.SqlClient;
+
 
 namespace SIS.OpenCore.Server.Controllers
 {
     [ApiController]
-	[Route("v1/api/OpenCore/system/Objects/CIFClass")]
-    public partial class CIFClassController : ControllerBase
+	[Route("v1/api/OpenCore/system/Objects/ACCTClass")]
+    public partial class ACCTClassController : ControllerBase
     {
-        private readonly ILogger<CIFClassController> _logger;
+        private readonly ILogger<ACCTClassController> _logger;
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly IUserDataRepository<DEF_Zone> _ZoneRepository;
@@ -30,12 +28,12 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IUserDataRepository<DEF_Sector> _SectorRepository;
 		private readonly IUserDataRepository<DEF_Dep> _DepRepository;
 		private readonly IUserDataRepository<DEF_Unit> _UnitRepository;
-        private readonly ILUTRepository<LUT_CIF_TYPE> _CifTypeRepository;
-        private readonly IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> _CifClassRepository;
+        private readonly ILUTRepository<LUT_ACCT_TYPE> _AcctTypeRepository;
+        private readonly IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> _AcctClassRepository;
 
 
-        public CIFClassController(
-		ILogger<CIFClassController> logger, IConfiguration Configuration,
+        public ACCTClassController(
+		ILogger<ACCTClassController> logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
 		IUserDataRepository<DEF_Zone> ZoneRepository,
 		IUserDataRepository<DEF_Company> CompanyRepository,
@@ -43,8 +41,8 @@ namespace SIS.OpenCore.Server.Controllers
 		IUserDataRepository<DEF_Sector> SectorRepository,
 		IUserDataRepository<DEF_Dep> DepRepository,
 		IUserDataRepository<DEF_Unit> UnitRepository,
-        ILUTRepository<LUT_CIF_TYPE> CifTypeRepository,
-        IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> CifClassRepository) : base()
+        ILUTRepository<LUT_ACCT_TYPE> AcctTypeRepository,
+        IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> AcctClassRepository) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
@@ -55,36 +53,43 @@ namespace SIS.OpenCore.Server.Controllers
 			_SectorRepository = SectorRepository;
 			_DepRepository = DepRepository;
 			_UnitRepository = UnitRepository;
-            _CifTypeRepository = CifTypeRepository;
-            _CifClassRepository = CifClassRepository ;
+            _AcctTypeRepository  = AcctTypeRepository;
+            _AcctClassRepository = AcctClassRepository ;
 
-			_logger.Log(LogLevel.Information, "CIFClassController() : constructor");
+			_logger.Log(LogLevel.Information, "ACCTClassController() : constructor");
 		}
 
         [HttpGet]
         public ActionResult Get(int nClassID)
         {
-            _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > Get");
+            _logger.Log(LogLevel.Information, "[HttpGet] ACCTClassController - > Get");
 
             if (nClassID == 0) // Get All
             {
                 try
                 {
-                    var Ret = _CifClassRepository.GetAll();
+                    var Ret = _AcctClassRepository.GetAll();
                     if (Ret != null && Ret.Count() > 0)
                         return Ok(Ret);
                     else
                         return NotFound("No Data");
                 }
+                catch (SqlException sqlex)
+                {
+                    _logger.LogError("Error Connecting SQL Server");
+                    _logger.LogError(sqlex.Message);
+                    return BadRequest(sqlex.Message);
+                }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Error [HttpGet] CIFClassController - > Get");
-                    _logger.LogError(ex.Message);
                     if (ex.InnerException != null)
                     {
                         _logger.LogError("Inner Exception");
                         _logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
                     }
+                    
+                    _logger.LogError("Error [HttpGet] ACCTClassController - > Get");
+                    _logger.LogError(ex.Message);
                     return BadRequest(ex.Message);
                 }
             }
@@ -92,7 +97,7 @@ namespace SIS.OpenCore.Server.Controllers
             {
                 try
                 {
-                    var Ret = _CifClassRepository.GetById(nClassID);
+                    var Ret = _AcctClassRepository.GetById(nClassID);
                     if (Ret != null)
                         return Ok(Ret);
                     else
@@ -100,13 +105,8 @@ namespace SIS.OpenCore.Server.Controllers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("[HttpGet] CIFClassController - > Get");
+                    _logger.LogError("[HttpGet] ACCTClassController - > Get");
                     _logger.LogError(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        _logger.LogError("Inner Exception");
-                        _logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
-                    }
                     return BadRequest(ex.Message);
                 }
             }
@@ -118,25 +118,25 @@ namespace SIS.OpenCore.Server.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> PostNewCIFClass(PostCIFClassRequestModel CIFClassReq)
+        public async Task<ActionResult> PostNewAcctClass(PostACCTClassRequestModel ACCTClassReq)
         {
-            _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > PostNewCIFClass");
+            _logger.Log(LogLevel.Information, "[HttpGet] ACCTClassController - > PostNewACCTClass");
 
             try{
-                _logger.Log(LogLevel.Information, "Checking def_CIFClass.CIF_TYPE");
-                if(null == _CifTypeRepository.GetById(CIFClassReq.CIF_TYPE))
-                    return BadRequest( new PostCIFClassResponseModel { Message = "Invalid CIF_TYPE" , Successful=false});
+                _logger.Log(LogLevel.Information, "Checking def_ACCTClass.ACCT_TYPE");
+                if(null == _AcctTypeRepository.GetById(ACCTClassReq.ACCT_TYPE))
+                    return BadRequest( new BaseResponseModel { Message = "Invalid ACCT_TYPE" , Successful=false});
                 
-                await _CifClassRepository.Create(new DEF_CIF_CLASS {
-                    CIF_TYPE = CIFClassReq.CIF_TYPE,
-                    Name = CIFClassReq.Name,
-                    REFERENCE = CIFClassReq.REFERENCE});
+                await _AcctClassRepository.Create(new DEF_ACCT_CLASS {
+                    ACCT_TYPE = ACCTClassReq.ACCT_TYPE,
+                    Name = ACCTClassReq.Name,
+                    REFERENCE = ACCTClassReq.REFERENCE});
 
-                return Ok(new PostCIFClassResponseModel{ Message = String.Empty, Successful = true });
+                return Ok(new BaseResponseModel{ Message = String.Empty, Successful = true });
             }
             catch(Exception ex)
             {
-                return BadRequest( new PostCIFClassResponseModel { Message = ex.Message , Successful=false});
+                return BadRequest( new BaseResponseModel { Message = ex.Message , Successful=false});
             }
         }
     }

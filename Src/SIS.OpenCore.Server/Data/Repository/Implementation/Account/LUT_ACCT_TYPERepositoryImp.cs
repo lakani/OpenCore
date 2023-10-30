@@ -32,5 +32,15 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.Account
 
             return Ret;
 		}
+
+        //virtual public TEntity? GetByCode(string code)
+        override public LUT_ACCT_TYPE? GetByCode(string code)
+		{
+			LUT_ACCT_TYPE? Ret = (from   t in _dbContext.LUT_ACCT_TYPE
+                                where   t.Name == code
+                                select  t).FirstOrDefault();
+
+            return Ret;
+		}
     }
 }

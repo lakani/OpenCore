@@ -36,7 +36,10 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
 			{
 				_logger.LogError(ex.Message);
 				if (ex.InnerException != null)
-					_logger.LogError(ex.InnerException.ToString());
+				{
+					_logger.LogError("Inner Exception");
+					_logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
+				}
 				throw new Exception(ex.Message);
 			}
 		}
