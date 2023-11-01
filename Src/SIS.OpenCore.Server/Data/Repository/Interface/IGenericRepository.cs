@@ -16,7 +16,7 @@ namespace SIS.OpenCore.Server.Data.Repository.Interface
 
 		TEntity? GetByCode(string code);
 
-		Task Create(TEntity entity);
+		Task<int> Create(TEntity entity);
 
 		IQueryable<TEntity> Search(BaseRequesModel requesModel);
 

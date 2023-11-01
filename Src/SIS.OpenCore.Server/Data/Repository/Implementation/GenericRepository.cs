@@ -25,12 +25,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
 			_logger = logger;
 		}
 
-		virtual public async Task Create(TEntity entity)
+		virtual public async Task<int> Create(TEntity entity)
 		{
 			try
 			{
 				await _dbContext.Set<TEntity>().AddAsync(entity);
 				await _dbContext.SaveChangesAsync();
+				return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

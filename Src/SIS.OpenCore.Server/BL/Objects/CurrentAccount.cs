@@ -83,8 +83,8 @@ namespace SIS.OpenCore.Server.BL.Objects
             DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
                                   
                         
-            if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
-                throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
+            // if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
+            //     throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 
             foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             {

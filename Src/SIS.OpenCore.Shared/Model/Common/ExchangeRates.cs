@@ -10,6 +10,10 @@ namespace SIS.OpenCore.Shared.Model.Common
     //IExchangeRatesRepositoryImp
     public partial class ExchangeRates : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return ExchangeRateID;
+        }
         public int ExchangeRateID  { get; set; }
         public string FromCurrency { get; set; }
         public string ToCurrency { get; set; }

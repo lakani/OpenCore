@@ -45,12 +45,14 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
                 return 0;
         }
 
-        override public async Task Create(DEF_GL entity)
+        override public async Task<int> Create(DEF_GL entity)
 		{
 			try
 			{
-				await _dbContext.Set<DEF_GL>().AddAsync(entity);
-				await _dbContext.SaveChangesAsync();
+				var AddRet = await _dbContext.Set<DEF_GL>().AddAsync(entity);
+				var SaveRet = await _dbContext.SaveChangesAsync();
+
+                return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

@@ -119,6 +119,7 @@ namespace SIS.OpenCore.Server.Controllers
         [HttpPost]
 		public async Task<IActionResult> Post(string Configuration, IEnumerable<string> values)
 		{
+			int newID =0;
 			try
 			{
 				foreach (string st in values)
@@ -127,31 +128,31 @@ namespace SIS.OpenCore.Server.Controllers
 					{
 						case "Zone":
 							var tmpZone = new DEF_Zone { Name = st };
-							await _ZoneRepository.Create(tmpZone);
+							newID = await _ZoneRepository.Create(tmpZone);
 							break;
 						case "Company":
 							var tmpCompany = new DEF_Company { Name = st };
-							await _CompanyRepository.Create(tmpCompany);
+							newID = await _CompanyRepository.Create(tmpCompany);
 							break;
 						case "Branch":
 							var tmpBranch = new DEF_Branch { Name = st };
-							await _BranchRepository.Create(tmpBranch);
+							newID = await _BranchRepository.Create(tmpBranch);
 							break;
 						case "Sector":
 							var tmpSector = new DEF_Sector { Name = st };
-							await _SectorRepository.Create(tmpSector);
+							newID = await _SectorRepository.Create(tmpSector);
 							break;
 						case "Dep":
 							var tmpDep = new DEF_Dep { Name = st };
-							await _DepRepository.Create(tmpDep);
+							newID = await _DepRepository.Create(tmpDep);
 							break;
 						case "Unit":
 							var tmpUnit = new DEF_Unit { Name = st };
-							await _UnitRepository.Create(tmpUnit);
+							newID = await _UnitRepository.Create(tmpUnit);
 							break;
 					}
 				}
-				return Ok(new PostBaseResponseModel{ Successful=true});
+				return Ok(new PostBaseResponseModel{ Successful=true , Record=newID});
 			}
 			catch (Exception ex) 
 			{

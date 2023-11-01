@@ -19,12 +19,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             logger.LogInformation("SectorRepositoryImp");
         }
 
-        public override async Task Create(DEF_Sector entity)
+        public override async Task<int> Create(DEF_Sector entity)
         {
 			try
             {
 				_dbContext.DEF_Sector.Add(entity);
 				await _dbContext.SaveChangesAsync();
+                return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

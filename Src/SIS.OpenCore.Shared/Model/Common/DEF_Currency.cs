@@ -8,6 +8,11 @@ namespace SIS.OpenCore.Shared.Model.Common
 {
     public partial class DEF_Currency : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return CurrencyID;
+        }
+
         public short CurrencyID { get; set; }
         public string ISOCode { get; set; }
         public string Symbol { get; set; }

@@ -127,12 +127,12 @@ namespace SIS.OpenCore.Server.Controllers
                 if(null == _AcctTypeRepository.GetById(ACCTClassReq.ACCT_TYPE))
                     return BadRequest( new BaseResponseModel { Message = "Invalid ACCT_TYPE" , Successful=false});
                 
-                await _AcctClassRepository.Create(new DEF_ACCT_CLASS {
+                int newID = await _AcctClassRepository.Create(new DEF_ACCT_CLASS {
                     ACCT_TYPE = ACCTClassReq.ACCT_TYPE,
                     Name = ACCTClassReq.Name,
                     REFERENCE = ACCTClassReq.REFERENCE});
 
-                return Ok(new BaseResponseModel{ Message = String.Empty, Successful = true });
+                return Ok(new BaseResponseModel{ Message = newID.ToString(), Record=newID, Successful = true });
             }
             catch(Exception ex)
             {

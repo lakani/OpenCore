@@ -9,6 +9,10 @@ namespace SIS.OpenCore.Shared.Model.Objects.GL
 {
     public partial class DEF_GL : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return GL_DEFID;
+        }
         public int GL_DEFID { get; set; }
         public short CompanyNo { get; set; }
         public short? Zone { get; set; }

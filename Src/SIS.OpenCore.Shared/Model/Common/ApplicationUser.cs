@@ -12,6 +12,10 @@ namespace SIS.OpenCore.Shared.Model.Common
 {
 	public class ApplicationUser : IdentityUser, BaseEntity
 	{
+		public int GetPrimaryKey ()
+        {
+            return 1;
+        }
 		public DateTime CreatedOn { get; set; }
 		public DateTime LastLoginDate { get; set; }
 

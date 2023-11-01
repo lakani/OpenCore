@@ -8,6 +8,10 @@ namespace SIS.OpenCore.Shared.Model
 {
     public partial class SettingsModel : BaseEntity
 	{
+        public int GetPrimaryKey ()
+        {
+            return VerID;
+        }
         public short VerID { get; set; }
         public short? CompanyNo { get; set; }
         public DateTime EffectiveDate { get; set; }

@@ -20,12 +20,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             logger.LogInformation("ZoneRepositoryImp");
         }
 
-        public override async Task Create(DEF_Zone entity)
+        public override async Task<int> Create(DEF_Zone entity)
         {
             try
             {
-				_dbContext.DEF_Zone.Add(entity);
+				await _dbContext.DEF_Zone.AddAsync(entity);
 				await _dbContext.SaveChangesAsync();
+                return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

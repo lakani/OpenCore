@@ -18,12 +18,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 			logger.LogInformation("CompanyRepositoryImpl"); 
 		}
 
-		public override async Task Create(DEF_Company entity)
+		public override async Task<int> Create(DEF_Company entity)
 		{
 			try
 			{
 				_dbContext.DEF_Company.Add(entity);
 				await _dbContext.SaveChangesAsync();
+				return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

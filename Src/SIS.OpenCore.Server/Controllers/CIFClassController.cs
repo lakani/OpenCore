@@ -127,12 +127,12 @@ namespace SIS.OpenCore.Server.Controllers
                 if(null == _CifTypeRepository.GetById(CIFClassReq.CIF_TYPE))
                     return BadRequest( new PostCIFClassResponseModel { Message = "Invalid CIF_TYPE" , Successful=false});
                 
-                await _CifClassRepository.Create(new DEF_CIF_CLASS {
+                int newID = await _CifClassRepository.Create(new DEF_CIF_CLASS {
                     CIF_TYPE = CIFClassReq.CIF_TYPE,
                     Name = CIFClassReq.Name,
                     REFERENCE = CIFClassReq.REFERENCE});
 
-                return Ok(new PostCIFClassResponseModel{ Message = String.Empty, Successful = true });
+                return Ok(new PostCIFClassResponseModel{ Message = String.Empty, Record=newID, Successful = true });
             }
             catch(Exception ex)
             {

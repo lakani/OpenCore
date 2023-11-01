@@ -10,6 +10,10 @@ namespace SIS.OpenCore.Shared.Model.Objects.UserData
 {
 	public partial class BaseUserData : BaseEntity
 	{
+		public int GetPrimaryKey ()
+        {
+            return ID;
+        }
 		public short ID { get; set; }
 		public string Name { get; set; }
 	}

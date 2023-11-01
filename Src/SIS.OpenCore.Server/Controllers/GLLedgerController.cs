@@ -147,7 +147,7 @@ namespace SIS.OpenCore.Server.Controllers
 			{
 				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
 			}
-			return Ok(new PostGLLedgerResponseModel { Successful = true , GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
+			return Ok(new PostGLLedgerResponseModel { Successful = true ,  GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
 		}
     }
 }

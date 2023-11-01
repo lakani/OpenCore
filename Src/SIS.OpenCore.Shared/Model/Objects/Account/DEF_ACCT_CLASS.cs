@@ -9,6 +9,10 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account
 {
     public partial class DEF_ACCT_CLASS : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return ACCT_CLASS_ID;
+        }
         public short ACCT_CLASS_ID { get; set; }
         public string Name { get; set; }
         public short ACCT_TYPE { get; set; }

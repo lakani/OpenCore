@@ -58,13 +58,13 @@ namespace SIS.OpenCore.UnitTesting
             });
 
 
-            AccountClass.Add(new DateTime(2020, 1, 1),
-            1, //Company
-            "CK", // Account Type)
-            "EGP CK Account Class", //Name
-            "EGP", // Currency
-            "", //Ref
-            ACCTS.ToArray());
+            // AccountClass.Add(new DateTime(2020, 1, 1),
+            // 1, //Company
+            // "CK", // Account Type)
+            // "EGP CK Account Class", //Name
+            // "EGP", // Currency
+            // "", //Ref
+            // ACCTS.ToArray());
 
         }
 

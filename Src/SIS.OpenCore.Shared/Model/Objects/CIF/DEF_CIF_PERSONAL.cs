@@ -12,6 +12,10 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
     // DEF_CIF_PERSONAL
     public partial class DEF_CIF_PERSONAL  : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return DEF_CIF_PERSONALID;
+        }
         public int DEF_CIF_PERSONALID { get; set; }
         public short? Country { get; set; }
         public short? GOVERNORATE { get; set; }

@@ -217,7 +217,7 @@ namespace SIS.OpenCore.Server.Controllers
                 if(string.IsNullOrEmpty(CIFReq.SearchKey))
                     CIFReq.SearchKey = CIFReq.CIF_NO;
                 
-                await _CifRepository.Create(new DEF_CIF {
+                int newID = await _CifRepository.Create(new DEF_CIF {
                     CIF_NO = CIFReq.CIF_NO,
                     SearchKey = CIFReq.SearchKey,
                     FirstName = CIFReq.FirstName,
@@ -230,7 +230,7 @@ namespace SIS.OpenCore.Server.Controllers
                     REFERENCE = CIFReq.REFERENCE,
                     LAST_SAVE_DT = DateTime.Now });
 
-                return Ok(new BaseResponseModel{ Message = CIFReq.CIF_NO, Successful = true });
+                return Ok(new BaseResponseModel{ Message = CIFReq.CIF_NO, Record=newID, Successful = true });
             }
             catch(Exception ex)
             {

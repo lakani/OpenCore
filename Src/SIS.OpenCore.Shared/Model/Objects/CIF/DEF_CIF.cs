@@ -8,6 +8,10 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {
     public partial class DEF_CIF : BaseEntity  
     {
+        public int GetPrimaryKey ()
+        {
+            return CIF_ID;
+        }
         public int CIF_ID { get; set; }
         public string CIF_NO { get; set; }
         public string SearchKey { get; set; }

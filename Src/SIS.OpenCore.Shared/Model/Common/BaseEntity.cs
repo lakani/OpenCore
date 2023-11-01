@@ -7,5 +7,6 @@ namespace SIS.OpenCore.Shared.Model.Common
 	public interface BaseEntity
 	{
 		// TODO : till now there is no functionality , but just added for future usage
+		public int GetPrimaryKey ();
 	}
 }

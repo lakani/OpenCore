@@ -20,6 +20,10 @@ namespace SIS.OpenCore.Shared.Model
     */
     public partial class LUT_GLLedgerNature : BaseEntity
     {
+        public int GetPrimaryKey ()
+        {
+            return ID;
+        }
         public short ID { get; set; }
         public string Name { get; set; }
         public string CR_DR { get; set; }

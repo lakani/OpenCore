@@ -19,12 +19,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 			logger.LogInformation("DepRepositoryImp");
         }
 
-        public override async Task Create(DEF_Dep entity)
+        public override async Task<int> Create(DEF_Dep entity)
         {
             try
             {
 				_dbContext.DEF_Dep.Add(entity);
 				await _dbContext.SaveChangesAsync();
+                return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{

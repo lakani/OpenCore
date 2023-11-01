@@ -26,12 +26,13 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
             return Ret;
         }
 
-        override public async Task Create(DEF_CIF_CLASS entity)
+        override public async Task<int> Create(DEF_CIF_CLASS entity)
         {
             try
             {
                 await _dbContext.Set<DEF_CIF_CLASS>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
+                return entity.GetPrimaryKey();
             }
             catch (Exception ex)
             {

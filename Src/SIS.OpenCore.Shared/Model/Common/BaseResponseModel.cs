@@ -8,6 +8,7 @@ namespace SIS.OpenCore.Shared.Model.Common
         public bool Successful { get; set; }
 		public string? Message { get; set; }
 		public DateTime? ServerTimeStamp { get; set; }
+		public int? Record { get; set; }
 
 		public BaseResponseModel() 
 		{
