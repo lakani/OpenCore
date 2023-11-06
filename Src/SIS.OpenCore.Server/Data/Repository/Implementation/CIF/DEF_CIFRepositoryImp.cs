@@ -27,15 +27,26 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
             return Ret;
 		}
 
-        public string GetMaxCIFNO()
-        {
-            string sMax =   (from r in _dbContext.DEF_CIF
-                            select r.CIF_NO).Max();
-            if (string.IsNullOrEmpty(sMax))
-                sMax = 0.ToString();
-            return sMax;
-        }
+        override public DEF_CIF GetById(int id)
+		{
+			if(id == -1)
+            {
+                string sMax =   (from r in _dbContext.DEF_CIF
+                                select r.CIF_NO).Max();
 
+                if (string.IsNullOrEmpty(sMax))
+                    sMax = 0.ToString();
+                return new DEF_CIF{ CIF_NO = sMax};
+            }
+            else
+            {
+                var Ret =   (from c in _dbContext.DEF_CIF
+                            where c.CIF_ID == id
+                            select c).FirstOrDefault();
+
+                return Ret;
+            }
+		}
     }
 }
 

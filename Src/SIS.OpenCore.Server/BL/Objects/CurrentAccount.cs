@@ -4,7 +4,7 @@ using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Server.BL;
 using SIS.OpenCore.DAL.Context;
 using DAL = SIS.OpenCore.DAL;
-
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 
 namespace SIS.OpenCore.Server.BL.Objects
@@ -27,11 +27,6 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(Ret != stAcctNo)
                 return false;
             return true;
-        }
-
-        public static DEF_CK_ACCT[] List(string CIF_NO, string ISO, short cRecordsPerPage)
-        {
-            return DAL.CurrentAccount.List(CIF_NO, ISO, cRecordsPerPage);
         }
 
         public static bool Search(string stAcctNo)
@@ -93,16 +88,14 @@ namespace SIS.OpenCore.Server.BL.Objects
                     throw new ArgumentOutOfRangeException("ACCT_STRUCT", "Account class doesn't Exists");
             }
 
-            NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
+            //NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
             if(true == string.IsNullOrEmpty(NewAcct.ACCT_NO))
                 throw new ArgumentOutOfRangeException("ACCT_NO", "Invalid Account Number");
 
             newAcctEL.ACCT_NO = NewAcct.ACCT_NO;
-            newAcctEL.ACCT_TYPE = NewAcct.ACCT_TYPE;
-            newAcctEL.ACCT_CLASS = NewAcct.ACCT_CLASS;
+            newAcctEL.ACCT_CLASS_ID = NewAcct.ACCT_CLASS_ID;
             newAcctEL.CIF_NO = NewAcct.CIF_NO;
-            newAcctEL.CompanyNo = NewAcct.CompanyNo;
-            newAcctEL.CSP_Code = NewAcct.CSP_Code;
+            newAcctEL.CompanyID = NewAcct.CompanyID;
             newAcctEL.Currency = NewAcct.Currency;
             newAcctEL.Description = NewAcct.Description;
             newAcctEL.IBAN = NewAcct.IBAN;
@@ -131,13 +124,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             return newAcctEL.ACCT_NO;
         }
 
-        static protected string GetMaxCode()
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            string stMaxCode = (from r in db.DEF_CK_ACCT
-                                select r.ACCT_NO).Max();
-            return stMaxCode;
-        }
+        
 
         static public DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
         {
@@ -161,35 +148,6 @@ namespace SIS.OpenCore.Server.BL.Objects
 
 
 
-        static protected string GenerateNewACCT_NO(string stACCT_NO)
-        {
-            int nAcctNo = 0;
-            string sReturn = string.Empty;
-
-            if(string.IsNullOrEmpty(stACCT_NO)) 
-            {
-                stACCT_NO = GetMaxCode();
-                if(true == string.IsNullOrEmpty(stACCT_NO))
-                     stACCT_NO = _CURRENT_ACCOUNT_NUM_FORMAT;
-                nAcctNo = (int)int.Parse(stACCT_NO);
-                nAcctNo ++;
-                sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + nAcctNo.ToString();
-                int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
-                sReturn = sReturn.Remove(0,cToRemove);
-            }
-            else
-            {
-                if(stACCT_NO.Length > _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH)
-                    sReturn = string.Empty; // ERROR
-                else
-                {
-                    sReturn = _CURRENT_ACCOUNT_NUM_FORMAT + stACCT_NO.ToString();
-                    int cToRemove = sReturn.Length - _CURRENT_ACCOUNT_NUM_FORMAT_LENGTH;
-                    sReturn = sReturn.Remove(0,cToRemove);
-                }
-            }
-
-            return sReturn;
-        }
+        
     }
 }

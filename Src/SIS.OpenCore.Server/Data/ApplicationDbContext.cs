@@ -6,6 +6,7 @@ using SIS.OpenCore.Shared.Model.Common;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Shared.Model.Objects.Account;
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using SIS.OpenCore.Server.Data.Config;
@@ -57,6 +58,7 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
 		public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
 		public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
+		public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -80,6 +82,7 @@ namespace SIS.OpenCore.Server.Data
 			new ExchangeRatesConfig().Configure(builder.Entity<ExchangeRates>());
 			new LUT_ACCT_TYPEConfig().Configure(builder.Entity<LUT_ACCT_TYPE>());
 			new DEF_ACCT_CLASSConfig().Configure(builder.Entity<DEF_ACCT_CLASS>());
+			new DEF_CK_ACCTConfig().Configure(builder.Entity<DEF_CK_ACCT>());
 		}
 	}
 }

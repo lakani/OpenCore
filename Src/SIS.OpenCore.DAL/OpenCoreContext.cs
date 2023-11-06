@@ -8,6 +8,7 @@ using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Shared.Model.Objects.Account;
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 
 #nullable disable
@@ -177,21 +178,15 @@ namespace SIS.OpenCore.DAL.Context
                 entity.HasKey(e => e.DEF_ACCT_ID)
                     .HasName("PK_DEF_ACCT");
 
-                entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
+                //entity.Property(e => e.ACCT_CLASS).HasMaxLength(10);
 
                 entity.Property(e => e.ACCT_NO)
                     .IsRequired()
                     .HasMaxLength(35);
 
-                entity.Property(e => e.ACCT_TYPE)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
                 entity.Property(e => e.CIF_NO)
                     .IsRequired()
                     .HasMaxLength(35);
-
-                entity.Property(e => e.CSP_Code).HasMaxLength(10);
 
                 entity.Property(e => e.Currency).HasMaxLength(3);
 

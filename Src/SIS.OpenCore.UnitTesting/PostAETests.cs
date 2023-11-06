@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using SIS.OpenCore.Shared.Model;
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 //using SIS.OpenCore.DAL.Context;
 using SIS.OpenCore.Server.BL.Objects;
 using SIS.OpenCore.Server.BL.Transactions;
@@ -119,9 +120,9 @@ namespace SIS.OpenCore.UnitTesting
                 new DEF_CK_ACCT
                 {
                     OpenDate = new DateTime(2020, 1, 1),
-                    CompanyNo = 1, //Company
-                    ACCT_TYPE = "CK", // Account Type)
-                    ACCT_CLASS = "00001",
+                    CompanyID = 1, //Company
+                    //ACCT_TYPE = "CK", // Account Type)
+                    //ACCT_CLASS = "00001",
                     Currency = "EGP",       // Currency
                     CIF_NO = "000000001"
                 }, // CIF    

@@ -208,7 +208,7 @@ namespace SIS.OpenCore.Server.BL.Transactions
             
             short[] companyArr =    (from cl in Legs
                                     select 
-                                        cl.GL == true ? cl.GL_Info.CompanyNo : cl.CK_Acct.CompanyNo
+                                        cl.GL == true ? cl.GL_Info.CompanyNo : cl.CK_Acct.CompanyID
                                     ).Distinct().ToArray();       
 
             

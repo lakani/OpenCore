@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Repository\Implementation\Account\" />
+    <Folder Include="Data\Repository\Implementation\Account\CK\" />
     <Folder Include="Data\Repository\Implementation\CIF\" />
   </ItemGroup>
 

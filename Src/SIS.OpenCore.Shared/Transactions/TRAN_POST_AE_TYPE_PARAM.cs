@@ -2,6 +2,7 @@ using System.Linq;
 using System;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Objects.GL;
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Shared.Transactions
 {

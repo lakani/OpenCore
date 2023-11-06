@@ -21,6 +21,8 @@ using SIS.OpenCore.Server.Data.Repository.Implementation;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Server.Data.Repository.Implementation.Account;
+using SIS.OpenCore.Shared.Model.Objects.Account.CK;
+using SIS.OpenCore.Server.Data.Repository.Implementation.Account.CK;
 
 namespace SIS.OpenCore.Server.Data.Repository
 {
@@ -43,9 +45,11 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<ILUTRepository<LUT_CIF_TYPE>, LUT_CIF_TYPERepositoryImp>();
 			services.AddScoped<IDEF_CIF_CLASSRepository<DEF_CIF_CLASS>, DEF_CIF_CLASSRepositoryImp>();
 			services.AddScoped<IDEF_CIFRepository<DEF_CIF>, DEF_CIFRepositoryImp>();
-			// ACCT
+			// ACCT Class
 			services.AddScoped<ILUTRepository<LUT_ACCT_TYPE>, LUT_ACCT_TYPERepositoryImp>();
 			services.AddScoped<IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS>, DEF_ACCT_CLASSRepositoryImp>();
+			// CK ACCT 
+			services.AddScoped<IDEF_CK_ACCTRepository<DEF_CK_ACCT>, DEF_CK_ACCTRepositoryImp>();
 			
 			return services;
 		}

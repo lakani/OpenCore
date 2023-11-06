@@ -174,7 +174,8 @@ namespace SIS.OpenCore.Server.Controllers
                 lock(CIFLock)
                 {
                     // Get Max CIF Number
-                    string sMax = _CifRepository.GetMaxCIFNO();
+                    var max = _CifRepository.GetById(-1);
+                    string sMax = max.CIF_NO;
                     int nMax ;
 
                     bool bParseSucess = int.TryParse(sMax, out nMax);

@@ -445,6 +445,38 @@ namespace SIS.OpenCore.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DEF_CK_ACCT",
+                columns: table => new
+                {
+                    DEF_ACCT_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CIF_NO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ACCT_CLASS_ID = table.Column<short>(type: "smallint", nullable: false),
+                    CompanyID = table.Column<short>(type: "smallint", nullable: false),
+                    ACCT_NO = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    REFERENCE = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    ReferenceACCT = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    ReferenceOrg = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    IBAN = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    OpenDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    STATUS = table.Column<short>(type: "smallint", nullable: true),
+                    DEF_ACCT_CLASSACCT_CLASS_ID = table.Column<short>(type: "smallint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DEF_CK_ACCT", x => x.DEF_ACCT_ID);
+                    table.ForeignKey(
+                        name: "FK_DEF_CK_ACCT_DEF_ACCT_CLASS_DEF_ACCT_CLASSACCT_CLASS_ID",
+                        column: x => x.DEF_ACCT_CLASSACCT_CLASS_ID,
+                        principalTable: "DEF_ACCT_CLASS",
+                        principalColumn: "ACCT_CLASS_ID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DEF_CIF",
                 columns: table => new
                 {
@@ -532,7 +564,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 10, 26, 13, 37, 9, 750, DateTimeKind.Local).AddTicks(1837), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 6, 12, 45, 19, 561, DateTimeKind.Local).AddTicks(5019), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -595,6 +627,11 @@ namespace SIS.OpenCore.Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_DEF_CK_ACCT_DEF_ACCT_CLASSACCT_CLASS_ID",
+                table: "DEF_CK_ACCT",
+                column: "DEF_ACCT_CLASSACCT_CLASS_ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -650,13 +687,13 @@ namespace SIS.OpenCore.Server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DEF_ACCT_CLASS");
-
-            migrationBuilder.DropTable(
                 name: "DEF_Branch");
 
             migrationBuilder.DropTable(
                 name: "DEF_CIF_PERSONAL");
+
+            migrationBuilder.DropTable(
+                name: "DEF_CK_ACCT");
 
             migrationBuilder.DropTable(
                 name: "DEF_Company");
@@ -701,13 +738,16 @@ namespace SIS.OpenCore.Server.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "LUT_ACCT_TYPE");
-
-            migrationBuilder.DropTable(
                 name: "DEF_CIF");
 
             migrationBuilder.DropTable(
+                name: "DEF_ACCT_CLASS");
+
+            migrationBuilder.DropTable(
                 name: "DEF_CIF_CLASS");
+
+            migrationBuilder.DropTable(
+                name: "LUT_ACCT_TYPE");
 
             migrationBuilder.DropTable(
                 name: "LUT_CIF_TYPE");

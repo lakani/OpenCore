@@ -12,7 +12,7 @@ using SIS.OpenCore.Server.Data;
 namespace SIS.OpenCore.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231026123709_SIS.OpenCore_MIGRATIONS_0001")]
+    [Migration("20231106104519_SIS.OpenCore_MIGRATIONS_0001")]
     partial class SISOpenCore_MIGRATIONS_0001
     {
         /// <inheritdoc />
@@ -457,6 +457,80 @@ namespace SIS.OpenCore.Server.Migrations
                     b.HasKey("ExchangeRateID");
 
                     b.ToTable("ExchangeRates");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.DEF_CK_ACCT", b =>
+                {
+                    b.Property<int>("DEF_ACCT_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DEF_ACCT_ID"));
+
+                    b.Property<short>("ACCT_CLASS_ID")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ACCT_NO")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("CIF_NO")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("CompanyID")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<short?>("DEF_ACCT_CLASSACCT_CLASS_ID")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("IBAN")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTime?>("OpenDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ReferenceACCT")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ReferenceOrg")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<short?>("STATUS")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.HasKey("DEF_ACCT_ID");
+
+                    b.HasIndex("DEF_ACCT_CLASSACCT_CLASS_ID");
+
+                    b.ToTable("DEF_CK_ACCT");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
@@ -923,7 +997,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 10, 26, 13, 37, 9, 750, DateTimeKind.Local).AddTicks(1837),
+                            EffectiveDate = new DateTime(2023, 11, 6, 12, 45, 19, 561, DateTimeKind.Local).AddTicks(5019),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -980,6 +1054,13 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.DEF_CK_ACCT", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", null)
+                        .WithMany("DEF_CK_ACCT")
+                        .HasForeignKey("DEF_ACCT_CLASSACCT_CLASS_ID");
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", "lUT_ACCT_TYPE")
@@ -1022,6 +1103,11 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("DEF_CIF");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
+                {
+                    b.Navigation("DEF_CK_ACCT");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>
