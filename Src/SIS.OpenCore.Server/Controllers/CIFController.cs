@@ -66,7 +66,7 @@ namespace SIS.OpenCore.Server.Controllers
         {
             _logger.Log(LogLevel.Information, "[HttpGet] CIFController - > Get");
 
-            if (string.IsNullOrEmpty(CIF_NO) != false)
+            if (string.IsNullOrEmpty(CIF_NO) == false)
             {
                 try
                 {

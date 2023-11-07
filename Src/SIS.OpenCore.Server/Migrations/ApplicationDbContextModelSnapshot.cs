@@ -485,9 +485,6 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
-                    b.Property<short?>("DEF_ACCT_CLASSACCT_CLASS_ID")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("Description")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
@@ -524,8 +521,6 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasColumnType("nvarchar(80)");
 
                     b.HasKey("DEF_ACCT_ID");
-
-                    b.HasIndex("DEF_ACCT_CLASSACCT_CLASS_ID");
 
                     b.ToTable("DEF_CK_ACCT");
                 });
@@ -994,7 +989,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 11, 6, 12, 45, 19, 561, DateTimeKind.Local).AddTicks(5019),
+                            EffectiveDate = new DateTime(2023, 11, 7, 11, 49, 24, 209, DateTimeKind.Local).AddTicks(2257),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -1051,13 +1046,6 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.DEF_CK_ACCT", b =>
-                {
-                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", null)
-                        .WithMany("DEF_CK_ACCT")
-                        .HasForeignKey("DEF_ACCT_CLASSACCT_CLASS_ID");
-                });
-
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", "lUT_ACCT_TYPE")
@@ -1100,11 +1088,6 @@ namespace SIS.OpenCore.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("DEF_CIF");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
-                {
-                    b.Navigation("DEF_CK_ACCT");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>

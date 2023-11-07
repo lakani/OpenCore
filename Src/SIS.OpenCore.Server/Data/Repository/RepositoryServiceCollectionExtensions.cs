@@ -23,6 +23,7 @@ using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Server.Data.Repository.Implementation.Account;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 using SIS.OpenCore.Server.Data.Repository.Implementation.Account.CK;
+using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Server.Data.Repository
 {
@@ -50,6 +51,7 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS>, DEF_ACCT_CLASSRepositoryImp>();
 			// CK ACCT 
 			services.AddScoped<IDEF_CK_ACCTRepository<DEF_CK_ACCT>, DEF_CK_ACCTRepositoryImp>();
+			services.AddScoped<IDEF_CurrencyRepository<DEF_Currency>, DEF_CurrencyRepositoryImp>();
 			
 			return services;
 		}

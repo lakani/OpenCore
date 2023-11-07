@@ -20,6 +20,6 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account
         public string REFERENCE { get; set; }
         public LUT_ACCT_TYPE lUT_ACCT_TYPE { get; set; }
 
-        public ICollection<DEF_CK_ACCT> DEF_CK_ACCT { get; } = new List<DEF_CK_ACCT>();
+        //public ICollection<DEF_CK_ACCT> DEF_CK_ACCT { get; } = new List<DEF_CK_ACCT>();
     }
 }
