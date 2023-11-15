@@ -87,7 +87,7 @@ namespace SIS.OpenCore.Server.Migrations
                     ReferenceACCT = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     ReferenceOrg = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     IBAN = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
-                    OpenDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OpenDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     STATUS = table.Column<short>(type: "smallint", nullable: true)
                 },
                 constraints: table =>
@@ -164,6 +164,44 @@ namespace SIS.OpenCore.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DEF_Posting",
+                columns: table => new
+                {
+                    PostingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostingLinkedId = table.Column<int>(type: "int", nullable: false),
+                    TradeId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SentDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    PostingType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Amount = table.Column<float>(type: "real", nullable: false),
+                    EventType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    PostingDescription = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    ProductDescription = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    PostingCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    ExternalDebitAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    DebitAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ExternalCreditAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    CreditAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    OriginalEvent = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    AccountingRule = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    TradeStatus = table.Column<short>(type: "smallint", nullable: false),
+                    BookName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    AccountingBookName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    BookingDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Manual = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    EnteredUser = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    PostingOtherAmount = table.Column<float>(type: "real", nullable: false),
+                    PostingStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DEF_Posting", x => x.PostingId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DEF_Sector",
                 columns: table => new
                 {
@@ -229,7 +267,7 @@ namespace SIS.OpenCore.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     ToCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
                     EffectiveDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
@@ -558,7 +596,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 7, 11, 49, 24, 209, DateTimeKind.Local).AddTicks(2257), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 14, 15, 51, 11, 594, DateTimeKind.Local).AddTicks(3352), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -698,6 +736,9 @@ namespace SIS.OpenCore.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "DEF_GL");
+
+            migrationBuilder.DropTable(
+                name: "DEF_Posting");
 
             migrationBuilder.DropTable(
                 name: "DEF_Sector");

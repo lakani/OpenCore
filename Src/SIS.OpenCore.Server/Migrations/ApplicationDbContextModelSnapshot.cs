@@ -427,6 +427,114 @@ namespace SIS.OpenCore.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.DEF_Posting", b =>
+                {
+                    b.Property<int>("PostingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostingId"));
+
+                    b.Property<string>("AccountingBookName")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("AccountingRule")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
+                    b.Property<string>("BookName")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreditAccount")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("DebitAccount")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("EnteredUser")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("EventType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ExternalCreditAccount")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("ExternalDebitAccount")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Manual")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("OriginalEvent")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PostingCurrency")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("PostingDescription")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("PostingLinkedId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("PostingOtherAmount")
+                        .HasColumnType("real");
+
+                    b.Property<string>("PostingStatus")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("PostingType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ProductDescription")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("TradeId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("TradeStatus")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("PostingId");
+
+                    b.ToTable("DEF_Posting");
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ExchangeRates", b =>
                 {
                     b.Property<int>("ExchangeRateID")
@@ -444,7 +552,7 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,3)");
 
                     b.Property<string>("ToCurrency")
                         .IsRequired()
@@ -499,7 +607,7 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasColumnType("nvarchar(80)");
 
                     b.Property<DateTime?>("OpenDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("REFERENCE")
                         .HasMaxLength(80)
@@ -989,7 +1097,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 11, 7, 11, 49, 24, 209, DateTimeKind.Local).AddTicks(2257),
+                            EffectiveDate = new DateTime(2023, 11, 14, 15, 51, 11, 594, DateTimeKind.Local).AddTicks(3352),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });

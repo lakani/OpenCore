@@ -16,8 +16,11 @@ namespace SIS.OpenCore.Server.Data.Config.Common
             builder.Property(p => p.ToCurrency).IsRequired();
 			builder.Property(p => p.ToCurrency).HasMaxLength(5);
             builder.Property(p => p.Rate).IsRequired();
+            builder.Property(p => p.Rate).HasColumnType("decimal(18,3)");
             builder.Property(p => p.EffectiveDate).IsRequired();
 			builder.Property(p => p.EffectiveDate).HasColumnType("datetime");
+
+            //property.Relational().ColumnType = ; 
         }
 
     }

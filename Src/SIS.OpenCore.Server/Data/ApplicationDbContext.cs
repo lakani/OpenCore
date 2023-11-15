@@ -59,6 +59,7 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
 		public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
 		public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
+		public virtual DbSet<DEF_Posting> DEF_Posting { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -83,6 +84,7 @@ namespace SIS.OpenCore.Server.Data
 			new LUT_ACCT_TYPEConfig().Configure(builder.Entity<LUT_ACCT_TYPE>());
 			new DEF_ACCT_CLASSConfig().Configure(builder.Entity<DEF_ACCT_CLASS>());
 			new DEF_CK_ACCTConfig().Configure(builder.Entity<DEF_CK_ACCT>());
+			new DEF_PostingConfig().Configure(builder.Entity<DEF_Posting>());
 		}
 	}
 }

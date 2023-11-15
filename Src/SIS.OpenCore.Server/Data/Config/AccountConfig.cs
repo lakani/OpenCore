@@ -68,6 +68,8 @@ namespace SIS.OpenCore.Server.Data.Config.Account
             builder.Property(p => p.ReferenceOrg).HasMaxLength(80);
             //IBAN   is optional
             builder.Property(p => p.IBAN).HasMaxLength(80);
+            //OpenDate      
+            builder.Property(p => p.OpenDate).HasColumnType("datetime");      
 
         }
     }
