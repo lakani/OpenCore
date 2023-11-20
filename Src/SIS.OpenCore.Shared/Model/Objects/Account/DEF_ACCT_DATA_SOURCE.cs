@@ -8,19 +8,18 @@ using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Shared.Model.Objects.Account
 {
-    public partial class DEF_ACCT_CLASS : BaseEntity
+    public partial class DEF_ACCT_DATA_SOURCE : BaseEntity
     {
         public int GetPrimaryKey ()
         {
-            return ACCT_CLASS_ID;
+            return ACCT_DATA_SOURCE_ID;
         }
-        public short ACCT_CLASS_ID { get; set; }
+        public short ACCT_DATA_SOURCE_ID { get; set; }
         public string Name { get; set; }
-        public short ACCT_TYPE { get; set; }
         public string REFERENCE { get; set; }
-        public bool ExternallyManged  { get; set; }
-        public LUT_ACCT_TYPE lUT_ACCT_TYPE { get; set; }
-
-        //public ICollection<DEF_CK_ACCT> DEF_CK_ACCT { get; } = new List<DEF_CK_ACCT>();
+        public string CONNECTIONTYPE  { get; set; }
+        public string DATABASE  { get; set; }
+        public string USERNAME  { get; set; }
+        public string PASSWORD  { get; set; }
     }
 }

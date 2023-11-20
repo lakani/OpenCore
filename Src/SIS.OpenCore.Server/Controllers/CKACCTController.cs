@@ -186,6 +186,7 @@ namespace SIS.OpenCore.Server.Controllers
                     ReferenceOrg = CKACCTReq.ReferenceOrg,
                     IBAN = CKACCTReq.IBAN,
                     OpenDate = DateTime.Now,
+                    ExternallyManged = CKACCTReq.ExternallyManged,
                     STATUS = 1 });
 
                 return Ok(new BaseResponseModel{ Message = newID.ToString(), Record=newID, Successful = true });

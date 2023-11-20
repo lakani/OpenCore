@@ -88,6 +88,7 @@ namespace SIS.OpenCore.Server.Migrations
                     ReferenceOrg = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     IBAN = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     OpenDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ExternallyManged = table.Column<bool>(type: "bit", nullable: false),
                     STATUS = table.Column<short>(type: "smallint", nullable: true)
                 },
                 constraints: table =>
@@ -474,7 +475,8 @@ namespace SIS.OpenCore.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     ACCT_TYPE = table.Column<short>(type: "smallint", nullable: false),
-                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ExternallyManged = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -596,7 +598,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 14, 15, 51, 11, 594, DateTimeKind.Local).AddTicks(3352), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 16, 10, 5, 6, 854, DateTimeKind.Local).AddTicks(1519), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

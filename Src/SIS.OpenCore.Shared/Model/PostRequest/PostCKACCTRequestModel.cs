@@ -16,6 +16,7 @@ namespace SIS.OpenCore.Shared.Model.PostRequest
         public string ReferenceACCT { get; set; }
         public string ReferenceOrg { get; set; }
         public string IBAN { get; set; }
+        public bool ExternallyManged  { get; set; }
     }
 }
 

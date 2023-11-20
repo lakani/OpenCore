@@ -39,6 +39,19 @@ namespace SIS.OpenCore.Server.Data.Config.Account
         }
     }
 
+    public partial class  DEF_ACCT_DATA_SOURCEConfig : IEntityTypeConfiguration<DEF_ACCT_DATA_SOURCE>
+    {
+        public void Configure(EntityTypeBuilder<DEF_ACCT_DATA_SOURCE> builder)
+        {
+            builder.HasKey(e => e.ACCT_DATA_SOURCE_ID);
+            builder.Property(p => p.ACCT_DATA_SOURCE_ID).IsRequired();
+			builder.Property(p => p.ACCT_DATA_SOURCE_ID).ValueGeneratedOnAdd();
+            builder.Property(p => p.Name).IsRequired();
+            builder.Property(p => p.Name).HasMaxLength(50);
+        }
+    }
+
+
     public partial class  DEF_CK_ACCTConfig : IEntityTypeConfiguration<DEF_CK_ACCT>
     {
         public void Configure(EntityTypeBuilder<DEF_CK_ACCT> builder)

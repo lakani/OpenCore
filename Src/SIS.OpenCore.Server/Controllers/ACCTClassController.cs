@@ -16,7 +16,8 @@ using Microsoft.Data.SqlClient;
 namespace SIS.OpenCore.Server.Controllers
 {
     [ApiController]
-	[Route("v1/api/OpenCore/system/Objects/ACCTClass")]
+    //[Route("api/[controller]/[action]")]
+	[Route("v1/api/OpenCore/system/Objects/ACCTClass/[action]")]
     public partial class ACCTClassController : ControllerBase
     {
         private readonly ILogger<ACCTClassController> _logger;
@@ -113,14 +114,17 @@ namespace SIS.OpenCore.Server.Controllers
         }
 
 
-
-
+        [HttpGet(Name ="Preview")]
+        public ActionResult Preview(int x, int y)
+        {
+            return Ok("Preview");
+        }
 
 
         [HttpPost]
         public async Task<ActionResult> PostNewAcctClass(PostACCTClassRequestModel ACCTClassReq)
         {
-            _logger.Log(LogLevel.Information, "[HttpGet] ACCTClassController - > PostNewACCTClass");
+            _logger.Log(LogLevel.Information, "[HttpPost] ACCTClassController - > PostNewACCTClass");
 
             try{
                 _logger.Log(LogLevel.Information, "Checking def_ACCTClass.ACCT_TYPE");
@@ -130,7 +134,8 @@ namespace SIS.OpenCore.Server.Controllers
                 int newID = await _AcctClassRepository.Create(new DEF_ACCT_CLASS {
                     ACCT_TYPE = ACCTClassReq.ACCT_TYPE,
                     Name = ACCTClassReq.Name,
-                    REFERENCE = ACCTClassReq.REFERENCE});
+                    REFERENCE = ACCTClassReq.REFERENCE,
+                    ExternallyManged = ACCTClassReq.ExternallyManged });
 
                 return Ok(new BaseResponseModel{ Message = newID.ToString(), Record=newID, Successful = true });
             }

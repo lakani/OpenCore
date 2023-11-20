@@ -27,6 +27,7 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account.CK
         public string ReferenceOrg { get; set; }
         public string IBAN { get; set; }
         public DateTime? OpenDate { get; set; }
+        public bool ExternallyManged  { get; set; }
         public short? STATUS { get; set; }
 
         // // Foreign key

@@ -12,7 +12,7 @@ using SIS.OpenCore.Server.Data;
 namespace SIS.OpenCore.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231114135111_SIS.OpenCore_MIGRATIONS_0001")]
+    [Migration("20231116080507_SIS.OpenCore_MIGRATIONS_0001")]
     partial class SISOpenCore_MIGRATIONS_0001
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SIS.OpenCore.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -600,6 +600,9 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
+                    b.Property<bool>("ExternallyManged")
+                        .HasColumnType("bit");
+
                     b.Property<string>("IBAN")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
@@ -646,6 +649,9 @@ namespace SIS.OpenCore.Server.Migrations
 
                     b.Property<short>("ACCT_TYPE")
                         .HasColumnType("smallint");
+
+                    b.Property<bool>("ExternallyManged")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1100,7 +1106,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 11, 14, 15, 51, 11, 594, DateTimeKind.Local).AddTicks(3352),
+                            EffectiveDate = new DateTime(2023, 11, 16, 10, 5, 6, 854, DateTimeKind.Local).AddTicks(1519),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
