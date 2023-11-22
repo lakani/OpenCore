@@ -39,15 +39,42 @@ namespace SIS.OpenCore.Server.Data.Config.Account
         }
     }
 
-    public partial class  DEF_ACCT_DATA_SOURCEConfig : IEntityTypeConfiguration<DEF_ACCT_DATA_SOURCE>
+    public partial class  ACCT_DATA_SOURCEConfig : IEntityTypeConfiguration<ACCT_DATA_SOURCE>
     {
-        public void Configure(EntityTypeBuilder<DEF_ACCT_DATA_SOURCE> builder)
+        public void Configure(EntityTypeBuilder<ACCT_DATA_SOURCE> builder)
         {
             builder.HasKey(e => e.ACCT_DATA_SOURCE_ID);
             builder.Property(p => p.ACCT_DATA_SOURCE_ID).IsRequired();
 			builder.Property(p => p.ACCT_DATA_SOURCE_ID).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired();
             builder.Property(p => p.Name).HasMaxLength(50);
+
+            builder.Property(p => p.REFERENCE).HasMaxLength(50);
+
+            // TODO : determine which fields are required or not
+            //builder.Property(p => p.CONNECTIONTYPE).IsRequired();
+            builder.Property(p => p.CONNECTIONTYPE).HasMaxLength(80);
+
+            //builder.Property(p => p.CONNECTIONSTRING).IsRequired();
+            builder.Property(p => p.CONNECTIONSTRING).HasMaxLength(80);
+
+            //builder.Property(p => p.SERVER).IsRequired();
+            builder.Property(p => p.SERVER).HasMaxLength(80);
+
+            //builder.Property(p => p.DATABASE).IsRequired();
+            builder.Property(p => p.DATABASE).HasMaxLength(80);
+
+            //builder.Property(p => p.USERNAME).IsRequired();
+            builder.Property(p => p.USERNAME).HasMaxLength(80);
+
+            //builder.Property(p => p.PASSWORD).IsRequired();
+            builder.Property(p => p.PASSWORD).HasMaxLength(80);
+
+            //builder.Property(p => p.QUERY).IsRequired();
+            builder.Property(p => p.QUERY).HasMaxLength(360);
+
+            //builder.Property(p => p.PREVIEWQUERY).IsRequired();
+            builder.Property(p => p.PREVIEWQUERY).HasMaxLength(360);
         }
     }
 

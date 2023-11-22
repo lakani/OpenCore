@@ -14,6 +14,28 @@ namespace SIS.OpenCore.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ACCT_DATA_SOURCE",
+                columns: table => new
+                {
+                    ACCT_DATA_SOURCE_ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    REFERENCE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CONNECTIONTYPE = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    CONNECTIONSTRING = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    SERVER = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    DATABASE = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    USERNAME = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    PASSWORD = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    QUERY = table.Column<string>(type: "nvarchar(360)", maxLength: 360, nullable: true),
+                    PREVIEWQUERY = table.Column<string>(type: "nvarchar(360)", maxLength: 360, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACCT_DATA_SOURCE", x => x.ACCT_DATA_SOURCE_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -598,7 +620,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 16, 10, 5, 6, 854, DateTimeKind.Local).AddTicks(1519), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 22, 12, 46, 40, 524, DateTimeKind.Local).AddTicks(6738), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -700,6 +722,9 @@ namespace SIS.OpenCore.Server.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ACCT_DATA_SOURCE");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

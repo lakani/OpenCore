@@ -8,7 +8,7 @@ using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Shared.Model.Objects.Account
 {
-    public partial class DEF_ACCT_DATA_SOURCE : BaseEntity
+    public partial class ACCT_DATA_SOURCE : BaseEntity
     {
         public int GetPrimaryKey ()
         {
@@ -18,8 +18,12 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account
         public string Name { get; set; }
         public string REFERENCE { get; set; }
         public string CONNECTIONTYPE  { get; set; }
+        public string CONNECTIONSTRING  { get; set; }
+        public string SERVER  { get; set; }
         public string DATABASE  { get; set; }
         public string USERNAME  { get; set; }
         public string PASSWORD  { get; set; }
+        public string QUERY  { get; set; }
+        public string PREVIEWQUERY  { get; set; }
     }
 }
