@@ -113,20 +113,35 @@ namespace SIS.OpenCore.Server.Controllers
 
             // TODO add here checks for the Request 
 
-            using (var connection = new SqlConnection(ACCTDataSourceReq.CONNECTIONSTRING))
+            try
             {
-                connection.Open();
-                using (var command = new SqlCommand(ACCTDataSourceReq.PREVIEWQUERY, connection))
+                using (var connection = new SqlConnection(ACCTDataSourceReq.CONNECTIONSTRING))
                 {
-                    using (var reader = command.ExecuteReader())
+                    connection.Open();
+                    using (var command = new SqlCommand(ACCTDataSourceReq.PREVIEWQUERY, connection))
                     {
-                        if(true == reader.Read())
-                            return Ok("Sucess"); 
-                        else
-                            return BadRequest("Error"); 
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if(true == reader.Read())
+                                return Ok("Sucess"); 
+                            else
+                                return BadRequest("Error"); 
+                        }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    _logger.LogError("Inner Exception");
+                    _logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
+                }
+                _logger.LogError("Error [HttpGet] ACCT_DATA_SOURCEController - > Get");
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+            
             
             // should check that the connection to the given database is Valid
         }
