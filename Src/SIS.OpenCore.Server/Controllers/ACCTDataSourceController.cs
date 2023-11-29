@@ -21,31 +21,31 @@ namespace SIS.OpenCore.Server.Controllers
     [ApiController]
     //[Route("api/[controller]/[action]")]
 	[Route("v1/api/OpenCore/system/Objects/[controller]/[action]")]
-    public partial class ACCT_DATA_SOURCEController : ControllerBase
+    public partial class ACCTDataSourceController : ControllerBase
     {
-        private readonly ILogger<ACCT_DATA_SOURCEController> _logger;
+        private readonly ILogger<ACCTDataSourceController> _logger;
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
-		private readonly IACCT_DATA_SOURCERepository<ACCT_DATA_SOURCE> _AcctDataSourceRep;
+		private readonly IACCTDataSourceRepository<ACCTDataSource> _AcctDataSourceRep;
 
 
-        public ACCT_DATA_SOURCEController(
-		ILogger<ACCT_DATA_SOURCEController> logger, IConfiguration Configuration,
+        public ACCTDataSourceController(
+		ILogger<ACCTDataSourceController> logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
-		IACCT_DATA_SOURCERepository<ACCT_DATA_SOURCE> AcctDataSourceRep) : base()
+		IACCTDataSourceRepository<ACCTDataSource> AcctDataSourceRep) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
 			_signInManager = signInManager;
             _AcctDataSourceRep = AcctDataSourceRep;
 
-			_logger.Log(LogLevel.Information, "ACCT_DATA_SOURCEController() : constructor");
+			_logger.Log(LogLevel.Information, "ACCTDataSourceController() : constructor");
 		}
 
         [HttpGet]
         public ActionResult Get(int nDataSource)
         {
-            _logger.Log(LogLevel.Information, "[HttpGet] ACCT_DATA_SOURCEController - > Get");
+            _logger.Log(LogLevel.Information, "[HttpGet] ACCTDataSourceController - > Get");
 
             if (nDataSource == 0) // Get All
             {
@@ -71,7 +71,7 @@ namespace SIS.OpenCore.Server.Controllers
                         _logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
                     }
                     
-                    _logger.LogError("Error [HttpGet] ACCT_DATA_SOURCEController - > Get");
+                    _logger.LogError("Error [HttpGet] ACCTDataSourceController - > Get");
                     _logger.LogError(ex.Message);
                     return BadRequest(ex.Message);
                 }
@@ -88,7 +88,7 @@ namespace SIS.OpenCore.Server.Controllers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("[HttpGet] ACCT_DATA_SOURCEController - > Get");
+                    _logger.LogError("[HttpGet] ACCTDataSourceController - > Get");
                     _logger.LogError(ex.Message);
                     return BadRequest(ex.Message);
                 }
@@ -99,7 +99,7 @@ namespace SIS.OpenCore.Server.Controllers
         [HttpPost(Name ="Test")]
         public ActionResult TestDataSource(PostACCTDataSourceModel ACCTDataSourceReq)
         {
-            _logger.Log(LogLevel.Information, "[HttpPost] ACCT_DATA_SOURCEController - > TestDataSource");
+            _logger.Log(LogLevel.Information, "[HttpPost] ACCTDataSourceController - > TestDataSource");
 
             //Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;
             if(string.IsNullOrEmpty(ACCTDataSourceReq.CONNECTIONSTRING))
@@ -137,7 +137,7 @@ namespace SIS.OpenCore.Server.Controllers
                     _logger.LogError("Inner Exception");
                     _logger.LogError(String.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
                 }
-                _logger.LogError("Error [HttpGet] ACCT_DATA_SOURCEController - > Get");
+                _logger.LogError("Error [HttpGet] ACCTDataSourceController - > Get");
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
@@ -150,10 +150,10 @@ namespace SIS.OpenCore.Server.Controllers
         [HttpPost]
         public async Task<ActionResult> PostNewAcctDataSource(PostACCTDataSourceModel ACCTDataSourceReq)
         {
-            _logger.Log(LogLevel.Information, "[HttpPost] ACCT_DATA_SOURCEController - > PostNewAcctDataSource");
+            _logger.Log(LogLevel.Information, "[HttpPost] ACCTDataSourceController - > PostNewAcctDataSource");
 
             try{
-                int newID = await _AcctDataSourceRep.Create(new ACCT_DATA_SOURCE {
+                int newID = await _AcctDataSourceRep.Create(new ACCTDataSource {
                     Name = ACCTDataSourceReq.Name,
                     REFERENCE = ACCTDataSourceReq.REFERENCE,
                     CONNECTIONTYPE = ACCTDataSourceReq.CONNECTIONTYPE,

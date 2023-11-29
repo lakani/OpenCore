@@ -39,13 +39,13 @@ namespace SIS.OpenCore.Server.Data.Config.Account
         }
     }
 
-    public partial class  ACCT_DATA_SOURCEConfig : IEntityTypeConfiguration<ACCT_DATA_SOURCE>
+    public partial class  ACCTDataSourceConfig : IEntityTypeConfiguration<ACCTDataSource>
     {
-        public void Configure(EntityTypeBuilder<ACCT_DATA_SOURCE> builder)
+        public void Configure(EntityTypeBuilder<ACCTDataSource> builder)
         {
-            builder.HasKey(e => e.ACCT_DATA_SOURCE_ID);
-            builder.Property(p => p.ACCT_DATA_SOURCE_ID).IsRequired();
-			builder.Property(p => p.ACCT_DATA_SOURCE_ID).ValueGeneratedOnAdd();
+            builder.HasKey(e => e.ACCTDataSource_ID);
+            builder.Property(p => p.ACCTDataSource_ID).IsRequired();
+			builder.Property(p => p.ACCTDataSource_ID).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired();
             builder.Property(p => p.Name).HasMaxLength(50);
 

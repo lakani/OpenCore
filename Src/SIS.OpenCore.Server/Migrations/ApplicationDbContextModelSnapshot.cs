@@ -564,13 +564,13 @@ namespace SIS.OpenCore.Server.Migrations
                     b.ToTable("ExchangeRates");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.ACCT_DATA_SOURCE", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.ACCTDataSource", b =>
                 {
-                    b.Property<short>("ACCT_DATA_SOURCE_ID")
+                    b.Property<short>("ACCTDataSource_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("smallint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ACCT_DATA_SOURCE_ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ACCTDataSource_ID"));
 
                     b.Property<string>("CONNECTIONSTRING")
                         .HasMaxLength(80)
@@ -613,9 +613,9 @@ namespace SIS.OpenCore.Server.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("ACCT_DATA_SOURCE_ID");
+                    b.HasKey("ACCTDataSource_ID");
 
-                    b.ToTable("ACCT_DATA_SOURCE");
+                    b.ToTable("ACCTDataSource");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.DEF_CK_ACCT", b =>
@@ -1157,7 +1157,7 @@ namespace SIS.OpenCore.Server.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 11, 22, 12, 46, 40, 524, DateTimeKind.Local).AddTicks(6738),
+                            EffectiveDate = new DateTime(2023, 11, 29, 14, 57, 44, 515, DateTimeKind.Local).AddTicks(8618),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });

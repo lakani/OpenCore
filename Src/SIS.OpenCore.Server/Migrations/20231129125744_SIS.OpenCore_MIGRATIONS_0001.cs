@@ -14,10 +14,10 @@ namespace SIS.OpenCore.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ACCT_DATA_SOURCE",
+                name: "ACCTDataSource",
                 columns: table => new
                 {
-                    ACCT_DATA_SOURCE_ID = table.Column<short>(type: "smallint", nullable: false)
+                    ACCTDataSource_ID = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     REFERENCE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -32,7 +32,7 @@ namespace SIS.OpenCore.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ACCT_DATA_SOURCE", x => x.ACCT_DATA_SOURCE_ID);
+                    table.PrimaryKey("PK_ACCTDataSource", x => x.ACCTDataSource_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -620,7 +620,7 @@ namespace SIS.OpenCore.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 22, 12, 46, 40, 524, DateTimeKind.Local).AddTicks(6738), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 11, 29, 14, 57, 44, 515, DateTimeKind.Local).AddTicks(8618), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -723,7 +723,7 @@ namespace SIS.OpenCore.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ACCT_DATA_SOURCE");
+                name: "ACCTDataSource");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

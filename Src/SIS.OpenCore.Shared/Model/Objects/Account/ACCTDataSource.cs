@@ -8,13 +8,13 @@ using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Shared.Model.Objects.Account
 {
-    public partial class ACCT_DATA_SOURCE : BaseEntity
+    public partial class ACCTDataSource : BaseEntity
     {
         public int GetPrimaryKey ()
         {
-            return ACCT_DATA_SOURCE_ID;
+            return ACCTDataSource_ID;
         }
-        public short ACCT_DATA_SOURCE_ID { get; set; }
+        public short ACCTDataSource_ID { get; set; }
         public string Name { get; set; }
         public string REFERENCE { get; set; }
         public string CONNECTIONTYPE  { get; set; }

@@ -9,34 +9,34 @@ using System;
 #nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.Account
 {
-    public class ACCT_DATA_SOURCERepositoryImp : GenericRepository<ACCT_DATA_SOURCE>, IACCT_DATA_SOURCERepository<ACCT_DATA_SOURCE>
+    public class ACCTDataSourceRepositoryImp : GenericRepository<ACCTDataSource>, IACCTDataSourceRepository<ACCTDataSource>
     {
-        public ACCT_DATA_SOURCERepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<ACCT_DATA_SOURCE> logger)
+        public ACCTDataSourceRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<ACCTDataSource> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("ACCT_DATA_SOURCERepositoryImp");
+            logger.LogInformation("ACCTDataSourceRepositoryImp");
         }
 
-        override public ACCT_DATA_SOURCE? GetById(int id)
+        override public ACCTDataSource? GetById(int id)
         {
-            ACCT_DATA_SOURCE? Ret = (from t in _dbContext.ACCT_DATA_SOURCE
-                                where t.ACCT_DATA_SOURCE_ID == id
+            ACCTDataSource? Ret = (from t in _dbContext.ACCTDataSource
+                                where t.ACCTDataSource_ID == id
                                 select t).FirstOrDefault();
 
             return Ret;
         }
 
-        override public async Task<int> Create(ACCT_DATA_SOURCE entity)
+        override public async Task<int> Create(ACCTDataSource entity)
         {
             try
             {
-                await _dbContext.Set<ACCT_DATA_SOURCE>().AddAsync(entity);
+                await _dbContext.Set<ACCTDataSource>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error in ACCT_DATA_SOURCERepositoryImp:Create");
+                _logger.LogError("Error in ACCTDataSourceRepositoryImp:Create");
                 _logger.LogError(ex.Message);
                 if (ex.InnerException != null)
                     _logger.LogError(ex.InnerException.ToString());

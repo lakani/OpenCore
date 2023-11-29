@@ -53,7 +53,7 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<IDEF_CK_ACCTRepository<DEF_CK_ACCT>, DEF_CK_ACCTRepositoryImp>();
 			services.AddScoped<IDEF_CurrencyRepository<DEF_Currency>, DEF_CurrencyRepositoryImp>();
 			// Account Data Sources
-			services.AddScoped<IACCT_DATA_SOURCERepository<ACCT_DATA_SOURCE>, ACCT_DATA_SOURCERepositoryImp>();
+			services.AddScoped<IACCTDataSourceRepository<ACCTDataSource>, ACCTDataSourceRepositoryImp>();
 			
 			return services;
 		}
