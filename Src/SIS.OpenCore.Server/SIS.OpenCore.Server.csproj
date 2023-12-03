@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SIS.OpenCore.DAL\SIS.OpenCore.DAL.csproj" />
+    <ProjectReference Include="..\SIS.OpenCore.Server.Data\SIS.OpenCore.Server.Data.csproj" />
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 

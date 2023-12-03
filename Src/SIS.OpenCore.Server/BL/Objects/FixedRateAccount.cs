@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SIS.OpenCore.Server.BL.Process;
 using SIS.OpenCore.Server.BL;
 using SIS.OpenCore.Shared.Model;
-using DAL = SIS.OpenCore.DAL;
+using DAL = SIS.OpenCore.Server.Data;
 
 namespace SIS.OpenCore.Server.BL.Objects
 {

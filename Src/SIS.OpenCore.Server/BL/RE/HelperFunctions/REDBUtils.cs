@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIS.OpenCore.DAL;
+using SIS.OpenCore.Server.Data;
 
 
 namespace SIS.OpenCore.Server.BL.RE.Helper

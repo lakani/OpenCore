@@ -7,13 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SIS.OpenCore.Server.Data.Repository;
-using SIS.OpenCore.Server.Data;
+using SIS.OpenCore.Server.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Common;
 using System.IdentityModel.Tokens.Jwt;
+
 
 namespace SIS.OpenCore.Server
 {

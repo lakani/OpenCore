@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIS.OpenCore.Shared.Model;
-using SIS.OpenCore.DAL;
+using SIS.OpenCore.Server.Data;
+using SIS.OpenCore.Server.Data.Context;
 
 namespace SIS.OpenCore.Server.BL.Process
 {
@@ -16,7 +17,7 @@ namespace SIS.OpenCore.Server.BL.Process
         static public void InterestCalculationProcess(DateTime RunDate)
         {
             // Get All Fixed Rate Active Accounts
-            DEF_FIXRATE_ACCT[] ActiveAccTs = DAL.FixedRateAccount.List(string.Empty, string.Empty, 0);
+            DEF_FIXRATE_ACCT[] ActiveAccTs = FixedRateAccount.List(string.Empty, string.Empty, 0);
             foreach (DEF_FIXRATE_ACCT FixedAcct in ActiveAccTs)
             {
                 if(FixedAcct.CloseDate != RunDate)

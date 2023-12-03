@@ -1,9 +1,9 @@
 using System.Linq;
 using System;
-using SIS.OpenCore.DAL;
+using SIS.OpenCore.Server.Data;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Common;
-using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Server.Data.Context;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;

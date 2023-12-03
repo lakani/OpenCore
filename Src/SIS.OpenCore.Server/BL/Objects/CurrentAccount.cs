@@ -2,8 +2,8 @@ using System.Linq;
 using System;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Server.BL;
-using SIS.OpenCore.DAL.Context;
-using DAL = SIS.OpenCore.DAL;
+using SIS.OpenCore.Server.Data.Context;
+using DAL = SIS.OpenCore.Server.Data;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 

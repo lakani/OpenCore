@@ -2,9 +2,9 @@
 using System;
 using SIS.OpenCore.Shared.Model;
 using BAL = SIS.OpenCore.Server.BL.Objects;
-using SIS.OpenCore.DAL;
-using SIS.OpenCore.DAL.TODO;
-using SIS.OpenCore.DAL.Context;
+using SIS.OpenCore.Server.Data;
+using SIS.OpenCore.Server.Data.TODO;
+using SIS.OpenCore.Server.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 

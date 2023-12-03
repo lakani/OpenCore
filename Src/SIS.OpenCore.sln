@@ -5,13 +5,13 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Client.Win", "SIS.OpenCore.Client.Win\SIS.OpenCore.Client.Win.csproj", "{9EC95E47-B4C8-4BD7-958C-964F30FAC842}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.DAL", "SIS.OpenCore.DAL\SIS.OpenCore.DAL.csproj", "{DBDDBF7A-0DFE-461F-B231-2D96EE7A0A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Server.Data", "SIS.OpenCore.Server.Data\SIS.OpenCore.Server.Data.csproj", "{DBDDBF7A-0DFE-461F-B231-2D96EE7A0A9D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Shared", "SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj", "{561955E9-8B13-4B8A-AA46-7EB8F8785BBE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.UnitTesting", "SIS.OpenCore.UnitTesting\SIS.OpenCore.UnitTesting.csproj", "{A0C7C60F-A19D-4B79-A474-7A1C1155870D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.OpenCore.Server", "SIS.OpenCore.Server\SIS.OpenCore.Server.csproj", "{98100930-B603-4A9D-84BE-CB167E5DA997}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.OpenCore.Server", "SIS.OpenCore.Server\SIS.OpenCore.Server.csproj", "{98100930-B603-4A9D-84BE-CB167E5DA997}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,18 +71,6 @@ Global
 		{A0C7C60F-A19D-4B79-A474-7A1C1155870D}.Release|x64.Build.0 = Release|Any CPU
 		{A0C7C60F-A19D-4B79-A474-7A1C1155870D}.Release|x86.ActiveCfg = Release|Any CPU
 		{A0C7C60F-A19D-4B79-A474-7A1C1155870D}.Release|x86.Build.0 = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|x64.Build.0 = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Debug|x86.Build.0 = Debug|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|x64.ActiveCfg = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|x64.Build.0 = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|x86.ActiveCfg = Release|Any CPU
-		{939E1E98-8D70-411E-B862-9676FB80963E}.Release|x86.Build.0 = Release|Any CPU
 		{98100930-B603-4A9D-84BE-CB167E5DA997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98100930-B603-4A9D-84BE-CB167E5DA997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98100930-B603-4A9D-84BE-CB167E5DA997}.Debug|x64.ActiveCfg = Debug|Any CPU
