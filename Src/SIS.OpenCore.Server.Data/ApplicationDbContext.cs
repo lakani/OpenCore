@@ -16,7 +16,7 @@ using SIS.OpenCore.Server.Data.Config.Common;
 using SIS.OpenCore.Server.Data.Config.Account;
 using System.Reflection.Emit;
 
-namespace SIS.OpenCore.Server.Data.Context
+namespace SIS.OpenCore.Server.Data
 {
 	public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 	{

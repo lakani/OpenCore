@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Common;
 using System.IdentityModel.Tokens.Jwt;
+using SIS.OpenCore.Server.Data;
 
 
 namespace SIS.OpenCore.Server

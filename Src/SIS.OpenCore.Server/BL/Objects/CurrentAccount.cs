@@ -17,122 +17,131 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         public static bool SearchRegardlessStatus(string stAcctNo)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            var Ret =   (from   c in db.DEF_CK_ACCT
-                        where   c.ACCT_NO == stAcctNo
-                        select  c.ACCT_NO).FirstOrDefault();
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // var Ret =   (from   c in db.DEF_CK_ACCT
+            //             where   c.ACCT_NO == stAcctNo
+            //             select  c.ACCT_NO).FirstOrDefault();
 
-            if (true == string.IsNullOrEmpty(Ret))
-                return false;
-            if(Ret != stAcctNo)
-                return false;
+            // if (true == string.IsNullOrEmpty(Ret))
+            //     return false;
+            // if(Ret != stAcctNo)
+            //     return false;
             return true;
         }
 
         public static bool Search(string stAcctNo)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            var Ret =   (from   c in db.DEF_CK_ACCT
-                        where   c.ACCT_NO == stAcctNo && c.STATUS == 1
-                        select  c.ACCT_NO).FirstOrDefault();
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // var Ret =   (from   c in db.DEF_CK_ACCT
+            //             where   c.ACCT_NO == stAcctNo && c.STATUS == 1
+            //             select  c.ACCT_NO).FirstOrDefault();
 
-            if (true == string.IsNullOrEmpty(Ret))
-                return false;
-            if(Ret != stAcctNo)
-                return false;
+            // if (true == string.IsNullOrEmpty(Ret))
+            //     return false;
+            // if(Ret != stAcctNo)
+            //     return false;
             return true;
         }
 
         public static DEF_CK_ACCT GetAccountInfo(string stAcctNo)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            var Ret =   (from   c in db.DEF_CK_ACCT
-                        where   c.ACCT_NO == stAcctNo && c.STATUS == 1
-                        select  c).FirstOrDefault();
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // var Ret =   (from   c in db.DEF_CK_ACCT
+            //             where   c.ACCT_NO == stAcctNo && c.STATUS == 1
+            //             select  c).FirstOrDefault();
 
-            return Ret;
+            //return Ret;
+            return new DEF_CK_ACCT();
         }
 
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
         {
-            OpenCoreContext  db = new OpenCoreContext();
-            //decimal?            BalanceAfter = 0 ;
+            // DeadCode
+            // OpenCoreContext  db = new OpenCoreContext();
+            // //decimal?            BalanceAfter = 0 ;
 
-            var BalanceAfter =  ((from l in db.TRN_LEGS
-                                where   l.GL == false && l.STATUS_ID == 1 && 
-                                    l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
-                                orderby l.EffDt descending , l.CREATE_DT descending, 
-                                    l.TRN_LEGS_ID descending, l.Sequence descending
-                                select  l.Balance_After).FirstOrDefault());
+            // var BalanceAfter =  ((from l in db.TRN_LEGS
+            //                     where   l.GL == false && l.STATUS_ID == 1 && 
+            //                         l.Acct_No == Acct_No && l.Acct_Curr == Acct_Curr 
+            //                     orderby l.EffDt descending , l.CREATE_DT descending, 
+            //                         l.TRN_LEGS_ID descending, l.Sequence descending
+            //                     select  l.Balance_After).FirstOrDefault());
 
-            if(BalanceAfter == null)
-                BalanceAfter = 0;
+            // if(BalanceAfter == null)
+            //     BalanceAfter = 0;
 
-            return (decimal)BalanceAfter;
+            // return (decimal)BalanceAfter;
+            return 0;
         }
 
         
         public static string Add(DEF_CK_ACCT NewAcct, DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
+            //DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
                                   
                         
-            // if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
-            //     throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
+            // // if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
+            // //     throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 
-            foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
-            {
-                //GLNum, short GLCategory , string stCurrency)   
-                if(false == AccountClassAccountingStructure.ValidateExists(ACCT_STRUCT.GLNum, ACCT_STRUCT.GLCategory, NewAcct.Currency))
-                    throw new ArgumentOutOfRangeException("ACCT_STRUCT", "Account class doesn't Exists");
-            }
+            // foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            // {
+            //     //GLNum, short GLCategory , string stCurrency)   
+            //     if(false == AccountClassAccountingStructure.ValidateExists(ACCT_STRUCT.GLNum, ACCT_STRUCT.GLCategory, NewAcct.Currency))
+            //         throw new ArgumentOutOfRangeException("ACCT_STRUCT", "Account class doesn't Exists");
+            // }
 
-            //NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
-            if(true == string.IsNullOrEmpty(NewAcct.ACCT_NO))
-                throw new ArgumentOutOfRangeException("ACCT_NO", "Invalid Account Number");
+            // //NewAcct.ACCT_NO = GenerateNewACCT_NO(NewAcct.ACCT_NO);
+            // if(true == string.IsNullOrEmpty(NewAcct.ACCT_NO))
+            //     throw new ArgumentOutOfRangeException("ACCT_NO", "Invalid Account Number");
 
-            newAcctEL.ACCT_NO = NewAcct.ACCT_NO;
-            newAcctEL.ACCT_CLASS_ID = NewAcct.ACCT_CLASS_ID;
-            newAcctEL.CIF_NO = NewAcct.CIF_NO;
-            newAcctEL.CompanyID = NewAcct.CompanyID;
-            newAcctEL.Currency = NewAcct.Currency;
-            newAcctEL.Description = NewAcct.Description;
-            newAcctEL.IBAN = NewAcct.IBAN;
-            newAcctEL.OpenDate = NewAcct.OpenDate;
-            newAcctEL.ReferenceACCT = NewAcct.ReferenceACCT;
-            newAcctEL.ReferenceOrg = NewAcct.ReferenceOrg;
-            newAcctEL.STATUS = 1;
-            newAcctEL.Title = NewAcct.Title;
+            // newAcctEL.ACCT_NO = NewAcct.ACCT_NO;
+            // newAcctEL.ACCT_CLASS_ID = NewAcct.ACCT_CLASS_ID;
+            // newAcctEL.CIF_NO = NewAcct.CIF_NO;
+            // newAcctEL.CompanyID = NewAcct.CompanyID;
+            // newAcctEL.Currency = NewAcct.Currency;
+            // newAcctEL.Description = NewAcct.Description;
+            // newAcctEL.IBAN = NewAcct.IBAN;
+            // newAcctEL.OpenDate = NewAcct.OpenDate;
+            // newAcctEL.ReferenceACCT = NewAcct.ReferenceACCT;
+            // newAcctEL.ReferenceOrg = NewAcct.ReferenceOrg;
+            // newAcctEL.STATUS = 1;
+            // newAcctEL.Title = NewAcct.Title;
 
-            db.DEF_CK_ACCT.Add(newAcctEL);
-            db.SaveChanges();   
+            // db.DEF_CK_ACCT.Add(newAcctEL);
+            // db.SaveChanges();   
 
-            foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
-            {
-                DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new DEF_CK_ACCT_ACCT_STRUCT();
+            // foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            // {
+            //     DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new DEF_CK_ACCT_ACCT_STRUCT();
 
-                ACCT_STRUCT_EL.AccountCode = NewAcct.ACCT_NO;
-                ACCT_STRUCT_EL.GLCategory = ACCT_STRUCT.GLCategory;
-                ACCT_STRUCT_EL.GLComments = ACCT_STRUCT.GLComments;
-                ACCT_STRUCT_EL.GLNum = ACCT_STRUCT.GLNum;
+            //     ACCT_STRUCT_EL.AccountCode = NewAcct.ACCT_NO;
+            //     ACCT_STRUCT_EL.GLCategory = ACCT_STRUCT.GLCategory;
+            //     ACCT_STRUCT_EL.GLComments = ACCT_STRUCT.GLComments;
+            //     ACCT_STRUCT_EL.GLNum = ACCT_STRUCT.GLNum;
 
-                db.DEF_CK_ACCT_ACCT_STRUCT.Add(ACCT_STRUCT_EL);
-                db.SaveChanges();
-            }
+            //     db.DEF_CK_ACCT_ACCT_STRUCT.Add(ACCT_STRUCT_EL);
+            //     db.SaveChanges();
+            // }
             
-            return newAcctEL.ACCT_NO;
+            return "";
         }
 
         
 
         static public DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
-                                                        where r.AccountCode == stACCT_NO
-                                                        select r ).ToArray();
-            return AcctStruct;
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
+            //                                             where r.AccountCode == stACCT_NO
+            //                                             select r ).ToArray();
+            //return AcctStruct;
+            return null;
         }
 
         static public string GetPrincipleGLForAccount(string stACCT_NO)

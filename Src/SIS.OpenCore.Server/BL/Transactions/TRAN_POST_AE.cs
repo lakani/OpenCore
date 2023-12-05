@@ -17,48 +17,52 @@ namespace SIS.OpenCore.Server.BL.Transactions
 
         static protected bool RefExistsAndActive(Guid InqRef)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            int Exists =    (from t in db.TRN_LEGS
-                            where t.Ref == InqRef && t.STATUS_ID == 1
-                            select t.Ref).Count();
-            if(Exists> 0)
-                return true;
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // int Exists =    (from t in db.TRN_LEGS
+            //                 where t.Ref == InqRef && t.STATUS_ID == 1
+            //                 select t.Ref).Count();
+            // if(Exists> 0)
+            //     return true;
             return  false;
         }
 
         static public bool ValidRef(Guid Ref)
         {
-            return DAL.TRN_LEGS_DAL.ValidRef(Ref);
+            // DeadCode
+            //return DAL.TRN_LEGS_DAL.ValidRef(Ref);
+            return true;
         }
 
         static public bool Reverse(Guid Ref)
         {
-            OpenCoreContext db = new OpenCoreContext();
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
 
-            if(RefExistsAndActive(Ref) == false)
-                throw new ArgumentOutOfRangeException("Ref", 
-                "Invalid Reference number or has been reversed before");
+            // if(RefExistsAndActive(Ref) == false)
+            //     throw new ArgumentOutOfRangeException("Ref", 
+            //     "Invalid Reference number or has been reversed before");
 
-            var Legs =  from l in db.TRN_LEGS
-                        where l.Ref == Ref && l.STATUS_ID == 1
-                        select l;
+            // var Legs =  from l in db.TRN_LEGS
+            //             where l.Ref == Ref && l.STATUS_ID == 1
+            //             select l;
             
-            var newLegs = CopyLegsForReverse(Legs.ToArray());
+            // var newLegs = CopyLegsForReverse(Legs.ToArray());
             
-            foreach (TRAN_POST_AE_TYPE_PARAM l in newLegs)
-            {
-                if(l.Acct_CR_DR == "CR" )
-                    l.Acct_CR_DR = "DR";
-                else
-                    l.Acct_CR_DR = "CR";
-            }
-            Post(newLegs.ToArray(), Ref);
+            // foreach (TRAN_POST_AE_TYPE_PARAM l in newLegs)
+            // {
+            //     if(l.Acct_CR_DR == "CR" )
+            //         l.Acct_CR_DR = "DR";
+            //     else
+            //         l.Acct_CR_DR = "CR";
+            // }
+            // Post(newLegs.ToArray(), Ref);
 
-            foreach (TRN_LEGS l in Legs)
-            {
-                l.STATUS_ID = 2; // 2 is Reversed
-            }
-            db.SaveChanges();
+            // foreach (TRN_LEGS l in Legs)
+            // {
+            //     l.STATUS_ID = 2; // 2 is Reversed
+            // }
+            // db.SaveChanges();
 
             
 
@@ -128,7 +132,7 @@ namespace SIS.OpenCore.Server.BL.Transactions
             // Generate the new Refrerence
             RetGUID = Guid.NewGuid();
             short   Sequence = 1;
-            OpenCoreContext db = new OpenCoreContext();
+            //OpenCoreContext db = new OpenCoreContext();
     
             foreach(TRAN_POST_AE_TYPE_PARAM Leg in ae_Param)
             {
@@ -158,8 +162,8 @@ namespace SIS.OpenCore.Server.BL.Transactions
                 trn_LEGSNewObject.Category          = Leg.Category;
                 trn_LEGSNewObject.Related_Ref       = RelatedRef;
 
-                db.TRN_LEGS.Add(trn_LEGSNewObject);
-                db.SaveChanges();
+                //db.TRN_LEGS.Add(trn_LEGSNewObject);
+                //db.SaveChanges();
 
                 Sequence ++;
             }

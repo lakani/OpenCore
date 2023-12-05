@@ -16,20 +16,21 @@ namespace SIS.OpenCore.Server.BL.Process
         /// </summary>
         static public void InterestCalculationProcess(DateTime RunDate)
         {
-            // Get All Fixed Rate Active Accounts
-            DEF_FIXRATE_ACCT[] ActiveAccTs = FixedRateAccount.List(string.Empty, string.Empty, 0);
-            foreach (DEF_FIXRATE_ACCT FixedAcct in ActiveAccTs)
-            {
-                if(FixedAcct.CloseDate != RunDate)
-                {
-                    InterestCalculationProcess(FixedAcct, RunDate);
-                }
-                else // RunDate is the Close date for the account, then ensure that the account has Interest for till the End
-                {
-                    //RunDate = RunDate.AddDays(-1);
-                    InterestCalculationProcess(FixedAcct, RunDate);
-                }
-            }
+            // DeadCode
+            // // Get All Fixed Rate Active Accounts
+            // DEF_FIXRATE_ACCT[] ActiveAccTs = FixedRateAccount.List(string.Empty, string.Empty, 0);
+            // foreach (DEF_FIXRATE_ACCT FixedAcct in ActiveAccTs)
+            // {
+            //     if(FixedAcct.CloseDate != RunDate)
+            //     {
+            //         InterestCalculationProcess(FixedAcct, RunDate);
+            //     }
+            //     else // RunDate is the Close date for the account, then ensure that the account has Interest for till the End
+            //     {
+            //         //RunDate = RunDate.AddDays(-1);
+            //         InterestCalculationProcess(FixedAcct, RunDate);
+            //     }
+            // }
         }
 
 
@@ -38,28 +39,29 @@ namespace SIS.OpenCore.Server.BL.Process
         /// </summary>
         static public void InterestCalculationProcess(DEF_FIXRATE_ACCT Acct, DateTime RunDate)
         {
-            PROC_FIXRATE_INTEREST LastAccrual = PROC_FIXRATE_INTEREST_DAL.GetLastActiveInterestProcess(Acct);
+            // DeadCode
+            // PROC_FIXRATE_INTEREST LastAccrual = PROC_FIXRATE_INTEREST_DAL.GetLastActiveInterestProcess(Acct);
                 
-            // if already executed for the Given Date
-            if (LastAccrual != null && LastAccrual.TO_DATE >= RunDate)
-                return;
-            else
-            {
-                PROC_FIXRATE_INTEREST NewInterestRecord = new PROC_FIXRATE_INTEREST();
+            // // if already executed for the Given Date
+            // if (LastAccrual != null && LastAccrual.TO_DATE >= RunDate)
+            //     return;
+            // else
+            // {
+            //     PROC_FIXRATE_INTEREST NewInterestRecord = new PROC_FIXRATE_INTEREST();
 
-                if(LastAccrual == null)
-                    NewInterestRecord.FROM_DATE = Acct.OpenDate;
-                else
-                    NewInterestRecord.FROM_DATE = LastAccrual.TO_DATE;
-                NewInterestRecord.TO_DATE = RunDate;
-                NewInterestRecord.PRINCIPLE_AMT = Acct.Principle;
-                NewInterestRecord.STATUS_ID = 1;
-                NewInterestRecord.ACCT_NO = Acct.ACCT_NO;
-                NewInterestRecord.CIF_NO = Acct.CIF_NO;
-                NewInterestRecord.CALC_INTEREST_AMT = CalcDayInterest(Acct, NewInterestRecord.FROM_DATE, RunDate);
+            //     if(LastAccrual == null)
+            //         NewInterestRecord.FROM_DATE = Acct.OpenDate;
+            //     else
+            //         NewInterestRecord.FROM_DATE = LastAccrual.TO_DATE;
+            //     NewInterestRecord.TO_DATE = RunDate;
+            //     NewInterestRecord.PRINCIPLE_AMT = Acct.Principle;
+            //     NewInterestRecord.STATUS_ID = 1;
+            //     NewInterestRecord.ACCT_NO = Acct.ACCT_NO;
+            //     NewInterestRecord.CIF_NO = Acct.CIF_NO;
+            //     NewInterestRecord.CALC_INTEREST_AMT = CalcDayInterest(Acct, NewInterestRecord.FROM_DATE, RunDate);
 
-                PROC_FIXRATE_INTEREST_DAL.Create(NewInterestRecord);
-            }
+            //     PROC_FIXRATE_INTEREST_DAL.Create(NewInterestRecord);
+            
         }
 
         /// <summary>

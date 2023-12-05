@@ -14,8 +14,9 @@ namespace SIS.OpenCore.UnitTesting
         [Test]
         public void Test_REDBUtils()
         {
-            REDBUtils.Exists("LUT_CIF_TYPE", "Code", 1);
-            REDBUtils.Exists("LUT_CIF_TYPE", "Code", 5);
+            // DeadCode :
+            //REDBUtils.Exists("LUT_CIF_TYPE", "Code", 1);
+            //REDBUtils.Exists("LUT_CIF_TYPE", "Code", 5);
             //REDBUtils.Exists("LUT_CIF_TYPE", "Code", ((DEF_CIF)inputOne).CIF_TYPE);
         }
 

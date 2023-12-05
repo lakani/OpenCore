@@ -5,22 +5,22 @@ using SIS.OpenCore.Shared.Model;
 using System.Linq;
 
 
-namespace SIS.OpenCore.Server.Data // Check the correct table attributes
+namespace SIS.OpenCore.Server.Data.TODO // Check the correct table attributes
 {
     public partial class TRN_LEGS_DAL
     {
-        static public bool ValidRef(Guid Ref)
-        {
-            OpenCoreContext db = new OpenCoreContext();
-            short ?LegsStatus =  (from l in db.TRN_LEGS
-                                where l.Ref == Ref 
-                                select l.STATUS_ID).FirstOrDefault() ;
+        // static public bool ValidRef(Guid Ref)
+        // {
+        //     OpenCoreContext db = new OpenCoreContext();
+        //     short ?LegsStatus =  (from l in db.TRN_LEGS
+        //                         where l.Ref == Ref 
+        //                         select l.STATUS_ID).FirstOrDefault() ;
             
-            if (LegsStatus.HasValue==true)
-                if(LegsStatus == 1)
-                    return true;
-            return false;
-        }
+        //     if (LegsStatus.HasValue==true)
+        //         if(LegsStatus == 1)
+        //             return true;
+        //     return false;
+        // }
         
     }
 }

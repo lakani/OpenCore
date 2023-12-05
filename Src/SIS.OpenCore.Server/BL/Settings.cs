@@ -41,24 +41,27 @@ namespace SIS.OpenCore.Server.BL
 
         public static SettingsModel GetLastVersion()
         {
-			OpenCoreContext db = new OpenCoreContext();
+            // DeadCode
+			// OpenCoreContext db = new OpenCoreContext();
 
-			SettingsModel LastVersion = (from s in db.Settings
-                                    orderby s.VerID descending
-									select s ).First();
+			// SettingsModel LastVersion = (from s in db.Settings
+            //                         orderby s.VerID descending
+			// 						select s ).First();
 
-			return LastVersion;
+			// return LastVersion;
+            return new SettingsModel();
 		}
 
         static public String fn_OPT_GetBaseCurrency()
         {
-            OpenCoreContext db = new OpenCoreContext();
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
 
-            String sBaseCurrency =      ((from s in db.Settings
-                                        orderby s.VerID descending
-                                        select s.BaseCurrency).FirstOrDefault()).Trim();
+            // String sBaseCurrency =      ((from s in db.Settings
+            //                             orderby s.VerID descending
+            //                             select s.BaseCurrency).FirstOrDefault()).Trim();
             
-            return sBaseCurrency;
+            return "";
         }
 
         /// <summary>

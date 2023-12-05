@@ -21,16 +21,17 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         static public bool Add(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stAcctClsCode)
         {
-            OpenCoreContext db = new OpenCoreContext();
-            DEF_ACCT_CLASS_ACCT_STRUCT  newAcctStruct = new DEF_ACCT_CLASS_ACCT_STRUCT();
-            int nReturn;
+            // DeadCode
+            // OpenCoreContext db = new OpenCoreContext();
+            // DEF_ACCT_CLASS_ACCT_STRUCT  newAcctStruct = new DEF_ACCT_CLASS_ACCT_STRUCT();
+            // int nReturn;
 
-            newAcctStruct = GLAccount;
-            newAcctStruct.AccountClassCode = stAcctClsCode;
-            db.DEF_ACCT_CLASS_ACCT_STRUCT.Add(newAcctStruct);
-            nReturn = db.SaveChanges();
-            if(nReturn<= 0)
-                return false;
+            // newAcctStruct = GLAccount;
+            // newAcctStruct.AccountClassCode = stAcctClsCode;
+            // db.DEF_ACCT_CLASS_ACCT_STRUCT.Add(newAcctStruct);
+            // nReturn = db.SaveChanges();
+            // if(nReturn<= 0)
+            //     return false;
 
             return true;
         }

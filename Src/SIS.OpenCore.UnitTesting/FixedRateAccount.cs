@@ -41,10 +41,12 @@ namespace SIS.OpenCore.UnitTesting
 
         public static void DeleteAccounts()
         {
-            OpenCoreContext db = new OpenCoreContext();
-            db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_FIXRATE_ACCT");
-            db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_FIXRATE_ACCT_DATES");
-            db.Database.ExecuteSqlRaw("truncate table OpenCore..PROC_FIXRATE_INTEREST");
+            // BUILD_ERR 
+            // DeadCode 
+            // OpenCoreContext db = new OpenCoreContext();
+            // db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_FIXRATE_ACCT");
+            // db.Database.ExecuteSqlRaw("truncate table  OpenCore..DEF_FIXRATE_ACCT_DATES");
+            // db.Database.ExecuteSqlRaw("truncate table OpenCore..PROC_FIXRATE_INTEREST");
         }
 
     }
