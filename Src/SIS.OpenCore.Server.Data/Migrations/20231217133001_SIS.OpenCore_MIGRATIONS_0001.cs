@@ -78,7 +78,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DEF_Branch",
+                name: "Branch",
                 columns: table => new
                 {
                     ID = table.Column<short>(type: "smallint", nullable: false)
@@ -88,7 +88,20 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DEF_Branch", x => x.ID);
+                    table.PrimaryKey("PK_Branch", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Company",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Company", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,19 +132,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DEF_Company",
-                columns: table => new
-                {
-                    ID = table.Column<short>(type: "smallint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DEF_Company", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DEF_Currency",
                 columns: table => new
                 {
@@ -145,19 +145,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DEF_Currency", x => x.CurrencyID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DEF_Dep",
-                columns: table => new
-                {
-                    ID = table.Column<short>(type: "smallint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DEF_Dep", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,7 +212,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DEF_Sector",
+                name: "Dep",
                 columns: table => new
                 {
                     ID = table.Column<short>(type: "smallint", nullable: false)
@@ -234,20 +221,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DEF_Sector", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DEF_Unit",
-                columns: table => new
-                {
-                    ID = table.Column<short>(type: "smallint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DEF_Unit", x => x.ID);
+                    table.PrimaryKey("PK_Dep", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -350,6 +324,19 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sector",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sector", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Settings",
                 columns: table => new
                 {
@@ -368,6 +355,19 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Settings", x => x.VerID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unit",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unit", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -620,7 +620,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 17, 14, 37, 55, 836, DateTimeKind.Local).AddTicks(1766), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 17, 15, 30, 1, 148, DateTimeKind.Local).AddTicks(1669), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -741,10 +741,13 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DEF_ACCT_CLASS");
+                name: "Branch");
 
             migrationBuilder.DropTable(
-                name: "DEF_Branch");
+                name: "Company");
+
+            migrationBuilder.DropTable(
+                name: "DEF_ACCT_CLASS");
 
             migrationBuilder.DropTable(
                 name: "DEF_CIF_PERSONAL");
@@ -753,13 +756,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "DEF_CK_ACCT");
 
             migrationBuilder.DropTable(
-                name: "DEF_Company");
-
-            migrationBuilder.DropTable(
                 name: "DEF_Currency");
-
-            migrationBuilder.DropTable(
-                name: "DEF_Dep");
 
             migrationBuilder.DropTable(
                 name: "DEF_GL");
@@ -768,10 +765,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "DEF_Posting");
 
             migrationBuilder.DropTable(
-                name: "DEF_Sector");
-
-            migrationBuilder.DropTable(
-                name: "DEF_Unit");
+                name: "Dep");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");
@@ -786,7 +780,13 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "Sector");
+
+            migrationBuilder.DropTable(
                 name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "Unit");
 
             migrationBuilder.DropTable(
                 name: "Zone");

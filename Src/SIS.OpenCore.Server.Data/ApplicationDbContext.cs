@@ -44,11 +44,11 @@ namespace SIS.OpenCore.Server.Data
 		// https://learn.microsoft.com/en-us/ef/core/modeling/
 
 		public virtual DbSet<Zone> Zone { get; set; }
-		public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
-		public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
-		public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
-		public virtual DbSet<DEF_Company> DEF_Company { get; set; }
-		public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
+		public virtual DbSet<Dep> Dep { get; set; }
+		public virtual DbSet<Sector> Sector { get; set; }
+		public virtual DbSet<Unit> Unit { get; set; }
+		public virtual DbSet<Company > Company  { get; set; }
+		public virtual DbSet<Branch> Branch { get; set; }
 		public virtual DbSet<DEF_GL> DEF_GL { get; set; }
 		public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
 		public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
@@ -70,11 +70,11 @@ namespace SIS.OpenCore.Server.Data
 			builder.ApplyConfiguration(new RoleConfiguration());
 
 			new UserDataConfig().Configure(builder.Entity<Zone>());
-			new UserDataConfig().Configure(builder.Entity<DEF_Dep>());
-			new UserDataConfig().Configure(builder.Entity<DEF_Sector>());
-			new UserDataConfig().Configure(builder.Entity<DEF_Unit>());
-			new UserDataConfig().Configure(builder.Entity<DEF_Company>());
-			new UserDataConfig().Configure(builder.Entity<DEF_Branch>());
+			new UserDataConfig().Configure(builder.Entity<Dep>());
+			new UserDataConfig().Configure(builder.Entity<Sector>());
+			new UserDataConfig().Configure(builder.Entity<Unit>());
+			new UserDataConfig().Configure(builder.Entity<Company >());
+			new UserDataConfig().Configure(builder.Entity<Branch>());
 			new DEF_GLConfig().Configure(builder.Entity<DEF_GL>());
 			new SettingsModelConfig().Configure(builder.Entity<SettingsModel>());
 			new LUT_CIF_TYPEConfig().Configure(builder.Entity<LUT_CIF_TYPE>());

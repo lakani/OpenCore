@@ -29,11 +29,11 @@ namespace SIS.OpenCore.Server.BL.Objects
 		private static  IConfiguration _configuration;
 		private static  SignInManager<ApplicationUser> _signInManager;
 		private static  IUserDataRepository<Zone> _ZoneRepository;
-		private static  IUserDataRepository<DEF_Company> _CompanyRepository;
-		private static  IUserDataRepository<DEF_Branch> _BranchRepository;
-		private static  IUserDataRepository<DEF_Sector> _SectorRepository;
-		private static  IUserDataRepository<DEF_Dep> _DepRepository;
-		private static  IUserDataRepository<DEF_Unit> _UnitRepository;
+		private static  IUserDataRepository<Company > _CompanyRepository;
+		private static  IUserDataRepository<Branch> _BranchRepository;
+		private static  IUserDataRepository<Sector> _SectorRepository;
+		private static  IUserDataRepository<Dep> _DepRepository;
+		private static  IUserDataRepository<Unit> _UnitRepository;
         private static  ISettingsRepository<SettingsModel> _SettingsRepository;
         private static  IDEF_GLRepository<DEF_GL> _DEF_GLRepository;
         private static  ILUTRepository<LUT_GLLedgerNature> _lut_GLLedgerNatureRepository;
@@ -41,11 +41,11 @@ namespace SIS.OpenCore.Server.BL.Objects
         public static void InitServices(ILogger logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
 		IUserDataRepository<Zone> ZoneRepository,
-		IUserDataRepository<DEF_Company> CompanyRepository,
-		IUserDataRepository<DEF_Branch> BranchRepository,
-		IUserDataRepository<DEF_Sector> SectorRepository,
-		IUserDataRepository<DEF_Dep> DepRepository,
-		IUserDataRepository<DEF_Unit> UnitRepository,
+		IUserDataRepository<Company > CompanyRepository,
+		IUserDataRepository<Branch> BranchRepository,
+		IUserDataRepository<Sector> SectorRepository,
+		IUserDataRepository<Dep> DepRepository,
+		IUserDataRepository<Unit> UnitRepository,
         ISettingsRepository<SettingsModel> settingsRepository,
         IDEF_GLRepository<DEF_GL> DEF_GLRep, 
         ILUTRepository<LUT_GLLedgerNature> LUT_GLLedgerNatureRepository) 
@@ -200,7 +200,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             //PRINT 'Checking DEF_Currency Table'
             // if (!Currency.ValidateExists(CURR))
             //     throw new ArgumentOutOfRangeException("CURR", "Currency doesn't Exists");
-            //PRINT 'Checking Company in DEF_Company Table'
+            //PRINT 'Checking Company in Company  Table'
             if(_CompanyRepository.GetById(CompanyNo) == null)
                     throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
             
@@ -212,7 +212,7 @@ namespace SIS.OpenCore.Server.BL.Objects
                 if(_ZoneRepository.GetById(nZone) == null)
                     throw new ArgumentOutOfRangeException("nZone", "Zone Number doesn't Exists");
                             
-            //PRINT 'Checking DEF_Branch Table'
+            //PRINT 'Checking Branch Table'
             if (BranchNo != 0)
             {
                 if (_BranchRepository.GetById(BranchNo) == null)
@@ -220,18 +220,18 @@ namespace SIS.OpenCore.Server.BL.Objects
 
             }
         
-            //PRINT 'Checking DEF_Sector Table'
+            //PRINT 'Checking Sector Table'
             if (SectorNo != 0 )
                 if(_SectorRepository.GetById(SectorNo) == null)
                     throw new ArgumentOutOfRangeException("SectorNo", "Sector Number doesn't Exists");
             
-            //PRINT 'Checking DEF_Dep Table'
+            //PRINT 'Checking Dep Table'
             if (DepNo != 0 )
                 if(_DepRepository.GetById(DepNo) == null)
                     throw new ArgumentOutOfRangeException("DepNo", "Department Number doesn't Exists");    
                        
                 
-            //PRINT 'Checking DEF_Unit Table'
+            //PRINT 'Checking Unit Table'
             if (UNITNO != 0 )
                 if(_UnitRepository.GetById(UNITNO) == null)   
                     throw new ArgumentOutOfRangeException("UNITNO", "Unit Number doesn't Exists");    

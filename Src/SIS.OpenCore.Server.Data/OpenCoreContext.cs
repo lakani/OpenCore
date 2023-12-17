@@ -28,11 +28,11 @@
 
 //        // TODO : remove the below after completing the cleaning and full migration to the new structure
 //        //public virtual DbSet<Zone> Zone { get; set; }
-//        public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
-//        public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
-//        public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
-//        public virtual DbSet<DEF_Company> DEF_Company { get; set; }
-//        public virtual DbSet<DEF_Branch> DEF_Branch { get; set; }
+//        public virtual DbSet<Dep> Dep { get; set; }
+//        public virtual DbSet<Sector> Sector { get; set; }
+//        public virtual DbSet<Unit> Unit  { get; set; }
+//        public virtual DbSet<Company > Company  { get; set; }
+//        public virtual DbSet<Branch> Branch { get; set; }
 
 
 

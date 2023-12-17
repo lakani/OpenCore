@@ -12,7 +12,7 @@ using SIS.OpenCore.Server.Data;
 namespace SIS.OpenCore.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231217123756_SIS.OpenCore_MIGRATIONS_0001")]
+    [Migration("20231217133001_SIS.OpenCore_MIGRATIONS_0001")]
     partial class SISOpenCore_MIGRATIONS_0001
     {
         /// <inheritdoc />
@@ -982,7 +982,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.ToTable("DEF_GL");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Branch", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Branch", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1000,10 +1000,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Branch");
+                    b.ToTable("Branch");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Company", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Company", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1018,10 +1018,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Company");
+                    b.ToTable("Company");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Dep", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Dep", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1036,10 +1036,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Dep");
+                    b.ToTable("Dep");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Sector", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Sector", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1054,10 +1054,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Sector");
+                    b.ToTable("Sector");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Unit", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Unit", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1072,7 +1072,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Unit");
+                    b.ToTable("Unit");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Zone", b =>
@@ -1156,7 +1156,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 12, 17, 14, 37, 55, 836, DateTimeKind.Local).AddTicks(1766),
+                            EffectiveDate = new DateTime(2023, 12, 17, 15, 30, 1, 148, DateTimeKind.Local).AddTicks(1669),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });

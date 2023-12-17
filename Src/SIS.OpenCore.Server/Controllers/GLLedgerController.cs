@@ -29,11 +29,11 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly IUserDataRepository<Zone> _ZoneRepository;
-		private readonly IUserDataRepository<DEF_Company> _CompanyRepository;
-		private readonly IUserDataRepository<DEF_Branch> _BranchRepository;
-		private readonly IUserDataRepository<DEF_Sector> _SectorRepository;
-		private readonly IUserDataRepository<DEF_Dep> _DepRepository;
-		private readonly IUserDataRepository<DEF_Unit> _UnitRepository;
+		private readonly IUserDataRepository<Company > _CompanyRepository;
+		private readonly IUserDataRepository<Branch> _BranchRepository;
+		private readonly IUserDataRepository<Sector> _SectorRepository;
+		private readonly IUserDataRepository<Dep> _DepRepository;
+		private readonly IUserDataRepository<Unit> _UnitRepository;
 		private readonly ISettingsRepository<SettingsModel> _SettingsRep;
 		private readonly IDEF_GLRepository<DEF_GL> _DEF_GLRepository;
 		private readonly ILUTRepository<LUT_GLLedgerNature> _lut_GLLedgerNatureRepository;
@@ -54,11 +54,11 @@ namespace SIS.OpenCore.Server.Controllers
 		ILogger<GLLedgerController> logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
 		IUserDataRepository<Zone> ZoneRepository,
-		IUserDataRepository<DEF_Company> CompanyRepository,
-		IUserDataRepository<DEF_Branch> BranchRepository,
-		IUserDataRepository<DEF_Sector> SectorRepository,
-		IUserDataRepository<DEF_Dep> DepRepository,
-		IUserDataRepository<DEF_Unit> UnitRepository,
+		IUserDataRepository<Company > CompanyRepository,
+		IUserDataRepository<Branch> BranchRepository,
+		IUserDataRepository<Sector> SectorRepository,
+		IUserDataRepository<Dep> DepRepository,
+		IUserDataRepository<Unit> UnitRepository,
 		ISettingsRepository<SettingsModel> SettingsRep,
 		IDEF_GLRepository<DEF_GL> DEF_GLRepository, 
 		ILUTRepository<LUT_GLLedgerNature> LUT_GLLedgerNatureRepository) : base()

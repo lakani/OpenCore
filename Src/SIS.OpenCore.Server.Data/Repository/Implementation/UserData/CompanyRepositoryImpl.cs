@@ -11,19 +11,19 @@ using Microsoft.Extensions.Logging;
 #nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
-	public class CompanyRepositoryImpl : GenericRepository<DEF_Company>, IUserDataRepository<DEF_Company>
+	public class CompanyRepositoryImpl : GenericRepository<Company >, IUserDataRepository<Company >
 	{
-		public CompanyRepositoryImpl(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Company> logger)
+		public CompanyRepositoryImpl(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Company > logger)
 		: base(dbContext, configuration, logger)
 		{
 			logger.LogInformation("CompanyRepositoryImpl"); 
 		}
 
-		public override async Task<int> Create(DEF_Company entity)
+		public override async Task<int> Create(Company  entity)
 		{
 			try
 			{
-				_dbContext.DEF_Company.Add(entity);
+				_dbContext.Company .Add(entity);
 				await _dbContext.SaveChangesAsync();
 				return entity.GetPrimaryKey();
 			}
@@ -36,10 +36,10 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 			}
 		}
 
-		public override DEF_Company? GetById(int id)
+		public override Company ? GetById(int id)
 		{
 			// check Company
-            var Ret =   (from c in _dbContext.DEF_Company
+            var Ret =   (from c in _dbContext.Company 
                         where c.ID == id
                         select c ).FirstOrDefault();
             return Ret;

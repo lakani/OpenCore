@@ -35,7 +35,7 @@ namespace SIS.OpenCore.Server.Data.Config
 			#endregion
 		}
 
-		public void Configure(EntityTypeBuilder<DEF_Dep> builder)
+		public void Configure(EntityTypeBuilder<Dep> builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 
@@ -48,7 +48,7 @@ namespace SIS.OpenCore.Server.Data.Config
 		}
 
 		
-		public void Configure(EntityTypeBuilder<DEF_Sector> builder)
+		public void Configure(EntityTypeBuilder<Sector> builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 
@@ -60,7 +60,7 @@ namespace SIS.OpenCore.Server.Data.Config
 			#endregion
 		}
 
-		public void Configure(EntityTypeBuilder<DEF_Unit> builder)
+		public void Configure(EntityTypeBuilder<Unit> builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 
@@ -74,7 +74,7 @@ namespace SIS.OpenCore.Server.Data.Config
 		}
 
 
-		public void Configure(EntityTypeBuilder<DEF_Company> builder)
+		public void Configure(EntityTypeBuilder<Company > builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 
@@ -86,7 +86,7 @@ namespace SIS.OpenCore.Server.Data.Config
 			#endregion
 		}
 
-		public void Configure(EntityTypeBuilder<DEF_Branch> builder)
+		public void Configure(EntityTypeBuilder<Branch> builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 

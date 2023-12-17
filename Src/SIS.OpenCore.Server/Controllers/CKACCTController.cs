@@ -29,7 +29,7 @@ namespace SIS.OpenCore.Server.Controllers
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly IDEF_CK_ACCTRepository<DEF_CK_ACCT> _CKACCTRepository;
-		private readonly IUserDataRepository<DEF_Company> _CompanyRepository;
+		private readonly IUserDataRepository<Company > _CompanyRepository;
 		private readonly ILUTRepository<LUT_ACCT_TYPE> _AcctTypeRepository;
         private readonly IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> _AcctClassRepository;
         private readonly IDEF_CIFRepository<DEF_CIF> _CifRepository;
@@ -39,7 +39,7 @@ namespace SIS.OpenCore.Server.Controllers
         public CKACCTController(
 		ILogger<CKACCTController> logger, IConfiguration Configuration,
         SignInManager<ApplicationUser> signInManager, 
-        IUserDataRepository<DEF_Company> CompanyRepository,
+        IUserDataRepository<Company > CompanyRepository,
 		IDEF_CK_ACCTRepository<DEF_CK_ACCT> CKACCTRepository,
         ILUTRepository<LUT_ACCT_TYPE> AcctTypeRepository,
         IDEF_CIFRepository<DEF_CIF> CifRepository,

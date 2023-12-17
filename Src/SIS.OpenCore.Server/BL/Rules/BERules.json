@@ -32,7 +32,7 @@
         "ErrorMessage": "CIF Company Should Exist.",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
-        "Expression": "REDBUtils.Exists(\"DEF_Company\", \"ID\", fields[\"CompanyNo\"]) == true"
+        "Expression": "REDBUtils.Exists(\"Company \", \"ID\", fields[\"CompanyNo\"]) == true"
       }
     ]
   },
@@ -53,7 +53,7 @@
         "ErrorMessage": "CIF Company Should Exist.",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
-        "Expression": "REDBUtils.Exists(\"DEF_Company\", \"ID\", CIF_CLASS.CompanyNo) == true"
+        "Expression": "REDBUtils.Exists(\"Company \", \"ID\", CIF_CLASS.CompanyNo) == true"
       }
     ]
   }

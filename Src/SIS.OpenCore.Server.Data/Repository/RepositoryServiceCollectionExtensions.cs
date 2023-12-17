@@ -31,11 +31,11 @@ namespace SIS.OpenCore.Server.Data.Repository
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IUserDataRepository<Zone>, ZoneRepositoryImp>();
-			services.AddScoped<IUserDataRepository<DEF_Company>, CompanyRepositoryImpl>();
-			services.AddScoped<IUserDataRepository<DEF_Unit>, UnitRepositoryImp>();
-			services.AddScoped<IUserDataRepository<DEF_Sector>, SectorRepositoryImp>();
-			services.AddScoped<IUserDataRepository<DEF_Branch>, BranchRepositoryImp>();
-			services.AddScoped<IUserDataRepository<DEF_Dep>, DepRepositoryImp>();
+			services.AddScoped<IUserDataRepository<Company >, CompanyRepositoryImpl>();
+			services.AddScoped<IUserDataRepository<Unit>, UnitRepositoryImp>();
+			services.AddScoped<IUserDataRepository<Sector>, SectorRepositoryImp>();
+			services.AddScoped<IUserDataRepository<Branch>, BranchRepositoryImp>();
+			services.AddScoped<IUserDataRepository<Dep>, DepRepositoryImp>();
 			services.AddScoped<ISettingsRepository<SettingsModel>, SettingsRepositoryImp>();
 			
 			// GL

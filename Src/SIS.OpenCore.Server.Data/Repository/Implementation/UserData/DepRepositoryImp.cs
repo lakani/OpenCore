@@ -12,19 +12,19 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
-    public class DepRepositoryImp : GenericRepository<DEF_Dep>, IUserDataRepository<DEF_Dep>
+    public class DepRepositoryImp : GenericRepository<Dep>, IUserDataRepository<Dep>
     {
-        public DepRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Dep> logger)
+        public DepRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Dep> logger)
         : base(dbContext, configuration, logger)
         {
 			logger.LogInformation("DepRepositoryImp");
         }
 
-        public override async Task<int> Create(DEF_Dep entity)
+        public override async Task<int> Create(Dep entity)
         {
             try
             {
-				_dbContext.DEF_Dep.Add(entity);
+				_dbContext.Dep.Add(entity);
 				await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
 			}
@@ -47,12 +47,12 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             throw new NotImplementedException();
         }
 
-        override public DEF_Dep GetById(int id)
+        override public Dep GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        override public IQueryable<DEF_Dep> Search(BaseRequesModel requesModel)
+        override public IQueryable<Dep> Search(BaseRequesModel requesModel)
         {
             throw new NotImplementedException();
         }

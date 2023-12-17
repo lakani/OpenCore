@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model.Objects.UserData
 {
-    public partial class DEF_Branch : BaseUserData
+    public partial class Branch : BaseUserData
 	{
         public int? CompanyNo { get; set; }
     }

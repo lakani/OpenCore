@@ -12,19 +12,19 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
-    public class SectorRepositoryImp : GenericRepository<DEF_Sector>, IUserDataRepository<DEF_Sector>
+    public class SectorRepositoryImp : GenericRepository<Sector>, IUserDataRepository<Sector>
     {
-        public SectorRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Sector> logger)
+        public SectorRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Sector> logger)
         : base(dbContext, configuration, logger)
         {
             logger.LogInformation("SectorRepositoryImp");
         }
 
-        public override async Task<int> Create(DEF_Sector entity)
+        public override async Task<int> Create(Sector entity)
         {
 			try
             {
-				_dbContext.DEF_Sector.Add(entity);
+				_dbContext.Sector.Add(entity);
 				await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
 			}
@@ -47,16 +47,16 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             throw new NotImplementedException();
         }
 
-        override public DEF_Sector GetById(int id)
+        override public Sector GetById(int id)
         {
             // check Sector
-            var Ret =   (from c in _dbContext.DEF_Sector
+            var Ret =   (from c in _dbContext.Sector
                         where c.ID == id
                         select c ).FirstOrDefault();
             return Ret;
         }
 
-        override public IQueryable<DEF_Sector> Search(BaseRequesModel requesModel)
+        override public IQueryable<Sector> Search(BaseRequesModel requesModel)
         {
             throw new NotImplementedException();
         }

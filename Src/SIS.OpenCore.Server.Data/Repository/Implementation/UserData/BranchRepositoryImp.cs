@@ -12,19 +12,19 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
-    public class BranchRepositoryImp : GenericRepository<DEF_Branch>, IUserDataRepository<DEF_Branch>
+    public class BranchRepositoryImp : GenericRepository<Branch>, IUserDataRepository<Branch>
     {
-        public BranchRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Branch> logger)
+        public BranchRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Branch> logger)
         : base(dbContext, configuration, logger)
         {
 			logger.LogInformation("BranchRepositoryImp");
         }
 
-        public override async Task<int> Create(DEF_Branch entity)
+        public override async Task<int> Create(Branch entity)
         {
             try
             {
-				_dbContext.DEF_Branch.Add(entity);
+				_dbContext.Branch.Add(entity);
 				await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
 			}
@@ -48,15 +48,15 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             throw new NotImplementedException();
         }
 
-        override public DEF_Branch GetById(int id)
+        override public Branch GetById(int id)
         {
-            var Ret =   (from c in _dbContext.DEF_Branch
+            var Ret =   (from c in _dbContext.Branch
                         where c.ID == id
                         select c).FirstOrDefault();
             return  Ret;
         }
 
-        override public IQueryable<DEF_Branch> Search(BaseRequesModel requesModel)
+        override public IQueryable<Branch> Search(BaseRequesModel requesModel)
         {
             throw new NotImplementedException();
         }

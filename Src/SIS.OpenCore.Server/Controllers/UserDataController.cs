@@ -25,21 +25,21 @@ namespace SIS.OpenCore.Server.Controllers
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly IUserDataRepository<Zone> _ZoneRepository;
-		private readonly IUserDataRepository<DEF_Company> _CompanyRepository;
-		private readonly IUserDataRepository<DEF_Branch> _BranchRepository;
-		private readonly IUserDataRepository<DEF_Sector> _SectorRepository;
-		private readonly IUserDataRepository<DEF_Dep> _DepRepository;
-		private readonly IUserDataRepository<DEF_Unit> _UnitRepository;
+		private readonly IUserDataRepository<Company > _CompanyRepository;
+		private readonly IUserDataRepository<Branch> _BranchRepository;
+		private readonly IUserDataRepository<Sector> _SectorRepository;
+		private readonly IUserDataRepository<Dep> _DepRepository;
+		private readonly IUserDataRepository<Unit> _UnitRepository;
 
 		public UserDataController(
 		ILogger<UserDataController> logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
 		IUserDataRepository<Zone> ZoneRepository,
-		IUserDataRepository<DEF_Company> CompanyRepository,
-		IUserDataRepository<DEF_Branch> BranchRepository,
-		IUserDataRepository<DEF_Sector> SectorRepository,
-		IUserDataRepository<DEF_Dep> DepRepository,
-		IUserDataRepository<DEF_Unit> UnitRepository) : base()
+		IUserDataRepository<Company > CompanyRepository,
+		IUserDataRepository<Branch> BranchRepository,
+		IUserDataRepository<Sector> SectorRepository,
+		IUserDataRepository<Dep> DepRepository,
+		IUserDataRepository<Unit> UnitRepository) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
@@ -131,23 +131,23 @@ namespace SIS.OpenCore.Server.Controllers
 							newID = await _ZoneRepository.Create(tmpZone);
 							break;
 						case "Company":
-							var tmpCompany = new DEF_Company { Name = st };
+							var tmpCompany = new Company  { Name = st };
 							newID = await _CompanyRepository.Create(tmpCompany);
 							break;
 						case "Branch":
-							var tmpBranch = new DEF_Branch { Name = st };
+							var tmpBranch = new Branch { Name = st };
 							newID = await _BranchRepository.Create(tmpBranch);
 							break;
 						case "Sector":
-							var tmpSector = new DEF_Sector { Name = st };
+							var tmpSector = new Sector { Name = st };
 							newID = await _SectorRepository.Create(tmpSector);
 							break;
 						case "Dep":
-							var tmpDep = new DEF_Dep { Name = st };
+							var tmpDep = new Dep { Name = st };
 							newID = await _DepRepository.Create(tmpDep);
 							break;
 						case "Unit":
-							var tmpUnit = new DEF_Unit { Name = st };
+							var tmpUnit = new Unit { Name = st };
 							newID = await _UnitRepository.Create(tmpUnit);
 							break;
 					}
