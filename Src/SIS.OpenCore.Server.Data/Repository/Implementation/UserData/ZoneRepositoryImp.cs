@@ -13,19 +13,19 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 {
-    public class ZoneRepositoryImp : GenericRepository<DEF_Zone>, IUserDataRepository<DEF_Zone>
+    public class ZoneRepositoryImp : GenericRepository<Zone>, IUserDataRepository<Zone>
     {
-        public ZoneRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Zone> logger)
+        public ZoneRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Zone> logger)
         : base(dbContext, configuration, logger)
         {
             logger.LogInformation("ZoneRepositoryImp");
         }
 
-        public override async Task<int> Create(DEF_Zone entity)
+        public override async Task<int> Create(Zone entity)
         {
             try
             {
-				await _dbContext.DEF_Zone.AddAsync(entity);
+				await _dbContext.Zone.AddAsync(entity);
 				await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
 			}
@@ -49,10 +49,10 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
             throw new NotImplementedException();
         }
 
-        override public DEF_Zone GetById(int id)
+        override public Zone GetById(int id)
         {
             // check Company
-            var Ret =   (from c in _dbContext.DEF_Zone
+            var Ret =   (from c in _dbContext.Zone
                         where c.ID == id
                         select c).FirstOrDefault();
             return Ret;
@@ -60,7 +60,7 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.UserData
 
         
 
-        override public IQueryable<DEF_Zone> Search(BaseRequesModel requesModel)
+        override public IQueryable<Zone> Search(BaseRequesModel requesModel)
         {
             throw new NotImplementedException();
         }

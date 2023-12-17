@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model.Objects.UserData
 {
-    public partial class DEF_Zone : BaseUserData
+    public partial class Zone : BaseUserData
     {
 		
 	}

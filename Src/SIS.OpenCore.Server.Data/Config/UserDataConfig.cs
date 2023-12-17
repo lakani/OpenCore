@@ -23,7 +23,7 @@ namespace SIS.OpenCore.Server.Data.Config
 			//#endregion
 		}
 
-		public void Configure(EntityTypeBuilder<DEF_Zone> builder)
+		public void Configure(EntityTypeBuilder<Zone> builder)
 		{
 			// the below seems to be mandatory but not mandatory to speed things up, what do you thing ???
 			#region mandatory or not 

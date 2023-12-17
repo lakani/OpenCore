@@ -22,7 +22,7 @@ namespace SIS.OpenCore.Server.Controllers
         private readonly ILogger<CIFController> _logger;
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
-		private readonly IUserDataRepository<DEF_Zone> _ZoneRepository;
+		private readonly IUserDataRepository<Zone> _ZoneRepository;
 		private readonly IUserDataRepository<DEF_Company> _CompanyRepository;
 		private readonly IUserDataRepository<DEF_Branch> _BranchRepository;
 		private readonly IUserDataRepository<DEF_Sector> _SectorRepository;
@@ -35,7 +35,7 @@ namespace SIS.OpenCore.Server.Controllers
         public CIFController(
 		ILogger<CIFController> logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
-		IUserDataRepository<DEF_Zone> ZoneRepository,
+		IUserDataRepository<Zone> ZoneRepository,
 		IUserDataRepository<DEF_Company> CompanyRepository,
 		IUserDataRepository<DEF_Branch> BranchRepository,
 		IUserDataRepository<DEF_Sector> SectorRepository,

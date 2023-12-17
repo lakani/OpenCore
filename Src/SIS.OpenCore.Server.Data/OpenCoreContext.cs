@@ -27,7 +27,7 @@
 //        }
 
 //        // TODO : remove the below after completing the cleaning and full migration to the new structure
-//        //public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
+//        //public virtual DbSet<Zone> Zone { get; set; }
 //        public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
 //        public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
 //        public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }

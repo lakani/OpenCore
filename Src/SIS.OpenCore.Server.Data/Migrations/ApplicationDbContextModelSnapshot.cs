@@ -1072,7 +1072,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.ToTable("DEF_Unit");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.DEF_Zone", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Zone", b =>
                 {
                     b.Property<short>("ID")
                         .ValueGeneratedOnAdd()
@@ -1087,7 +1087,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DEF_Zone");
+                    b.ToTable("Zone");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.SettingsModel", b =>
@@ -1153,7 +1153,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 12, 5, 13, 5, 44, 58, DateTimeKind.Local).AddTicks(5290),
+                            EffectiveDate = new DateTime(2023, 12, 17, 14, 37, 55, 836, DateTimeKind.Local).AddTicks(1766),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });

@@ -251,19 +251,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DEF_Zone",
-                columns: table => new
-                {
-                    ID = table.Column<short>(type: "smallint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DEF_Zone", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DeviceCodes",
                 columns: table => new
                 {
@@ -381,6 +368,19 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Settings", x => x.VerID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Zone",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Zone", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -620,7 +620,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 5, 13, 5, 44, 58, DateTimeKind.Local).AddTicks(5290), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 17, 14, 37, 55, 836, DateTimeKind.Local).AddTicks(1766), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -774,9 +774,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "DEF_Unit");
 
             migrationBuilder.DropTable(
-                name: "DEF_Zone");
-
-            migrationBuilder.DropTable(
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
@@ -790,6 +787,9 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "Zone");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

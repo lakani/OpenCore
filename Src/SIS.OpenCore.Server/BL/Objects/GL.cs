@@ -23,12 +23,12 @@ namespace SIS.OpenCore.Server.BL.Objects
 {
     public static partial class GL
     {
-        //protected static IUserDataRepository<DEF_Zone> _Zone;
+        //protected static IUserDataRepository<Zone> _Zone;
 
         private static  ILogger _logger;
 		private static  IConfiguration _configuration;
 		private static  SignInManager<ApplicationUser> _signInManager;
-		private static  IUserDataRepository<DEF_Zone> _ZoneRepository;
+		private static  IUserDataRepository<Zone> _ZoneRepository;
 		private static  IUserDataRepository<DEF_Company> _CompanyRepository;
 		private static  IUserDataRepository<DEF_Branch> _BranchRepository;
 		private static  IUserDataRepository<DEF_Sector> _SectorRepository;
@@ -40,7 +40,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         public static void InitServices(ILogger logger, IConfiguration Configuration,
 		SignInManager<ApplicationUser> signInManager, 
-		IUserDataRepository<DEF_Zone> ZoneRepository,
+		IUserDataRepository<Zone> ZoneRepository,
 		IUserDataRepository<DEF_Company> CompanyRepository,
 		IUserDataRepository<DEF_Branch> BranchRepository,
 		IUserDataRepository<DEF_Sector> SectorRepository,
@@ -207,7 +207,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             if(_lut_GLLedgerNatureRepository.GetById(Nature) == null)
                 throw new ArgumentOutOfRangeException("Nature", "Invalid GL Nature");
             
-             //PRINT 'Checking DEF_Zone Table'
+             //PRINT 'Checking Zone Table'
             if (nZone != 0)
                 if(_ZoneRepository.GetById(nZone) == null)
                     throw new ArgumentOutOfRangeException("nZone", "Zone Number doesn't Exists");

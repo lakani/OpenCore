@@ -30,7 +30,7 @@ namespace SIS.OpenCore.Server.Data.Repository
 	{
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
-			services.AddScoped<IUserDataRepository<DEF_Zone>, ZoneRepositoryImp>();
+			services.AddScoped<IUserDataRepository<Zone>, ZoneRepositoryImp>();
 			services.AddScoped<IUserDataRepository<DEF_Company>, CompanyRepositoryImpl>();
 			services.AddScoped<IUserDataRepository<DEF_Unit>, UnitRepositoryImp>();
 			services.AddScoped<IUserDataRepository<DEF_Sector>, SectorRepositoryImp>();

@@ -43,7 +43,7 @@ namespace SIS.OpenCore.Server.Data
 		// dotnet ef database update --context ApplicationDbContext
 		// https://learn.microsoft.com/en-us/ef/core/modeling/
 
-		public virtual DbSet<DEF_Zone> DEF_Zone { get; set; }
+		public virtual DbSet<Zone> Zone { get; set; }
 		public virtual DbSet<DEF_Dep> DEF_Dep { get; set; }
 		public virtual DbSet<DEF_Sector> DEF_Sector { get; set; }
 		public virtual DbSet<DEF_Unit> DEF_Unit { get; set; }
@@ -69,7 +69,7 @@ namespace SIS.OpenCore.Server.Data
 
 			builder.ApplyConfiguration(new RoleConfiguration());
 
-			new UserDataConfig().Configure(builder.Entity<DEF_Zone>());
+			new UserDataConfig().Configure(builder.Entity<Zone>());
 			new UserDataConfig().Configure(builder.Entity<DEF_Dep>());
 			new UserDataConfig().Configure(builder.Entity<DEF_Sector>());
 			new UserDataConfig().Configure(builder.Entity<DEF_Unit>());
