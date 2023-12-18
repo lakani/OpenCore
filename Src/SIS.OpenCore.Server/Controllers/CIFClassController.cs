@@ -31,7 +31,7 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IUserDataRepository<Dep> _DepRepository;
 		private readonly IUserDataRepository<Unit> _UnitRepository;
         private readonly ILUTRepository<LUT_CIF_TYPE> _CifTypeRepository;
-        private readonly IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> _CifClassRepository;
+        private readonly ICIF_CLASSRepository<CIF_CLASS> _CifClassRepository;
 
 
         public CIFClassController(
@@ -44,7 +44,7 @@ namespace SIS.OpenCore.Server.Controllers
 		IUserDataRepository<Dep> DepRepository,
 		IUserDataRepository<Unit> UnitRepository,
         ILUTRepository<LUT_CIF_TYPE> CifTypeRepository,
-        IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> CifClassRepository) : base()
+        ICIF_CLASSRepository<CIF_CLASS> CifClassRepository) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
@@ -123,11 +123,11 @@ namespace SIS.OpenCore.Server.Controllers
             _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > PostNewCIFClass");
 
             try{
-                _logger.Log(LogLevel.Information, "Checking def_CIFClass.CIF_TYPE");
+                _logger.Log(LogLevel.Information, "Checking CIF_DESCClass.CIF_TYPE");
                 if(null == _CifTypeRepository.GetById(CIFClassReq.CIF_TYPE))
                     return BadRequest( new PostCIFClassResponseModel { Message = "Invalid CIF_TYPE" , Successful=false});
                 
-                int newID = await _CifClassRepository.Create(new DEF_CIF_CLASS {
+                int newID = await _CifClassRepository.Create(new CIF_CLASS {
                     CIF_TYPE = CIFClassReq.CIF_TYPE,
                     Name = CIFClassReq.Name,
                     REFERENCE = CIFClassReq.REFERENCE});

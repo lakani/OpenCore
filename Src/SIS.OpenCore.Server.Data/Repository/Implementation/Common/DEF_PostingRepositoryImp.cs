@@ -12,12 +12,12 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation
 {
-    public partial  class DEF_PostingRepositoryImp : GenericRepository<DEF_Posting>, IDEF_PostingRepository<DEF_Posting>
+    public partial  class AccountingPostingRepositoryImp : GenericRepository<AccountingPosting>, IAccountingPostingRepository<AccountingPosting>
     {
-        public DEF_PostingRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Posting> logger)
+        public AccountingPostingRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<AccountingPosting> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_PostingRepositoryImp");
+            logger.LogInformation("AccountingPostingRepositoryImp");
         }
 
     }

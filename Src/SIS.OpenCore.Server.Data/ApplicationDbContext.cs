@@ -49,18 +49,18 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<Unit> Unit { get; set; }
 		public virtual DbSet<Company > Company  { get; set; }
 		public virtual DbSet<Branch> Branch { get; set; }
-		public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+		public virtual DbSet<GL_ACCT> GL_ACCT { get; set; }
 		public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
-		public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
-		public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
-		public virtual DbSet<DEF_CIF_PERSONAL> DEF_CIF_PERSONAL { get; set; }
+		public virtual DbSet<CIF_CLASS> CIF_CLASS { get; set; }
+		public virtual DbSet<CIF_DESC> CIF_DESC { get; set; }
+		public virtual DbSet<CIF_PERSONAL> CIF_PERSONAL { get; set; }
 		public virtual DbSet<SettingsModel>  Settings { get; set; }
-		public virtual DbSet<DEF_Currency>  DEF_Currency { get; set; }
+		public virtual DbSet<Currency>  Currency { get; set; }
 		public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
 		public virtual DbSet<LUT_ACCT_TYPE> LUT_ACCT_TYPE { get; set; }
-		public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
-		public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
-		public virtual DbSet<DEF_Posting> DEF_Posting { get; set; }
+		public virtual DbSet<CIF_ACCT_CLASS> CIF_ACCT_CLASS { get; set; }
+		public virtual DbSet<CIF_CK_ACCT> CIF_CK_ACCT { get; set; }
+		public virtual DbSet<AccountingPosting> AccountingPosting { get; set; }
 		public virtual DbSet<ACCTDataSource> ACCTDataSource { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -75,18 +75,18 @@ namespace SIS.OpenCore.Server.Data
 			new UserDataConfig().Configure(builder.Entity<Unit>());
 			new UserDataConfig().Configure(builder.Entity<Company >());
 			new UserDataConfig().Configure(builder.Entity<Branch>());
-			new DEF_GLConfig().Configure(builder.Entity<DEF_GL>());
+			new GL_ACCTConfig().Configure(builder.Entity<GL_ACCT>());
 			new SettingsModelConfig().Configure(builder.Entity<SettingsModel>());
 			new LUT_CIF_TYPEConfig().Configure(builder.Entity<LUT_CIF_TYPE>());
-			new DEF_CIF_CLASSConfig().Configure(builder.Entity<DEF_CIF_CLASS>());
-			new DEF_CIFConfig().Configure(builder.Entity<DEF_CIF>());
-			new DEF_CIF_PERSONALConfig().Configure(builder.Entity<DEF_CIF_PERSONAL>());
-			new DEF_CurrencyConfig().Configure(builder.Entity<DEF_Currency>());
+			new CIF_CLASSConfig().Configure(builder.Entity<CIF_CLASS>());
+			new CIF_DESCConfig().Configure(builder.Entity<CIF_DESC>());
+			new CIF_PERSONALConfig().Configure(builder.Entity<CIF_PERSONAL>());
+			new CurrencyConfig().Configure(builder.Entity<Currency>());
 			new ExchangeRatesConfig().Configure(builder.Entity<ExchangeRates>());
 			new LUT_ACCT_TYPEConfig().Configure(builder.Entity<LUT_ACCT_TYPE>());
-			new DEF_ACCT_CLASSConfig().Configure(builder.Entity<DEF_ACCT_CLASS>());
-			new DEF_CK_ACCTConfig().Configure(builder.Entity<DEF_CK_ACCT>());
-			new DEF_PostingConfig().Configure(builder.Entity<DEF_Posting>());
+			new CIF_ACCT_CLASSConfig().Configure(builder.Entity<CIF_ACCT_CLASS>());
+			new CIF_CK_ACCTConfig().Configure(builder.Entity<CIF_CK_ACCT>());
+			new AccountingPostingConfig().Configure(builder.Entity<AccountingPosting>());
 			new ACCTDataSourceConfig().Configure(builder.Entity<ACCTDataSource>());
 		}
 	}

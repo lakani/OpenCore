@@ -28,23 +28,23 @@ namespace SIS.OpenCore.Server.Controllers
         private readonly ILogger<CKACCTController> _logger;
 		private IConfiguration _configuration;
 		private readonly SignInManager<ApplicationUser> _signInManager;
-		private readonly IDEF_CK_ACCTRepository<DEF_CK_ACCT> _CKACCTRepository;
+		private readonly ICIF_CK_ACCTRepository<CIF_CK_ACCT> _CKACCTRepository;
 		private readonly IUserDataRepository<Company > _CompanyRepository;
 		private readonly ILUTRepository<LUT_ACCT_TYPE> _AcctTypeRepository;
-        private readonly IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> _AcctClassRepository;
-        private readonly IDEF_CIFRepository<DEF_CIF> _CifRepository;
-        private readonly IDEF_CurrencyRepository<DEF_Currency> _CurrencyRepository;
+        private readonly ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS> _AcctClassRepository;
+        private readonly ICIF_DESCRepository<CIF_DESC> _CifRepository;
+        private readonly ICurrencyRepository<Currency> _CurrencyRepository;
         
 
         public CKACCTController(
 		ILogger<CKACCTController> logger, IConfiguration Configuration,
         SignInManager<ApplicationUser> signInManager, 
         IUserDataRepository<Company > CompanyRepository,
-		IDEF_CK_ACCTRepository<DEF_CK_ACCT> CKACCTRepository,
+		ICIF_CK_ACCTRepository<CIF_CK_ACCT> CKACCTRepository,
         ILUTRepository<LUT_ACCT_TYPE> AcctTypeRepository,
-        IDEF_CIFRepository<DEF_CIF> CifRepository,
-        IDEF_CurrencyRepository<DEF_Currency> CurrencyRepository,
-        IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> AcctClassRepository) : base()
+        ICIF_DESCRepository<CIF_DESC> CifRepository,
+        ICurrencyRepository<Currency> CurrencyRepository,
+        ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS> AcctClassRepository) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
@@ -171,7 +171,7 @@ namespace SIS.OpenCore.Server.Controllers
 
                 CKACCTReq.ACCT_NO = GenerateNewACCT_NO(CKACCTReq.ACCT_NO);
 
-                int newID = await _CKACCTRepository.Create(new DEF_CK_ACCT {
+                int newID = await _CKACCTRepository.Create(new CIF_CK_ACCT {
                     
                     CIF_NO = CKACCTReq.CIF_NO,
                     ACCT_CLASS_ID = CKACCTReq.ACCT_CLASS_ID,

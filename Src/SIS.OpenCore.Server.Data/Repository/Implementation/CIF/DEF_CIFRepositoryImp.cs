@@ -11,37 +11,37 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 {
-    public class DEF_CIFRepositoryImp : GenericRepository<DEF_CIF>, IDEF_CIFRepository<DEF_CIF>
+    public class CIF_DESCRepositoryImp : GenericRepository<CIF_DESC>, ICIF_DESCRepository<CIF_DESC>
     {
-        public DEF_CIFRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_CIF> logger)
+        public CIF_DESCRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<CIF_DESC> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_CIFRepositoryImp");
+            logger.LogInformation("CIF_DESCRepositoryImp");
         }
 
-        override public DEF_CIF GetByCode(string code)
+        override public CIF_DESC GetByCode(string code)
 		{
-			var Ret =   (from c in _dbContext.DEF_CIF
+			var Ret =   (from c in _dbContext.CIF_DESC
                         where c.SearchKey == code || c.CIF_NO == code
                         select c).FirstOrDefault();
 
             return Ret;
 		}
 
-        override public DEF_CIF GetById(int id)
+        override public CIF_DESC GetById(int id)
 		{
 			if(id == -1)
             {
-                string sMax =   (from r in _dbContext.DEF_CIF
+                string sMax =   (from r in _dbContext.CIF_DESC
                                 select r.CIF_NO).Max();
 
                 if (string.IsNullOrEmpty(sMax))
                     sMax = 0.ToString();
-                return new DEF_CIF{ CIF_NO = sMax};
+                return new CIF_DESC{ CIF_NO = sMax};
             }
             else
             {
-                var Ret =   (from c in _dbContext.DEF_CIF
+                var Ret =   (from c in _dbContext.CIF_DESC
                             where c.CIF_ID == id
                             select c).FirstOrDefault();
 

@@ -8,7 +8,7 @@ namespace SIS.OpenCore.Shared.Model.GetRequest
 {
     public class GetGLLedgerResponseModel : BaseResponseModel
     {
-        public  IQueryable<DEF_GL>  Gls { get; set; }
+        public  IQueryable<GL_ACCT>  Gls { get; set; }
     }
 }
 

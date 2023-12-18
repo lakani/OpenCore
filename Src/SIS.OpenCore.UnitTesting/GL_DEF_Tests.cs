@@ -27,21 +27,21 @@ using SIS.OpenCore.Server.Data.Context;
 //             // BUILD_ERR 
 //             // DeadCode 
 //             // OpenCoreContext db = new OpenCoreContext();
-//             // var GLs = (from g in db.VW_DEF_GL select g).ToArray();
-//             // //var GLs =   from g in db.VW_DEF_GL
+//             // var GLs = (from g in db.VW_GL_ACCT select g).ToArray();
+//             // //var GLs =   from g in db.VW_GL_ACCT
 //             // //          select g.CURR , g.DepNo , g.GL;
 
 
 
-//             // //foreach(VW_DEF_GL GLRec in GLs)
+//             // //foreach(VW_GL_ACCT GLRec in GLs)
 //             // for (int nLoop = 0; nLoop < GLs.Length; nLoop++)
 //             // {
-//             //     VW_DEF_GL GLRec = GLs[nLoop];
-//             //     //foreach(VW_DEF_GL GLRec in GLs)
+//             //     VW_GL_ACCT GLRec = GLs[nLoop];
+//             //     //foreach(VW_GL_ACCT GLRec in GLs)
 
 //             //     // BUILD_ERR :
 //             //     //GL.GetGLInfo(GLRec.GL, GLRec.CURR);
-//             //     DEF_GL _GL = new DEF_GL(); //
+//             //     GL_ACCT _GL = new GL_ACCT(); //
 
 //             //     if (_GL == null)
 //             //         Assert.Fail("NULL for GL" + GLRec.GL);
@@ -91,8 +91,8 @@ using SIS.OpenCore.Server.Data.Context;
 //             Record.GLFormat = sGLFormat;
 //             db.SaveChanges();
 
-//             var dEF_GL = GL.fn_String_ParseGL(sGL);
-//             dEF_GL.EFFECTIVE_DT = DateTime.Now;
+//             var GL_ACCT = GL.fn_String_ParseGL(sGL);
+//             GL_ACCT.EFFECTIVE_DT = DateTime.Now;
 
 //             // Save it again
 //             Record =    (from r in db.Settings
@@ -138,7 +138,7 @@ using SIS.OpenCore.Server.Data.Context;
 //             for (int n = 0; n < 10; n++)
 //             {
 //                 sGL = String.Empty;
-//                 DEF_GL dEF_GL = new DEF_GL{
+//                 GL_ACCT GL_ACCT = new GL_ACCT{
 //                     BranchNo = BranchNo, COMMENTS = string.Empty, CompanyNo = CompanyNo,
 //                     DepNo = DepNo, EFFECTIVE_DT = dt, GL = string.Empty, LedgerNO = LEDGERNO,
 //                     Nature = NATURE, ProductNo = ProductNo, REFERENCE = sGL,
@@ -146,7 +146,7 @@ using SIS.OpenCore.Server.Data.Context;
 //                 };
 
 //                 // TODO : Call the Repository
-//                 //sGL = GL.Create(dEF_GL); ;
+//                 //sGL = GL.Create(GL_ACCT); ;
 //             }
 //         }
 

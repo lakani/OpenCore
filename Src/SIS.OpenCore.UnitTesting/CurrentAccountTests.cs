@@ -18,15 +18,15 @@ namespace SIS.OpenCore.UnitTesting
 
             //CurrentAccount.Add()
 
-            List<DEF_CK_ACCT_ACCT_STRUCT> ACCTS = new List<DEF_CK_ACCT_ACCT_STRUCT>();
+            List<CIF_CK_ACCT_ACCT_STRUCT> ACCTS = new List<CIF_CK_ACCT_ACCT_STRUCT>();
 
-            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
+            ACCTS.Add(new CIF_CK_ACCT_ACCT_STRUCT
             {
                 GLNum = "2-01-02-0000-00-00-00-0000-1-000032",
                 GLCategory = 1
             });
 
-            ACCTS.Add(new DEF_CK_ACCT_ACCT_STRUCT
+            ACCTS.Add(new CIF_CK_ACCT_ACCT_STRUCT
             {
                 GLNum = "2-01-02-0000-00-00-00-0000-1-000032",
                 GLCategory = 2
@@ -34,7 +34,7 @@ namespace SIS.OpenCore.UnitTesting
 
 
             CurrentAccount.Add(
-                new DEF_CK_ACCT
+                new CIF_CK_ACCT
                 {
                     OpenDate = new DateTime(2020, 1, 1),
                     CompanyID = 2, //Company

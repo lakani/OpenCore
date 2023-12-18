@@ -9,6 +9,6 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {
     public partial class LUT_CIF_TYPE : BaseLUTEntity
     {
-        public ICollection<DEF_CIF_CLASS> DEF_CIF_CLASS { get; } = new List<DEF_CIF_CLASS>();
+        public ICollection<CIF_CLASS> CIF_CLASS { get; } = new List<CIF_CLASS>();
     }
 }

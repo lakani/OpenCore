@@ -4,9 +4,9 @@ using SIS.OpenCore.Shared.Model.Objects.GL;
 
 namespace SIS.OpenCore.Server.Data.Config
 {
-    public partial class DEF_GLConfig : IEntityTypeConfiguration<DEF_GL>
+    public partial class GL_ACCTConfig : IEntityTypeConfiguration<GL_ACCT>
     {
-        public void Configure(EntityTypeBuilder<DEF_GL> builder)
+        public void Configure(EntityTypeBuilder<GL_ACCT> builder)
         {
             builder.HasKey(e => e.GL_DEFID);
             builder.Property(p => p.GL_DEFID).IsRequired();

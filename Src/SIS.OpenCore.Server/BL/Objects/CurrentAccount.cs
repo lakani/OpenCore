@@ -19,7 +19,7 @@ namespace SIS.OpenCore.Server.BL.Objects
         {
             // DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // var Ret =   (from   c in db.DEF_CK_ACCT
+            // var Ret =   (from   c in db.CIF_CK_ACCT
             //             where   c.ACCT_NO == stAcctNo
             //             select  c.ACCT_NO).FirstOrDefault();
 
@@ -34,7 +34,7 @@ namespace SIS.OpenCore.Server.BL.Objects
         {
             // DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // var Ret =   (from   c in db.DEF_CK_ACCT
+            // var Ret =   (from   c in db.CIF_CK_ACCT
             //             where   c.ACCT_NO == stAcctNo && c.STATUS == 1
             //             select  c.ACCT_NO).FirstOrDefault();
 
@@ -45,16 +45,16 @@ namespace SIS.OpenCore.Server.BL.Objects
             return true;
         }
 
-        public static DEF_CK_ACCT GetAccountInfo(string stAcctNo)
+        public static CIF_CK_ACCT GetAccountInfo(string stAcctNo)
         {
             // DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // var Ret =   (from   c in db.DEF_CK_ACCT
+            // var Ret =   (from   c in db.CIF_CK_ACCT
             //             where   c.ACCT_NO == stAcctNo && c.STATUS == 1
             //             select  c).FirstOrDefault();
 
             //return Ret;
-            return new DEF_CK_ACCT();
+            return new CIF_CK_ACCT();
         }
 
         public static decimal GetLastBalance(string Acct_No, string Acct_Curr)
@@ -78,17 +78,17 @@ namespace SIS.OpenCore.Server.BL.Objects
         }
 
         
-        public static string Add(DEF_CK_ACCT NewAcct, DEF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
+        public static string Add(CIF_CK_ACCT NewAcct, CIF_CK_ACCT_ACCT_STRUCT [] NewAcctStruct)
         {
             //DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // DEF_CK_ACCT  newAcctEL = new DEF_CK_ACCT();
+            // CIF_CK_ACCT  newAcctEL = new CIF_CK_ACCT();
                                   
                         
             // // if(false == AccountClass.ValidateExists(NewAcct.ACCT_CLASS))
             // //     throw new ArgumentOutOfRangeException("ACCT_CLASS", "Account class doesn't Exists");
 
-            // foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            // foreach(CIF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             // {
             //     //GLNum, short GLCategory , string stCurrency)   
             //     if(false == AccountClassAccountingStructure.ValidateExists(ACCT_STRUCT.GLNum, ACCT_STRUCT.GLCategory, NewAcct.Currency))
@@ -112,19 +112,19 @@ namespace SIS.OpenCore.Server.BL.Objects
             // newAcctEL.STATUS = 1;
             // newAcctEL.Title = NewAcct.Title;
 
-            // db.DEF_CK_ACCT.Add(newAcctEL);
+            // db.CIF_CK_ACCT.Add(newAcctEL);
             // db.SaveChanges();   
 
-            // foreach(DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            // foreach(CIF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             // {
-            //     DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new DEF_CK_ACCT_ACCT_STRUCT();
+            //     CIF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT_EL = new CIF_CK_ACCT_ACCT_STRUCT();
 
             //     ACCT_STRUCT_EL.AccountCode = NewAcct.ACCT_NO;
             //     ACCT_STRUCT_EL.GLCategory = ACCT_STRUCT.GLCategory;
             //     ACCT_STRUCT_EL.GLComments = ACCT_STRUCT.GLComments;
             //     ACCT_STRUCT_EL.GLNum = ACCT_STRUCT.GLNum;
 
-            //     db.DEF_CK_ACCT_ACCT_STRUCT.Add(ACCT_STRUCT_EL);
+            //     db.CIF_CK_ACCT_ACCT_STRUCT.Add(ACCT_STRUCT_EL);
             //     db.SaveChanges();
             // }
             
@@ -133,11 +133,11 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         
 
-        static public DEF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
+        static public CIF_CK_ACCT_ACCT_STRUCT [] GetAccountingStruct(string stACCT_NO)
         {
             // DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // DEF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.DEF_CK_ACCT_ACCT_STRUCT
+            // CIF_CK_ACCT_ACCT_STRUCT[] AcctStruct =   (from r in db.CIF_CK_ACCT_ACCT_STRUCT
             //                                             where r.AccountCode == stACCT_NO
             //                                             select r ).ToArray();
             //return AcctStruct;
@@ -146,7 +146,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         static public string GetPrincipleGLForAccount(string stACCT_NO)
         {
-            DEF_CK_ACCT_ACCT_STRUCT [] AcctStruct = GetAccountingStruct(stACCT_NO);
+            CIF_CK_ACCT_ACCT_STRUCT [] AcctStruct = GetAccountingStruct(stACCT_NO);
             string PrincipleGL =    (from g in AcctStruct
                                     where g.GLCategory == 1
                                     orderby g.AccountStructID descending

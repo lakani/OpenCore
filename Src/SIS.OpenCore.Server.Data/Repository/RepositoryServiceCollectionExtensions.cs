@@ -39,18 +39,18 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<ISettingsRepository<SettingsModel>, SettingsRepositoryImp>();
 			
 			// GL
-			services.AddScoped<IDEF_GLRepository<DEF_GL>, DEF_GLRepositoryImp>();
+			services.AddScoped<IGL_ACCTRepository<GL_ACCT>, GL_ACCTRepositoryImp>();
 			services.AddScoped<ILUTRepository<LUT_GLLedgerNature>, GLLedgerNatureRepositoryImp>();
 			// CIF
 			services.AddScoped<ILUTRepository<LUT_CIF_TYPE>, LUT_CIF_TYPERepositoryImp>();
-			services.AddScoped<IDEF_CIF_CLASSRepository<DEF_CIF_CLASS>, DEF_CIF_CLASSRepositoryImp>();
-			services.AddScoped<IDEF_CIFRepository<DEF_CIF>, DEF_CIFRepositoryImp>();
+			services.AddScoped<ICIF_CLASSRepository<CIF_CLASS>, CIF_CLASSRepositoryImp>();
+			services.AddScoped<ICIF_DESCRepository<CIF_DESC>, CIF_DESCRepositoryImp>();
 			// ACCT Class
 			services.AddScoped<ILUTRepository<LUT_ACCT_TYPE>, LUT_ACCT_TYPERepositoryImp>();
-			services.AddScoped<IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS>, DEF_ACCT_CLASSRepositoryImp>();
+			services.AddScoped<ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS>, CIF_ACCT_CLASSRepositoryImp>();
 			// CK ACCT 
-			services.AddScoped<IDEF_CK_ACCTRepository<DEF_CK_ACCT>, DEF_CK_ACCTRepositoryImp>();
-			services.AddScoped<IDEF_CurrencyRepository<DEF_Currency>, DEF_CurrencyRepositoryImp>();
+			services.AddScoped<ICIF_CK_ACCTRepository<CIF_CK_ACCT>, CIF_CK_ACCTRepositoryImp>();
+			services.AddScoped<ICurrencyRepository<Currency>, CurrencyRepositoryImp>();
 			// Account Data Sources
 			services.AddScoped<IACCTDataSourceRepository<ACCTDataSource>, ACCTDataSourceRepositoryImp>();
 			

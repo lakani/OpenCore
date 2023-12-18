@@ -7,7 +7,7 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Shared.Model.Objects.GL
 {
-    public partial class DEF_GL : BaseEntity
+    public partial class GL_ACCT : BaseEntity
     {
         public int GetPrimaryKey ()
         {

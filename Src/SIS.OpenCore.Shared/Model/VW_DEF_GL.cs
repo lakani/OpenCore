@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model
 {
-    public partial class VW_DEF_GL
+    public partial class VW_GL_ACCT
     {
         public string GL { get; set; }
         public short Zone { get; set; }

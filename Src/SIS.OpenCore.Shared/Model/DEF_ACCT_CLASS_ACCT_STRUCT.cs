@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model
 {
-    public partial class DEF_ACCT_CLASS_ACCT_STRUCT
+    public partial class CIF_ACCT_CLASS_ACCT_STRUCT
     {
         public short AccountStructID { get; set; }
         public string AccountClassCode { get; set; }

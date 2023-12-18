@@ -15,7 +15,7 @@ namespace SIS.OpenCore.Server.Data.TODO
         //     string stSQL;
         //     var context = new OpenCoreContext();
 
-        //     //select ID from DEF_CIF WHERE ID = 1203
+        //     //select ID from CIF_DESC WHERE ID = 1203
         //     stSQL = "SELECT COUNT(" + ID + ") AS CNT FROM [dbo].[" + table + "] WHERE " + ID + " = " + value + " ";
         //     //context.Database.ExecuteSqlInterpolatedAsync()
         //     //await context.SqlQueryAsync(stSQL);

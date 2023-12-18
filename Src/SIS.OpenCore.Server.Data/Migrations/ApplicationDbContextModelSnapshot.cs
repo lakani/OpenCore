@@ -296,134 +296,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CivilNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastLoginDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.DEF_Currency", b =>
-                {
-                    b.Property<short>("CurrencyID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CurrencyID"));
-
-                    b.Property<short>("Fractions")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("ISOCode")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Symbol")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.HasKey("CurrencyID");
-
-                    b.ToTable("DEF_Currency");
-
-                    b.HasData(
-                        new
-                        {
-                            CurrencyID = (short)1,
-                            Fractions = (short)2,
-                            ISOCode = "EGP",
-                            Name = "Egyptian Pound"
-                        },
-                        new
-                        {
-                            CurrencyID = (short)2,
-                            Fractions = (short)2,
-                            ISOCode = "USD",
-                            Name = "US Dollar"
-                        },
-                        new
-                        {
-                            CurrencyID = (short)3,
-                            Fractions = (short)2,
-                            ISOCode = "SAR",
-                            Name = "Saudi Riyal "
-                        });
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.DEF_Posting", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.AccountingPosting", b =>
                 {
                     b.Property<int>("PostingId")
                         .ValueGeneratedOnAdd()
@@ -528,7 +401,134 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("PostingId");
 
-                    b.ToTable("DEF_Posting");
+                    b.ToTable("AccountingPosting");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CivilNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLoginDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.Currency", b =>
+                {
+                    b.Property<short>("CurrencyID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CurrencyID"));
+
+                    b.Property<short>("Fractions")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ISOCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.HasKey("CurrencyID");
+
+                    b.ToTable("Currency");
+
+                    b.HasData(
+                        new
+                        {
+                            CurrencyID = (short)1,
+                            Fractions = (short)2,
+                            ISOCode = "EGP",
+                            Name = "Egyptian Pound"
+                        },
+                        new
+                        {
+                            CurrencyID = (short)2,
+                            Fractions = (short)2,
+                            ISOCode = "USD",
+                            Name = "US Dollar"
+                        },
+                        new
+                        {
+                            CurrencyID = (short)3,
+                            Fractions = (short)2,
+                            ISOCode = "SAR",
+                            Name = "Saudi Riyal "
+                        });
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Common.ExchangeRates", b =>
@@ -614,7 +614,37 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.ToTable("ACCTDataSource");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.DEF_CK_ACCT", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CIF_ACCT_CLASS", b =>
+                {
+                    b.Property<short>("ACCT_CLASS_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ACCT_CLASS_ID"));
+
+                    b.Property<short>("ACCT_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("ExternallyManged")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("ACCT_CLASS_ID");
+
+                    b.HasIndex("ACCT_TYPE");
+
+                    b.ToTable("CIF_ACCT_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CK.CIF_CK_ACCT", b =>
                 {
                     b.Property<int>("DEF_ACCT_ID")
                         .ValueGeneratedOnAdd()
@@ -683,37 +713,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("DEF_ACCT_ID");
 
-                    b.ToTable("DEF_CK_ACCT");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
-                {
-                    b.Property<short>("ACCT_CLASS_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ACCT_CLASS_ID"));
-
-                    b.Property<short>("ACCT_TYPE")
-                        .HasColumnType("smallint");
-
-                    b.Property<bool>("ExternallyManged")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
-                    b.Property<string>("REFERENCE")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("ACCT_CLASS_ID");
-
-                    b.HasIndex("ACCT_TYPE");
-
-                    b.ToTable("DEF_ACCT_CLASS");
+                    b.ToTable("CIF_CK_ACCT");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>
@@ -741,7 +741,34 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", b =>
+                {
+                    b.Property<short>("CIF_CLASS_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CIF_CLASS_ID"));
+
+                    b.Property<short>("CIF_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("REFERENCE")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("CIF_CLASS_ID");
+
+                    b.HasIndex("CIF_TYPE");
+
+                    b.ToTable("CIF_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", b =>
                 {
                     b.Property<int>("CIF_ID")
                         .ValueGeneratedOnAdd()
@@ -797,43 +824,16 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasIndex("CLASS_ID");
 
-                    b.ToTable("DEF_CIF");
+                    b.ToTable("CIF_DESC");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_PERSONAL", b =>
                 {
-                    b.Property<short>("CIF_CLASS_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CIF_CLASS_ID"));
-
-                    b.Property<short>("CIF_TYPE")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
-                    b.Property<string>("REFERENCE")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("CIF_CLASS_ID");
-
-                    b.HasIndex("CIF_TYPE");
-
-                    b.ToTable("DEF_CIF_CLASS");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", b =>
-                {
-                    b.Property<int>("DEF_CIF_PERSONALID")
+                    b.Property<int>("CIF_PERSONALID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DEF_CIF_PERSONALID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CIF_PERSONALID"));
 
                     b.Property<string>("Address")
                         .HasMaxLength(80)
@@ -882,12 +882,12 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("DEF_CIF_PERSONALID");
+                    b.HasKey("CIF_PERSONALID");
 
                     b.HasIndex("CIF_ID")
                         .IsUnique();
 
-                    b.ToTable("DEF_CIF_PERSONAL");
+                    b.ToTable("CIF_PERSONAL");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
@@ -920,7 +920,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.DEF_GL", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.GL_ACCT", b =>
                 {
                     b.Property<int>("GL_DEFID")
                         .ValueGeneratedOnAdd()
@@ -976,7 +976,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
                     b.HasKey("GL_DEFID");
 
-                    b.ToTable("DEF_GL");
+                    b.ToTable("GL_ACCT");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Branch", b =>
@@ -1153,7 +1153,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 12, 17, 15, 30, 1, 148, DateTimeKind.Local).AddTicks(1669),
+                            EffectiveDate = new DateTime(2023, 12, 18, 10, 9, 9, 86, DateTimeKind.Local).AddTicks(7736),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -1210,10 +1210,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.DEF_ACCT_CLASS", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.CIF_ACCT_CLASS", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", "lUT_ACCT_TYPE")
-                        .WithMany("DEF_ACCT_CLASS")
+                        .WithMany("CIF_ACCT_CLASS")
                         .HasForeignKey("ACCT_TYPE")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1221,21 +1221,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Navigation("lUT_ACCT_TYPE");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
-                {
-                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", "DEF_CIF_CLASS")
-                        .WithMany("DEF_CIF")
-                        .HasForeignKey("CLASS_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DEF_CIF_CLASS");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", "lUT_CIF_TYPE")
-                        .WithMany("DEF_CIF_CLASS")
+                        .WithMany("CIF_CLASS")
                         .HasForeignKey("CIF_TYPE")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1243,35 +1232,46 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Navigation("lUT_CIF_TYPE");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", b =>
                 {
-                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", "DEF_CIF")
-                        .WithOne("PERSONAL")
-                        .HasForeignKey("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_PERSONAL", "CIF_ID")
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", "CIF_CLASS")
+                        .WithMany("CIF_DESC")
+                        .HasForeignKey("CLASS_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DEF_CIF");
+                    b.Navigation("CIF_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_PERSONAL", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", "CIF_DESC")
+                        .WithOne("PERSONAL")
+                        .HasForeignKey("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_PERSONAL", "CIF_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CIF_DESC");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>
                 {
-                    b.Navigation("DEF_ACCT_CLASS");
+                    b.Navigation("CIF_ACCT_CLASS");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF", b =>
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", b =>
+                {
+                    b.Navigation("CIF_DESC");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", b =>
                 {
                     b.Navigation("PERSONAL");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.DEF_CIF_CLASS", b =>
-                {
-                    b.Navigation("DEF_CIF");
-                });
-
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
                 {
-                    b.Navigation("DEF_CIF_CLASS");
+                    b.Navigation("CIF_CLASS");
                 });
 #pragma warning restore 612, 618
         }

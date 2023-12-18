@@ -19,9 +19,9 @@ namespace SIS.OpenCore.Server.Data.Config.Account
         }
     }
 
-    public partial class  DEF_ACCT_CLASSConfig : IEntityTypeConfiguration<DEF_ACCT_CLASS>
+    public partial class  CIF_ACCT_CLASSConfig : IEntityTypeConfiguration<CIF_ACCT_CLASS>
     {
-        public void Configure(EntityTypeBuilder<DEF_ACCT_CLASS> builder)
+        public void Configure(EntityTypeBuilder<CIF_ACCT_CLASS> builder)
         {
             builder.HasKey(e => e.ACCT_CLASS_ID);
             builder.Property(p => p.ACCT_CLASS_ID).IsRequired();
@@ -33,7 +33,7 @@ namespace SIS.OpenCore.Server.Data.Config.Account
 
             builder 
                 .HasOne( c => c.lUT_ACCT_TYPE)
-                .WithMany( t => t.DEF_ACCT_CLASS)
+                .WithMany( t => t.CIF_ACCT_CLASS)
                 .HasForeignKey( c => c.ACCT_TYPE)
                 .IsRequired();
         }
@@ -79,9 +79,9 @@ namespace SIS.OpenCore.Server.Data.Config.Account
     }
 
 
-    public partial class  DEF_CK_ACCTConfig : IEntityTypeConfiguration<DEF_CK_ACCT>
+    public partial class  CIF_CK_ACCTConfig : IEntityTypeConfiguration<CIF_CK_ACCT>
     {
-        public void Configure(EntityTypeBuilder<DEF_CK_ACCT> builder)
+        public void Configure(EntityTypeBuilder<CIF_CK_ACCT> builder)
         {
             builder.HasKey(e => e.DEF_ACCT_ID);
             builder.Property(p => p.DEF_ACCT_ID).IsRequired();

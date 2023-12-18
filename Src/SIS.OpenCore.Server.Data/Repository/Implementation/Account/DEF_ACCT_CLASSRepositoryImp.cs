@@ -10,34 +10,34 @@ using System;
 #nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.Account
 {
-    public class DEF_ACCT_CLASSRepositoryImp : GenericRepository<DEF_ACCT_CLASS>, IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS>
+    public class CIF_ACCT_CLASSRepositoryImp : GenericRepository<CIF_ACCT_CLASS>, ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS>
     {
-        public DEF_ACCT_CLASSRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_ACCT_CLASS> logger)
+        public CIF_ACCT_CLASSRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<CIF_ACCT_CLASS> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_ACCT_CLASSRepositoryImp");
+            logger.LogInformation("CIF_ACCT_CLASSRepositoryImp");
         }
 
-        override public DEF_ACCT_CLASS? GetById(int id)
+        override public CIF_ACCT_CLASS? GetById(int id)
         {
-            DEF_ACCT_CLASS? Ret = (from t in _dbContext.DEF_ACCT_CLASS
+            CIF_ACCT_CLASS? Ret = (from t in _dbContext.CIF_ACCT_CLASS
                                 where t.ACCT_CLASS_ID == id
                                 select t).FirstOrDefault();
 
             return Ret;
         }
 
-        override public async Task<int> Create(DEF_ACCT_CLASS entity)
+        override public async Task<int> Create(CIF_ACCT_CLASS entity)
         {
             try
             {
-                await _dbContext.Set<DEF_ACCT_CLASS>().AddAsync(entity);
+                await _dbContext.Set<CIF_ACCT_CLASS>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error in DEF_ACCT_CLASSRepositoryImp:Create");
+                _logger.LogError("Error in CIF_ACCT_CLASSRepositoryImp:Create");
                 _logger.LogError(ex.Message);
                 if (ex.InnerException != null)
                     _logger.LogError(ex.InnerException.ToString());

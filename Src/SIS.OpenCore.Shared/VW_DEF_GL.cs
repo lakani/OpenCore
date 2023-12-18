@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Server.Data.TODO // Check the correct table attributes
 {
-    public partial class VW_DEF_GL
+    public partial class VW_GL_ACCT
     {
         public string GL { get; set; }
         public short Zone { get; set; }

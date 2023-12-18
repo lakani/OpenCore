@@ -8,9 +8,9 @@ namespace SIS.OpenCore.Server.BL.Objects
 {
     public partial class AccountClassAccountingStructure
     {
-        static public bool Add(DEF_ACCT_CLASS_ACCT_STRUCT []GLAccounts, string stAcctClsCode)
+        static public bool Add(CIF_ACCT_CLASS_ACCT_STRUCT []GLAccounts, string stAcctClsCode)
         {
-            foreach(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount in GLAccounts)
+            foreach(CIF_ACCT_CLASS_ACCT_STRUCT GLAccount in GLAccounts)
             {
                 if(false == Add(GLAccount, stAcctClsCode))
                     throw new Exception("Failed to insert Accounting structure for Account Class");
@@ -19,16 +19,16 @@ namespace SIS.OpenCore.Server.BL.Objects
             return true;
         }
 
-        static public bool Add(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stAcctClsCode)
+        static public bool Add(CIF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stAcctClsCode)
         {
             // DeadCode
             // OpenCoreContext db = new OpenCoreContext();
-            // DEF_ACCT_CLASS_ACCT_STRUCT  newAcctStruct = new DEF_ACCT_CLASS_ACCT_STRUCT();
+            // CIF_ACCT_CLASS_ACCT_STRUCT  newAcctStruct = new CIF_ACCT_CLASS_ACCT_STRUCT();
             // int nReturn;
 
             // newAcctStruct = GLAccount;
             // newAcctStruct.AccountClassCode = stAcctClsCode;
-            // db.DEF_ACCT_CLASS_ACCT_STRUCT.Add(newAcctStruct);
+            // db.CIF_ACCT_CLASS_ACCT_STRUCT.Add(newAcctStruct);
             // nReturn = db.SaveChanges();
             // if(nReturn<= 0)
             //     return false;
@@ -36,16 +36,16 @@ namespace SIS.OpenCore.Server.BL.Objects
             return true;
         }
 
-        static public bool ValidateExists(DEF_ACCT_CLASS_ACCT_STRUCT []GLAccounts, string stCurrency)
+        static public bool ValidateExists(CIF_ACCT_CLASS_ACCT_STRUCT []GLAccounts, string stCurrency)
         {
-            foreach(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount in GLAccounts)
+            foreach(CIF_ACCT_CLASS_ACCT_STRUCT GLAccount in GLAccounts)
             {
                 if(false == ValidateExists(GLAccount, stCurrency))
                     return false;
             }
             return true;
         }
-        static public bool ValidateExists(DEF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stCurrency)   
+        static public bool ValidateExists(CIF_ACCT_CLASS_ACCT_STRUCT GLAccount, string stCurrency)   
         {
             // Validate acct.GLNum
             // BUILD_ERR: 

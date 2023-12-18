@@ -6,7 +6,7 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {
-    public partial class DEF_CIF : BaseEntity  
+    public partial class CIF_DESC : BaseEntity  
     {
         public int GetPrimaryKey ()
         {
@@ -25,8 +25,8 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
         public string REFERENCE { get; set; }
         public DateTime LAST_SAVE_DT { get; set; }
 #nullable enable        
-        public DEF_CIF_PERSONAL? PERSONAL { get; set; }
+        public CIF_PERSONAL? PERSONAL { get; set; }
 #nullable disable        
-        public DEF_CIF_CLASS DEF_CIF_CLASS { get; set; }
+        public CIF_CLASS CIF_CLASS { get; set; }
     }
 }

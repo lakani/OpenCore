@@ -36,18 +36,18 @@
 
 
 
-//        public virtual DbSet<DEF_ACCT_CLASS> DEF_ACCT_CLASS { get; set; }
-//        public virtual DbSet<DEF_ACCT_CLASS_ACCT_STRUCT> DEF_ACCT_CLASS_ACCT_STRUCT { get; set; }
+//        public virtual DbSet<CIF_ACCT_CLASS> CIF_ACCT_CLASS { get; set; }
+//        public virtual DbSet<CIF_ACCT_CLASS_ACCT_STRUCT> CIF_ACCT_CLASS_ACCT_STRUCT { get; set; }
 //        public virtual DbSet<DEF_BusinessDate> DEF_BusinessDate { get; set; }
-//        public virtual DbSet<DEF_CIF> DEF_CIF { get; set; }
-//        public virtual DbSet<DEF_CIF_CLASS> DEF_CIF_CLASS { get; set; }
-//        public virtual DbSet<DEF_CK_ACCT> DEF_CK_ACCT { get; set; }
-//        public virtual DbSet<DEF_CK_ACCT_ACCT_STRUCT> DEF_CK_ACCT_ACCT_STRUCT { get; set; }
-//        public virtual DbSet<DEF_Currency> DEF_Currency { get; set; }
+//        public virtual DbSet<CIF_DESC> CIF_DESC { get; set; }
+//        public virtual DbSet<CIF_CLASS> CIF_CLASS { get; set; }
+//        public virtual DbSet<CIF_CK_ACCT> CIF_CK_ACCT { get; set; }
+//        public virtual DbSet<CIF_CK_ACCT_ACCT_STRUCT> CIF_CK_ACCT_ACCT_STRUCT { get; set; }
+//        public virtual DbSet<Currency> Currency { get; set; }
 //        public virtual DbSet<DEF_EMP> DEF_EMP { get; set; }
 //        public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
 //        public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
-//        public virtual DbSet<DEF_GL> DEF_GL { get; set; }
+//        public virtual DbSet<GL_ACCT> GL_ACCT { get; set; }
 //        public virtual DbSet<DEF_SHARE_ACCT> DEF_SHARE_ACCT { get; set; }
 //        public virtual DbSet<ExchangeRates> ExchangeRates { get; set; }
 //        public virtual DbSet<LUT_ACCRUAL_BASIS> LUT_ACCRUAL_BASIS { get; set; }
@@ -64,7 +64,7 @@
 //        public virtual DbSet<SettingsModel> Settings { get; set; }
 //        public virtual DbSet<TRN_LEGS> TRN_LEGS { get; set; }
 //        public virtual DbSet<TRN_SHARE_ACCT> TRN_SHARE_ACCT { get; set; }
-//        public virtual DbSet<VW_DEF_GL> VW_DEF_GL { get; set; }
+//        public virtual DbSet<VW_GL_ACCT> VW_GL_ACCT { get; set; }
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
@@ -79,7 +79,7 @@
 //        {
 //            modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
 
-//            modelBuilder.Entity<DEF_ACCT_CLASS>(entity =>
+//            modelBuilder.Entity<CIF_ACCT_CLASS>(entity =>
 //            {
 //                entity.HasKey(e => e.ACCT_CLASS_ID);
 
@@ -90,7 +90,7 @@
 //                entity.Property(e => e.ACCT_TYPE).HasMaxLength(10);
 //            });
 
-//            modelBuilder.Entity<DEF_ACCT_CLASS_ACCT_STRUCT>(entity =>
+//            modelBuilder.Entity<CIF_ACCT_CLASS_ACCT_STRUCT>(entity =>
 //            {
 //                entity.HasKey(e => e.AccountStructID);
 
@@ -114,7 +114,7 @@
 //                entity.Property(e => e.ID).ValueGeneratedOnAdd();
 //            });
 
-//            modelBuilder.Entity<DEF_CIF>(entity =>
+//            modelBuilder.Entity<CIF_DESC>(entity =>
 //            {
 //                //BUILD_ERR : 
 //                //entity.Property(e => e.BIRTH_DT).HasColumnType("date");
@@ -156,24 +156,24 @@
 //                //entity.Property(e => e.WorkNumber).HasMaxLength(80);
 //            });
 
-//            modelBuilder.Entity<DEF_CIF_CLASS>(entity =>
+//            modelBuilder.Entity<CIF_CLASS>(entity =>
 //            {
 //                entity.HasKey(e => new { e.CIF_CLASS_ID })
-//                    .HasName("PK__DEF_CIF___A25C5AA6127E02BB");
+//                    .HasName("PK__CIF_DESC___A25C5AA6127E02BB");
 
 //                entity.Property(e => e.Name)
 //                    .IsRequired()
 //                    .HasMaxLength(80);
 //            });
 
-//            // modelBuilder.Entity<DEF_CIF_Company>(entity =>
+//            // modelBuilder.Entity<CIF_DESC_Company>(entity =>
 //            // {
-//            //     entity.HasKey(e => e.DEF_CIF_Company_ID);
+//            //     entity.HasKey(e => e.CIF_DESC_Company_ID);
 
 //            //     entity.Property(e => e.CIF_NO).HasMaxLength(35);
 //            // });
 
-//            modelBuilder.Entity<DEF_CK_ACCT>(entity =>
+//            modelBuilder.Entity<CIF_CK_ACCT>(entity =>
 //            {
 //                entity.HasKey(e => e.DEF_ACCT_ID)
 //                    .HasName("PK_DEF_ACCT");
@@ -203,7 +203,7 @@
 //                entity.Property(e => e.Title).HasMaxLength(80);
 //            });
 
-//            modelBuilder.Entity<DEF_CK_ACCT_ACCT_STRUCT>(entity =>
+//            modelBuilder.Entity<CIF_CK_ACCT_ACCT_STRUCT>(entity =>
 //            {
 //                entity.HasKey(e => e.AccountStructID)
 //                    .HasName("PK_DEF_ACCT_ACCT_STRUCT");
@@ -219,7 +219,7 @@
 //                    .HasMaxLength(40);
 //            });
 
-//            modelBuilder.Entity<DEF_Currency>(entity =>
+//            modelBuilder.Entity<Currency>(entity =>
 //            {
 //                entity.HasNoKey();
 
@@ -588,11 +588,11 @@
 //                entity.Property(e => e.UNIT_PRICE).HasColumnType("decimal(28, 8)");
 //            });
 
-//            modelBuilder.Entity<VW_DEF_GL>(entity =>
+//            modelBuilder.Entity<VW_GL_ACCT>(entity =>
 //            {
 //                entity.HasNoKey();
 
-//                entity.ToView("VW_DEF_GL");
+//                entity.ToView("VW_GL_ACCT");
 
 //                entity.Property(e => e.BranchName)
 //                    .IsRequired()

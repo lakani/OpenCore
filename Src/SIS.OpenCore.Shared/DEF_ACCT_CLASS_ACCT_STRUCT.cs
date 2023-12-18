@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Server.Data.TODO // Check the correct table attributes
 {
-    public partial class DEF_ACCT_CLASS_ACCT_STRUCT
+    public partial class CIF_ACCT_CLASS_ACCT_STRUCT
     {
         public short AccountStructID { get; set; }
         public string AccountClassCode { get; set; }

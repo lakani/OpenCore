@@ -97,7 +97,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
             // // TODO : shuold execute the Open Account Accounting Strcture 
 
-            // //foreach (DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            // //foreach (CIF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             // foreach (DEF_FIXRATE_ACCT Acct in PFOAccts)
             // {
             //     Acct.STATUS_ID = 1;
@@ -118,7 +118,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
             // TODO : shuold execute the Open Account Accounting Strcture 
 
-            //foreach (DEF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
+            //foreach (CIF_CK_ACCT_ACCT_STRUCT ACCT_STRUCT in NewAcctStruct)
             foreach (DEF_FIXRATE_ACCT Acct in PFOAccts)
             {
                 Acct.STATUS_ID = 1;

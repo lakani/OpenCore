@@ -35,7 +35,7 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IUserDataRepository<Dep> _DepRepository;
 		private readonly IUserDataRepository<Unit> _UnitRepository;
 		private readonly ISettingsRepository<SettingsModel> _SettingsRep;
-		private readonly IDEF_GLRepository<DEF_GL> _DEF_GLRepository;
+		private readonly IGL_ACCTRepository<GL_ACCT> _GL_ACCTRepository;
 		private readonly ILUTRepository<LUT_GLLedgerNature> _lut_GLLedgerNatureRepository;
 
 
@@ -60,7 +60,7 @@ namespace SIS.OpenCore.Server.Controllers
 		IUserDataRepository<Dep> DepRepository,
 		IUserDataRepository<Unit> UnitRepository,
 		ISettingsRepository<SettingsModel> SettingsRep,
-		IDEF_GLRepository<DEF_GL> DEF_GLRepository, 
+		IGL_ACCTRepository<GL_ACCT> GL_ACCTRepository, 
 		ILUTRepository<LUT_GLLedgerNature> LUT_GLLedgerNatureRepository) : base()
 		{
 			_logger = logger;
@@ -73,7 +73,7 @@ namespace SIS.OpenCore.Server.Controllers
 			_DepRepository = DepRepository;
 			_UnitRepository = UnitRepository;
 			_SettingsRep = SettingsRep;
-			_DEF_GLRepository = DEF_GLRepository;
+			_GL_ACCTRepository = GL_ACCTRepository;
 			_lut_GLLedgerNatureRepository = LUT_GLLedgerNatureRepository;
 
 			_logger.Log(LogLevel.Information, "GLLedgerController() : constructor");
@@ -94,11 +94,11 @@ namespace SIS.OpenCore.Server.Controllers
             {
                 if (nGLNo == 0)
                 { // return all
-                    ret.Gls = _DEF_GLRepository.GetAll();
+                    ret.Gls = _GL_ACCTRepository.GetAll();
                 }
                 else
                 {
-                    var record = _DEF_GLRepository.GetById(nGLNo);
+                    var record = _GL_ACCTRepository.GetById(nGLNo);
                     if (record != null)
                         ret.Gls = new[] { record }.AsQueryable();
                 }
@@ -122,7 +122,7 @@ namespace SIS.OpenCore.Server.Controllers
         [HttpPost]
 		public async Task<ActionResult> Create(PostGLLedgerRequestModel model)
 		{
-			DEF_GL	newGL = new DEF_GL { 	BranchNo = model.BranchNo, 
+			GL_ACCT	newGL = new GL_ACCT { 	BranchNo = model.BranchNo, 
 											COMMENTS = model.COMMENTS, 
 											CompanyNo = model.CompanyNo,
 											DepNo = model.DepNo, 
@@ -139,7 +139,7 @@ namespace SIS.OpenCore.Server.Controllers
 			
 			try{
 				GL.InitServices(_logger, _configuration, _signInManager, _ZoneRepository, _CompanyRepository, _BranchRepository,
-				_SectorRepository, _DepRepository, _UnitRepository , _SettingsRep, _DEF_GLRepository, _lut_GLLedgerNatureRepository );
+				_SectorRepository, _DepRepository, _UnitRepository , _SettingsRep, _GL_ACCTRepository, _lut_GLLedgerNatureRepository );
 
 				newGL.GL = await GL.Create(newGL);
 			}

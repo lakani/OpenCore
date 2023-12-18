@@ -12,17 +12,17 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation
 {
-    public partial  class DEF_CurrencyRepositoryImp : GenericRepository<DEF_Currency>, IDEF_CurrencyRepository<DEF_Currency>
+    public partial  class CurrencyRepositoryImp : GenericRepository<Currency>, ICurrencyRepository<Currency>
     {
-        public DEF_CurrencyRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_Currency> logger)
+        public CurrencyRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<Currency> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_CurrencyRepositoryImp");
+            logger.LogInformation("CurrencyRepositoryImp");
         }
 
-        override public DEF_Currency GetByCode(string code)
+        override public Currency GetByCode(string code)
 		{
-			var Ret =   (from c in _dbContext.DEF_Currency
+			var Ret =   (from c in _dbContext.Currency
                         where c.ISOCode == code
                         select c).FirstOrDefault();
             return Ret;
@@ -33,8 +33,8 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
         // {
         //     OpenCoreContext db = new OpenCoreContext();
 
-        //     // select ISOCode from DEF_Currency where ISOCode = 'EGP'
-        //     var Ret =   (from c in db.DEF_Currency
+        //     // select ISOCode from Currency where ISOCode = 'EGP'
+        //     var Ret =   (from c in db.Currency
         //                 where c.ISOCode == stISO
         //                 select c.ISOCode).FirstOrDefault();
         //     if(true == String.IsNullOrEmpty (Ret))

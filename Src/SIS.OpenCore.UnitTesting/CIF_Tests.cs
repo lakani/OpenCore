@@ -15,10 +15,10 @@
 //         public void Setup()
 //         {
 //             //OpenCoreContext db = new OpenCoreContext();
-//             //db.Database.ExecuteSqlCommand("DELETE DEF_CIF");
-//             //db.Database.ExecuteSqlCommand("DELETE DEF_CIF_Company");
-//             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE DEF_CIF");
-//             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE DEF_CIF_Company");
+//             //db.Database.ExecuteSqlCommand("DELETE CIF_DESC");
+//             //db.Database.ExecuteSqlCommand("DELETE CIF_DESC_Company");
+//             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE CIF_DESC");
+//             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE CIF_DESC_Company");
 //         }
 
 //     //     [Test]
@@ -49,12 +49,12 @@
 //         // [Test]
 //         // public void CIF_List()
 //         // {
-//         //     DEF_CIF SearchKey = new DEF_CIF();
+//         //     CIF_DESC SearchKey = new CIF_DESC();
 
 //         //     SearchKey.FirstName = "SOSO";
 
-//         //     var dEF_CIFs = Cif.Find(SearchKey);
-//         //     if(dEF_CIFs.Count() == 0)
+//         //     var CIF_DESCs = Cif.Find(SearchKey);
+//         //     if(CIF_DESCs.Count() == 0)
 //         //         Assert.Fail("Cant Find");
 //         // }
 //         //}

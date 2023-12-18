@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace SIS.OpenCore.Shared.Model.Common
 {
-    public partial class DEF_Posting : BaseEntity
+    public partial class AccountingPosting : BaseEntity
     {
         public int GetPrimaryKey ()
         {

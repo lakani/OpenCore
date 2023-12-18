@@ -6,9 +6,9 @@ using SIS.OpenCore.Shared.Model.Objects.CIF;
 
 namespace SIS.OpenCore.Server.Data.Config.CIF
 {
-    public partial class DEF_CIF_CLASSConfig : IEntityTypeConfiguration<DEF_CIF_CLASS>
+    public partial class CIF_CLASSConfig : IEntityTypeConfiguration<CIF_CLASS>
     {
-        public void Configure(EntityTypeBuilder<DEF_CIF_CLASS> builder)
+        public void Configure(EntityTypeBuilder<CIF_CLASS> builder)
         {
             builder.HasKey(e => e.CIF_CLASS_ID);
             builder.Property(p => p.CIF_CLASS_ID).IsRequired();
@@ -20,20 +20,20 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
 
             builder 
                 .HasOne( c => c.lUT_CIF_TYPE)
-                .WithMany( t => t.DEF_CIF_CLASS)
+                .WithMany( t => t.CIF_CLASS)
                 .HasForeignKey( c => c.CIF_TYPE)
                 .IsRequired();
         }
 
     }
     
-    public partial class DEF_CIF_PERSONALConfig : IEntityTypeConfiguration<DEF_CIF_PERSONAL>
+    public partial class CIF_PERSONALConfig : IEntityTypeConfiguration<CIF_PERSONAL>
     {
-        public void Configure(EntityTypeBuilder<DEF_CIF_PERSONAL> builder)
+        public void Configure(EntityTypeBuilder<CIF_PERSONAL> builder)
         {
-            builder.HasKey(e => e.DEF_CIF_PERSONALID);
-            builder.Property(e => e.DEF_CIF_PERSONALID).IsRequired();
-            builder.Property(e => e.DEF_CIF_PERSONALID).ValueGeneratedOnAdd();
+            builder.HasKey(e => e.CIF_PERSONALID);
+            builder.Property(e => e.CIF_PERSONALID).IsRequired();
+            builder.Property(e => e.CIF_PERSONALID).ValueGeneratedOnAdd();
             builder.Property(p => p.Gender).IsRequired();
             builder.Property(p => p.Address).HasMaxLength(80);
             builder.Property(p => p.BIRTH_DT).HasColumnType("datetime");
@@ -45,9 +45,9 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
         }
     }
 
-    public partial class DEF_CIFConfig : IEntityTypeConfiguration<DEF_CIF>
+    public partial class CIF_DESCConfig : IEntityTypeConfiguration<CIF_DESC>
     {
-        public void Configure(EntityTypeBuilder<DEF_CIF> builder)
+        public void Configure(EntityTypeBuilder<CIF_DESC> builder)
         {
             // TODO : check the generated tables against the Backup database
             builder.HasKey(e => e.CIF_ID);
@@ -69,17 +69,17 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
             builder.Property(e => e.RSM).HasMaxLength(35);
             builder.Property(e => e.REFERENCE).HasMaxLength(200);
 
-            // one to one for the DEF_CIF_PERSONAL table
+            // one to one for the CIF_PERSONAL table
             builder
                 .HasOne( c => c.PERSONAL)
-                .WithOne(ad => ad.DEF_CIF)
-                .HasForeignKey<DEF_CIF_PERSONAL>(ad => ad.CIF_ID)
+                .WithOne(ad => ad.CIF_DESC)
+                .HasForeignKey<CIF_PERSONAL>(ad => ad.CIF_ID)
                 .IsRequired();
 
-            // one to Many for the DEF_CIF_CLASS table
+            // one to Many for the CIF_CLASS table
             builder
-                .HasOne( c => c.DEF_CIF_CLASS)
-                .WithMany(t => t.DEF_CIF)
+                .HasOne( c => c.CIF_CLASS)
+                .WithMany(t => t.CIF_DESC)
                 .HasForeignKey(c => c.CLASS_ID)
                 .IsRequired();
 

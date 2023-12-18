@@ -11,17 +11,17 @@ using Microsoft.Extensions.Logging;
 
 namespace SIS.OpenCore.Server.Data.Repository.Implementation
 {
-    public class DEF_GLRepositoryImp : GenericRepository<DEF_GL>, IDEF_GLRepository<DEF_GL>
+    public class GL_ACCTRepositoryImp : GenericRepository<GL_ACCT>, IGL_ACCTRepository<GL_ACCT>
     {
-        public DEF_GLRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_GL> logger)
+        public GL_ACCTRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<GL_ACCT> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_GLRepositoryImp");
+            logger.LogInformation("GL_ACCTRepositoryImp");
         }
 
-        override public DEF_GL GetByCode(string code)
+        override public GL_ACCT GetByCode(string code)
 		{
-			var Ret =   (from c in _dbContext.DEF_GL
+			var Ret =   (from c in _dbContext.GL_ACCT
                         where c.GL == code
                         select c).FirstOrDefault();
             return Ret;
@@ -31,7 +31,7 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
                                           short? nDep, short? nUNITNO, short? nProduct)
         {
             //GL.CompanyNo = @CompanyNo AND GL.Zone = @Zone AND Gl.BranchNo = @BranchNo AND Gl.SectorNo = @SectorNo)
-            int ?nMaxLedger = (from g in _dbContext.DEF_GL
+            int ?nMaxLedger = (from g in _dbContext.GL_ACCT
                               where g.CompanyNo == nCompany &&
                                     g.Nature == nNature &&
                                     g.BranchNo == nBranch &&
@@ -46,18 +46,18 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation
                 return 0;
         }
 
-        override public async Task<int> Create(DEF_GL entity)
+        override public async Task<int> Create(GL_ACCT entity)
 		{
 			try
 			{
-				var AddRet = await _dbContext.Set<DEF_GL>().AddAsync(entity);
+				var AddRet = await _dbContext.Set<GL_ACCT>().AddAsync(entity);
 				var SaveRet = await _dbContext.SaveChangesAsync();
 
                 return entity.GetPrimaryKey();
 			}
 			catch (Exception ex)
 			{
-                _logger.LogError("Error in DEF_GLRepositoryImp:Create");
+                _logger.LogError("Error in GL_ACCTRepositoryImp:Create");
 				_logger.LogError(ex.Message);
 				if (ex.InnerException != null)
 					_logger.LogError(ex.InnerException.ToString());

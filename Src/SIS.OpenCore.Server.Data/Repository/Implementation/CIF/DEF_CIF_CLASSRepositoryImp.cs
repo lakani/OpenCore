@@ -10,34 +10,34 @@ using System;
 #nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 {
-    public class DEF_CIF_CLASSRepositoryImp : GenericRepository<DEF_CIF_CLASS>, IDEF_CIF_CLASSRepository<DEF_CIF_CLASS>
+    public class CIF_CLASSRepositoryImp : GenericRepository<CIF_CLASS>, ICIF_CLASSRepository<CIF_CLASS>
     {
-        public DEF_CIF_CLASSRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<DEF_CIF_CLASS> logger)
+        public CIF_CLASSRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<CIF_CLASS> logger)
         : base(dbContext, configuration, logger)
         {
-            logger.LogInformation("DEF_CIF_CLASSRepositoryImp");
+            logger.LogInformation("CIF_CLASSRepositoryImp");
         }
 
-        override public DEF_CIF_CLASS? GetById(int id)
+        override public CIF_CLASS? GetById(int id)
         {
-            DEF_CIF_CLASS? Ret = (from t in _dbContext.DEF_CIF_CLASS
+            CIF_CLASS? Ret = (from t in _dbContext.CIF_CLASS
                                 where t.CIF_CLASS_ID == id
                                 select t).FirstOrDefault();
 
             return Ret;
         }
 
-        override public async Task<int> Create(DEF_CIF_CLASS entity)
+        override public async Task<int> Create(CIF_CLASS entity)
         {
             try
             {
-                await _dbContext.Set<DEF_CIF_CLASS>().AddAsync(entity);
+                await _dbContext.Set<CIF_CLASS>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity.GetPrimaryKey();
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error in DEF_CIF_CLASSRepositoryImp:Create");
+                _logger.LogError("Error in CIF_CLASSRepositoryImp:Create");
                 _logger.LogError(ex.Message);
                 if (ex.InnerException != null)
                     _logger.LogError(ex.InnerException.ToString());

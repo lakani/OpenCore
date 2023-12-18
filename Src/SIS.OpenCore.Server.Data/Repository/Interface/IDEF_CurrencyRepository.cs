@@ -4,7 +4,7 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Server.Data.Repository.Interface
 {
-    public interface  IDEF_CurrencyRepository<TEntity> :   IGenericRepository<TEntity> where TEntity : class, BaseEntity
+    public interface  ICurrencyRepository<TEntity> :   IGenericRepository<TEntity> where TEntity : class, BaseEntity
     {
 
     }

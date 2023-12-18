@@ -6,9 +6,9 @@ using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Server.Data.Config.Common
 {
-    public partial class  DEF_PostingConfig : IEntityTypeConfiguration<DEF_Posting>
+    public partial class  AccountingPostingConfig : IEntityTypeConfiguration<AccountingPosting>
     {
-        public void Configure(EntityTypeBuilder<DEF_Posting> builder)
+        public void Configure(EntityTypeBuilder<AccountingPosting> builder)
         {
             builder.HasKey(e => e.PostingId);
             builder.Property(p => p.PostingId).IsRequired();

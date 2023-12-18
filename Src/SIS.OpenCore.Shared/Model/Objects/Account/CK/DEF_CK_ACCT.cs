@@ -7,7 +7,7 @@ using SIS.OpenCore.Shared.Model.Objects.CIF;
 
 namespace SIS.OpenCore.Shared.Model.Objects.Account.CK
 {
-    public partial class DEF_CK_ACCT : BaseCIFACCT //BaseCIFACCT
+    public partial class CIF_CK_ACCT : BaseCIFACCT //BaseCIFACCT
     {
         override public int GetPrimaryKey ()
         {
@@ -31,8 +31,8 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account.CK
         public short? STATUS { get; set; }
 
         // // Foreign key
-        // public DEF_CIF DEF_CIF { get; set; }
-        // public DEF_ACCT_CLASS DEF_ACCT_CLASS { get; set; }
+        // public CIF_DESC CIF_DESC { get; set; }
+        // public CIF_ACCT_CLASS CIF_ACCT_CLASS { get; set; }
     }
 }
 

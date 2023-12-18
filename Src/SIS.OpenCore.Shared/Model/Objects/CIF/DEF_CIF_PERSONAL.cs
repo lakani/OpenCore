@@ -9,14 +9,14 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {
     // Contact Info 
     // Applicable only for Personal
-    // DEF_CIF_PERSONAL
-    public partial class DEF_CIF_PERSONAL  : BaseEntity
+    // CIF_PERSONAL
+    public partial class CIF_PERSONAL  : BaseEntity
     {
         public int GetPrimaryKey ()
         {
-            return DEF_CIF_PERSONALID;
+            return CIF_PERSONALID;
         }
-        public int DEF_CIF_PERSONALID { get; set; }
+        public int CIF_PERSONALID { get; set; }
         public short? Country { get; set; }
         public short? GOVERNORATE { get; set; }
         public short? City { get; set; }
@@ -31,6 +31,6 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
         public string WorkNumber { get; set; }
         public string NationalID { get; set; }
         public int CIF_ID { get; set; }
-        public DEF_CIF DEF_CIF{ get; set; } = null!;
+        public CIF_DESC CIF_DESC{ get; set; } = null!;
     }
 }

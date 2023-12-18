@@ -30,7 +30,7 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IUserDataRepository<Dep> _DepRepository;
 		private readonly IUserDataRepository<Unit> _UnitRepository;
         private readonly ILUTRepository<LUT_ACCT_TYPE> _AcctTypeRepository;
-        private readonly IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> _AcctClassRepository;
+        private readonly ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS> _AcctClassRepository;
 
 
         public ACCTClassController(
@@ -43,7 +43,7 @@ namespace SIS.OpenCore.Server.Controllers
 		IUserDataRepository<Dep> DepRepository,
 		IUserDataRepository<Unit> UnitRepository,
         ILUTRepository<LUT_ACCT_TYPE> AcctTypeRepository,
-        IDEF_ACCT_CLASSRepository<DEF_ACCT_CLASS> AcctClassRepository) : base()
+        ICIF_ACCT_CLASSRepository<CIF_ACCT_CLASS> AcctClassRepository) : base()
 		{
 			_logger = logger;
 			_configuration = Configuration;
@@ -131,7 +131,7 @@ namespace SIS.OpenCore.Server.Controllers
                 if(null == _AcctTypeRepository.GetById(ACCTClassReq.ACCT_TYPE))
                     return BadRequest( new BaseResponseModel { Message = "Invalid ACCT_TYPE" , Successful=false});
                 
-                int newID = await _AcctClassRepository.Create(new DEF_ACCT_CLASS {
+                int newID = await _AcctClassRepository.Create(new CIF_ACCT_CLASS {
                     ACCT_TYPE = ACCTClassReq.ACCT_TYPE,
                     Name = ACCTClassReq.Name,
                     REFERENCE = ACCTClassReq.REFERENCE,

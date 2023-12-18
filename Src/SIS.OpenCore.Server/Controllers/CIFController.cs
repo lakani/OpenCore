@@ -28,8 +28,8 @@ namespace SIS.OpenCore.Server.Controllers
 		private readonly IUserDataRepository<Sector> _SectorRepository;
 		private readonly IUserDataRepository<Dep> _DepRepository;
 		private readonly IUserDataRepository<Unit> _UnitRepository;
-        private readonly IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> _CifClassRepository;
-        private readonly IDEF_CIFRepository<DEF_CIF> _CifRepository;
+        private readonly ICIF_CLASSRepository<CIF_CLASS> _CifClassRepository;
+        private readonly ICIF_DESCRepository<CIF_DESC> _CifRepository;
         private readonly ISettingsRepository<SettingsModel> _SettingsRepository;
 
         public CIFController(
@@ -41,8 +41,8 @@ namespace SIS.OpenCore.Server.Controllers
 		IUserDataRepository<Sector> SectorRepository,
 		IUserDataRepository<Dep> DepRepository,
 		IUserDataRepository<Unit> UnitRepository,
-        IDEF_CIF_CLASSRepository<DEF_CIF_CLASS> CifClassRepository,
-        IDEF_CIFRepository<DEF_CIF> CifRepository,
+        ICIF_CLASSRepository<CIF_CLASS> CifClassRepository,
+        ICIF_DESCRepository<CIF_DESC> CifRepository,
         ISettingsRepository<SettingsModel> SettingsRepository) : base()
 		{
 			_logger = logger;
@@ -90,11 +90,11 @@ namespace SIS.OpenCore.Server.Controllers
         //private readonly ILogger<CIFController> _logger;
 
         /*
-        public static List<DEF_CIF> List(short cRecordsPerPage)
+        public static List<CIF_DESC> List(short cRecordsPerPage)
         {
             OpenCoreContext db = new OpenCoreContext();
 
-            return ((from c in db.DEF_CIF
+            return ((from c in db.CIF_DESC
                      orderby c.CREATE_DT descending
                      select c).Take(cRecordsPerPage).ToList());
 
@@ -104,12 +104,12 @@ namespace SIS.OpenCore.Server.Controllers
         // BUILD_ERR : the below
         // [HttpGet]
         // [Route("/API/CIF")]
-        // public IEnumerable<DEF_CIF> Get(string Name = "", int cRecords = 0, string firstName = "", string lastName = "", 
+        // public IEnumerable<CIF_DESC> Get(string Name = "", int cRecords = 0, string firstName = "", string lastName = "", 
         //                                 string SearchKey = "", string FamilyName = "", string MobileNumber = "", string NationalID = "")
         // {
         //     // BUILD_ERR : the below
-        //     //DEF_CIF_PARAM cIF_PARAM = new DEF_CIF_PARAM();
-        //     cIF_PARAM = new DEF_CIF_PARAM();
+        //     //CIF_DESC_PARAM cIF_PARAM = new CIF_DESC_PARAM();
+        //     cIF_PARAM = new CIF_DESC_PARAM();
         //     cIF_PARAM.Name = Name;
         //     cIF_PARAM.cRecords = cRecords;
         //     cIF_PARAM.FirstName = firstName;
@@ -124,7 +124,7 @@ namespace SIS.OpenCore.Server.Controllers
 
         // [HttpGet]
         // [Route("API/{CIF_NO}/{ACCT_TYPE}")]
-        // public IEnumerable<DEF_CK_ACCT> GetCK(string CIF_NO, string ACCT_TYPE)
+        // public IEnumerable<CIF_CK_ACCT> GetCK(string CIF_NO, string ACCT_TYPE)
         // {
         //     //if (ACCT_TYPE == "CK")
         //     {
@@ -140,17 +140,17 @@ namespace SIS.OpenCore.Server.Controllers
 
         // [HttpGet("{Cif_NO}")]
         // // GET: api/CIF/5/
-        // public DEF_CIF Get(string Cif_NO)
+        // public CIF_DESC Get(string Cif_NO)
         // {
         //     return Cif.Get(Cif_NO);
         // }
 
         // [HttpPost]
-        // public ActionResult<DEF_CIF> PostNewCIF(DEF_CIF def_CIF)
+        // public ActionResult<CIF_DESC> PostNewCIF(CIF_DESC CIF_DESC)
         // {
-        //     string stCIFNo = Cif.Add_CIF(DateTime.Now, 1, def_CIF);
-        //     def_CIF.CIF_NO = stCIFNo;
-        //     return def_CIF;
+        //     string stCIFNo = Cif.Add_CIF(DateTime.Now, 1, CIF_DESC);
+        //     CIF_DESC.CIF_NO = stCIFNo;
+        //     return CIF_DESC;
         // }
 
         protected string GenerateNewCode(string sCIF_NO)
@@ -199,7 +199,7 @@ namespace SIS.OpenCore.Server.Controllers
             try{
                 
                 // checking the Class
-                _logger.Log(LogLevel.Information, "Checking def_CIFClass.CIF_TYPE");
+                _logger.Log(LogLevel.Information, "Checking CIF_DESCClass.CIF_TYPE");
                 if(null == _CifClassRepository.GetById(CIFReq.CLASS_ID))
                     return BadRequest( new BaseResponseModel { Message = "Invalid CIF_TYPE" , Successful=false});
 
@@ -218,7 +218,7 @@ namespace SIS.OpenCore.Server.Controllers
                 if(string.IsNullOrEmpty(CIFReq.SearchKey))
                     CIFReq.SearchKey = CIFReq.CIF_NO;
                 
-                int newID = await _CifRepository.Create(new DEF_CIF {
+                int newID = await _CifRepository.Create(new CIF_DESC {
                     CIF_NO = CIFReq.CIF_NO,
                     SearchKey = CIFReq.SearchKey,
                     FirstName = CIFReq.FirstName,

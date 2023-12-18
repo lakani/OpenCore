@@ -40,8 +40,8 @@ namespace SIS.OpenCore.Client.Win
 
 		async private void MainForm_Load(object sender, EventArgs e)
 		{
-			//var result = await _httpClient.GetAsync("/v1/api/OpenCore/GL/DEF_GL");
-			//var GlArr = JsonSerializer.Deserialize<DEF_GL[]>(await result.Content.ReadAsStringAsync());
+			//var result = await _httpClient.GetAsync("/v1/api/OpenCore/GL/GL_ACCT");
+			//var GlArr = JsonSerializer.Deserialize<GL_ACCT[]>(await result.Content.ReadAsStringAsync());
 			//	new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 			//textBox1.Text += GlArr[0].GL.ToString() + Environment.NewLine;

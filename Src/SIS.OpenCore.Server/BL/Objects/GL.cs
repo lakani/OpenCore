@@ -35,7 +35,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 		private static  IUserDataRepository<Dep> _DepRepository;
 		private static  IUserDataRepository<Unit> _UnitRepository;
         private static  ISettingsRepository<SettingsModel> _SettingsRepository;
-        private static  IDEF_GLRepository<DEF_GL> _DEF_GLRepository;
+        private static  IGL_ACCTRepository<GL_ACCT> _GL_ACCTRepository;
         private static  ILUTRepository<LUT_GLLedgerNature> _lut_GLLedgerNatureRepository;
 
         public static void InitServices(ILogger logger, IConfiguration Configuration,
@@ -47,7 +47,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 		IUserDataRepository<Dep> DepRepository,
 		IUserDataRepository<Unit> UnitRepository,
         ISettingsRepository<SettingsModel> settingsRepository,
-        IDEF_GLRepository<DEF_GL> DEF_GLRep, 
+        IGL_ACCTRepository<GL_ACCT> GL_ACCTRep, 
         ILUTRepository<LUT_GLLedgerNature> LUT_GLLedgerNatureRepository) 
 		{
 			_logger = logger;
@@ -60,7 +60,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 			_DepRepository = DepRepository;
 			_UnitRepository = UnitRepository;
             _SettingsRepository = settingsRepository;
-            _DEF_GLRepository = DEF_GLRep; 
+            _GL_ACCTRepository = GL_ACCTRep; 
             _lut_GLLedgerNatureRepository = LUT_GLLedgerNatureRepository;
 
 			_logger.Log(LogLevel.Information, "GL : InitServices");
@@ -118,7 +118,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         //     if (LEDGERNO == 0)
         //     {
-        //         LEDGERNO = DAL.DEF_GL_DAL.GetMaxLedger(CompanyNo, NATURE, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo);
+        //         LEDGERNO = DAL.GL_ACCT_DAL.GetMaxLedger(CompanyNo, NATURE, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo);
         //         LEDGERNO++;
         //     }
                                 
@@ -132,7 +132,7 @@ namespace SIS.OpenCore.Server.BL.Objects
         //     if (ValidateExists(CompanyNo, NATURE, nZone, BranchNo, SectorNo, DepNo, UNITNO, ProductNo, LEDGERNO, GL) == true)
         //         throw new ArgumentException("GL", "GL Already Exists");
 
-        //     await _DEF_GLRepository.Create(new DEF_GL{
+        //     await _GL_ACCTRepository.Create(new GL_ACCT{
         //         EFFECTIVE_DT = EFFECTIVE_DT,
         //         CompanyNo = CompanyNo, Nature = NATURE, Zone = nZone, BranchNo = BranchNo, SectorNo = SectorNo, 
         //         DepNo = DepNo, UnitNO = UNITNO, ProductNo = ProductNo, LedgerNO = LEDGERNO,
@@ -141,7 +141,7 @@ namespace SIS.OpenCore.Server.BL.Objects
         //     return GL;
         // }
 
-        static public async Task<string> Create(DEF_GL newGL)
+        static public async Task<string> Create(GL_ACCT newGL)
         {
             //-- if not supplied , assume its current bussiness date
             if (newGL.EFFECTIVE_DT  <= DateTime.MinValue || newGL.EFFECTIVE_DT >= DateTime.MaxValue)
@@ -153,7 +153,7 @@ namespace SIS.OpenCore.Server.BL.Objects
 
             if (newGL.LedgerNO == 0)
             {
-                newGL.LedgerNO = _DEF_GLRepository.GetMaxLedger(newGL.CompanyNo, newGL.Nature, newGL.Zone, newGL.BranchNo, 
+                newGL.LedgerNO = _GL_ACCTRepository.GetMaxLedger(newGL.CompanyNo, newGL.Nature, newGL.Zone, newGL.BranchNo, 
                 newGL.SectorNo, newGL.DepNo, newGL.UnitNO, newGL.ProductNo);
                 newGL.LedgerNO++;
             }
@@ -170,7 +170,7 @@ namespace SIS.OpenCore.Server.BL.Objects
              newGL.UnitNO, newGL.ProductNo, newGL.LedgerNO, newGL.GL) == true)
                 throw new ArgumentException("GL", "GL Already Exists");
 
-            await _DEF_GLRepository.Create(newGL);
+            await _GL_ACCTRepository.Create(newGL);
 
             return newGL.GL;
 
@@ -197,7 +197,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             
 
             //-- check paramters
-            //PRINT 'Checking DEF_Currency Table'
+            //PRINT 'Checking Currency Table'
             // if (!Currency.ValidateExists(CURR))
             //     throw new ArgumentOutOfRangeException("CURR", "Currency doesn't Exists");
             //PRINT 'Checking Company in Company  Table'
@@ -246,17 +246,17 @@ namespace SIS.OpenCore.Server.BL.Objects
             //  1- check only for the GL string
             //  2- check for all the below paramaters 
 
-            if(_DEF_GLRepository.GetByCode(stGL) != null)
+            if(_GL_ACCTRepository.GetByCode(stGL) != null)
                 return true;
 
             // TODO search for matching for the paramaters, 
 
 
-            // // if (DAL.DEF_GL_DAL.ValidateExists(stGL) == true)
+            // // if (DAL.GL_ACCT_DAL.ValidateExists(stGL) == true)
             // //     return true;          
 
 
-            // DEF_GL  gl = new DEF_GL() {
+            // GL_ACCT  gl = new GL_ACCT() {
             //     CompanyNo = nCompany,
             //     Nature = nNature,
             //     Zone = nZone,
@@ -269,7 +269,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             //     GL = stGL
             // };
 
-            // _DEF_GLRepository.Create(gl);
+            // _GL_ACCTRepository.Create(gl);
 
             // gl = GetGLInfo(gl, stGL);
             // if(gl != null)
@@ -278,11 +278,11 @@ namespace SIS.OpenCore.Server.BL.Objects
             return false;
         }
 
-        // public static DEF_GL GetGLInfo(DEF_GL gL, string stGL)
+        // public static GL_ACCT GetGLInfo(GL_ACCT gL, string stGL)
         // {
         //     // TODO : remove any mention for OpenCoreContext 
         //     OpenCoreContext db = new OpenCoreContext();
-        //     var RetGL = (from g in db.DEF_GL
+        //     var RetGL = (from g in db.GL_ACCT
         //                 where   g.CompanyNo == gL.CompanyNo &&
         //                         g.Nature == gL.Nature &&
         //                         g.Zone == gL.Zone &&
@@ -297,9 +297,9 @@ namespace SIS.OpenCore.Server.BL.Objects
                         
         //     return RetGL;
         // }
-        // public static DEF_GL GetGLInfo(string stGL, string stCURR)
+        // public static GL_ACCT GetGLInfo(string stGL, string stCURR)
         // {
-        //     DEF_GL RetGL = GL.fn_String_ParseGL(stGL);
+        //     GL_ACCT RetGL = GL.fn_String_ParseGL(stGL);
             
         //     return GetGLInfo(RetGL, stGL);
         // }
@@ -324,7 +324,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             return 0;
         }
 
-        public static DEF_GL fn_String_ParseGL(string stGL)
+        public static GL_ACCT fn_String_ParseGL(string stGL)
         {
             if(string.IsNullOrEmpty(stGL))
                 throw new ArgumentException("Invalid GL", "GL");
@@ -332,7 +332,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             // TRIM Right
             stGL = stGL.TrimEnd();
 
-            DEF_GL RetGL = new DEF_GL();
+            GL_ACCT RetGL = new GL_ACCT();
             string SegmentsSetup = Settings.GetSystemSegments();
             string[] SegmentsSetupSplited = SegmentsSetup.Split('-');
             string[] GLSegments =   stGL.Split('-');
@@ -425,7 +425,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             return RetGL;
         }
 
-        private static void UpdateGL(ref DEF_GL retGL, GLSegment curSegmentDef, string v)
+        private static void UpdateGL(ref GL_ACCT retGL, GLSegment curSegmentDef, string v)
         {
             switch (curSegmentDef.Type)
             {

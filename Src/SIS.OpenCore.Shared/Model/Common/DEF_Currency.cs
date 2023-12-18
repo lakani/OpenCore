@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SIS.OpenCore.Shared.Model.Common
 {
-    public partial class DEF_Currency : BaseEntity
+    public partial class Currency : BaseEntity
     {
         public int GetPrimaryKey ()
         {

@@ -8,7 +8,7 @@ using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 
 namespace SIS.OpenCore.Shared.Model.Objects.Account
 {
-    public partial class DEF_ACCT_CLASS : BaseEntity
+    public partial class CIF_ACCT_CLASS : BaseEntity
     {
         public int GetPrimaryKey ()
         {
@@ -21,6 +21,6 @@ namespace SIS.OpenCore.Shared.Model.Objects.Account
         public bool ExternallyManged  { get; set; }
         public LUT_ACCT_TYPE lUT_ACCT_TYPE { get; set; }
 
-        //public ICollection<DEF_CK_ACCT> DEF_CK_ACCT { get; } = new List<DEF_CK_ACCT>();
+        //public ICollection<CIF_CK_ACCT> CIF_CK_ACCT { get; } = new List<CIF_CK_ACCT>();
     }
 }

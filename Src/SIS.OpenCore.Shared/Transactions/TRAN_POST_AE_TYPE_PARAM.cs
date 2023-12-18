@@ -25,8 +25,8 @@ namespace SIS.OpenCore.Shared.Transactions
         public  string          Acct_Curr;
         public  DateTime        EffDt;
         public  string          Acct_Description;
-        public  DEF_GL          GL_Info;
-        public  DEF_CK_ACCT     CK_Acct;
+        public  GL_ACCT          GL_Info;
+        public  CIF_CK_ACCT     CK_Acct;
 
     }
 }

@@ -4,7 +4,7 @@ using SIS.OpenCore.Shared.Model.Common;
 
 namespace SIS.OpenCore.Shared.Model.Objects.CIF
 {
-    public partial class DEF_CIF_CLASS : BaseEntity
+    public partial class CIF_CLASS : BaseEntity
     {
         public int GetPrimaryKey ()
         {
@@ -15,6 +15,6 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
         public short CIF_TYPE { get; set; }
         public string REFERENCE { get; set; }
         public LUT_CIF_TYPE lUT_CIF_TYPE { get; set; }
-        public ICollection<DEF_CIF> DEF_CIF { get; } = new List<DEF_CIF>();
+        public ICollection<CIF_DESC> CIF_DESC { get; } = new List<CIF_DESC>();
     }
 }

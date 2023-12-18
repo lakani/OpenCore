@@ -17,15 +17,15 @@ namespace SIS.OpenCore.UnitTesting
             // DeadCode :
             //REDBUtils.Exists("LUT_CIF_TYPE", "Code", 1);
             //REDBUtils.Exists("LUT_CIF_TYPE", "Code", 5);
-            //REDBUtils.Exists("LUT_CIF_TYPE", "Code", ((DEF_CIF)inputOne).CIF_TYPE);
+            //REDBUtils.Exists("LUT_CIF_TYPE", "Code", ((CIF_DESC)inputOne).CIF_TYPE);
         }
 
         
         [Test]
         public void Test_Cast()
         {
-            DEF_CK_ACCT_ACCT_STRUCT ACCTS = new DEF_CK_ACCT_ACCT_STRUCT();
-            DEF_CK_ACCT_ACCT_STRUCT ModelACCTS;
+            CIF_CK_ACCT_ACCT_STRUCT ACCTS = new CIF_CK_ACCT_ACCT_STRUCT();
+            CIF_CK_ACCT_ACCT_STRUCT ModelACCTS;
 
             ACCTS.AccountCode = "1";
             ACCTS.AccountStructID = 1;
@@ -33,9 +33,9 @@ namespace SIS.OpenCore.UnitTesting
             ACCTS.GLComments = "ACCTS.GLComments";
             ACCTS.GLNum = "12345";
 
-            ModelACCTS = new DEF_CK_ACCT_ACCT_STRUCT();
+            ModelACCTS = new CIF_CK_ACCT_ACCT_STRUCT();
 
-            ModelACCTS = ACCTS as DEF_CK_ACCT_ACCT_STRUCT;
+            ModelACCTS = ACCTS as CIF_CK_ACCT_ACCT_STRUCT;
 
 
             ModelACCTS.GLComments = "After Casting";
@@ -45,14 +45,14 @@ namespace SIS.OpenCore.UnitTesting
         [Test]
         public void TestAccountClassSetup()
         {
-            List<DEF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<DEF_ACCT_CLASS_ACCT_STRUCT>();
-            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT
+            List<CIF_ACCT_CLASS_ACCT_STRUCT> ACCTS = new List<CIF_ACCT_CLASS_ACCT_STRUCT>();
+            ACCTS.Add(new CIF_ACCT_CLASS_ACCT_STRUCT
             {
                 GLNum = "2-01-02-0000-00-00-00-0000-1-000001",
                 GLCategory = 1
             });
 
-            ACCTS.Add(new DEF_ACCT_CLASS_ACCT_STRUCT
+            ACCTS.Add(new CIF_ACCT_CLASS_ACCT_STRUCT
             {
                 GLNum = "2-01-02-0000-00-00-00-0000-1-000002",
                 GLCategory = 2
