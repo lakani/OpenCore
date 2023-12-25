@@ -61,7 +61,7 @@ namespace SIS.OpenCore.Server
             services.AddLogging();
 
             services.AddControllers();
-
+            
 			services.AddRepositories();
 
 			// Register the Swagger generator, defining 1 or more Swagger documents

@@ -30,13 +30,12 @@
 		{
 			cmbConfiguration = new System.Windows.Forms.ComboBox();
 			label1 = new System.Windows.Forms.Label();
-			label2 = new System.Windows.Forms.Label();
-			listBoxData = new System.Windows.Forms.ListBox();
-			txtNewRecord = new System.Windows.Forms.TextBox();
-			btnAdd = new System.Windows.Forms.Button();
-			button2 = new System.Windows.Forms.Button();
 			button3 = new System.Windows.Forms.Button();
 			button4 = new System.Windows.Forms.Button();
+			listBoxData = new System.Windows.Forms.DataGridView();
+			ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			((System.ComponentModel.ISupportInitialize)listBoxData).BeginInit();
 			SuspendLayout();
 			// 
 			// cmbConfiguration
@@ -44,72 +43,28 @@
 			cmbConfiguration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			cmbConfiguration.FormattingEnabled = true;
 			cmbConfiguration.Items.AddRange(new object[] { "Zone", "Company", "Branch", "Sector", "Dep", "Unit" });
-			cmbConfiguration.Location = new System.Drawing.Point(30, 50);
+			cmbConfiguration.Location = new System.Drawing.Point(26, 39);
+			cmbConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			cmbConfiguration.Name = "cmbConfiguration";
-			cmbConfiguration.Size = new System.Drawing.Size(592, 27);
+			cmbConfiguration.Size = new System.Drawing.Size(518, 23);
 			cmbConfiguration.TabIndex = 0;
 			cmbConfiguration.SelectionChangeCommitted += OnSelectedAsync;
 			// 
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new System.Drawing.Point(30, 21);
+			label1.Location = new System.Drawing.Point(26, 17);
 			label1.Name = "label1";
-			label1.Size = new System.Drawing.Size(96, 20);
+			label1.Size = new System.Drawing.Size(78, 15);
 			label1.TabIndex = 1;
 			label1.Text = "Confifuration";
 			// 
-			// label2
-			// 
-			label2.AutoSize = true;
-			label2.Location = new System.Drawing.Point(30, 103);
-			label2.Name = "label2";
-			label2.Size = new System.Drawing.Size(50, 20);
-			label2.TabIndex = 2;
-			label2.Text = "label2";
-			// 
-			// listBoxData
-			// 
-			listBoxData.FormattingEnabled = true;
-			listBoxData.ItemHeight = 19;
-			listBoxData.Location = new System.Drawing.Point(30, 138);
-			listBoxData.Name = "listBoxData";
-			listBoxData.Size = new System.Drawing.Size(592, 213);
-			listBoxData.TabIndex = 3;
-			listBoxData.Click += OnDataListClick;
-			listBoxData.MouseDoubleClick += OnDataListMouseDblClick;
-			// 
-			// txtNewRecord
-			// 
-			txtNewRecord.Location = new System.Drawing.Point(30, 357);
-			txtNewRecord.Name = "txtNewRecord";
-			txtNewRecord.Size = new System.Drawing.Size(495, 26);
-			txtNewRecord.TabIndex = 4;
-			// 
-			// btnAdd
-			// 
-			btnAdd.Location = new System.Drawing.Point(531, 357);
-			btnAdd.Name = "btnAdd";
-			btnAdd.Size = new System.Drawing.Size(91, 28);
-			btnAdd.TabIndex = 5;
-			btnAdd.Text = "Add";
-			btnAdd.UseVisualStyleBackColor = true;
-			btnAdd.Click += OnAddNewRecord;
-			// 
-			// button2
-			// 
-			button2.Location = new System.Drawing.Point(531, 104);
-			button2.Name = "button2";
-			button2.Size = new System.Drawing.Size(90, 28);
-			button2.TabIndex = 6;
-			button2.Text = "Delete";
-			button2.UseVisualStyleBackColor = true;
-			// 
 			// button3
 			// 
-			button3.Location = new System.Drawing.Point(337, 399);
+			button3.Location = new System.Drawing.Point(295, 315);
+			button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			button3.Name = "button3";
-			button3.Size = new System.Drawing.Size(91, 28);
+			button3.Size = new System.Drawing.Size(80, 22);
 			button3.TabIndex = 7;
 			button3.Text = "Save";
 			button3.UseVisualStyleBackColor = true;
@@ -117,30 +72,51 @@
 			// 
 			// button4
 			// 
-			button4.Location = new System.Drawing.Point(229, 399);
+			button4.Location = new System.Drawing.Point(200, 315);
+			button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			button4.Name = "button4";
-			button4.Size = new System.Drawing.Size(91, 28);
+			button4.Size = new System.Drawing.Size(80, 22);
 			button4.TabIndex = 8;
 			button4.Text = "Close";
 			button4.UseVisualStyleBackColor = true;
 			button4.Click += OnClose;
 			// 
+			// listBoxData
+			// 
+			listBoxData.AllowUserToDeleteRows = false;
+			listBoxData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			listBoxData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { ID, Name });
+			listBoxData.Location = new System.Drawing.Point(26, 72);
+			listBoxData.Name = "listBoxData";
+			listBoxData.Size = new System.Drawing.Size(518, 233);
+			listBoxData.TabIndex = 9;
+			listBoxData.RowsAdded += RowsAdded;
+			// 
+			// ID
+			// 
+			ID.HeaderText = "ID";
+			ID.Name = "ID";
+			ID.ReadOnly = true;
+			// 
+			// Name
+			// 
+			Name.HeaderText = "Name";
+			Name.Name = "Name";
+			// 
 			// LUTConfigurationLists
 			// 
-			AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			ClientSize = new System.Drawing.Size(663, 439);
+			ClientSize = new System.Drawing.Size(580, 347);
+			Controls.Add(listBoxData);
 			Controls.Add(button4);
 			Controls.Add(button3);
-			Controls.Add(button2);
-			Controls.Add(btnAdd);
-			Controls.Add(txtNewRecord);
-			Controls.Add(listBoxData);
-			Controls.Add(label2);
 			Controls.Add(label1);
 			Controls.Add(cmbConfiguration);
-			Name = "LUTConfigurationLists";
+			Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			Text = "static data maintenance";
+			FormClosing += LUTConfigurationLists_FormClosing;
+			((System.ComponentModel.ISupportInitialize)listBoxData).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -149,13 +125,11 @@
 
 		private System.Windows.Forms.ComboBox cmbConfiguration;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ListBox listBox1;
-		private System.Windows.Forms.TextBox txtNewRecord;
-		private System.Windows.Forms.Button btnAdd;
-		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.ListBox listBoxData;
+		private System.Windows.Forms.DataGridView listBoxData;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
 	}
 }

@@ -1,12 +1,14 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SIS.OpenCore.Client.Adapter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SIS.OpenCore.Client.Adapter;
 
 namespace SIS.OpenCore.Client.Win
 {
@@ -38,21 +40,28 @@ namespace SIS.OpenCore.Client.Win
 				})
 				.Build();
 
-			var services = host.Services;
-			services.CreateScope();
-			var mainForm = services.GetRequiredService<MainForm>();
-			Application.Run(mainForm);
+			
+			using (var servicesScope = host.Services.CreateScope())
+			{
+				var services = servicesScope.ServiceProvider;
+				var mainForm = services.GetRequiredService<MainForm>();
+				Application.Run(mainForm);
+			}
+				
 			
         }
 
 		private static void ConfigureServices(IConfiguration configuration, Microsoft.Extensions.DependencyInjection.IServiceCollection services)
 		{
 			var ServerAddress = configuration["BaseAddress"];
+			var UserDataURL = configuration["UserDataURL"];
 
-			services.AddSingleton<MainForm>();
-			services.AddSingleton<LUTConfigurationLists>();
+			services.AddScoped<MainForm>();
+			services.AddScoped<CIFList>();
+			services.AddScoped<LUTConfigurationLists>();
 			services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(ServerAddress) });
-			
+			services.AddSingleton(s => new UserDataAdapter(UserDataURL, new HttpClient { BaseAddress = new Uri(ServerAddress) })) ;
+
 		}
 	}
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SIS.OpenCore.Client.Adapter\SIS.OpenCore.Client.Adapter.csproj" />
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,7 @@ using SIS.OpenCore.Shared.Model.PostRequest;
 using SIS.OpenCore.Server.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;
+using SIS.OpenCore.Shared.Model.GetRequest;
 //using SIS.OpenCore.Server.Data.TODO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,8 +19,8 @@ using System.Threading.Tasks;
 namespace SIS.OpenCore.Server.Controllers
 {
 	[ApiController]
-	[Route("v1/api/OpenCore/system/Settings/UserData")]
-	public class UserDataController : ControllerBase
+	[Route("v1/api/OpenCore/system/Settings/[controller]")]
+	public partial class UserDataController : ControllerBase
 	{
 		private readonly ILogger<UserDataController> _logger;
 		private IConfiguration _configuration;
@@ -70,7 +71,7 @@ namespace SIS.OpenCore.Server.Controllers
 			return settingsKeys;
 		}
 
-		protected IEnumerable<string> GetList(string Configuration)
+		protected IQueryable<BaseUserData> GetList(string Configuration)
 		{
 			IQueryable<BaseUserData> Arr = Enumerable.Empty<BaseUserData>().AsQueryable();
 
@@ -97,60 +98,121 @@ namespace SIS.OpenCore.Server.Controllers
 			}
 
 			if (Arr.Count() > 0)
-				return Arr.Select(x => x.Name);
+			{
+				return Arr;
+			}
 			else
-				return Enumerable.Empty<String>().AsQueryable();
+				return Enumerable.Empty<BaseUserData>().AsQueryable();
 		}
 
         [HttpGet]
-        public IEnumerable<string> GetLastSettings(string? Configuration)
+        public ActionResult<GetUserDataResponseModel> GetLastSettings(string? Configuration)
         {
-            var settings = new List<string>();
-
             if (string.IsNullOrEmpty(Configuration))
             {
                 //return await Task.Run(GetSettings());
-                return GetSettings();
+                return Ok(GetSettings());
             }
 
-            return GetList(Configuration);
+			var reponse = new  GetUserDataResponseModel();
+			reponse.Records = GetList(Configuration);
+			reponse.Successful = true;
+
+            return Ok(reponse);
         }
 
+		protected async Task<int> AddorUpdate(string Configuration,  short Recordid, string value)
+		{
+			int newID = Recordid;
+			switch (Configuration)
+			{
+				case "Zone":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpZone = new Zone { Name = value };
+						newID = await _ZoneRepository.Create(tmpZone);
+					}
+					else // update
+					{
+						var tmpZone = new Zone { Name = value, ID = Recordid };
+						await _ZoneRepository.Update(Recordid, tmpZone);
+					}
+					break;
+				case "Company":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpCompany = new Company { Name = value };
+						newID = await _CompanyRepository.Create(tmpCompany);
+					}
+					else // update
+					{
+						var tmpCompany = new Company { Name = value, ID = Recordid };
+						await _CompanyRepository.Update(Recordid, tmpCompany);
+					}
+					break;
+				case "Branch":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpBranch = new Branch { Name = value };
+						newID = await _BranchRepository.Create(tmpBranch);
+					}
+					else // update
+					{
+						var tmpBranch = new Branch { Name = value, ID = Recordid };
+						await _BranchRepository.Update(Recordid, tmpBranch);
+					}
+					break;
+				case "Sector":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpSector = new Sector { Name = value };
+						newID = await _SectorRepository.Create(tmpSector);
+					}
+					else // update
+					{
+						var tmpSector = new Sector { Name = value, ID = Recordid };
+						await _SectorRepository.Update(Recordid, tmpSector);
+					}
+					break;
+				case "Dep":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpDep = new Dep { Name = value };
+						newID = await _DepRepository.Create(tmpDep);
+					}
+					else // update
+					{
+						var tmpDep = new Dep { Name = value, ID = Recordid };
+						await _DepRepository.Update(Recordid, tmpDep);
+					}
+					break;
+				case "Unit":
+					if(Recordid == 0) // new : to insert
+					{
+						var tmpUnit = new Unit { Name = value };
+						newID = await _UnitRepository.Create(tmpUnit);
+					}
+					else // update
+					{
+						var tmpUnit = new Unit { Name = value, ID = Recordid };
+						await _UnitRepository.Update(Recordid, tmpUnit);
+					}
+					break;
+			}
+			return newID;
+		}
+
         [HttpPost]
-		public async Task<IActionResult> Post(string Configuration, IEnumerable<string> values)
+		public async Task<IActionResult> Post(PostUserDataRequestModel requestModel)
 		{
 			int newID =0;
 			try
 			{
-				foreach (string st in values)
+				if(requestModel.ids?.Count() != requestModel.Values?.Count())	{ throw new Exception("ids array length doesnt match values array length");}
+				
+				for(short nLoop=0; nLoop<requestModel.ids?.Count(); nLoop++)
 				{
-					switch (Configuration)
-					{
-						case "Zone":
-							var tmpZone = new Zone { Name = st };
-							newID = await _ZoneRepository.Create(tmpZone);
-							break;
-						case "Company":
-							var tmpCompany = new Company  { Name = st };
-							newID = await _CompanyRepository.Create(tmpCompany);
-							break;
-						case "Branch":
-							var tmpBranch = new Branch { Name = st };
-							newID = await _BranchRepository.Create(tmpBranch);
-							break;
-						case "Sector":
-							var tmpSector = new Sector { Name = st };
-							newID = await _SectorRepository.Create(tmpSector);
-							break;
-						case "Dep":
-							var tmpDep = new Dep { Name = st };
-							newID = await _DepRepository.Create(tmpDep);
-							break;
-						case "Unit":
-							var tmpUnit = new Unit { Name = st };
-							newID = await _UnitRepository.Create(tmpUnit);
-							break;
-					}
+					await AddorUpdate(requestModel.Configuration??string.Empty, (requestModel.ids?.ToArray()[nLoop]).Value, requestModel.Values?.ToArray()[nLoop]);
 				}
 				return Ok(new PostBaseResponseModel{ Successful=true , Record=newID});
 			}

@@ -34,8 +34,9 @@ namespace SIS.OpenCore.Client.Win
 
 		private void listToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			CIFList list = new CIFList();
-			list.Show(this);
+			_serviceProvider.GetService<CIFList>().Show();
+			//CIFList list = new CIFList();
+			//list.Show(this);
 		}
 
 		async private void MainForm_Load(object sender, EventArgs e)
@@ -64,8 +65,16 @@ namespace SIS.OpenCore.Client.Win
 		{
 			//IServiceProvider serviceProvider = (IServiceProvider)Application.OpenForms[0].GetType().GetProperty("ApplicationServices", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Application.OpenForms[0], null);
 			//IServiceProvider serviceProvider = (IServiceProvider)this.GetService(typeof(IServiceProvider));
-			var configform = _serviceProvider.GetRequiredService<LUTConfigurationLists>();
-			configform.Show(this);
+			try
+			{
+
+				var configform = _serviceProvider.GetRequiredService<LUTConfigurationLists>();
+				configform.Show(this);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 	}
 }
