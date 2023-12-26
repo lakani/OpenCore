@@ -758,6 +758,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("REFERENCE")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -979,6 +980,219 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.ToTable("GL_ACCT");
                 });
 
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.LUT_PRODUCT_CHANNEL", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LUT_PRODUCT_CHANNEL");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            Name = "TRSDEALER"
+                        });
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.LUT_PRODUCT_FAMILY", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LUT_PRODUCT_FAMILY");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            Name = "Treasury"
+                        });
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.LUT_PRODUCT_LOB", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LUT_PRODUCT_LOB");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            Name = "Banking"
+                        });
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.PRODUCT_CLASS", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("CURRENCY")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("DESCRIPTION")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("PRODUCT_CHANNEL")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_FAMILY")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_SUB_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PRODUCT_CLASS");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.PRODUCT_DESC", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("CURRENCY")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("DESCRIPTION")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("PRODUCT_CHANNEL")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_CLASS")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_FAMILY")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_SUB_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PRODUCT_DESC");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.PRODUCT_SUB_TYPE", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("DESCRIPTION")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("PRODUCT_CHANNEL")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_FAMILY")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_TYPE")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PRODUCT_SUB_TYPE");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.PRODUCT_TYPE", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("DESCRIPTION")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("PRODUCT_CHANNEL")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("PRODUCT_FAMILY")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PRODUCT_TYPE");
+                });
+
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.UserData.Branch", b =>
                 {
                     b.Property<short>("ID")
@@ -1153,7 +1367,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 12, 18, 10, 9, 9, 86, DateTimeKind.Local).AddTicks(7736),
+                            EffectiveDate = new DateTime(2023, 12, 26, 15, 46, 19, 485, DateTimeKind.Local).AddTicks(120),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });

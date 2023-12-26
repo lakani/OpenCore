@@ -28,5 +28,9 @@
   <ItemGroup>
     <ProjectReference Include="..\SIS.OpenCore.Shared\SIS.OpenCore.Shared.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Repository\Implementation\Product\" />
+  </ItemGroup>
 
 </Project>

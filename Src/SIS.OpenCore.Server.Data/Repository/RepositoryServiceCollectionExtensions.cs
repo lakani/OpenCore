@@ -23,6 +23,8 @@ using SIS.OpenCore.Server.Data.Repository.Implementation.Account;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 using SIS.OpenCore.Server.Data.Repository.Implementation.Account.CK;
 using SIS.OpenCore.Shared.Model.Common;
+using SIS.OpenCore.Server.Data.Repository.Implementation.Product;
+using SIS.OpenCore.Shared.Model.Objects.Product;
 
 namespace SIS.OpenCore.Server.Data.Repository
 {
@@ -53,6 +55,14 @@ namespace SIS.OpenCore.Server.Data.Repository
 			services.AddScoped<ICurrencyRepository<Currency>, CurrencyRepositoryImp>();
 			// Account Data Sources
 			services.AddScoped<IACCTDataSourceRepository<ACCTDataSource>, ACCTDataSourceRepositoryImp>();
+			// Product 
+			services.AddScoped<ILUTRepository<LUT_PRODUCT_CHANNEL>, LUT_PRODUCT_CHANNELRepositoryImp>();
+			services.AddScoped<ILUTRepository<LUT_PRODUCT_LOB>, LUT_PRODUCT_LOBRepositoryImp>();
+			services.AddScoped<ILUTRepository<LUT_PRODUCT_FAMILY>, LUT_PRODUCT_FAMILYRepositoryImp>(); 
+			services.AddScoped<IPRODUCT_CLASSRepository<PRODUCT_CLASS>, PRODUCT_CLASSRepositoryImp>();
+			services.AddScoped<IPRODUCT_TYPERepository<PRODUCT_TYPE>, PRODUCT_TYPERepositoryImp>();
+			services.AddScoped<IPRODUCT_SUB_TYPERepository<PRODUCT_SUB_TYPE>, PRODUCT_SUB_TYPERepositoryImp>();
+			services.AddScoped<IPRODUCT_DESCRepository<PRODUCT_DESC>, PRODUCT_DESCRepositoryImp>();
 			
 			return services;
 		}

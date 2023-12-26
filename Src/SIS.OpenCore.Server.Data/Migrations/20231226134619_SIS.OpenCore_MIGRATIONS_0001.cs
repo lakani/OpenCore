@@ -304,6 +304,45 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LUT_PRODUCT_CHANNEL",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LUT_PRODUCT_CHANNEL", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LUT_PRODUCT_FAMILY",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LUT_PRODUCT_FAMILY", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LUT_PRODUCT_LOB",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LUT_PRODUCT_LOB", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
@@ -321,6 +360,78 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUCT_CLASS",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PRODUCT_TYPE = table.Column<short>(type: "smallint", nullable: false),
+                    CURRENCY = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    PRODUCT_FAMILY = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_SUB_TYPE = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_CHANNEL = table.Column<short>(type: "smallint", nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUCT_CLASS", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUCT_DESC",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PRODUCT_TYPE = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_CLASS = table.Column<short>(type: "smallint", nullable: false),
+                    CURRENCY = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    PRODUCT_FAMILY = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_SUB_TYPE = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_CHANNEL = table.Column<short>(type: "smallint", nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUCT_DESC", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUCT_SUB_TYPE",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PRODUCT_TYPE = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_FAMILY = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_CHANNEL = table.Column<short>(type: "smallint", nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUCT_SUB_TYPE", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUCT_TYPE",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PRODUCT_FAMILY = table.Column<short>(type: "smallint", nullable: false),
+                    PRODUCT_CHANNEL = table.Column<short>(type: "smallint", nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUCT_TYPE", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -519,7 +630,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     CIF_TYPE = table.Column<short>(type: "smallint", nullable: false),
-                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -618,9 +729,24 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "LUT_PRODUCT_CHANNEL",
+                columns: new[] { "ID", "Name" },
+                values: new object[] { (short)1, "TRSDEALER" });
+
+            migrationBuilder.InsertData(
+                table: "LUT_PRODUCT_FAMILY",
+                columns: new[] { "ID", "Name" },
+                values: new object[] { (short)1, "Treasury" });
+
+            migrationBuilder.InsertData(
+                table: "LUT_PRODUCT_LOB",
+                columns: new[] { "ID", "Name" },
+                values: new object[] { (short)1, "Banking" });
+
+            migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 18, 10, 9, 9, 86, DateTimeKind.Local).AddTicks(7736), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 26, 15, 46, 19, 485, DateTimeKind.Local).AddTicks(120), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -777,7 +903,28 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "Keys");
 
             migrationBuilder.DropTable(
+                name: "LUT_PRODUCT_CHANNEL");
+
+            migrationBuilder.DropTable(
+                name: "LUT_PRODUCT_FAMILY");
+
+            migrationBuilder.DropTable(
+                name: "LUT_PRODUCT_LOB");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "PRODUCT_CLASS");
+
+            migrationBuilder.DropTable(
+                name: "PRODUCT_DESC");
+
+            migrationBuilder.DropTable(
+                name: "PRODUCT_SUB_TYPE");
+
+            migrationBuilder.DropTable(
+                name: "PRODUCT_TYPE");
 
             migrationBuilder.DropTable(
                 name: "Sector");

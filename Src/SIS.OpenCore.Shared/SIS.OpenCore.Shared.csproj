@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="Model\Objects\Account\CK\" />
     <Folder Include="Model\Objects\Common\" />
+    <Folder Include="Model\Objects\Product\" />
   </ItemGroup>
 
 </Project>

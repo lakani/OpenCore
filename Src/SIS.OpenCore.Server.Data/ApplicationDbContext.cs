@@ -9,6 +9,7 @@ using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
+using SIS.OpenCore.Shared.Model.Objects.Product;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using SIS.OpenCore.Server.Data.Config;
 using SIS.OpenCore.Server.Data.Config.CIF;
@@ -62,6 +63,13 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<CIF_CK_ACCT> CIF_CK_ACCT { get; set; }
 		public virtual DbSet<AccountingPosting> AccountingPosting { get; set; }
 		public virtual DbSet<ACCTDataSource> ACCTDataSource { get; set; }
+		public virtual DbSet<LUT_PRODUCT_LOB> LUT_PRODUCT_LOB { get; set; }
+		public virtual DbSet<LUT_PRODUCT_CHANNEL> LUT_PRODUCT_CHANNEL { get; set; }
+		public virtual DbSet<LUT_PRODUCT_FAMILY> LUT_PRODUCT_FAMILY { get; set; }
+		public virtual DbSet<PRODUCT_CLASS> PRODUCT_CLASS { get; set; }
+		public virtual DbSet<PRODUCT_TYPE> PRODUCT_TYPE { get; set; }
+		public virtual DbSet<PRODUCT_SUB_TYPE> PRODUCT_SUB_TYPE { get; set; }
+		public virtual DbSet<PRODUCT_DESC> PRODUCT_DESC { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -88,6 +96,13 @@ namespace SIS.OpenCore.Server.Data
 			new CIF_CK_ACCTConfig().Configure(builder.Entity<CIF_CK_ACCT>());
 			new AccountingPostingConfig().Configure(builder.Entity<AccountingPosting>());
 			new ACCTDataSourceConfig().Configure(builder.Entity<ACCTDataSource>());
+			new LUT_PRODUCT_LOBConfig().Configure(builder.Entity<LUT_PRODUCT_LOB>());
+			new LUT_PRODUCT_CHANNELConfig().Configure(builder.Entity<LUT_PRODUCT_CHANNEL>());
+			new LUT_PRODUCT_FAMILYConfig().Configure(builder.Entity<LUT_PRODUCT_FAMILY>());
+			new PRODUCT_CLASSConfig().Configure(builder.Entity<PRODUCT_CLASS>());
+			new PRODUCT_TYPEConfig().Configure(builder.Entity<PRODUCT_TYPE>());
+			new PRODUCT_SUB_TYPEConfig().Configure(builder.Entity<PRODUCT_SUB_TYPE>());
+			new PRODUCT_DESCConfig().Configure(builder.Entity<PRODUCT_DESC>());
 		}
 	}
 }
