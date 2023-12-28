@@ -14,15 +14,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using SIS.OpenCore.Shared.Model.PostRequest;
 using SIS.OpenCore.Shared.Model.GetRequest;
+using System.Linq.Dynamic.Core;
 
- 
+
 #nullable disable
 //namespace SIS.OpenCore.Server.Controllers
 namespace SIS.OpenCore.Server.Controllers
 {
     
     [ApiController]
-	[Route("v1/api/OpenCore/system/Objects/GLLedger")]
+	[Route("v1/api/OpenCore/system/Objects/GLLedger/[action]")]
 	public partial class GLLedgerController : ControllerBase
 	{
 		private readonly ILogger<GLLedgerController> _logger;
@@ -119,6 +120,67 @@ namespace SIS.OpenCore.Server.Controllers
                 return NotFound();
         }
 
+		[HttpPost]
+        public ActionResult Search(GetGLLedgerRequestModel request)
+		{
+			try
+			{
+				var responseModel = new GetGLLedgerResponseModel{ Successful = true, ServerTimeStamp = DateTime.Now};
+				var SearchResult = _GL_ACCTRepository.Search(request);
+				if(SearchResult == null) {
+					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
+				}
+				else if (SearchResult.Count() == 0){
+					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
+				}
+				responseModel.Gls = SearchResult;
+				
+				return Ok(responseModel);
+			}
+			catch(Exception ex)
+			{
+				return BadRequest(new BaseResponseModel { Message = ex.Message, ServerTimeStamp = DateTime.Now, Successful = false});
+			}
+		}
+
+		[HttpGet]
+        public ActionResult GetByCode(string GLCode)
+        {
+            _logger.Log(LogLevel.Information, "[HttpGet] GLLedgerController - > Get by Code");
+
+            GetGLLedgerResponseModel ret = new GetGLLedgerResponseModel { Message = "", Successful = true };
+
+            try
+            {
+                if (string.IsNullOrEmpty(GLCode))
+                { // return all
+                    ret.Gls = _GL_ACCTRepository.GetAll();
+                }
+                else
+                {
+                    var record = _GL_ACCTRepository.GetByCode(GLCode);
+                    if (record != null)
+                        ret.Gls = new[] { record }.AsQueryable();
+                }
+            }
+            catch (Exception ex)
+            {
+				if (ex.InnerException != null)
+				{
+					_logger.LogError("Inner Exception");
+					_logger.LogError(string.Concat(ex.InnerException.StackTrace, ex.InnerException.Message));
+				}
+                return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });
+            }
+
+            if (ret.Gls != null)
+                return Ok(ret);
+            else
+                return NotFound();
+        }
+
+		
+
         [HttpPost]
 		public async Task<ActionResult> Create(PostGLLedgerRequestModel model)
 		{
@@ -147,7 +209,7 @@ namespace SIS.OpenCore.Server.Controllers
 			{
 				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
 			}
-			return Ok(new PostGLLedgerResponseModel { Successful = true ,  GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
+			return Ok(new PostGLLedgerResponseModel { Successful = true , Record=newGL.GL_DEFID,  GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
 		}
     }
 }

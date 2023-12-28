@@ -209,6 +209,8 @@ namespace SIS.OpenCore.Server.Controllers
 			try
 			{
 				if(requestModel.ids?.Count() != requestModel.Values?.Count())	{ throw new Exception("ids array length doesnt match values array length");}
+
+				if(string.IsNullOrEmpty(requestModel.Configuration))	{ throw new Exception("requestModel.Configuration is Empty");}
 				
 				for(short nLoop=0; nLoop<requestModel.ids?.Count(); nLoop++)
 				{

@@ -42,13 +42,19 @@ namespace SIS.OpenCore.Server.Controllers
 		public ActionResult<SettingsModel>  GetLastSettings()
 		{
 			try{
+				_logger.LogInformation("GetLastSettings() --> Begin");
 				var Ret = _SettingsRepository.Search(new BaseRequesModel()).First();
 
 				//Settings.InitServices(_logger, _configuration, _SettingsRepository);
 				//return Settings.GetLastVersion();
+				_logger.LogInformation("GetLastSettings() --> End");
 				return Ok(Ret);
 			}
 			catch(Exception ex) {
+				_logger.LogError("SettingsController -> GetLastSettings()");
+				_logger.LogError(ex.Message);
+				if(ex.InnerException != null)
+					_logger.LogError(ex.InnerException.Message);
 				return BadRequest(new BaseResponseModel{ Message=ex.Message, Successful=false});
 			}
 			
