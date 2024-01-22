@@ -4,6 +4,7 @@ using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Server.Data.Context;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
+using SIS.OpenCore.Shared.Model.Objects.GL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,9 +34,9 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.LUT
         static LUT_GLLedgerNature [] _Nature = new LUT_GLLedgerNature[] {   
             new LUT_GLLedgerNature { ID = 1,   Name = "Asset",      CR_DR = "DR" },
             new LUT_GLLedgerNature { ID = 2,   Name = "Liability",  CR_DR = "CR" },
-            new LUT_GLLedgerNature { ID = 2,   Name = "Income",     CR_DR = "CR" },
-            new LUT_GLLedgerNature { ID = 2,   Name = "Expense",    CR_DR = "DR" },
-            new LUT_GLLedgerNature { ID = 2,   Name = "Capital",    CR_DR = "CR" }};
+            new LUT_GLLedgerNature { ID = 3,   Name = "Income",     CR_DR = "CR" },
+            new LUT_GLLedgerNature { ID = 4,   Name = "Expense",    CR_DR = "DR" },
+            new LUT_GLLedgerNature { ID = 5,   Name = "Capital",    CR_DR = "CR" }};
 
         public GLLedgerNatureRepositoryImp(ApplicationDbContext dbContext, IConfiguration configuration, ILogger<LUT_GLLedgerNature> logger)
         : base(dbContext, configuration, logger)

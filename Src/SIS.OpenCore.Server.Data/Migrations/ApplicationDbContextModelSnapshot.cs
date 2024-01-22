@@ -17,7 +17,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -953,6 +953,10 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Property<int>("LedgerNO")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<short>("Nature")
                         .HasColumnType("smallint");
 
@@ -972,12 +976,84 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Property<short?>("UnitNO")
                         .HasColumnType("smallint");
 
+                    b.Property<short?>("UnitObjID")
+                        .HasColumnType("smallint");
+
                     b.Property<short?>("Zone")
                         .HasColumnType("smallint");
 
                     b.HasKey("GL_DEFID");
 
+                    b.HasIndex("BranchNo");
+
+                    b.HasIndex("CompanyNo");
+
+                    b.HasIndex("DepNo");
+
+                    b.HasIndex("Nature");
+
+                    b.HasIndex("SectorNo");
+
+                    b.HasIndex("UnitObjID");
+
+                    b.HasIndex("Zone");
+
                     b.ToTable("GL_ACCT");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.LUT_GLLedgerNature", b =>
+                {
+                    b.Property<short>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ID"));
+
+                    b.Property<string>("CR_DR")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LUT_GLLedgerNature");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = (short)1,
+                            CR_DR = "DR",
+                            Name = "Asset"
+                        },
+                        new
+                        {
+                            ID = (short)2,
+                            CR_DR = "CR",
+                            Name = "Liability"
+                        },
+                        new
+                        {
+                            ID = (short)3,
+                            CR_DR = "CR",
+                            Name = "Income"
+                        },
+                        new
+                        {
+                            ID = (short)4,
+                            CR_DR = "DR",
+                            Name = "Expense"
+                        },
+                        new
+                        {
+                            ID = (short)5,
+                            CR_DR = "CR",
+                            Name = "Capital"
+                        });
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Product.LUT_PRODUCT_CHANNEL", b =>
@@ -1367,7 +1443,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2023, 12, 26, 15, 46, 19, 485, DateTimeKind.Local).AddTicks(120),
+                            EffectiveDate = new DateTime(2024, 1, 22, 11, 58, 13, 447, DateTimeKind.Local).AddTicks(3653),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -1466,6 +1542,55 @@ namespace SIS.OpenCore.Server.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("CIF_DESC");
+                });
+
+            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.GL.GL_ACCT", b =>
+                {
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Branch", "BranchObj")
+                        .WithMany()
+                        .HasForeignKey("BranchNo");
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Company", "CompanyObj")
+                        .WithMany()
+                        .HasForeignKey("CompanyNo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Dep", "DepObj")
+                        .WithMany()
+                        .HasForeignKey("DepNo");
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.GL.LUT_GLLedgerNature", "NatureObj")
+                        .WithMany()
+                        .HasForeignKey("Nature")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Sector", "SectorObj")
+                        .WithMany()
+                        .HasForeignKey("SectorNo");
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Unit", "UnitObj")
+                        .WithMany()
+                        .HasForeignKey("UnitObjID");
+
+                    b.HasOne("SIS.OpenCore.Shared.Model.Objects.UserData.Zone", "ZoneObj")
+                        .WithMany()
+                        .HasForeignKey("Zone");
+
+                    b.Navigation("BranchObj");
+
+                    b.Navigation("CompanyObj");
+
+                    b.Navigation("DepObj");
+
+                    b.Navigation("NatureObj");
+
+                    b.Navigation("SectorObj");
+
+                    b.Navigation("UnitObj");
+
+                    b.Navigation("ZoneObj");
                 });
 
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.Account.LUT_ACCT_TYPE", b =>

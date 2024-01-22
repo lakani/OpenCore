@@ -15,6 +15,7 @@ using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Shared.Model.Common;
 using System.IdentityModel.Tokens.Jwt;
 using SIS.OpenCore.Server.Data;
+using System.Text.Json.Serialization;
 
 
 namespace SIS.OpenCore.Server
@@ -60,7 +61,11 @@ namespace SIS.OpenCore.Server
 			
             services.AddLogging();
 
-            services.AddControllers();
+            services.AddControllers() 
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                });
             
 			services.AddRepositories();
 

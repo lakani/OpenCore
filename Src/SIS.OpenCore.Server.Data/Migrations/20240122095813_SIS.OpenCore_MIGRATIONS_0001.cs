@@ -234,32 +234,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GL_ACCT",
-                columns: table => new
-                {
-                    GL_DEFID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyNo = table.Column<short>(type: "smallint", nullable: false),
-                    Zone = table.Column<short>(type: "smallint", nullable: true),
-                    BranchNo = table.Column<short>(type: "smallint", nullable: true),
-                    SectorNo = table.Column<short>(type: "smallint", nullable: true),
-                    DepNo = table.Column<short>(type: "smallint", nullable: true),
-                    UnitNO = table.Column<short>(type: "smallint", nullable: true),
-                    ProductNo = table.Column<short>(type: "smallint", nullable: true),
-                    Nature = table.Column<short>(type: "smallint", nullable: false),
-                    LedgerNO = table.Column<int>(type: "int", nullable: false),
-                    GL = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    COMMENTS = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    EFFECTIVE_DT = table.Column<DateTime>(type: "datetime", nullable: false),
-                    STATUS = table.Column<short>(type: "smallint", nullable: false),
-                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GL_ACCT", x => x.GL_DEFID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Keys",
                 columns: table => new
                 {
@@ -301,6 +275,20 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LUT_CIF_TYPE", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LUT_GLLedgerNature",
+                columns: table => new
+                {
+                    ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CR_DR = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LUT_GLLedgerNature", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -644,6 +632,71 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GL_ACCT",
+                columns: table => new
+                {
+                    GL_DEFID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyNo = table.Column<short>(type: "smallint", nullable: false),
+                    Zone = table.Column<short>(type: "smallint", nullable: true),
+                    BranchNo = table.Column<short>(type: "smallint", nullable: true),
+                    SectorNo = table.Column<short>(type: "smallint", nullable: true),
+                    DepNo = table.Column<short>(type: "smallint", nullable: true),
+                    UnitNO = table.Column<short>(type: "smallint", nullable: true),
+                    UnitObjID = table.Column<short>(type: "smallint", nullable: true),
+                    ProductNo = table.Column<short>(type: "smallint", nullable: true),
+                    Nature = table.Column<short>(type: "smallint", nullable: false),
+                    LedgerNO = table.Column<int>(type: "int", nullable: false),
+                    GL = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    COMMENTS = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    EFFECTIVE_DT = table.Column<DateTime>(type: "datetime", nullable: false),
+                    STATUS = table.Column<short>(type: "smallint", nullable: false),
+                    REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GL_ACCT", x => x.GL_DEFID);
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Branch_BranchNo",
+                        column: x => x.BranchNo,
+                        principalTable: "Branch",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Company_CompanyNo",
+                        column: x => x.CompanyNo,
+                        principalTable: "Company",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Dep_DepNo",
+                        column: x => x.DepNo,
+                        principalTable: "Dep",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_LUT_GLLedgerNature_Nature",
+                        column: x => x.Nature,
+                        principalTable: "LUT_GLLedgerNature",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Sector_SectorNo",
+                        column: x => x.SectorNo,
+                        principalTable: "Sector",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Unit_UnitObjID",
+                        column: x => x.UnitObjID,
+                        principalTable: "Unit",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_GL_ACCT_Zone_Zone",
+                        column: x => x.Zone,
+                        principalTable: "Zone",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CIF_DESC",
                 columns: table => new
                 {
@@ -729,6 +782,18 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "LUT_GLLedgerNature",
+                columns: new[] { "ID", "CR_DR", "Name" },
+                values: new object[,]
+                {
+                    { (short)1, "DR", "Asset" },
+                    { (short)2, "CR", "Liability" },
+                    { (short)3, "CR", "Income" },
+                    { (short)4, "DR", "Expense" },
+                    { (short)5, "CR", "Capital" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "LUT_PRODUCT_CHANNEL",
                 columns: new[] { "ID", "Name" },
                 values: new object[] { (short)1, "TRSDEALER" });
@@ -746,7 +811,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 12, 26, 15, 46, 19, 485, DateTimeKind.Local).AddTicks(120), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2024, 1, 22, 11, 58, 13, 447, DateTimeKind.Local).AddTicks(3653), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -820,6 +885,41 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_BranchNo",
+                table: "GL_ACCT",
+                column: "BranchNo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_CompanyNo",
+                table: "GL_ACCT",
+                column: "CompanyNo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_DepNo",
+                table: "GL_ACCT",
+                column: "DepNo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_Nature",
+                table: "GL_ACCT",
+                column: "Nature");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_SectorNo",
+                table: "GL_ACCT",
+                column: "SectorNo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_UnitObjID",
+                table: "GL_ACCT",
+                column: "UnitObjID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GL_ACCT_Zone",
+                table: "GL_ACCT",
+                column: "Zone");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Keys_Use",
                 table: "Keys",
                 column: "Use");
@@ -870,9 +970,6 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Branch");
-
-            migrationBuilder.DropTable(
                 name: "CIF_ACCT_CLASS");
 
             migrationBuilder.DropTable(
@@ -882,13 +979,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "CIF_PERSONAL");
 
             migrationBuilder.DropTable(
-                name: "Company");
-
-            migrationBuilder.DropTable(
                 name: "Currency");
-
-            migrationBuilder.DropTable(
-                name: "Dep");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");
@@ -927,16 +1018,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 name: "PRODUCT_TYPE");
 
             migrationBuilder.DropTable(
-                name: "Sector");
-
-            migrationBuilder.DropTable(
                 name: "Settings");
-
-            migrationBuilder.DropTable(
-                name: "Unit");
-
-            migrationBuilder.DropTable(
-                name: "Zone");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -949,6 +1031,27 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CIF_DESC");
+
+            migrationBuilder.DropTable(
+                name: "Branch");
+
+            migrationBuilder.DropTable(
+                name: "Company");
+
+            migrationBuilder.DropTable(
+                name: "Dep");
+
+            migrationBuilder.DropTable(
+                name: "LUT_GLLedgerNature");
+
+            migrationBuilder.DropTable(
+                name: "Sector");
+
+            migrationBuilder.DropTable(
+                name: "Unit");
+
+            migrationBuilder.DropTable(
+                name: "Zone");
 
             migrationBuilder.DropTable(
                 name: "CIF_CLASS");

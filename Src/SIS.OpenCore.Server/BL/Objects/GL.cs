@@ -77,7 +77,7 @@ namespace SIS.OpenCore.Server.BL.Objects
             new GLSegment { Type = 6,   Name = "DepNo",           DigitsValue = "##",     DigitsLength = 2},
             new GLSegment { Type = 7,   Name = "UnitNo",          DigitsValue = "##",     DigitsLength = 2},
             new GLSegment { Type = 8,   Name = "ProductNo",       DigitsValue = "####",   DigitsLength = 4},
-            new GLSegment { Type = 9,  Name = "LedgerNo",        DigitsValue = "######", DigitsLength = 6}};
+            new GLSegment { Type = 9,   Name = "LedgerNo",        DigitsValue = "######", DigitsLength = 6}};
 
         //@LEDGERNO_OUT	nvarchar(15)	OUTPUT,
         // @CompanyNo		int,
@@ -143,100 +143,124 @@ namespace SIS.OpenCore.Server.BL.Objects
 
         static public async Task<string> Create(GL_ACCT newGL)
         {
-            //-- if not supplied , assume its current bussiness date
-            if (newGL.EFFECTIVE_DT  <= DateTime.MinValue || newGL.EFFECTIVE_DT >= DateTime.MaxValue)
-                newGL.EFFECTIVE_DT = Settings.GetCurrentBusinessDate();
-
-            if(false == ValidatesNewGLParams(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Zone ?? 0, newGL.BranchNo ?? 0, 
-            newGL.SectorNo ?? 0, newGL.DepNo ?? 0, newGL.UnitNO ?? 0, newGL.Nature))
-                throw new ArgumentException("ValidatesNewGLParams", "ValidatesNewGLParams");
-
-            if (newGL.LedgerNO == 0)
+            try
             {
-                newGL.LedgerNO = _GL_ACCTRepository.GetMaxLedger(newGL.CompanyNo, newGL.Nature, newGL.Zone, newGL.BranchNo, 
-                newGL.SectorNo, newGL.DepNo, newGL.UnitNO, newGL.ProductNo);
-                newGL.LedgerNO++;
+                //-- if not supplied , assume its current bussiness date
+                if (newGL.EFFECTIVE_DT  <= DateTime.MinValue || newGL.EFFECTIVE_DT >= DateTime.MaxValue)
+                    newGL.EFFECTIVE_DT = Settings.GetCurrentBusinessDate();
+
+                // if(false == ValidatesNewGLParams(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Zone ?? 0, newGL.BranchNo ?? 0, 
+                // newGL.SectorNo ?? 0, newGL.DepNo ?? 0, newGL.UnitNO ?? 0, newGL.Nature))
+                //     throw new ArgumentException("ValidatesNewGLParams", "ValidatesNewGLParams");
+
+                if(false == ValidatesNewGLParams(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Zone ?? 0 , newGL.BranchNo ?? 0 , 
+                newGL.SectorNo??0 , newGL.DepNo??0 , newGL.UnitNO ?? 0, newGL.Nature))
+                    throw new ArgumentException("ValidatesNewGLParams", "ValidatesNewGLParams");
+
+                if (newGL.LedgerNO == 0)
+                {
+                    Settings.InitServices(_logger, _configuration, _SettingsRepository);
+                    string[]  SegmentArr = Settings.GetGLSegments();
+                    
+                    // fix for #106
+                    newGL.LedgerNO = _GL_ACCTRepository.GetMaxLedger(newGL.CompanyNo, newGL.Nature, 
+                    SegmentArr.Contains(_segments[1].Name)?newGL.Zone:null, 
+                    SegmentArr.Contains(_segments[3].Name)?newGL.BranchNo:null, 
+                    SegmentArr.Contains(_segments[4].Name)?newGL.SectorNo:null, 
+                    SegmentArr.Contains(_segments[5].Name)?newGL.DepNo:null,
+                    SegmentArr.Contains(_segments[6].Name)?newGL.UnitNO:null,
+                    SegmentArr.Contains(_segments[7].Name)?newGL.ProductNo:null);
+                    newGL.LedgerNO++;
+                }
+                                    
+                if (string.IsNullOrEmpty(newGL.GL) == true)
+                {
+                    // GenerateGL
+                    newGL.GL = GenerateGL(newGL.CompanyNo, newGL.Nature, newGL.Zone , newGL.BranchNo , newGL.SectorNo , 
+                    newGL.DepNo, newGL.UnitNO, newGL.ProductNo, newGL.LedgerNO);
+                    newGL.GL = newGL.GL.TrimEnd();
+                }
+
+                if (ValidateExists(newGL.CompanyNo, newGL.Nature, newGL.Zone, newGL.BranchNo, newGL.SectorNo, newGL.DepNo,
+                newGL.UnitNO, newGL.ProductNo, newGL.LedgerNO, newGL.GL) == true)
+                    throw new ArgumentException("GL", "GL Already Exists");
+
+                await _GL_ACCTRepository.Create(newGL);
+
+                return newGL.GL;
             }
-                                
-            if (string.IsNullOrEmpty(newGL.GL) == true)
+            catch(Exception ex)
             {
-                // GenerateGL
-                newGL.GL = GenerateGL(newGL.CompanyNo, newGL.Nature, newGL.Zone ?? 0, newGL.BranchNo ?? 0, newGL.SectorNo ?? 0, 
-                newGL.DepNo, newGL.UnitNO, newGL.ProductNo, newGL.LedgerNO);
-                newGL.GL = newGL.GL.TrimEnd();
+                _logger.LogError("Error in SIS.OpenCore.Server.BL.Objects.GL:Create");
+				_logger.LogError(ex.Message);
+				if (ex.InnerException != null)
+					_logger.LogError(ex.InnerException.ToString());
+				throw new Exception(ex.Message);
             }
-
-            if (ValidateExists(newGL.CompanyNo, newGL.Nature, newGL.Zone, newGL.BranchNo, newGL.SectorNo, newGL.DepNo,
-             newGL.UnitNO, newGL.ProductNo, newGL.LedgerNO, newGL.GL) == true)
-                throw new ArgumentException("GL", "GL Already Exists");
-
-            await _GL_ACCTRepository.Create(newGL);
-
-            return newGL.GL;
-
-            // return  await Add_GL(newGL.EFFECTIVE_DT, newGL.CompanyNo, newGL.Nature, 
-            //     newGL.Zone.Value, 
-            //     newGL.BranchNo.Value ,
-            //     newGL.SectorNo.Value ,
-            //     newGL.DepNo.Value , 
-            //     newGL.UnitNO.Value , 
-            //     newGL.ProductNo.Value , 
-            //     newGL.LedgerNO,  newGL.GL, newGL.COMMENTS, newGL.REFERENCE);
-         
         }
 
         private static bool ValidatesNewGLParams(DateTime EFFECTIVE_DT, short CompanyNo, short nZone, short BranchNo, 
                                     short SectorNo, short DepNo, short UNITNO, short Nature)
         {
-            //-- if not supplied , assume its the base currency
-            // if (String.IsNullOrEmpty(CURR))
-            //     CURR = Settings.fn_OPT_GetBaseCurrency();
-            // if (string.IsNullOrEmpty(CURR))
-            //     throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
 
-            
-
-            //-- check paramters
-            //PRINT 'Checking Currency Table'
-            // if (!Currency.ValidateExists(CURR))
-            //     throw new ArgumentOutOfRangeException("CURR", "Currency doesn't Exists");
-            //PRINT 'Checking Company in Company  Table'
-            if(_CompanyRepository.GetById(CompanyNo) == null)
-                    throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
-            
-            if(_lut_GLLedgerNatureRepository.GetById(Nature) == null)
-                throw new ArgumentOutOfRangeException("Nature", "Invalid GL Nature");
-            
-             //PRINT 'Checking Zone Table'
-            if (nZone != 0)
-                if(_ZoneRepository.GetById(nZone) == null)
-                    throw new ArgumentOutOfRangeException("nZone", "Zone Number doesn't Exists");
-                            
-            //PRINT 'Checking Branch Table'
-            if (BranchNo != 0)
+            try
             {
-                if (_BranchRepository.GetById(BranchNo) == null)
-                    throw new ArgumentOutOfRangeException("BranchNo", "Branch Number doesn't Exists");
+                //-- if not supplied , assume its the base currency
+                // if (String.IsNullOrEmpty(CURR))
+                //     CURR = Settings.fn_OPT_GetBaseCurrency();
+                // if (string.IsNullOrEmpty(CURR))
+                //     throw new Exception("fn_OPT_GetBaseCurrency can’t retrieve base currency");
 
-            }
-        
-            //PRINT 'Checking Sector Table'
-            if (SectorNo != 0 )
-                if(_SectorRepository.GetById(SectorNo) == null)
-                    throw new ArgumentOutOfRangeException("SectorNo", "Sector Number doesn't Exists");
-            
-            //PRINT 'Checking Dep Table'
-            if (DepNo != 0 )
-                if(_DepRepository.GetById(DepNo) == null)
-                    throw new ArgumentOutOfRangeException("DepNo", "Department Number doesn't Exists");    
-                       
+                //-- check paramters
+                //PRINT 'Checking Currency Table'
+                // if (!Currency.ValidateExists(CURR))
+                //     throw new ArgumentOutOfRangeException("CURR", "Currency doesn't Exists");
+                //PRINT 'Checking Company in Company  Table'
+                if(_CompanyRepository.GetById(CompanyNo) == null)
+                        throw new ArgumentOutOfRangeException("CompanyNo", "Company Number doesn't Exists");
                 
-            //PRINT 'Checking Unit Table'
-            if (UNITNO != 0 )
-                if(_UnitRepository.GetById(UNITNO) == null)   
-                    throw new ArgumentOutOfRangeException("UNITNO", "Unit Number doesn't Exists");    
-                       
-            return true;
+                if(_lut_GLLedgerNatureRepository.GetById(Nature) == null)
+                    throw new ArgumentOutOfRangeException("Nature", "Invalid GL Nature");
+                
+                //PRINT 'Checking Zone Table'
+                if (nZone != 0)
+                    if(_ZoneRepository.GetById(nZone) == null)
+                        throw new ArgumentOutOfRangeException("nZone", "Zone Number doesn't Exists");
+                                
+                //PRINT 'Checking Branch Table'
+                if (BranchNo != 0)
+                {
+                    if (_BranchRepository.GetById(BranchNo) == null)
+                        throw new ArgumentOutOfRangeException("BranchNo", "Branch Number doesn't Exists");
+
+                }
+            
+                //PRINT 'Checking Sector Table'
+                if (SectorNo != 0 )
+                    if(_SectorRepository.GetById(SectorNo) == null)
+                        throw new ArgumentOutOfRangeException("SectorNo", "Sector Number doesn't Exists");
+                
+                //PRINT 'Checking Dep Table'
+                if (DepNo != 0 )
+                    if(_DepRepository.GetById(DepNo) == null)
+                        throw new ArgumentOutOfRangeException("DepNo", "Department Number doesn't Exists");    
+                        
+                    
+                //PRINT 'Checking Unit Table'
+                if (UNITNO != 0 )
+                    if(_UnitRepository.GetById(UNITNO) == null)   
+                        throw new ArgumentOutOfRangeException("UNITNO", "Unit Number doesn't Exists");    
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error in SIS.OpenCore.Server.BL.Objects.GL:ValidatesNewGLParams");
+				_logger.LogError(ex.Message);
+				if (ex.InnerException != null)
+					_logger.LogError(ex.InnerException.ToString());
+				throw new Exception(ex.Message);
+            }
         }
 
         public static bool ValidateExists (short nCompany, short nNature, short? nZone, short? nBranch, short? nSector,
@@ -359,9 +383,9 @@ namespace SIS.OpenCore.Server.BL.Objects
             return RetGL;
         }
 
-        public static void GenerateGLString(ref string RetGL, GLSegment Segment, short CompanyNo, short NATURE, short nZone, 
-                                        short BranchNo, short SectorNo,
-                                        short DepNo, short UNITNO, short ProductNo, int LEDGERNO, bool isLastSeg)
+        public static void GenerateGLString(ref string RetGL, GLSegment Segment, short CompanyNo, short? NATURE, short? nZone, 
+                                        short? BranchNo, short? SectorNo,
+                                        short? DepNo, short? UNITNO, short? ProductNo, int LEDGERNO, bool isLastSeg)
         {
             switch (Segment.Type)
             {
@@ -398,7 +422,7 @@ namespace SIS.OpenCore.Server.BL.Objects
                 RetGL += "-";
         }
 
-        public static string GenerateGL(short CompanyNo,    short NATURE, short nZone , short BranchNo , short SectorNo ,
+       public static string GenerateGL(short CompanyNo,    short? NATURE, short? nZone , short? BranchNo , short? SectorNo ,
                                         short? DepNo , short? UNITNO , short? ProductNo , int LEDGERNO )
         {
             //

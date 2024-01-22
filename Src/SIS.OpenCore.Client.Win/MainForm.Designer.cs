@@ -29,6 +29,7 @@ namespace SIS.OpenCore.Client.Win
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			menuStrip1 = new System.Windows.Forms.MenuStrip();
 			fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,7 +38,11 @@ namespace SIS.OpenCore.Client.Win
 			segmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			staticDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			toolStrip1 = new System.Windows.Forms.ToolStrip();
+			toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			menuStrip1.SuspendLayout();
+			toolStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// menuStrip1
@@ -46,7 +51,8 @@ namespace SIS.OpenCore.Client.Win
 			menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fIleToolStripMenuItem, gLToolStripMenuItem, configurationToolStripMenuItem });
 			menuStrip1.Location = new System.Drawing.Point(0, 0);
 			menuStrip1.Name = "menuStrip1";
-			menuStrip1.Size = new System.Drawing.Size(914, 28);
+			menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+			menuStrip1.Size = new System.Drawing.Size(800, 24);
 			menuStrip1.TabIndex = 1;
 			menuStrip1.Text = "menuStrip1";
 			// 
@@ -54,13 +60,13 @@ namespace SIS.OpenCore.Client.Win
 			// 
 			fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { listToolStripMenuItem });
 			fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
-			fIleToolStripMenuItem.Size = new System.Drawing.Size(43, 24);
+			fIleToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
 			fIleToolStripMenuItem.Text = "CIF";
 			// 
 			// listToolStripMenuItem
 			// 
 			listToolStripMenuItem.Name = "listToolStripMenuItem";
-			listToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+			listToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
 			listToolStripMenuItem.Text = "List";
 			listToolStripMenuItem.Click += listToolStripMenuItem_Click;
 			// 
@@ -68,20 +74,20 @@ namespace SIS.OpenCore.Client.Win
 			// 
 			gLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { listToolStripMenuItem1, segmentsToolStripMenuItem });
 			gLToolStripMenuItem.Name = "gLToolStripMenuItem";
-			gLToolStripMenuItem.Size = new System.Drawing.Size(40, 24);
+			gLToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
 			gLToolStripMenuItem.Text = "GL";
 			// 
 			// listToolStripMenuItem1
 			// 
 			listToolStripMenuItem1.Name = "listToolStripMenuItem1";
-			listToolStripMenuItem1.Size = new System.Drawing.Size(217, 26);
+			listToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
 			listToolStripMenuItem1.Text = "&List";
 			listToolStripMenuItem1.Click += listToolStripMenuItem1_Click;
 			// 
 			// segmentsToolStripMenuItem
 			// 
 			segmentsToolStripMenuItem.Name = "segmentsToolStripMenuItem";
-			segmentsToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+			segmentsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
 			segmentsToolStripMenuItem.Text = "Se&gments";
 			segmentsToolStripMenuItem.Click += segmentsToolStripMenuItem_Click;
 			// 
@@ -89,30 +95,59 @@ namespace SIS.OpenCore.Client.Win
 			// 
 			configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { staticDataToolStripMenuItem });
 			configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-			configurationToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+			configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
 			configurationToolStripMenuItem.Text = "Configuration";
 			// 
 			// staticDataToolStripMenuItem
 			// 
 			staticDataToolStripMenuItem.Name = "staticDataToolStripMenuItem";
-			staticDataToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+			staticDataToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			staticDataToolStripMenuItem.Text = "Static Data";
 			staticDataToolStripMenuItem.Click += staticDataToolStripMenuItem_Click;
 			// 
+			// toolStrip1
+			// 
+			toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton1, toolStripButton2 });
+			toolStrip1.Location = new System.Drawing.Point(0, 24);
+			toolStrip1.Name = "toolStrip1";
+			toolStrip1.Size = new System.Drawing.Size(800, 25);
+			toolStrip1.TabIndex = 3;
+			toolStrip1.Text = "toolStrip1";
+			// 
+			// toolStripButton1
+			// 
+			toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
+			toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			toolStripButton1.Name = "toolStripButton1";
+			toolStripButton1.Size = new System.Drawing.Size(98, 22);
+			toolStripButton1.Text = "toolStripButton1";
+			// 
+			// toolStripButton2
+			// 
+			toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
+			toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			toolStripButton2.Name = "toolStripButton2";
+			toolStripButton2.Size = new System.Drawing.Size(98, 22);
+			toolStripButton2.Text = "toolStripButton2";
+			// 
 			// MainForm
 			// 
-			AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			ClientSize = new System.Drawing.Size(914, 570);
+			ClientSize = new System.Drawing.Size(800, 450);
+			Controls.Add(toolStrip1);
 			Controls.Add(menuStrip1);
 			IsMdiContainer = true;
 			MainMenuStrip = menuStrip1;
-			Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			Name = "MainForm";
 			Text = "SIS.OpenCore.Client.Win";
 			Load += MainForm_Load;
 			menuStrip1.ResumeLayout(false);
 			menuStrip1.PerformLayout();
+			toolStrip1.ResumeLayout(false);
+			toolStrip1.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -127,6 +162,9 @@ namespace SIS.OpenCore.Client.Win
 		private System.Windows.Forms.ToolStripMenuItem segmentsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem staticDataToolStripMenuItem;
+		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStripButton toolStripButton1;
+		private System.Windows.Forms.ToolStripButton toolStripButton2;
 	}
 }
 

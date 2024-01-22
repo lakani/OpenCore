@@ -97,6 +97,13 @@ namespace SIS.OpenCore.Server.BL
             return sGlformat;
         }
 
+        static public string[] GetGLSegments()
+        {
+            string SegmentsSetup = Settings.GetSystemSegments();
+            string[] SegmentsSetupSplited = SegmentsSetup.Split('-');
+            return SegmentsSetupSplited;
+        }
+
         static public short fn_OPT_GetGLFormatDigitsNum()
         {
             //string r = fn_OPT_GetGLFormatDigits();

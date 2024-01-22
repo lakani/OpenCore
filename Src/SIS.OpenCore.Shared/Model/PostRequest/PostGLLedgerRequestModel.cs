@@ -15,6 +15,7 @@ namespace SIS.OpenCore.Shared.Model.PostRequest
         public int LedgerNO { get; set; }
         
         //public string CURR { get; set; } // its not on the parent level
+        public string? Name { get; set; }
         public string? COMMENTS { get; set; }
         public DateTime EFFECTIVE_DT { get; set; }
         public short STATUS { get; set; }

@@ -130,7 +130,7 @@ namespace SIS.OpenCore.Server.Controllers
 				if(SearchResult == null) {
 					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
 				}
-				else if (SearchResult.Count() == 0){
+				else if (SearchResult.Any() == false){
 					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
 				}
 				responseModel.Gls = SearchResult;
@@ -184,32 +184,34 @@ namespace SIS.OpenCore.Server.Controllers
         [HttpPost]
 		public async Task<ActionResult> Create(PostGLLedgerRequestModel model)
 		{
-			GL_ACCT	newGL = new GL_ACCT { 	BranchNo = model.BranchNo, 
+			try{
+				GL_ACCT	newGL = new GL_ACCT { 	BranchNo = model.BranchNo==0?null:model.BranchNo, 
 											COMMENTS = model.COMMENTS, 
+											Name = model.Name,
 											CompanyNo = model.CompanyNo,
-											DepNo = model.DepNo, 
+											DepNo = model.DepNo==0?null:model.DepNo, 
 											EFFECTIVE_DT = model.EFFECTIVE_DT, 
 											GL = string.Empty, 
 											LedgerNO = model.LedgerNO,
 											Nature = model.Nature,
-											ProductNo = model.ProductNo,
+											ProductNo = model.ProductNo==0?null:model.ProductNo,
 											REFERENCE = model.REFERENCE,
-											SectorNo = model.SectorNo, 
+											SectorNo = model.SectorNo==0?null:model.SectorNo, 
 											STATUS = 0, 
-											UnitNO = model.UnitNO,
-											Zone = model.Zone};
-			
-			try{
+											UnitNO = model.UnitNO==0?null:model.UnitNO,
+											Zone = model.Zone==0?null:model.Zone};
+
 				GL.InitServices(_logger, _configuration, _signInManager, _ZoneRepository, _CompanyRepository, _BranchRepository,
 				_SectorRepository, _DepRepository, _UnitRepository , _SettingsRep, _GL_ACCTRepository, _lut_GLLedgerNatureRepository );
 
 				newGL.GL = await GL.Create(newGL);
+				
+				return Ok(new PostGLLedgerResponseModel { Successful = true , Record=newGL.GL_DEFID,  GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
 			}
 			catch(Exception ex)
 			{
 				return BadRequest(new PostGLLedgerResponseModel { Successful = false, Message = ex.Message });		
 			}
-			return Ok(new PostGLLedgerResponseModel { Successful = true , Record=newGL.GL_DEFID,  GL= newGL.GL ,ServerTimeStamp = DateTime.Now });
 		}
     }
 }

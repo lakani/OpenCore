@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SIS.OpenCore.Client.Adapter;
 //using SIS.OpenCore .Model;
 
 namespace SIS.OpenCore.Client.Win
@@ -57,14 +58,22 @@ namespace SIS.OpenCore.Client.Win
 
 		private void listToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
-			GLListForm form = new GLListForm();
-			form.Show(this);
+			try
+			{
+				var GLAcctAdapter = _serviceProvider.GetService<GLAcctAdapter>();
+				var userDataAdapter = _serviceProvider.GetService<UserDataAdapter>();
+				GLListForm gLListForm = new GLListForm( _httpClient, GLAcctAdapter, userDataAdapter);
+				gLListForm.Show(this);
+
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 
 		private void staticDataToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			//IServiceProvider serviceProvider = (IServiceProvider)Application.OpenForms[0].GetType().GetProperty("ApplicationServices", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Application.OpenForms[0], null);
-			//IServiceProvider serviceProvider = (IServiceProvider)this.GetService(typeof(IServiceProvider));
 			try
 			{
 

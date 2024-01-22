@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using SIS.OpenCore.Shared.Model.Common;
+using SIS.OpenCore.Shared.Model.Objects.UserData;
 
 #nullable enable
 
@@ -15,17 +16,33 @@ namespace SIS.OpenCore.Shared.Model.Objects.GL
         }
         public int GL_DEFID { get; set; }
         public short CompanyNo { get; set; }
+        public Company? CompanyObj { get; set; }
+
         public short? Zone { get; set; }
-        public short? BranchNo { get; set; }
+        public Zone? ZoneObj { get; set; }
+        
+        public short? BranchNo { get; set; } 
+        public Branch? BranchObj { get; set; } = null;
+
         public short? SectorNo { get; set; }
-        public short? DepNo { get; set; }
-        public short? UnitNO { get; set; }
-        public short? ProductNo { get; set; }
+        public Sector? SectorObj { get; set; } = null;
+
+        public short? DepNo { get; set; } 
+        public Dep? DepObj { get; set; } = null;
+
+        public short? UnitNO { get; set; } 
+        public Unit? UnitObj { get; set; } = null;
+
+        public short? ProductNo { get; set; } 
+        
         public short Nature { get; set; }
+        public LUT_GLLedgerNature? NatureObj { get; set; }
+        
         public int LedgerNO { get; set; }
         public string? GL { get; set; }
         //public string CURR { get; set; } // its not on the parent level
         public string? COMMENTS { get; set; }
+        public string? Name { get; set; }
         public DateTime EFFECTIVE_DT { get; set; }
         public short STATUS { get; set; }
         public string? REFERENCE { get; set; }

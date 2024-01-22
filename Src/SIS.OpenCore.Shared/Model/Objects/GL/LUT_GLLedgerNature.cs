@@ -1,8 +1,9 @@
-﻿using SIS.OpenCore.Shared.Model.Common;
+﻿using System.Collections.Generic;
+using SIS.OpenCore.Shared.Model.Common;
 
 #nullable disable
 
-namespace SIS.OpenCore.Shared.Model
+namespace SIS.OpenCore.Shared.Model.Objects.GL
 {
     /*
         this main the 5 Ledger Accounting Nature 
@@ -27,5 +28,6 @@ namespace SIS.OpenCore.Shared.Model
         public short ID { get; set; }
         public string Name { get; set; }
         public string CR_DR { get; set; }
+
     }
 }

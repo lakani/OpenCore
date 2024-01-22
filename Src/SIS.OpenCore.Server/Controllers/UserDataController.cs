@@ -97,7 +97,7 @@ namespace SIS.OpenCore.Server.Controllers
 					break;
 			}
 
-			if (Arr.Count() > 0)
+			if (Arr.Any())
 			{
 				return Arr;
 			}
@@ -127,7 +127,7 @@ namespace SIS.OpenCore.Server.Controllers
 			switch (Configuration)
 			{
 				case "Zone":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpZone = new Zone { Name = value };
 						newID = await _ZoneRepository.Create(tmpZone);
@@ -139,7 +139,7 @@ namespace SIS.OpenCore.Server.Controllers
 					}
 					break;
 				case "Company":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpCompany = new Company { Name = value };
 						newID = await _CompanyRepository.Create(tmpCompany);
@@ -151,7 +151,7 @@ namespace SIS.OpenCore.Server.Controllers
 					}
 					break;
 				case "Branch":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpBranch = new Branch { Name = value };
 						newID = await _BranchRepository.Create(tmpBranch);
@@ -163,7 +163,7 @@ namespace SIS.OpenCore.Server.Controllers
 					}
 					break;
 				case "Sector":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpSector = new Sector { Name = value };
 						newID = await _SectorRepository.Create(tmpSector);
@@ -175,7 +175,7 @@ namespace SIS.OpenCore.Server.Controllers
 					}
 					break;
 				case "Dep":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpDep = new Dep { Name = value };
 						newID = await _DepRepository.Create(tmpDep);
@@ -187,7 +187,7 @@ namespace SIS.OpenCore.Server.Controllers
 					}
 					break;
 				case "Unit":
-					if(Recordid == 0) // new : to insert
+					if(Recordid <= 0) // new : to insert
 					{
 						var tmpUnit = new Unit { Name = value };
 						newID = await _UnitRepository.Create(tmpUnit);
@@ -214,9 +214,14 @@ namespace SIS.OpenCore.Server.Controllers
 				
 				for(short nLoop=0; nLoop<requestModel.ids?.Count(); nLoop++)
 				{
-					await AddorUpdate(requestModel.Configuration??string.Empty, (requestModel.ids?.ToArray()[nLoop]).Value, requestModel.Values?.ToArray()[nLoop]);
+					newID = await AddorUpdate(requestModel.Configuration??string.Empty, (requestModel.ids?.ToArray()[nLoop]).Value, requestModel.Values?.ToArray()[nLoop]);
+					if(newID == 0)
+						break;
 				}
-				return Ok(new PostBaseResponseModel{ Successful=true , Record=newID});
+				if(newID == 0)
+					return BadRequest(new PostBaseResponseModel{ Message="Failed to Add or Updatte", Successful=false} );
+				else
+					return Ok(new PostBaseResponseModel{ Successful=true , Record=newID});
 			}
 			catch (Exception ex) 
 			{

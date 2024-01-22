@@ -55,12 +55,17 @@ namespace SIS.OpenCore.Client.Win
 		{
 			var ServerAddress = configuration["BaseAddress"];
 			var UserDataURL = configuration["UserDataURL"];
+			var GLAcctURL = configuration["GLAcctURL"];
+			var httpClient = new HttpClient { BaseAddress = new Uri(ServerAddress) };
 
 			services.AddScoped<MainForm>();
 			services.AddScoped<CIFList>();
 			services.AddScoped<LUTConfigurationLists>();
-			services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(ServerAddress) });
-			services.AddSingleton(s => new UserDataAdapter(UserDataURL, new HttpClient { BaseAddress = new Uri(ServerAddress) })) ;
+			//services.AddScoped<GLListForm>();
+			services.AddSingleton(sp => httpClient);
+			services.AddSingleton(s => new UserDataAdapter(UserDataURL, httpClient)) ;
+			services.AddSingleton(s => new GLAcctAdapter(GLAcctURL, httpClient)) ;
+			
 
 		}
 	}

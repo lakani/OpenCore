@@ -51,6 +51,7 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<Company > Company  { get; set; }
 		public virtual DbSet<Branch> Branch { get; set; }
 		public virtual DbSet<GL_ACCT> GL_ACCT { get; set; }
+		public virtual DbSet<LUT_GLLedgerNature> LUT_GLLedgerNature { get; set; }
 		public virtual DbSet<LUT_CIF_TYPE> LUT_CIF_TYPE { get; set; }
 		public virtual DbSet<CIF_CLASS> CIF_CLASS { get; set; }
 		public virtual DbSet<CIF_DESC> CIF_DESC { get; set; }
@@ -84,6 +85,7 @@ namespace SIS.OpenCore.Server.Data
 			new UserDataConfig().Configure(builder.Entity<Company >());
 			new UserDataConfig().Configure(builder.Entity<Branch>());
 			new GL_ACCTConfig().Configure(builder.Entity<GL_ACCT>());
+			new LUT_GLLedgerNatureConfig().Configure(builder.Entity<LUT_GLLedgerNature>());
 			new SettingsModelConfig().Configure(builder.Entity<SettingsModel>());
 			new LUT_CIF_TYPEConfig().Configure(builder.Entity<LUT_CIF_TYPE>());
 			new CIF_CLASSConfig().Configure(builder.Entity<CIF_CLASS>());

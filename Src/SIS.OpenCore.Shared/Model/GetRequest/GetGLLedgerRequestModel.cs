@@ -19,5 +19,6 @@ namespace SIS.OpenCore.Shared.Model.GetRequest
         public int?     LedgerNO { get; set; }
         public string?  GL { get; set; }
         public string?  COMMENTS { get; set; }    
+        public string?  Name { get; set; } 
     }
 }
