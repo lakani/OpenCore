@@ -5,6 +5,7 @@ using SIS.OpenCore.Server.Data.Repository.Interface;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Common;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -23,7 +24,10 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
 		{
 			var Ret =   (from c in _dbContext.CIF_DESC
                         where c.SearchKey == code || c.CIF_NO == code
-                        select c).FirstOrDefault();
+                        select c)
+                        .Include(a => a.CIF_CLASS)
+                        .Include(a => a.CIF_CLASS.lUT_CIF_TYPE)
+                        .FirstOrDefault();
 
             return Ret;
 		}
@@ -43,7 +47,10 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
             {
                 var Ret =   (from c in _dbContext.CIF_DESC
                             where c.CIF_ID == id
-                            select c).FirstOrDefault();
+                            select c)
+                            .Include(a => a.CIF_CLASS)
+                            .Include(a => a.CIF_CLASS.lUT_CIF_TYPE)
+                            .FirstOrDefault();
 
                 return Ret;
             }
