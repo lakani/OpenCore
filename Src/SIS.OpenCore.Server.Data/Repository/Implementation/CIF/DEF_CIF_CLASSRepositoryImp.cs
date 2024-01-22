@@ -6,6 +6,7 @@ using SIS.OpenCore.Shared.Model.Objects.CIF;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 #nullable enable
 namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
@@ -22,10 +23,22 @@ namespace SIS.OpenCore.Server.Data.Repository.Implementation.CIF
         {
             CIF_CLASS? Ret = (from t in _dbContext.CIF_CLASS
                                 where t.CIF_CLASS_ID == id
-                                select t).FirstOrDefault();
+                                select t)
+                                .Include(a => a.lUT_CIF_TYPE)
+                                .FirstOrDefault();
 
             return Ret;
         }
+
+        override public IQueryable<CIF_CLASS> GetAll()
+		{
+            var Ret = (from t in _dbContext.CIF_CLASS
+                       select t)
+                       .Include(a => a.lUT_CIF_TYPE)
+                       .AsQueryable();
+
+			return Ret;
+		}
 
         override public async Task<int> Create(CIF_CLASS entity)
         {

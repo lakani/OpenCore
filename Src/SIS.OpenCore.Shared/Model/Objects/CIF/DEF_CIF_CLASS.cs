@@ -15,6 +15,5 @@ namespace SIS.OpenCore.Shared.Model.Objects.CIF
         public short CIF_TYPE { get; set; }
         public string REFERENCE { get; set; }
         public LUT_CIF_TYPE lUT_CIF_TYPE { get; set; }
-        public ICollection<CIF_DESC> CIF_DESC { get; } = new List<CIF_DESC>();
     }
 }

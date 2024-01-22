@@ -20,7 +20,7 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
 
             builder 
                 .HasOne( c => c.lUT_CIF_TYPE)
-                .WithMany( t => t.CIF_CLASS)
+                .WithMany()
                 .HasForeignKey( c => c.CIF_TYPE)
                 .IsRequired();
         }
@@ -79,10 +79,9 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
             // one to Many for the CIF_CLASS table
             builder
                 .HasOne( c => c.CIF_CLASS)
-                .WithMany(t => t.CIF_DESC)
+                .WithMany()
                 .HasForeignKey(c => c.CLASS_ID)
                 .IsRequired();
-
         }
     }
 
