@@ -28,7 +28,7 @@ namespace SIS.OpenCore.Client.Adapter
 				_stURL = url;
 		}
 
-		public async Task<GetUserDataResponseModel			> GetListAsync(string stUserDataConfig)
+		public async Task<GetUserDataResponseModel?> GetListAsync(string stUserDataConfig)
 		{
 			return await GetUserDataAsync(stUserDataConfig);
 		}
@@ -76,7 +76,6 @@ namespace SIS.OpenCore.Client.Adapter
 				BaseUserData x  = new BaseUserData();
 				x.Name = Config;
 
-
 				var result = await _httpClient.GetAsync(_stURL + Config);
 				var data = JsonSerializer.Deserialize<GetUserDataResponseModel>(await result.Content.ReadAsStringAsync(),
 					new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
@@ -87,11 +86,9 @@ namespace SIS.OpenCore.Client.Adapter
 					return null;
 			}
 			catch (Exception ex) {
-				int x = 0;
-				x = 1;
-				return null;
+				Console.WriteLine(ex.Message);
+				throw new Exception(ex.Message);
 			}
-			
 		}
 
 		public async Task<short> PostUserDataAsync(string Config, short[] Ids, string[] values)

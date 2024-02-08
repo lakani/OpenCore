@@ -44,8 +44,6 @@ namespace SIS.OpenCore.Client.Win
 
 				if (data != null && data.Records.Count() > 0)
 				{
-					if (listBoxData.Columns.Count <= 0) { int x = 10; }
-
 					foreach (var item in data.Records)
 					{
 						int nNewIndex = listBoxData.Rows.Add();

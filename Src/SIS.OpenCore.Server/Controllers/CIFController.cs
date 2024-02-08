@@ -12,11 +12,13 @@ using SIS.OpenCore.Shared.Model.Objects.UserData;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using SIS.OpenCore.Shared.Model.PostRequest;
+using SIS.OpenCore.Shared.Model.GetRequest;
+using System.Linq;
 
 namespace SIS.OpenCore.Server.Controllers
 {
     [ApiController]
-	[Route("v1/api/OpenCore/system/Objects/CIF")]
+	[Route("v1/api/OpenCore/system/Objects/CIF/[action]")]
     public partial class CIFController : ControllerBase
     {
         private readonly ILogger<CIFController> _logger;
@@ -87,6 +89,32 @@ namespace SIS.OpenCore.Server.Controllers
                 return NotFound("No Data");
         }
 
+        [HttpPost]
+        public ActionResult Search(GetCIFRequestModel request)
+		{
+			try
+			{
+				var responseModel = new GetCIFResponseModel{ Successful = true, ServerTimeStamp = DateTime.Now};
+                
+                if(request.Equals(0) == true)
+                    return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
+				var SearchResult = _CifRepository.Search(request);
+				if(SearchResult == null) {
+					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
+				}
+				else if (SearchResult.Any() == false){
+					return NotFound(new BaseResponseModel { Message = "No Data", ServerTimeStamp = DateTime.Now, Successful = false});	
+				}
+				responseModel.CIFArr = SearchResult;
+				
+				return Ok(responseModel);
+			}
+			catch(Exception ex)
+			{
+				return BadRequest(new BaseResponseModel { Message = ex.Message, ServerTimeStamp = DateTime.Now, Successful = false});
+			}
+		}
+
         //private readonly ILogger<CIFController> _logger;
 
         /*
@@ -146,7 +174,7 @@ namespace SIS.OpenCore.Server.Controllers
         // }
 
         // [HttpPost]
-        // public ActionResult<CIF_DESC> PostNewCIF(CIF_DESC CIF_DESC)
+        // public ActionResult<CIF_DESC> Create(CIF_DESC CIF_DESC)
         // {
         //     string stCIFNo = Cif.Add_CIF(DateTime.Now, 1, CIF_DESC);
         //     CIF_DESC.CIF_NO = stCIFNo;
@@ -192,9 +220,9 @@ namespace SIS.OpenCore.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostNewCIF(PostCIFRequestModel CIFReq)
+        public async Task<ActionResult> Create(PostCIFRequestModel CIFReq)
         {
-            _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > PostNewCIF");
+            _logger.Log(LogLevel.Information, "[HttpGet] CIFClassController - > Create");
 
             try{
                 

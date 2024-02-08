@@ -35,20 +35,21 @@ namespace SIS.OpenCore.Client.Win
 
 		private void listToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			_serviceProvider.GetService<CIFList>().Show();
-			//CIFList list = new CIFList();
-			//list.Show(this);
-		}
+			try
+			{
+				var cifAdapter = _serviceProvider.GetService<CIFAdapter>();
+				var cifClassAdapter = _serviceProvider.GetService<CIFClassAdapter>();
+				var cifTypeAdapter = _serviceProvider.GetService<CIFTypeAdapter>();
+				var userDataAdapter = _serviceProvider.GetService<UserDataAdapter>();
+				
+				CIFList cifListForm = new CIFList( _httpClient, cifAdapter, cifClassAdapter, cifTypeAdapter, userDataAdapter);
+				cifListForm.Show(this);
 
-		async private void MainForm_Load(object sender, EventArgs e)
-		{
-			//var result = await _httpClient.GetAsync("/v1/api/OpenCore/GL/GL_ACCT");
-			//var GlArr = JsonSerializer.Deserialize<GL_ACCT[]>(await result.Content.ReadAsStringAsync());
-			//	new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-			//textBox1.Text += GlArr[0].GL.ToString() + Environment.NewLine;
-			//textBox1.Text += GlArr[1].GL.ToString() + Environment.NewLine;
-			//textBox1.Text += GlArr[2].GL.ToString() + Environment.NewLine;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 
 		private void segmentsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SIS.OpenCore.Client.Adapter;
+
 
 namespace SIS.OpenCore.Client.Win
 {
@@ -18,7 +18,8 @@ namespace SIS.OpenCore.Client.Win
 		///  The main entry point for the application.
 		/// </summary>
 		[STAThread]
-        static async Task Main()
+        //static async Task Main()
+		static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -47,8 +48,6 @@ namespace SIS.OpenCore.Client.Win
 				var mainForm = services.GetRequiredService<MainForm>();
 				Application.Run(mainForm);
 			}
-				
-			
         }
 
 		private static void ConfigureServices(IConfiguration configuration, Microsoft.Extensions.DependencyInjection.IServiceCollection services)
@@ -56,6 +55,9 @@ namespace SIS.OpenCore.Client.Win
 			var ServerAddress = configuration["BaseAddress"];
 			var UserDataURL = configuration["UserDataURL"];
 			var GLAcctURL = configuration["GLAcctURL"];
+			var CIFURL = configuration["CIFURL"];
+			var CIFClassURL = configuration["CIFClassURL"];
+			var CIFTypeURL = configuration["CIFTypeURL"];
 			var httpClient = new HttpClient { BaseAddress = new Uri(ServerAddress) };
 
 			services.AddScoped<MainForm>();
@@ -65,7 +67,9 @@ namespace SIS.OpenCore.Client.Win
 			services.AddSingleton(sp => httpClient);
 			services.AddSingleton(s => new UserDataAdapter(UserDataURL, httpClient)) ;
 			services.AddSingleton(s => new GLAcctAdapter(GLAcctURL, httpClient)) ;
-			
+			services.AddSingleton(s => new CIFAdapter(CIFURL, httpClient));
+			services.AddSingleton(s => new CIFClassAdapter(CIFClassURL, httpClient));
+			services.AddSingleton(s => new CIFTypeAdapter(CIFTypeURL, httpClient));
 
 		}
 	}

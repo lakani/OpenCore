@@ -244,7 +244,7 @@
             btnFind.Name = "btnFind";
             btnFind.Size = new System.Drawing.Size(165, 23);
             btnFind.TabIndex = 19;
-            btnFind.Text = "Find";
+            btnFind.Text = "Search";
             btnFind.UseVisualStyleBackColor = true;
             btnFind.Click += btnFind_Click;
             // 
@@ -351,26 +351,24 @@
             toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
             toolStrip1.Location = new System.Drawing.Point(3, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(295, 25);
+            toolStrip1.Size = new System.Drawing.Size(327, 25);
             toolStrip1.TabIndex = 0;
             // 
             // toolStripButton1
             // 
-            toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(100, 22);
+            toolStripButton1.Size = new System.Drawing.Size(116, 22);
             toolStripButton1.Text = "New GL Account";
             toolStripButton1.Click += toolStripButton1_Click;
             // 
             // toolStripButton2
             // 
-            toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
             toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new System.Drawing.Size(96, 22);
+            toolStripButton2.Size = new System.Drawing.Size(112, 22);
             toolStripButton2.Text = "Edit GL Account";
             // 
             // toolStripButton3

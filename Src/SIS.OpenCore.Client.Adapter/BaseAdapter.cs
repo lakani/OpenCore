@@ -9,7 +9,7 @@ namespace SIS.OpenCore.Client.Adapter
 	public partial class BaseAdapter
 	{
 		protected HttpClient _httpClient;
-		protected string		_stURL;
+		protected string		_stURL = string.Empty;
 
 		public BaseAdapter(HttpClient httpClient)
 		{

@@ -33,90 +33,43 @@ namespace SIS.OpenCore.Client.Win
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label label8;
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtCIF = new System.Windows.Forms.TextBox();
-            this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.txtSearchKEY = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtLastName = new System.Windows.Forms.TextBox();
-            this.txtNationalID = new System.Windows.Forms.TextBox();
-            this.txtMobileNo = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CIFList));
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            btnSearch = new System.Windows.Forms.Button();
+            txtMobileNo = new System.Windows.Forms.TextBox();
+            txtNationalID = new System.Windows.Forms.TextBox();
+            txtLastName = new System.Windows.Forms.TextBox();
+            txtSearchKEY = new System.Windows.Forms.TextBox();
+            label4 = new System.Windows.Forms.Label();
+            txtFirstName = new System.Windows.Forms.TextBox();
+            txtCIF = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            cifGRID = new System.Windows.Forms.DataGridView();
+            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            btnNewCIF = new System.Windows.Forms.ToolStripButton();
+            btnEditCIF = new System.Windows.Forms.ToolStripButton();
+            btnClose = new System.Windows.Forms.ToolStripButton();
             label2 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             label8 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.txtMobileNo);
-            this.groupBox1.Controls.Add(label8);
-            this.groupBox1.Controls.Add(this.txtNationalID);
-            this.groupBox1.Controls.Add(label7);
-            this.groupBox1.Controls.Add(this.txtLastName);
-            this.groupBox1.Controls.Add(label6);
-            this.groupBox1.Controls.Add(this.txtSearchKEY);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtFirstName);
-            this.groupBox1.Controls.Add(label2);
-            this.groupBox1.Controls.Add(this.txtCIF);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox1.Size = new System.Drawing.Size(776, 132);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Fillter";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 150);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 288);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CIF";
-            // 
-            // txtCIF
-            // 
-            this.txtCIF.Location = new System.Drawing.Point(96, 23);
-            this.txtCIF.Name = "txtCIF";
-            this.txtCIF.Size = new System.Drawing.Size(216, 23);
-            this.txtCIF.TabIndex = 1;
-            // 
-            // txtFirstName
-            // 
-            this.txtFirstName.Location = new System.Drawing.Point(96, 87);
-            this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(216, 23);
-            this.txtFirstName.TabIndex = 3;
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cifGRID).BeginInit();
+            toolStripContainer1.ContentPanel.SuspendLayout();
+            toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            toolStripContainer1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // label2
             // 
@@ -127,29 +80,6 @@ namespace SIS.OpenCore.Client.Win
             label2.TabIndex = 2;
             label2.Text = "First Name";
             // 
-            // txtSearchKEY
-            // 
-            this.txtSearchKEY.Location = new System.Drawing.Point(452, 23);
-            this.txtSearchKEY.Name = "txtSearchKEY";
-            this.txtSearchKEY.Size = new System.Drawing.Size(216, 23);
-            this.txtSearchKEY.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(381, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 15);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Search KEY";
-            // 
-            // txtLastName
-            // 
-            this.txtLastName.Location = new System.Drawing.Point(452, 87);
-            this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(216, 23);
-            this.txtLastName.TabIndex = 9;
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -158,13 +88,6 @@ namespace SIS.OpenCore.Client.Win
             label6.Size = new System.Drawing.Size(63, 15);
             label6.TabIndex = 8;
             label6.Text = "Last Name";
-            // 
-            // txtNationalID
-            // 
-            this.txtNationalID.Location = new System.Drawing.Point(452, 55);
-            this.txtNationalID.Name = "txtNationalID";
-            this.txtNationalID.Size = new System.Drawing.Size(216, 23);
-            this.txtNationalID.TabIndex = 13;
             // 
             // label7
             // 
@@ -175,13 +98,6 @@ namespace SIS.OpenCore.Client.Win
             label7.TabIndex = 12;
             label7.Text = "National ID";
             // 
-            // txtMobileNo
-            // 
-            this.txtMobileNo.Location = new System.Drawing.Point(96, 55);
-            this.txtMobileNo.Name = "txtMobileNo";
-            this.txtMobileNo.Size = new System.Drawing.Size(216, 23);
-            this.txtMobileNo.TabIndex = 15;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -191,107 +107,241 @@ namespace SIS.OpenCore.Client.Win
             label8.TabIndex = 14;
             label8.Text = "Mobile";
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(btnSearch);
+            groupBox1.Controls.Add(txtMobileNo);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(txtNationalID);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(txtLastName);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(txtSearchKEY);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(txtFirstName);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(txtCIF);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Location = new System.Drawing.Point(12, 23);
+            groupBox1.Name = "groupBox1";
+            groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            groupBox1.Size = new System.Drawing.Size(1008, 132);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Fillter";
+            // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(685, 87);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 16;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            btnSearch.Location = new System.Drawing.Point(685, 87);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(75, 23);
+            btnSearch.TabIndex = 16;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
-            // dataGridView1
+            // txtMobileNo
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8,
-            this.Column9});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(770, 266);
-            this.dataGridView1.TabIndex = 0;
+            txtMobileNo.Location = new System.Drawing.Point(96, 55);
+            txtMobileNo.Name = "txtMobileNo";
+            txtMobileNo.Size = new System.Drawing.Size(216, 23);
+            txtMobileNo.TabIndex = 15;
+            // 
+            // txtNationalID
+            // 
+            txtNationalID.Location = new System.Drawing.Point(452, 55);
+            txtNationalID.Name = "txtNationalID";
+            txtNationalID.Size = new System.Drawing.Size(216, 23);
+            txtNationalID.TabIndex = 13;
+            // 
+            // txtLastName
+            // 
+            txtLastName.Location = new System.Drawing.Point(452, 87);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new System.Drawing.Size(216, 23);
+            txtLastName.TabIndex = 9;
+            // 
+            // txtSearchKEY
+            // 
+            txtSearchKEY.Location = new System.Drawing.Point(452, 23);
+            txtSearchKEY.Name = "txtSearchKEY";
+            txtSearchKEY.Size = new System.Drawing.Size(216, 23);
+            txtSearchKEY.TabIndex = 7;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(381, 23);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(65, 15);
+            label4.TabIndex = 6;
+            label4.Text = "Search KEY";
+            // 
+            // txtFirstName
+            // 
+            txtFirstName.Location = new System.Drawing.Point(96, 87);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new System.Drawing.Size(216, 23);
+            txtFirstName.TabIndex = 3;
+            // 
+            // txtCIF
+            // 
+            txtCIF.Location = new System.Drawing.Point(96, 23);
+            txtCIF.Name = "txtCIF";
+            txtCIF.Size = new System.Drawing.Size(216, 23);
+            txtCIF.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(25, 23);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(24, 15);
+            label1.TabIndex = 0;
+            label1.Text = "CIF";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(cifGRID);
+            groupBox2.Location = new System.Drawing.Point(12, 161);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new System.Drawing.Size(1008, 288);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Enter += groupBox2_Enter;
+            // 
+            // cifGRID
+            // 
+            cifGRID.AllowUserToAddRows = false;
+            cifGRID.AllowUserToDeleteRows = false;
+            cifGRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            cifGRID.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6, Column7 });
+            cifGRID.Dock = System.Windows.Forms.DockStyle.Fill;
+            cifGRID.Location = new System.Drawing.Point(3, 19);
+            cifGRID.Name = "cifGRID";
+            cifGRID.ReadOnly = true;
+            cifGRID.Size = new System.Drawing.Size(1002, 266);
+            cifGRID.TabIndex = 0;
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "CIF NO";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            Column1.HeaderText = "CIF NO";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "Search Key";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            Column2.HeaderText = "Search Key";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "First Name";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
+            Column3.HeaderText = "First Name";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
             // 
             // Column4
             // 
-            this.Column4.HeaderText = "Middle Name";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
+            Column4.HeaderText = "Middle Name";
+            Column4.Name = "Column4";
+            Column4.ReadOnly = true;
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "Last Name";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
+            Column5.HeaderText = "Last Name";
+            Column5.Name = "Column5";
+            Column5.ReadOnly = true;
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Type";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
+            Column6.HeaderText = "Type";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "Class";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
+            Column7.HeaderText = "Class";
+            Column7.Name = "Column7";
+            Column7.ReadOnly = true;
             // 
-            // Column8
+            // toolStripContainer1
             // 
-            this.Column8.HeaderText = "Mobile Number";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
+            toolStripContainer1.BottomToolStripPanelVisible = false;
             // 
-            // Column9
+            // toolStripContainer1.ContentPanel
             // 
-            this.Column9.HeaderText = "National ID";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
+            toolStripContainer1.ContentPanel.AutoScroll = true;
+            toolStripContainer1.ContentPanel.Controls.Add(groupBox2);
+            toolStripContainer1.ContentPanel.Controls.Add(groupBox1);
+            toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1044, 466);
+            toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            toolStripContainer1.LeftToolStripPanelVisible = false;
+            toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            toolStripContainer1.Name = "toolStripContainer1";
+            toolStripContainer1.RightToolStripPanelVisible = false;
+            toolStripContainer1.Size = new System.Drawing.Size(1044, 491);
+            toolStripContainer1.TabIndex = 2;
+            toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnNewCIF, btnEditCIF, btnClose });
+            toolStrip1.Location = new System.Drawing.Point(3, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(237, 25);
+            toolStrip1.TabIndex = 0;
+            // 
+            // btnNewCIF
+            // 
+            btnNewCIF.Image = (System.Drawing.Image)resources.GetObject("btnNewCIF.Image");
+            btnNewCIF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnNewCIF.Name = "btnNewCIF";
+            btnNewCIF.Size = new System.Drawing.Size(71, 22);
+            btnNewCIF.Text = "New CIF";
+            btnNewCIF.Click += btnNewCIF_Click;
+            // 
+            // btnEditCIF
+            // 
+            btnEditCIF.Image = (System.Drawing.Image)resources.GetObject("btnEditCIF.Image");
+            btnEditCIF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnEditCIF.Name = "btnEditCIF";
+            btnEditCIF.Size = new System.Drawing.Size(67, 22);
+            btnEditCIF.Text = "Edit CIF";
+            // 
+            // btnClose
+            // 
+            btnClose.Image = (System.Drawing.Image)resources.GetObject("btnClose.Image");
+            btnClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(56, 22);
+            btnClose.Text = "Close";
             // 
             // CIFList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "CIFList";
-            this.Text = "CIFList";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1044, 491);
+            Controls.Add(toolStripContainer1);
+            Name = "CIFList";
+            Text = "CIFList";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)cifGRID).EndInit();
+            toolStripContainer1.ContentPanel.ResumeLayout(false);
+            toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            toolStripContainer1.TopToolStripPanel.PerformLayout();
+            toolStripContainer1.ResumeLayout(false);
+            toolStripContainer1.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -307,7 +357,7 @@ namespace SIS.OpenCore.Client.Win
         private System.Windows.Forms.TextBox txtNationalID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtMobileNo;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView cifGRID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -315,7 +365,10 @@ namespace SIS.OpenCore.Client.Win
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton btnNewCIF;
+        private System.Windows.Forms.ToolStripButton btnEditCIF;
+        private System.Windows.Forms.ToolStripButton btnClose;
     }
 }

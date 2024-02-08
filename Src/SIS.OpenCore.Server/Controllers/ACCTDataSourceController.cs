@@ -148,7 +148,7 @@ namespace SIS.OpenCore.Server.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> PostNewAcctDataSource(PostACCTDataSourceModel ACCTDataSourceReq)
+        public async Task<ActionResult> Create(PostACCTDataSourceModel ACCTDataSourceReq)
         {
             _logger.Log(LogLevel.Information, "[HttpPost] ACCTDataSourceController - > PostNewAcctDataSource");
 
