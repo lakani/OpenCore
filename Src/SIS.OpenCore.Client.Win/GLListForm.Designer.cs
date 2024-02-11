@@ -49,6 +49,11 @@
             label9 = new System.Windows.Forms.Label();
             btnFind = new System.Windows.Forms.Button();
             GRID_GLs = new System.Windows.Forms.DataGridView();
+            toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,11 +63,6 @@
             Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Ledger = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            toolStrip1 = new System.Windows.Forms.ToolStrip();
-            toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)GRID_GLs).BeginInit();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -258,52 +258,6 @@
             GRID_GLs.Size = new System.Drawing.Size(1138, 270);
             GRID_GLs.TabIndex = 20;
             // 
-            // ID
-            // 
-            ID.HeaderText = "Nature";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            // 
-            // Name
-            // 
-            Name.HeaderText = "Company";
-            Name.Name = "Name";
-            // 
-            // Zone
-            // 
-            Zone.HeaderText = "Zone";
-            Zone.Name = "Zone";
-            // 
-            // Branch
-            // 
-            Branch.HeaderText = "Branch";
-            Branch.Name = "Branch";
-            // 
-            // Sector
-            // 
-            Sector.HeaderText = "Sector";
-            Sector.Name = "Sector";
-            // 
-            // Department
-            // 
-            Department.HeaderText = "Department";
-            Department.Name = "Department";
-            // 
-            // Unit
-            // 
-            Unit.HeaderText = "Unit";
-            Unit.Name = "Unit";
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            // 
-            // Ledger
-            // 
-            Ledger.HeaderText = "Ledger";
-            Ledger.Name = "Ledger";
-            // 
             // toolStripContainer1
             // 
             toolStripContainer1.BottomToolStripPanelVisible = false;
@@ -351,7 +305,7 @@
             toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
             toolStrip1.Location = new System.Drawing.Point(3, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(327, 25);
+            toolStrip1.Size = new System.Drawing.Size(296, 25);
             toolStrip1.TabIndex = 0;
             // 
             // toolStripButton1
@@ -378,6 +332,53 @@
             toolStripButton3.Name = "toolStripButton3";
             toolStripButton3.Size = new System.Drawing.Size(56, 22);
             toolStripButton3.Text = "Close";
+            // 
+            // ID
+            // 
+            ID.HeaderText = "Nature";
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            // 
+            // Name
+            // 
+            Name.HeaderText = "Company";
+            Name.Name = "Name";
+            // 
+            // Zone
+            // 
+            Zone.HeaderText = "Zone";
+            Zone.Name = "Zone";
+            // 
+            // Branch
+            // 
+            Branch.HeaderText = "Branch";
+            Branch.Name = "Branch";
+            // 
+            // Sector
+            // 
+            Sector.HeaderText = "Sector";
+            Sector.Name = "Sector";
+            // 
+            // Department
+            // 
+            Department.HeaderText = "Department";
+            Department.Name = "Department";
+            // 
+            // Unit
+            // 
+            Unit.HeaderText = "Unit";
+            Unit.Name = "Unit";
+            // 
+            // Product
+            // 
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            // 
+            // Ledger
+            // 
+            Ledger.HeaderText = "Ledger";
+            Ledger.Name = "Ledger";
+            Ledger.Width = 170;
             // 
             // GLListForm
             // 
@@ -426,16 +427,16 @@
 		private System.Windows.Forms.ToolStripContainer toolStripContainer1;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Branch;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Sector;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Department;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Product;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Ledger;
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Branch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sector;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Department;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Product;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ledger;
     }
 }

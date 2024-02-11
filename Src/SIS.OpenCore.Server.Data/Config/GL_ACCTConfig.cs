@@ -42,11 +42,16 @@ namespace SIS.OpenCore.Server.Data.Config
             builder.Property(e => e.GL).HasMaxLength(80);
             builder.Property(e => e.Name).HasMaxLength(80);
             builder.Property(e => e.Name).IsRequired(false);
+            builder.Property(e => e.ExternalName).IsRequired(false);
+            builder.Property(e => e.ExternalName).HasMaxLength(80);
             builder.Property(e => e.COMMENTS).HasMaxLength(200);
+            builder.Property(e => e.Description).IsRequired(false);
+            builder.Property(e => e.Description).HasMaxLength(200);
             builder.Property(e => e.EFFECTIVE_DT).HasColumnType("datetime");
             builder.Property(e => e.EFFECTIVE_DT).IsRequired();
             builder.Property(e => e.STATUS).IsRequired();
             builder.Property(e => e.REFERENCE).HasMaxLength(200);
+            builder.Property(e => e.REFERENCE).IsRequired(false);
 
             builder.HasOne<Company>(s => s.CompanyObj)
                 .WithMany()

@@ -650,6 +650,8 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     GL = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     COMMENTS = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ExternalName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     EFFECTIVE_DT = table.Column<DateTime>(type: "datetime", nullable: false),
                     STATUS = table.Column<short>(type: "smallint", nullable: false),
                     REFERENCE = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
@@ -811,7 +813,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2024, 1, 22, 11, 58, 13, 447, DateTimeKind.Local).AddTicks(3653), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2024, 2, 11, 9, 56, 58, 138, DateTimeKind.Local).AddTicks(7487), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

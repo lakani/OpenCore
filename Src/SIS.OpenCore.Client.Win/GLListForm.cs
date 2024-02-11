@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using SIS.OpenCore.Shared.Model.GetRequest;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Client.Win.Shared;
+using SIS.OpenCore.Shared.Extensions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SIS.OpenCore.Client.Win
@@ -174,7 +175,7 @@ namespace SIS.OpenCore.Client.Win
             if (cbNature.SelectedItem != null)
                 nNature = (cbNature.SelectedItem as ComboBoxItemShort).Value;
             if (string.IsNullOrEmpty(txtLedger.Text) == false)
-                nLedgerNO = int.Parse(txtLedger.Text);
+                nLedgerNO = MATH.ExtTryParse(txtLedger.Text);
         }
             
         private async void btnFind_Click(object sender, EventArgs e)
@@ -184,6 +185,9 @@ namespace SIS.OpenCore.Client.Win
                 short nCompanyNo = 0 ,  nZone = 0;
                 short? nBranchNo = null , nSectorNo = null, nDepNo = null , nUnitNO = null , nProductNo = null , nNature = null;
                 int? nLedgerNO = null;
+
+                // clear Rows First
+                GRID_GLs.Rows.Clear();
 
                 UpDateValuesFromUI(ref nCompanyNo, ref nZone, ref nBranchNo , ref nSectorNo , ref nDepNo,ref nUnitNO  ,ref nProductNo, ref nNature, ref nLedgerNO);
 
@@ -205,7 +209,6 @@ namespace SIS.OpenCore.Client.Win
                 {
                     if (Res.Successful)
                     {
-                        GRID_GLs.Rows.Clear();
                         foreach (var item in Res.Gls)
                         {
                             int nNewIndex = GRID_GLs.Rows.Add();

@@ -942,8 +942,16 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Property<short?>("DepNo")
                         .HasColumnType("smallint");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<DateTime>("EFFECTIVE_DT")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("ExternalName")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("GL")
                         .IsRequired()
@@ -1443,7 +1451,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
                             BaseCurrency = "EGP",
                             CIFFormatDigits = "000000000",
                             CompanyNo = (short)1,
-                            EffectiveDate = new DateTime(2024, 1, 22, 11, 58, 13, 447, DateTimeKind.Local).AddTicks(3653),
+                            EffectiveDate = new DateTime(2024, 2, 11, 9, 56, 58, 138, DateTimeKind.Local).AddTicks(7487),
                             GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                             GLFormatDigits = "#-##-####-######"
                         });
@@ -1514,7 +1522,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", "lUT_CIF_TYPE")
-                        .WithMany("CIF_CLASS")
+                        .WithMany()
                         .HasForeignKey("CIF_TYPE")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1525,7 +1533,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", b =>
                 {
                     b.HasOne("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", "CIF_CLASS")
-                        .WithMany("CIF_DESC")
+                        .WithMany()
                         .HasForeignKey("CLASS_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1598,19 +1606,9 @@ namespace SIS.OpenCore.Server.Data.Migrations
                     b.Navigation("CIF_ACCT_CLASS");
                 });
 
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_CLASS", b =>
-                {
-                    b.Navigation("CIF_DESC");
-                });
-
             modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.CIF_DESC", b =>
                 {
                     b.Navigation("PERSONAL");
-                });
-
-            modelBuilder.Entity("SIS.OpenCore.Shared.Model.Objects.CIF.LUT_CIF_TYPE", b =>
-                {
-                    b.Navigation("CIF_CLASS");
                 });
 #pragma warning restore 612, 618
         }

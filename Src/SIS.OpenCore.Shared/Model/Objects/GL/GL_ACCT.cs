@@ -43,6 +43,8 @@ namespace SIS.OpenCore.Shared.Model.Objects.GL
         //public string CURR { get; set; } // its not on the parent level
         public string? COMMENTS { get; set; }
         public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? ExternalName { get; set; }
         public DateTime EFFECTIVE_DT { get; set; }
         public short STATUS { get; set; }
         public string? REFERENCE { get; set; }

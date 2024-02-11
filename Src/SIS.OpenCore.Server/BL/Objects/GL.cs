@@ -478,7 +478,7 @@ namespace SIS.OpenCore.Server.BL.Objects
                     retGL.ProductNo = retGL.ProductNo.TryParse(v);
                     break;
                 case 9: // LedgerNo
-                    retGL.LedgerNO = retGL.LedgerNO.TryParse(v);
+                    retGL.LedgerNO = retGL.LedgerNO;
                     break;
             }
         }
