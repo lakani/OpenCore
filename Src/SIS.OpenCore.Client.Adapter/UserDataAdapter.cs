@@ -95,11 +95,10 @@ namespace SIS.OpenCore.Client.Adapter
 		{
 			try
 			{
-				var request = new PostUserDataRequestModel();
-				request.ids = Ids;
-				request.Values = values;
-				request.Configuration = Config;
-
+				if(string.IsNullOrEmpty(Config) || Ids.Length <=0 || values.Length <= 0 || Ids.Length != values.Length)
+					return -1;
+				
+				var request = new PostUserDataRequestModel { ids = Ids , Values = values , Configuration = Config};
 				var result = await _httpClient.PostAsJsonAsync(_stURL + Config, request);
 				if (result.IsSuccessStatusCode) { return 0; }
 				else { return -1; }

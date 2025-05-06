@@ -19,32 +19,34 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 {
                     PostingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PostingLinkedId = table.Column<int>(type: "int", nullable: false),
-                    TradeId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    SentDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    EffectiveDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    PostingLinkedId = table.Column<int>(type: "int", nullable: true),
+                    TradeId = table.Column<int>(type: "int", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
                     PostingType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Amount = table.Column<float>(type: "real", nullable: false),
                     EventType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     PostingDescription = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    PostingCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    PostingCurrency = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     ExternalDebitAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     DebitAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    DebitAccountID = table.Column<int>(type: "int", nullable: false),
                     ExternalCreditAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     CreditAccount = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    CreditAccountID = table.Column<int>(type: "int", nullable: false),
                     OriginalEvent = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     AccountingRule = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    TradeStatus = table.Column<short>(type: "smallint", nullable: false),
+                    TradeStatus = table.Column<short>(type: "smallint", nullable: true),
                     BookName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     AccountingBookName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    BookingDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    PostingChannel = table.Column<short>(type: "smallint", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    SentDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     Manual = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     EnteredUser = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    PostingOtherAmount = table.Column<float>(type: "real", nullable: false),
-                    PostingStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                    PostingOtherAmount = table.Column<float>(type: "real", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,6 +185,29 @@ namespace SIS.OpenCore.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Currency", x => x.CurrencyID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DEF_EMP",
+                columns: table => new
+                {
+                    EMP_ID = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CIF_NO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CREATE_DT = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LAST_SAVE_DT = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    MobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HomeNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    STATUS_ID = table.Column<short>(type: "smallint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DEF_EMP", x => x.EMP_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -813,7 +838,7 @@ namespace SIS.OpenCore.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "VerID", "ACCTFormat", "ACCTFormatDigits", "ACCTFormatDigitsNum", "BaseCurrency", "CIFFormatDigits", "CompanyNo", "EffectiveDate", "GLFormat", "GLFormatDigits" },
-                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2024, 2, 11, 9, 56, 58, 138, DateTimeKind.Local).AddTicks(7487), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
+                values: new object[] { (short)1, "", "000000000", "4", "EGP", "000000000", (short)1, new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nature-CompanyNo-ProductNo-LedgerNo", "#-##-####-######" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -982,6 +1007,9 @@ namespace SIS.OpenCore.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Currency");
+
+            migrationBuilder.DropTable(
+                name: "DEF_EMP");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");

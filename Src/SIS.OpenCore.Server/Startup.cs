@@ -97,9 +97,7 @@ namespace SIS.OpenCore.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            
-
-			// Enable middleware to serve generated Swagger as a JSON endpoint.
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
 			app.UseSwagger();
 
             app.UseHttpsRedirection();

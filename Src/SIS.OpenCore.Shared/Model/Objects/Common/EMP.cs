@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SIS.OpenCore.Server.Data.TODO // Check the correct table attributes
+//SIS.OpenCore.Shared\Model\Objects\Common\DEF_EMP.cs
+// DEF_EMP
+namespace SIS.OpenCore.Shared.Model.Objects.Common
 {
-    public partial class DEF_EMP
+    public partial class EMP
     {
         public short EMP_ID { get; set; }
         public string CIF_NO { get; set; }

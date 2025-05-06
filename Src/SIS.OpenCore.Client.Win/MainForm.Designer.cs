@@ -29,7 +29,8 @@ namespace SIS.OpenCore.Client.Win
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("MT 202");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("S Payment", new System.Windows.Forms.TreeNode[] { treeNode1 });
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,11 +39,12 @@ namespace SIS.OpenCore.Client.Win
             segmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             staticDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStrip1 = new System.Windows.Forms.ToolStrip();
-            toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            treeView1 = new System.Windows.Forms.TreeView();
             menuStrip1.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -105,48 +107,49 @@ namespace SIS.OpenCore.Client.Win
             staticDataToolStripMenuItem.Text = "Static Data";
             staticDataToolStripMenuItem.Click += staticDataToolStripMenuItem_Click;
             // 
-            // toolStrip1
+            // splitContainer1
             // 
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton1, toolStripButton2 });
-            toolStrip1.Location = new System.Drawing.Point(0, 24);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(800, 25);
-            toolStrip1.TabIndex = 3;
-            toolStrip1.Text = "toolStrip1";
+            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.Location = new System.Drawing.Point(0, 24);
+            splitContainer1.Name = "splitContainer1";
             // 
-            // toolStripButton1
+            // splitContainer1.Panel1
             // 
-            toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(98, 22);
-            toolStripButton1.Text = "toolStripButton1";
+            splitContainer1.Panel1.Controls.Add(treeView1);
+            splitContainer1.Size = new System.Drawing.Size(800, 426);
+            splitContainer1.SplitterDistance = 266;
+            splitContainer1.TabIndex = 3;
             // 
-            // toolStripButton2
+            // treeView1
             // 
-            toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new System.Drawing.Size(98, 22);
-            toolStripButton2.Text = "toolStripButton2";
+            treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            treeView1.Location = new System.Drawing.Point(0, 0);
+            treeView1.Name = "treeView1";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "MT 202";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "S Payment";
+            treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
+            treeView1.Size = new System.Drawing.Size(266, 426);
+            treeView1.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
-            Controls.Add(toolStrip1);
+            Controls.Add(splitContainer1);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "SIS.OpenCore.Client.Win";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            splitContainer1.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,9 +164,8 @@ namespace SIS.OpenCore.Client.Win
 		private System.Windows.Forms.ToolStripMenuItem segmentsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem staticDataToolStripMenuItem;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
-	}
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TreeView treeView1;
+    }
 }
 

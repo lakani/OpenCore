@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SIS.OpenCore.Shared.Model.Common;
 using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
+using SIS.OpenCore.Shared.Model.Transactions.Posting;
 
 namespace SIS.OpenCore.Server.Data.Config.Common
 {
@@ -33,13 +34,11 @@ namespace SIS.OpenCore.Server.Data.Config.Common
             builder.Property(p => p.AccountingRule).HasMaxLength(30);
             builder.Property(p => p.BookName).HasMaxLength(30);
             builder.Property(p => p.AccountingBookName).HasMaxLength(30);
-            builder.Property(p => p.BookingDate).IsRequired();
-            builder.Property(p => p.BookingDate).HasColumnType("datetime");
             builder.Property(p => p.CreationDate).IsRequired();
             builder.Property(p => p.CreationDate).HasColumnType("datetime");
             builder.Property(p => p.Manual).HasMaxLength(30);
             builder.Property(p => p.EnteredUser).HasMaxLength(30);
-            builder.Property(p => p.PostingStatus).HasMaxLength(30);
+            builder.Property(p => p.Status).HasMaxLength(30);
 
            
         }

@@ -7,8 +7,8 @@ namespace SIS.OpenCore.Shared.Model.PostRequest
     public class PostUserDataRequestModel : BaseRequesModel
     {
         public string? Configuration { get; set; }
-        public IEnumerable<short>? ids { get; set; }
-        public IEnumerable<string>? Values { get; set; }
+        public required IEnumerable<short>? ids { get; set; }
+        public required IEnumerable<string>? Values { get; set; }
     }
 }
 

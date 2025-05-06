@@ -91,7 +91,7 @@ namespace SIS.OpenCore.Server.Data.Config.CIF
         {
             builder.HasKey(e => e.ID);
             builder.Property(p => p.ID).IsRequired();
-			builder.Property(p => p.ID).ValueGeneratedOnAdd();
+			//builder.Property(p => p.ID).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired();
 			builder.Property(p => p.Name).HasMaxLength(50);
 

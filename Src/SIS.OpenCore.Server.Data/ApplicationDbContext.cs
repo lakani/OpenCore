@@ -4,12 +4,14 @@ using Duende.IdentityServer.EntityFramework.Options;
 using SIS.OpenCore.Shared.Model;
 using SIS.OpenCore.Server.Data.Context;
 using SIS.OpenCore.Shared.Model.Common;
+using SIS.OpenCore.Shared.Model.Objects.Common;
 using SIS.OpenCore.Shared.Model.Objects.CIF;
 using SIS.OpenCore.Shared.Model.Objects.GL;
 using SIS.OpenCore.Shared.Model.Objects.Account;
 using SIS.OpenCore.Shared.Model.Objects.Account.CK;
 using SIS.OpenCore.Shared.Model.Objects.UserData;
 using SIS.OpenCore.Shared.Model.Objects.Product;
+using SIS.OpenCore.Shared.Model.Transactions.Posting;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using SIS.OpenCore.Server.Data.Config;
 using SIS.OpenCore.Server.Data.Config.CIF;
@@ -72,6 +74,8 @@ namespace SIS.OpenCore.Server.Data
 		public virtual DbSet<PRODUCT_SUB_TYPE> PRODUCT_SUB_TYPE { get; set; }
 		public virtual DbSet<PRODUCT_DESC> PRODUCT_DESC { get; set; }
 
+		public virtual DbSet<EMP> EMP { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -105,6 +109,7 @@ namespace SIS.OpenCore.Server.Data
 			new PRODUCT_TYPEConfig().Configure(builder.Entity<PRODUCT_TYPE>());
 			new PRODUCT_SUB_TYPEConfig().Configure(builder.Entity<PRODUCT_SUB_TYPE>());
 			new PRODUCT_DESCConfig().Configure(builder.Entity<PRODUCT_DESC>());
+			new EMPConfig().Configure(builder.Entity<EMP>());
 		}
 	}
 }

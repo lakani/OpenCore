@@ -7,6 +7,7 @@ using SIS.OpenCore.Shared.Model.Objects.GL;
 
 namespace SIS.OpenCore.Shared.Model.Objects.UserData
 {
+    // Table [DEF_Dep]
     public partial class Dep : BaseUserData 
     {
            

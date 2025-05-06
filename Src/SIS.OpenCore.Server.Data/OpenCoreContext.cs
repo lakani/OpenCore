@@ -44,7 +44,6 @@
 //        public virtual DbSet<CIF_CK_ACCT> CIF_CK_ACCT { get; set; }
 //        public virtual DbSet<CIF_CK_ACCT_ACCT_STRUCT> CIF_CK_ACCT_ACCT_STRUCT { get; set; }
 //        public virtual DbSet<Currency> Currency { get; set; }
-//        public virtual DbSet<DEF_EMP> DEF_EMP { get; set; }
 //        public virtual DbSet<DEF_FIXRATE_ACCT> DEF_FIXRATE_ACCT { get; set; }
 //        public virtual DbSet<DEF_FIXRATE_ACCT_DATES> DEF_FIXRATE_ACCT_DATES { get; set; }
 //        public virtual DbSet<GL_ACCT> GL_ACCT { get; set; }

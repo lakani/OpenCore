@@ -12,7 +12,7 @@ namespace SIS.OpenCore.Server.Data.Config.Common
         {
             builder.HasKey(e => e.CurrencyID);
             builder.Property(p => p.CurrencyID).IsRequired();
-			builder.Property(p => p.CurrencyID).ValueGeneratedOnAdd();
+			//builder.Property(p => p.CurrencyID).ValueGeneratedOnAdd();
             builder.Property(p => p.ISOCode).IsRequired();
 			builder.Property(p => p.ISOCode).HasMaxLength(5);
             builder.Property(p => p.Symbol).HasMaxLength(5);

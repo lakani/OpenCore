@@ -13,7 +13,7 @@ namespace SIS.OpenCore.Server.Data.Config
         {
             builder.HasKey(p => new { p.ID });
 			builder.Property(p => p.ID).IsRequired();
-			builder.Property(p => p.ID).ValueGeneratedOnAdd();
+			//builder.Property(p => p.ID).ValueGeneratedOnAdd();
 			builder.Property(p => p.Name).IsRequired();
 			builder.Property(p => p.Name).HasMaxLength(50);
             builder.Property(p => p.CR_DR).IsRequired();

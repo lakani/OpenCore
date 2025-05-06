@@ -11,7 +11,7 @@ namespace SIS.OpenCore.Server.Data.Config
         {
             builder.HasKey(e => e.VerID);
             builder.Property(p => p.VerID).IsRequired();
-			builder.Property(p => p.VerID).ValueGeneratedOnAdd();
+			//builder.Property(p => p.VerID).ValueGeneratedOnAdd();
             
             builder.Property(p => p.EffectiveDate).IsRequired();
             builder.Property(p => p.EffectiveDate).HasColumnType("datetime");
@@ -40,7 +40,7 @@ namespace SIS.OpenCore.Server.Data.Config
             builder.HasData(new SettingsModel{
                 VerID = 1,
                 CompanyNo = 1,
-                EffectiveDate = DateTime.Now,
+                EffectiveDate = new DateTime(2023,10,1),
                 GLFormat = "Nature-CompanyNo-ProductNo-LedgerNo",
                 GLFormatDigits= "#-##-####-######",
                 BaseCurrency = "EGP",
