@@ -1,0 +1,43 @@
+﻿<MudDialog>
+    <TitleContent>Login Dialog</TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="UserName" Label="User Name" Variant="Variant.Outlined" />
+        <MudTextField  @bind-Value="Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" 
+            Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="OnPasswordAdornmentClick" AdornmentAriaLabel="Show Password" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    public string UserName { get; set; } = String.Empty;
+
+    public string Password { get; set; } = String.Empty;
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+
+    void OnPasswordAdornmentClick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+}

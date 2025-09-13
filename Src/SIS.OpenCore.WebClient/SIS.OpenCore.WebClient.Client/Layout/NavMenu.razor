@@ -1,0 +1,49 @@
+﻿@using System.Threading.Tasks
+
+<MudNavMenu>
+    <MudNavLink Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add"
+                OnClick="@(() => GoTo("Settings/Counter", typeof(Components.Counter)))">Counter</MudNavLink>
+    <MudNavLink Icon="@Icons.Material.Filled.List" Match="NavLinkMatch.Prefix"
+                OnClick="@(() => GoTo("Settings/Users", typeof(Components.Weather)))">Weather</MudNavLink>
+
+    <MudNavLink Icon="@Icons.Material.Filled.List" Match="NavLinkMatch.Prefix"
+                OnClick="@(() => GoTo("FX/FX Spot", typeof(Components.FXSpot)))">FX Spot</MudNavLink>
+    @{
+        var parameters = new Dictionary<string, object>
+        {
+        { "Mode", "FX FWD" }
+        };
+        <MudNavLink Icon="@Icons.Material.Filled.List" Match="NavLinkMatch.Prefix"
+                    OnClick="@(() => GoTo("FX/FX FWD", typeof(Components.FXSpot), parameters ))">FX FWD</MudNavLink>
+    }
+    <MudNavLink Icon="@Icons.Material.Filled.List" Match="NavLinkMatch.Prefix"
+                OnClick="@(() => GoTo("Settings/TestForm", typeof(Components.TestForm)))">Test Form</MudNavLink>
+
+</MudNavMenu>
+
+
+@code
+{
+    [Parameter]
+    public EventCallback<Components.OnMenuItemClickArg> OnMenuItemClick { get; set; }
+    private async Task GoTo(string page, Type ComponentType)
+    {
+        var arg = new Components.OnMenuItemClickArg { Label = page, ComponentType = ComponentType };
+        Console.WriteLine(page);
+
+        await OnMenuItemClick.InvokeAsync(arg);
+    }
+
+    private async Task GoTo(string page, Type ComponentType, Dictionary<string, object> parameters)
+    {
+        var arg = new Components.OnMenuItemClickArg
+        {
+            Label = page,
+            ComponentType = ComponentType,
+            ComponentParams = parameters
+        };
+        Console.WriteLine(page);
+
+        await OnMenuItemClick.InvokeAsync(arg);
+    }
+}

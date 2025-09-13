@@ -57,7 +57,7 @@ namespace SIS.OpenCore.Server
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			services.AddEndpointsApiExplorer();
+            services.AddEndpointsApiExplorer();
 			
             services.AddLogging();
 

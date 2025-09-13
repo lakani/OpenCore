@@ -1,0 +1,251 @@
+﻿@using SIS.OpenCore.WebClient.Client.Components
+@inherits LayoutComponentBase
+@inject IDialogService DialogService
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h5" Class="ml-3">SIS Application</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="TextValue" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
+        <MudSpacer />
+        <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+    </MudAppBar>
+    <MudDrawer id="nav-drawer" @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu OnMenuItemClick="OnMenuItemClick" />
+    </MudDrawer>
+    <MudMainContent Class="pt-16 pa-4">
+        @* @Body *@
+
+        <MudDynamicTabs @ref="@DynamicTabs" @bind-ActivePanelIndex="@UserIndex"
+                        AddTab="@AddTabCallback" CloseTab="@CloseTabCallback" KeepPanelsAlive="true"
+                        AddIconToolTip="Click to add a new tab" CloseIconToolTip="Close tab. All data will be lost"
+                        PanelClass="px-4 py-6" Elevation="4" Rounded ApplyEffectsToContainer>
+            @foreach (var tab in UserTabs)
+            {
+                <MudTabPanel ID="@tab.Id" Text="@tab.Label" ShowCloseIcon="@tab.ShowCloseIcon">
+                    @* <MudTextField @bind-Value="TextValue" Label="Outlined" Variant="Variant.Outlined"></MudTextField> *@
+                    @* @tab.Content
+                @Body *@
+
+                    @if (tab.ComponentType is not null)
+                    {
+                        <DynamicComponent Type=@tab.ComponentType Parameters=@tab.ComponentParams />
+                    }
+                    else
+                    {
+                        @tab.Content
+                        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+                    }
+
+                </MudTabPanel>
+            }
+        </MudDynamicTabs>
+
+    </MudMainContent>
+
+
+
+
+
+</MudLayout>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    private bool _drawerOpen = true;
+    private string TextValue = "";
+    private bool _isDarkMode = true;
+    private MudTheme? _theme = null;
+
+    public class TabView
+    {
+        public string Label { get; set; }
+        public string Content { get; set; }
+        public Guid Id { get; set; }
+        public bool ShowCloseIcon { get; set; } = true;
+        public Type ComponentType { get; set; }
+        public Dictionary<string, object> ComponentParams { get; set; }
+
+    }
+
+    void OnMenuItemClick(Components.OnMenuItemClickArg arg)
+    {
+        //ComponentType
+        var newGuid = Guid.NewGuid();
+        if (arg.ComponentParams is not null && arg.ComponentParams.Count > 0)
+        {
+            // Convert string parameters to object parameters
+
+            UserTabs.Add(new TabView
+            {
+                Id = newGuid,
+                Label = arg.Label,
+                ComponentType = arg.ComponentType,
+                ComponentParams = arg.ComponentParams,
+                Content = $"Tab with ID: {newGuid}"
+            });
+        }
+        else
+        {
+            UserTabs.Add(new TabView
+            {
+                Id = newGuid,
+                Label = arg.Label,
+                ComponentType = arg.ComponentType,
+                Content = $"Tab with ID: {newGuid}"
+            });
+        }
+        UserIndex = UserTabs.Count - 1; // Automatically switch to the new tab.
+        _stateHasChanged = true;
+    }
+
+    public MudDynamicTabs DynamicTabs;
+    public List<TabView> UserTabs = new();
+    public int UserIndex;
+    bool _stateHasChanged;
+    bool _showCloseIcon = false;
+    string _closeToggableTab = "Tab B";
+
+    void RestoreUserTabs()
+    {
+        UserTabs.Clear();
+        UserIndex = 0; // Start on 2nd tab: "Tab B"
+        _stateHasChanged = true;
+    }
+
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
+        RestoreUserTabs();
+
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (true)
+            {
+                var options = new DialogOptions { CloseOnEscapeKey = true };
+
+                //await DialogService.ShowAsync<LoginDialog>("Simple Dialog", options);
+            }
+        }
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void DarkModeToggle()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+
+    private readonly PaletteLight _lightPalette = new()
+    {
+        Black = "#110e2d",
+        AppbarText = "#424242",
+        AppbarBackground = "rgba(255,255,255,0.8)",
+        DrawerBackground = "#ffffff",
+        GrayLight = "#e8e8e8",
+        GrayLighter = "#f9f9f9",
+    };
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = "#7e6fff",
+        Surface = "#1e1e2d",
+        Background = "#1a1a27",
+        BackgroundGray = "#151521",
+        AppbarText = "#92929f",
+        AppbarBackground = "rgba(26,26,39,0.8)",
+        DrawerBackground = "#1a1a27",
+        ActionDefault = "#74718e",
+        ActionDisabled = "#9999994d",
+        ActionDisabledBackground = "#605f6d4d",
+        TextPrimary = "#b2b0bf",
+        TextSecondary = "#92929f",
+        TextDisabled = "#ffffff33",
+        DrawerIcon = "#92929f",
+        DrawerText = "#92929f",
+        GrayLight = "#2a2833",
+        GrayLighter = "#1e1e2d",
+        Info = "#4a86ff",
+        Success = "#3dcb6c",
+        Warning = "#ffb545",
+        Error = "#ff3f5f",
+        LinesDefault = "#33323e",
+        TableLines = "#33323e",
+        Divider = "#292838",
+        OverlayLight = "#1e1e2d80",
+    };
+
+    public string DarkLightModeButtonIcon => _isDarkMode switch
+    {
+        true => Icons.Material.Rounded.AutoMode,
+        false => Icons.Material.Outlined.DarkMode,
+    };
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (_stateHasChanged)
+        {
+            _stateHasChanged = false;
+            StateHasChanged();
+        }
+    }
+
+    private void ToggleShowCloseIcon(bool show)
+    {
+        var tab = UserTabs?.SingleOrDefault(t => t.Label.Equals(_closeToggableTab));
+        if (tab is not null) tab.ShowCloseIcon = show;
+        _showCloseIcon = show;
+    }
+
+    public void AddTab(string Title)
+    {
+        var newGuid = Guid.NewGuid();
+        UserTabs.Add(new TabView { Id = newGuid, Label = String.IsNullOrEmpty(Title) ? "dynamic tab" : Title, Content = $"Tab with ID: {newGuid}" });
+        UserIndex = UserTabs.Count - 1; // Automatically switch to the new tab.
+        _stateHasChanged = true;
+    }
+
+    public void RemoveTab(Guid id)
+    {
+        var tabView = UserTabs.SingleOrDefault((t) => Equals(t.Id, id));
+        if (tabView is not null)
+        {
+            UserTabs.Remove(tabView);
+            _stateHasChanged = true;
+        }
+    }
+
+    void AddTabCallback() => AddTab(string.Empty);
+    void CloseTabCallback(MudTabPanel panel) => RemoveTab((Guid)panel.ID);
+}

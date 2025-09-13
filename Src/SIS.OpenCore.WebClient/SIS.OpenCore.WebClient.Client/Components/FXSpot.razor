@@ -1,0 +1,26 @@
+﻿<h3>FXSpot</h3>
+
+<MudTextField @bind-Value="Cur" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
+@if (Mode == "FX Spot")
+    {
+        <MudTextField @bind-Value="TextValue" Label="Standard" Variant="Variant.Outlined"></MudTextField>
+        <MudTextField @bind-Value="Amt" Label="Filled" Variant="Variant.Outlined"></MudTextField>
+    }
+    else if (Mode == "FX FWD")
+    {
+        <MudTextField @bind-Value="Amt" Label="Amt for FWD" Variant="Variant.Outlined"></MudTextField>
+    }
+
+
+
+
+@code {
+
+    public string TextValue { get; set; } = String.Empty;
+    public string Amt { get; set; } = 0.ToString();
+    public string Cur { get; set; } = "USD";
+
+    [Parameter]
+    public String Mode { get; set; } = "FX Spot";
+
+}

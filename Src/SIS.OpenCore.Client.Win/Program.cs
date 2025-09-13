@@ -45,31 +45,52 @@ namespace SIS.OpenCore.Client.Win
 			using (var servicesScope = host.Services.CreateScope())
 			{
 				var services = servicesScope.ServiceProvider;
+				//var loginForm = services.GetRequiredService<LoginForm>();
+				//var loginForm = services.GetRequiredService<LoginForm>();
 				var mainForm = services.GetRequiredService<MainForm>();
+
+				mainForm.StartPosition =  FormStartPosition.CenterScreen;
+				mainForm.IsMdiContainer = true;
+            	//mainForm.Show();
+
+				// Set the form's StartPosition to CenterScreen
+				// loginForm.StartPosition = FormStartPosition.CenterScreen;
+
+				// Display the form
 				Application.Run(mainForm);
 			}
         }
 
-		private static void ConfigureServices(IConfiguration configuration, Microsoft.Extensions.DependencyInjection.IServiceCollection services)
+		private static void ConfigureAdapters(IConfiguration configuration, HttpClient httpClient , Microsoft.Extensions.DependencyInjection.IServiceCollection services)
 		{
-			var ServerAddress = configuration["BaseAddress"];
 			var UserDataURL = configuration["UserDataURL"];
 			var GLAcctURL = configuration["GLAcctURL"];
 			var CIFURL = configuration["CIFURL"];
 			var CIFClassURL = configuration["CIFClassURL"];
 			var CIFTypeURL = configuration["CIFTypeURL"];
-			var httpClient = new HttpClient { BaseAddress = new Uri(ServerAddress) };
-
-			services.AddScoped<MainForm>();
-			services.AddScoped<CIFList>();
-			services.AddScoped<LUTConfigurationLists>();
-			//services.AddScoped<GLListForm>();
-			services.AddSingleton(sp => httpClient);
+			var ADAuthURL = configuration["ADAuth"];
+			
 			services.AddSingleton(s => new UserDataAdapter(UserDataURL, httpClient)) ;
 			services.AddSingleton(s => new GLAcctAdapter(GLAcctURL, httpClient)) ;
 			services.AddSingleton(s => new CIFAdapter(CIFURL, httpClient));
 			services.AddSingleton(s => new CIFClassAdapter(CIFClassURL, httpClient));
 			services.AddSingleton(s => new CIFTypeAdapter(CIFTypeURL, httpClient));
+			services.AddSingleton(s => new AuthenticationAdapter(ADAuthURL, httpClient));
+		}
+
+		private static void ConfigureServices(IConfiguration configuration, Microsoft.Extensions.DependencyInjection.IServiceCollection services)
+		{
+			var ServerAddress = configuration["BaseAddress"];
+			var httpClient = new HttpClient { BaseAddress = new Uri(ServerAddress) };
+
+			services.AddScoped<MainForm>();
+			services.AddScoped<LoginForm>();
+			services.AddScoped<CIFList>();
+			services.AddScoped<LUTConfigurationLists>();
+			//services.AddScoped<GLListForm>();
+			services.AddSingleton(sp => httpClient);
+			
+			ConfigureAdapters(configuration, httpClient, services);
 
 		}
 	}

@@ -19,6 +19,8 @@ namespace SIS.OpenCore.Shared.Model.Common
 		public DateTime CreatedOn { get; set; }
 		public DateTime LastLoginDate { get; set; }
 
+		public string? PlainPassword { get; set; }
+
 		public string? CivilNumber { get; set; }
 	}
 }

@@ -82,6 +82,8 @@ namespace SIS.OpenCore.Server.Data
 
 			builder.ApplyConfiguration(new RoleConfiguration());
 
+			 builder.Entity<ApplicationUser>().Ignore(e => e.PlainPassword);
+
 			new UserDataConfig().Configure(builder.Entity<Zone>());
 			new UserDataConfig().Configure(builder.Entity<Dep>());
 			new UserDataConfig().Configure(builder.Entity<Sector>());
